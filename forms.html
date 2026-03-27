@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LMCT PRO — Documents</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f0f0f0;margin:0;padding:20px}
+.toolbar{background:#0e0e1a;color:white;padding:12px 20px;display:flex;gap:12px;align-items:center;margin-bottom:20px;border-radius:8px;position:sticky;top:0;z-index:100}
+.toolbar button{padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-weight:600;font-size:13px}
+.print-btn{background:#7c6fff;color:white}
+.close-btn{background:rgba(255,255,255,.1);color:white}
+.tab-btn{padding:6px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.2);cursor:pointer;font-size:12px;background:transparent;color:#aaa}
+.tab-btn.active{background:rgba(124,111,255,.3);color:white;border-color:#7c6fff}
+#doc{max-width:960px;margin:0 auto}
+@media print{.toolbar{display:none!important} body{background:white;padding:0} #doc{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="toolbar noprint">
+  <div style="font-weight:800;font-size:16px;letter-spacing:-.5px">LMCT<span style="color:#7c6fff">PRO</span></div>
+  <div id="docTitle" style="color:#aaa;font-size:13px;flex:1"></div>
+  <button class="tab-btn active" id="btn-transfer" onclick="showTab('transfer')">VicRoads Transfer</button>
+  <button class="tab-btn" id="btn-contract" onclick="showTab('contract')">Sales Contract</button>
+  <button class="tab-btn" id="btn-invoice" onclick="showTab('invoice')">Tax Invoice</button>
+  <button class="print-btn" onclick="window.print()">🖨 Print</button>
+  <button class="close-btn" onclick="window.close()">✕ Close</button>
+</div>
+<div id="doc"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script>
+var currentTab='transfer';
+function showTab(t){
+  currentTab=t;
+  ['transfer','contract','invoice'].forEach(function(id){
+    document.getElementById('btn-'+id).className='tab-btn'+(id===t?' active':'');
+  });
+  renderDoc();
+}
+function renderDoc(){
+  if(window.__renderDoc) window.__renderDoc(currentTab);
+}
+</script>
+<script type="text/babel">
+const {useState,useEffect}=React;
+const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
+const fd=d=>{if(!d)return"—";try{return new Date(d).toLocaleDateString("en-AU",{day:"2-digit",month:"short",year:"numeric"});}catch{return d;}};
+
+// ── PRINT: TRANSFER FORM — exact DTP1142 ──
+function PrintTransfer({dp,car:c,b,duty,tFee,totalPayable}){
+  function fmt(d){try{return d?new Date(d).toLocaleDateString("en-AU",{day:"2-digit",month:"2-digit",year:"numeric"}):""}catch(e){return "";}}
+  const dd=b.delDate?fmt(b.delDate).split("/"):["","",""];
+  const rd=b.rwcDate?fmt(b.rwcDate).split("/"):["","",""];
+  const mvFmt=b.mv?parseFloat(b.mv).toLocaleString("en-AU",{minimumFractionDigits:2}):"";
+  const acnStr=dp.acn?("ACN "+dp.acn):(dp.abn?("ABN "+dp.abn):"");
+
+  // Inline field — NOT a component, just a function returning JSX directly
+  function fld(label,val,opts){
+    opts=opts||{};
+    return <div style={{marginTop:opts.mt||4}}>
+      <div style={{fontSize:9.5,fontStyle:opts.italic?"italic":"normal",color:"#333",marginBottom:1}}>{label}</div>
+      <div style={{borderBottom:"1px solid #444",minHeight:17,fontSize:11,fontWeight:val?700:300,color:val?"#000":"transparent",paddingBottom:1}}>{val||"."}</div>
+    </div>;
+  }
+  function pc(val){
+    return <div style={{textAlign:"right",fontSize:9.5,marginTop:2,marginBottom:2}}>
+      Postcode <span style={{display:"inline-block",width:48,borderBottom:"1px solid #444",fontWeight:700,fontSize:11}}>{val||""}</span>
+    </div>;
+  }
+  function row3(a,b2,c2){
+    return <div style={{display:"flex",gap:6}}>
+      <div style={{flex:a.flex||1}}>{fld(a.label,a.val)}</div>
+      <div style={{flex:b2.flex||1}}>{fld(b2.label,b2.val)}</div>
+      <div style={{flex:c2.flex||1}}>{fld(c2.label,c2.val)}</div>
+    </div>;
+  }
+  function sectionHead(text,dark){
+    return <div style={{background:dark?"#111":"#003580",color:"white",fontWeight:700,fontSize:10.5,padding:"4px 7px",marginBottom:0}}>{text}</div>;
+  }
+  function dateBoxes(parts){
+    return <div style={{display:"flex",alignItems:"center",gap:3}}>
+      <div style={{width:30,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:12,textAlign:"center",minHeight:16}}>{parts[0]||""}</div>
+      <span>/</span>
+      <div style={{width:30,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:12,textAlign:"center",minHeight:16}}>{parts[1]||""}</div>
+      <span>/</span>
+      <div style={{width:48,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:12,textAlign:"center",minHeight:16}}>{parts[2]||""}</div>
+    </div>;
+  }
+  function checkbox(checked){
+    return <span style={{display:"inline-block",width:13,height:13,border:"1.5px solid #333",background:checked?"#111":"white",verticalAlign:"middle",marginRight:2}}/>;
+  }
+  function noteBox(children){
+    return <div style={{border:"1px solid #888",padding:"5px 7px",fontSize:8.5,lineHeight:1.4,marginTop:4,marginBottom:4,display:"flex",gap:5,alignItems:"flex-start"}}>
+      <span style={{fontSize:13,flexShrink:0}}>📎</span>
+      <div>{children}</div>
+    </div>;
+  }
+
+  function oneCopy(footerText){
+    return <div style={{background:"white",color:"#111",fontFamily:"Arial,Helvetica,sans-serif",fontSize:11,lineHeight:1.4,padding:"14px 18px",border:"1px solid #999",maxWidth:900}}>
+
+      {/* HEADER */}
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",paddingBottom:8,borderBottom:"1.5px solid #888",marginBottom:6}}>
+        <div>
+          <div style={{fontSize:21,fontWeight:900,lineHeight:1.1}}>Dealer application for</div>
+          <div style={{fontSize:21,fontWeight:900}}>transfer of registration</div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginTop:4}}>
+          <div style={{fontWeight:900,fontSize:15,borderRight:"2px solid #555",paddingRight:8}}>V vicroads</div>
+          <div style={{fontSize:9,borderRight:"2px solid #555",paddingRight:8,lineHeight:1.3,fontWeight:700}}><div>Transport</div><div>Victoria</div></div>
+          <div style={{fontSize:9,lineHeight:1.25}}><div style={{fontWeight:900,fontSize:10}}>VICTORIA</div><div>Department</div><div>of Transport</div><div>and Planning</div></div>
+        </div>
+      </div>
+      <div style={{textAlign:"right",fontSize:9,color:"#555",marginBottom:6}}>ABN 69 981 208 782</div>
+
+      {/* INSTRUCTION */}
+      <div style={{fontSize:9.5,lineHeight:1.5,marginBottom:8}}>
+        <strong>This form must be completed and signed by both the seller and buyer and returned to VicRoads within 10 days of vehicle delivery.</strong> All sections of this form must be completed clearly in ink using BLOCK letters and submitted with the Certificate of Roadworthiness (RWC) and fees (if applicable) or the transfer will not be processed. The vehicle register is not a register of title (vehicle ownership).
+      </div>
+
+      {/* TWO-COLUMN GRID */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",border:"1px solid #555"}}>
+
+        {/* ── LEFT COLUMN ── */}
+        <div style={{borderRight:"1px solid #555"}}>
+          {sectionHead("Seller details",true)}
+          <div style={{padding:"4px 8px"}}>
+            {fld("Surname or company name",dp.dealerName)}
+            {fld("Given name(s) or ACN/ARBN",acnStr)}
+            {fld("Victorian licence/customer number",dp.vicCust||"")}
+            {fld("LMCT number",dp.lmct)}
+            {fld("Residential address or company address",dp.address)}
+            {pc(dp.postcode)}
+            {fld("Mobile phone no. (or other if not applicable)",dp.phone,{italic:true})}
+            {fld("Email",dp.email)}
+          </div>
+
+          {/* Vehicle details */}
+          <div style={{borderTop:"1px solid #555"}}>
+            {sectionHead("Vehicle details",true)}
+            <div style={{padding:"4px 8px"}}>
+              {row3({label:"Registration number",val:c.rego,flex:1},{label:"Make",val:c.make,flex:1.2},{label:"Model",val:c.model,flex:1.2})}
+              {row3({label:"Year",val:String(c.year||""),flex:.6},{label:"Serial number",val:c.vin?c.vin.substring(0,9):"",flex:1.4},{label:"Body type",val:c.body||"",flex:1})}
+              {fld("VIN (or chassis number if no VIN)",c.vin||"")}
+
+              {/* Date of delivery */}
+              <div style={{marginTop:7}}>
+                <div style={{fontSize:10,fontWeight:700,marginBottom:3}}>Date of delivery <span style={{fontWeight:400,fontSize:9}}>(dd/mm/yyyy)</span></div>
+                <div style={{display:"flex",alignItems:"flex-start",gap:8}}>
+                  {dateBoxes(dd)}
+                  <div style={{fontSize:8.5,fontStyle:"italic",color:"#555",flex:1,lineHeight:1.35}}>To avoid liability for traffic offences and penalties, provide the exact date the vehicle was delivered.</div>
+                </div>
+              </div>
+
+              {/* Written-off */}
+              <div style={{marginTop:8,fontSize:9.5}}>
+                <div style={{marginBottom:4}}>Is this vehicle recorded on the Victorian or interstate written-off vehicles register?</div>
+                <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
+                  <div style={{display:"flex",alignItems:"center",gap:4,flexShrink:0}}>
+                    <span>No</span>{checkbox(b.wo==="no")}
+                    <span style={{marginLeft:4}}>Yes</span>{checkbox(b.wo==="yes")}
+                    <span style={{fontSize:12}}>▶</span>
+                  </div>
+                  <div style={{fontSize:8.5,fontStyle:"italic",color:"#444",lineHeight:1.35}}>The seller must inform the buyer in writing if the vehicle is recorded on the Victorian or an interstate written-off vehicles register. Refer to <strong>ppsr.gov.au</strong> for information.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RWC */}
+          <div style={{borderTop:"1px solid #555",padding:"4px 8px"}}>
+            <div style={{fontWeight:700,fontSize:10.5,marginBottom:4}}>Certificate of Roadworthiness (RWC)</div>
+            <div style={{display:"flex",gap:8,alignItems:"flex-end"}}>
+              <div style={{flex:1}}>{fld("RWC serial number",b.rwcSer)}</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:9.5,marginBottom:1}}>RWC issue date (dd/mm/yyyy)</div>
+                {dateBoxes(rd)}
+              </div>
+            </div>
+            {fld("RWC Licensed Vehicle Tester number",b.rwcTes)}
+          </div>
+
+          {/* Seller declaration */}
+          <div style={{borderTop:"1px solid #555",padding:"6px 8px"}}>
+            <div style={{fontWeight:700,fontSize:10.5,marginBottom:3}}>Seller declaration</div>
+            <div style={{fontSize:9,lineHeight:1.45,marginBottom:8}}>By signing this form, I declare that the information in this form and related supporting documents is true, correct and complete, and I understand the privacy statement below.</div>
+            <div style={{fontWeight:700,fontSize:10,marginBottom:16}}>Seller signature</div>
+            <div style={{borderBottom:"1px solid #555",height:20,marginBottom:5}}/>
+            <div style={{display:"flex",justifyContent:"flex-end",alignItems:"center",gap:4,fontSize:9.5}}>
+              <span>Date (dd/mm/yyyy)</span>
+              <div style={{display:"flex",gap:2,alignItems:"center"}}>
+                <div style={{width:26,borderBottom:"1px solid #555"}}/>
+                <span>/</span>
+                <div style={{width:26,borderBottom:"1px solid #555"}}/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── RIGHT COLUMN ── */}
+        <div>
+          {sectionHead("Buyer details",false)}
+          <div style={{padding:"4px 8px"}}>
+            {fld("Surname or company name",b.sn)}
+            {fld("Given name(s) or ACN/ARBN",b.gn)}
+            {fld("Victorian licence/customer number",b.vic)}
+            {noteBox(<span>If the buyer/company does not have a Victorian licence/customer number, full evidence of identity documentation must be provided in person at a VicRoads Customer Service Centre. Refer to <strong>transport.vic.gov.au</strong></span>)}
+            {fld("LMCT number",b.blmct||"")}
+            {fld("Residential address or company address",b.addr)}
+            {pc(b.pc)}
+            {fld("Postal address (if different to residential address or company address)",b.postalAddr)}
+            {pc(b.postalPc)}
+            {fld("Garage address (if different to residential address or company address)",b.gAddr)}
+            {pc(b.gPc)}
+            {fld("Mobile phone no. (or other if not applicable)",b.phone,{italic:true})}
+            {fld("Email",b.email)}
+
+            {/* Market value */}
+            <div style={{marginTop:8,marginBottom:3}}>
+              <span style={{fontWeight:700,fontSize:10.5}}>Market value</span>
+              <span style={{fontSize:9.5}}> or sale price of the vehicle</span>
+            </div>
+            <div style={{display:"flex",alignItems:"center",gap:4}}>
+              <span style={{fontWeight:700,fontSize:13}}>$</span>
+              <div style={{flex:1,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:13,minHeight:18,paddingBottom:1}}>{mvFmt}</div>
+              <div style={{fontSize:8.5,fontStyle:"italic",color:"#c00",maxWidth:120}}>To avoid penalties do not under declare the market value.</div>
+            </div>
+
+            {/* Payment details */}
+            <div style={{marginTop:8}}>
+              <div style={{display:"grid",gridTemplateColumns:"1.1fr 1.2fr 1fr",fontSize:9.5,marginBottom:2}}>
+                <span style={{fontWeight:700}}>Payment details</span>
+                <span style={{fontWeight:700}}>Motor vehicle duty</span>
+                <span/>
+                <span>Transfer fee</span>
+                <span>(if buyer is private)</span>
+                <span style={{fontWeight:700}}>Total payable</span>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:3}}>
+                <span style={{fontWeight:700}}>$</span>
+                <div style={{flex:1,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:12,minHeight:18,paddingBottom:1}}>{tFee>0?tFee.toFixed(2):""}</div>
+                <span style={{fontWeight:700,fontSize:14,margin:"0 2px"}}>+</span>
+                <span style={{fontWeight:700}}>$</span>
+                <div style={{flex:1,borderBottom:"1.5px solid #111",fontWeight:700,fontSize:12,minHeight:18,paddingBottom:1}}>{duty?duty.toFixed(2):""}</div>
+                <span style={{fontWeight:700,fontSize:14,margin:"0 2px"}}>=</span>
+                <span style={{fontWeight:700}}>$</span>
+                <div style={{flex:1.2,border:"1.5px solid #333",padding:"1px 4px",fontWeight:700,fontSize:12,minHeight:18}}>{totalPayable?totalPayable.toFixed(2):""}</div>
+              </div>
+            </div>
+
+            {/* Tick if applicable */}
+            <div style={{marginTop:8,fontSize:9.5}}>
+              <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:3,flexWrap:"wrap"}}>
+                <span style={{fontWeight:700}}>Tick if applicable:</span>
+                <span style={{display:"flex",alignItems:"center",gap:3}}>{checkbox(b.lowEm)} Low Emission Vehicle</span>
+                <span style={{display:"flex",alignItems:"center",gap:3}}>{checkbox(b.pProd)} Buyer is a primary producer</span>
+              </div>
+              {noteBox(<span>To apply for a primary producer discount, complete a <em>Primary producer discount application</em> form available at <strong>transport.vic.gov.au</strong></span>)}
+            </div>
+
+            {/* Buyer declaration */}
+            <div style={{marginTop:8}}>
+              <div style={{fontWeight:700,fontSize:10.5,marginBottom:3}}>Buyer declaration</div>
+              <div style={{fontSize:9,lineHeight:1.45,marginBottom:8}}>By signing this form, I declare that the information in this form and related supporting documents is true, correct and complete, and I understand the privacy statement below.</div>
+              <div style={{fontWeight:700,fontSize:10,marginBottom:16}}>Buyer signature</div>
+              <div style={{borderBottom:"1px solid #555",height:20,marginBottom:5}}/>
+              <div style={{display:"flex",justifyContent:"flex-end",alignItems:"center",gap:4,fontSize:9.5}}>
+                <span>Date (dd/mm/yyyy)</span>
+                <div style={{display:"flex",gap:2,alignItems:"center"}}>
+                  <div style={{width:26,borderBottom:"1px solid #555"}}/>
+                  <span>/</span>
+                  <div style={{width:26,borderBottom:"1px solid #555"}}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Keep a copy */}
+      <div style={{marginTop:8,fontSize:9.5,fontWeight:700,textAlign:"center",marginBottom:6}}>Keep a copy of this completed and signed form. The dealer will submit the original form, RWC and applicable fees to VicRoads on your behalf.</div>
+
+      {/* Privacy */}
+      <div style={{border:"1px solid #777",padding:"6px 8px",marginBottom:5}}>
+        <div style={{fontWeight:700,fontSize:9.5,marginBottom:3}}>Privacy statement</div>
+        <div style={{fontSize:8.5,lineHeight:1.5}}>The Department of Transport and Planning ABN 69 981 208 782 and R&amp;L Services Victoria Pty Ltd ABN 28 657 005 493 (as Trustee for the Victorian R&amp;L Services Trust ABN 96 342 123 072), known as 'VicRoads' and acting on behalf of the Secretary to the Department, ('we, us') collect personal information for registration and licensing purposes. This personal information will be handled by us as permitted or required by the applicable laws. We may disclose the personal information we collect from you to various organisations and persons as permitted or required by applicable laws, particularly by the <em>Road Safety Act 1986</em>. This includes disclosing the information to third parties including our contractors and agents, law enforcement agencies, other road and traffic authorities, Austroads, the Transport Accident Commission, vehicle manufacturers (for safety recalls), toll road operators, road safety researchers, courts and other organisations or people authorised to use the personal information.</div>
+        <div style={{fontSize:8.5,lineHeight:1.5,marginTop:4}}>You are required to provide this personal information. Your failure to provide the information may result in this form not being processed, or your records not being properly maintained. For further information about our use of your personal information and your right of access to it, go to: <strong>dtp.vic.gov.au/privacy.</strong></div>
+        <div style={{fontSize:8.5,lineHeight:1.5,fontWeight:700,marginTop:4}}>Providing false or misleading information or documents is a serious offence under the <em>Road Safety Act 1986</em> and <em>Marine Safety Act 2010</em>, as applicable, and can result in you being fined or imprisoned. Further, any authority or approval, given as a result of you providing such information/documents, may be reversed and have no effect.</div>
+      </div>
+      <div style={{display:"flex",justifyContent:"space-between",fontSize:8,color:"#555",marginBottom:4}}>
+        <span>DTP1142 VRPIN02687 99515 04/25 Authorised by the Department of Transport and Planning, 1 Spring Street, Melbourne</span>
+        <span>Dealer application for transfer of registration   ABN 69 981 208 782</span>
+      </div>
+      <div style={{fontSize:8,color:"#555",marginBottom:5}}>Post: VicRoads, GPO Box 1644 Melbourne, Victoria 3001   Call: 13 11 71 (TTY 13 36 77, Speak and Listen 1300 555 727)   Web: vicroads.vic.gov.au</div>
+      <div style={{background:"#003580",color:"white",fontWeight:900,fontSize:10,textAlign:"center",padding:"5px 0",letterSpacing:.8}}>{footerText}</div>
+    </div>;
+  }
+
+  return <div>
+    {oneCopy("THIS ORIGINAL MUST BE SUBMITTED TO VICROADS")}
+    <div style={{marginTop:20}}>{oneCopy("THIS COPY SHOULD BE KEPT BY THE SELLER")}</div>
+    <div style={{marginTop:20}}>{oneCopy("THIS COPY SHOULD BE KEPT BY THE BUYER")}</div>
+  </div>;
+}
+
+// ── PRINT: CONTRACT (Full 2-3 page legal) ──
+function PrintContract({dp,car:c,sale:s,b,duty}){
+  const sp=parseFloat(b.mv||s?.sale||c.price||0);
+  const bn=(b.gn+" "+b.sn).trim()||s?.buyer||"";
+  const bPhone=b.phone||s?.bPhone||"";
+  const bEmail=b.email||s?.bEmail||"";
+  const bAddr=b.addr||s?.bAddr||"";
+  const payMethod=s?.pay||b.pay||"Cash";
+  const age=c.year?new Date().getFullYear()-c.year:0;
+  const warr=age<10&&(c.odo||0)<160000;
+  const dd=b.delDate?new Date(b.delDate).toLocaleDateString("en-AU"):"___/___/______";
+  const cancel=Math.max(100,sp*0.01).toFixed(2);
+  const acnAbn=dp.acn?`ACN ${dp.acn}`:dp.abn?`ABN ${dp.abn}`:"";
+  const H=({t})=><div style={{background:"#003366",color:"white",fontWeight:700,fontSize:10,padding:"5px 10px",margin:"12px 0 8px",textTransform:"uppercase",letterSpacing:.6}}>{t}</div>;
+  const Row=({l,v})=><div style={{display:"flex",borderBottom:"1px solid #eee",padding:"5px 0"}}><div style={{width:"38%",fontSize:10,color:"#666",fontWeight:700}}>{l}</div><div style={{flex:1,fontSize:11,fontWeight:600,color:"#111"}}>{v||""}</div></div>;
+  return <div style={{background:"white",color:"#111",fontFamily:"Arial,sans-serif",fontSize:11,lineHeight:1.6}}>
+    {/* PAGE 1 */}
+    <div style={{padding:"20px 24px",borderBottom:"3px solid #003366",display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+      <div>
+        <div style={{fontSize:20,fontWeight:900,color:"#003366",letterSpacing:-.5}}>CONTRACT OF SALE</div>
+        <div style={{fontSize:13,fontWeight:700,color:"#003366"}}>USED MOTOR VEHICLE</div>
+        <div style={{fontSize:10,color:"#555",marginTop:3}}>Motor Car Traders Regulations 2018 — Schedule 2 · Motor Car Traders Act 1986</div>
+      </div>
+      <div style={{textAlign:"right"}}>
+        <div style={{fontSize:14,fontWeight:800}}>{dp.dealerName}</div>
+        <div style={{fontSize:10,color:"#555",marginTop:2}}>{acnAbn} · LMCT {dp.lmct}</div>
+        <div style={{fontSize:10,color:"#555"}}>{dp.address}</div>
+        <div style={{fontSize:10,color:"#555"}}>{dp.phone} · {dp.email}</div>
+      </div>
+    </div>
+
+    <div style={{padding:"0 24px"}}>
+      {/* COOLING OFF — plain box, no highlight */}
+      <div style={{border:"1.5px solid #003366",padding:"10px 14px",margin:"14px 0 14px",borderRadius:4}}>
+        <div style={{fontSize:11,fontWeight:700,color:"#003366",marginBottom:6}}>COOLING-OFF INFORMATION — Section 48, Motor Car Traders Act 1986</div>
+        <div style={{fontSize:10,lineHeight:1.7,color:"#333"}}>
+          The buyer has the right to cool off within <strong>three (3) clear business days</strong> after signing this contract by giving written notice to the dealer. If the buyer chooses to cool off, the dealer may retain <strong>${cancel}</strong> (being $100 or one percent of the purchase price, whichever is greater) as a cancellation charge. The buyer will forfeit this cooling-off right if delivery of the vehicle is accepted within the cooling-off period.
+        </div>
+      </div>
+
+      {/* PARTIES */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:4}}>
+        <div>
+          <H t="Vendor (Dealer)"/>
+          {[["Dealer Name",dp.dealerName],["LMCT No.",dp.lmct],["ABN",dp.abn||""],["ACN",dp.acn||""],["VicRoads Customer No.",dp.vicCust||""],["Address",dp.address],["Phone",dp.phone],["Email",dp.email]].map(([l,v])=><Row key={l} l={l} v={v}/>)}
+        </div>
+        <div>
+          <H t="Purchaser (Buyer)"/>
+          {[["Full Name",bn],["Phone",bPhone],["Email",bEmail],["Address",bAddr],["Driver Licence No.",b.vic||""],["Date of Birth",""]].map(([l,v])=><Row key={l} l={l} v={v}/>)}
+        </div>
+      </div>
+
+      {/* VEHICLE */}
+      <H t="Vehicle Details"/>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:0,marginBottom:4}}>
+        {[["Make",c.make],["Model",c.model],["Year",c.year],["Colour",c.colour||""],["Body Type",c.body||""],["Transmission",c.trans||""],["Engine",c.engine||""],["Drive",c.drive||""],["Fuel Type",c.fuel||""],["Registration No.",c.rego||""],["VIN / Chassis No.",c.vin||""],["Odometer",c.odo?(c.odo.toLocaleString()+" km"):""]].map(([l,v])=><div key={l} style={{borderBottom:"1px solid #eee",padding:"5px 8px"}}><div style={{fontSize:9,color:"#777",fontWeight:700,textTransform:"uppercase",letterSpacing:.3}}>{l}</div><div style={{fontSize:11,fontWeight:600,color:"#111",minHeight:14}}>{v||""}</div></div>)}
+      </div>
+      <div style={{borderBottom:"1px solid #eee",padding:"5px 8px",marginBottom:4}}>
+        <div style={{fontSize:9,color:"#777",fontWeight:700,textTransform:"uppercase",letterSpacing:.3}}>Odometer Accuracy</div>
+        <div style={{fontSize:11,marginTop:2}}>The dealer declares the odometer reading shown above is: <span style={{marginRight:20}}><input type="checkbox" readOnly/> True and Accurate</span> <input type="checkbox" readOnly/> Not believed accurate — reason: ________________________________</div>
+      </div>
+      <div style={{borderBottom:"1px solid #eee",padding:"5px 8px",marginBottom:4,fontSize:11}}>
+        <strong>PPSR Status:</strong> {c.ppsr||"Not Checked"}     <strong>Rego Expiry:</strong> {c.regoExp||"—"}
+      </div>
+
+      {/* PRICING */}
+      <H t="Purchase Price, Duty and Fees"/>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+        {[["Cash Price of Vehicle (excl. stamp duty & transfer fees)",`$${sp.toLocaleString("en-AU",{minimumFractionDigits:2})}`],["Motor Vehicle Duty (Duties Act 2000 VIC)","$"+duty.toFixed(2)],["VicRoads Transfer Fee","As per vicroads.vic.gov.au/transfer-fees"],["SINGLE DRIVE-AWAY PRICE (total payable)",`$${sp.toLocaleString("en-AU",{minimumFractionDigits:2})}`],["Date of Sale / Delivery",dd],["Payment Method",payMethod]].map(([l,v])=>
+          <div key={l} style={{background:"#f8f8f8",border:"1px solid #ddd",borderRadius:3,padding:"7px 10px"}}>
+            <div style={{fontSize:9,color:"#666",fontWeight:700,textTransform:"uppercase",marginBottom:3}}>{l}</div>
+            <div style={{fontSize:12,fontWeight:700,color:l.includes("SINGLE")||l.includes("Duty")||l.includes("Cash")?"#003366":"#111"}}>{v}</div>
+          </div>
+        )}
+      </div>
+      <div style={{fontSize:10,color:"#555",marginBottom:8,padding:"6px 10px",background:"#f0f4ff",borderRadius:3}}>
+        Note: The cash price above excludes stamp duty and transfer fees. The single drive-away price includes all fees and duties payable. Stamp duty is collected by the dealer and remitted to VicRoads on behalf of the buyer within 14 days of delivery.
+      </div>
+
+      {/* WARRANTY */}
+      <H t="Statutory Warranty — Motor Car Traders Act 1986, s.54"/>
+      <div style={{border:`1.5px solid ${warr?"#007700":"#cc5500"}`,borderRadius:4,padding:"8px 12px",marginBottom:8}}>
+        <div style={{fontSize:11,fontWeight:700,color:warr?"#007700":"#cc5500",marginBottom:4}}>
+          {warr?"STATUTORY WARRANTY APPLIES":"STATUTORY WARRANTY DOES NOT APPLY"}
+        </div>
+        {warr?<div style={{fontSize:10,lineHeight:1.7,color:"#333"}}>
+          This vehicle is covered by a <strong>statutory warranty of three (3) months or 5,000 kilometres</strong> (whichever occurs first) from the date of delivery. The dealer must repair any faults or defects in the vehicle during the warranty period free of charge, to a reasonable standard taking into account the vehicle's age and nature of defect. If the vehicle cannot be driven due to a warranty defect, the dealer must pay towing costs. The warranty does not cover: tyres, battery, accessories, accidental damage after delivery, damage due to buyer misuse, items listed on any defect notice, or items excluded by law.
+        </div>:<div style={{fontSize:10,lineHeight:1.7,color:"#333"}}>
+          This vehicle does not qualify for the statutory warranty as it is more than 10 years old or has exceeded 160,000 km. The vehicle is sold without the benefit of the Motor Car Traders Act 1986 statutory warranty. Your rights under the Australian Consumer Law may still apply.
+        </div>}
+      </div>
+    </div>
+
+    {/* PAGE BREAK */}
+    <div style={{pageBreakBefore:"always",padding:"20px 24px 0"}}>
+      <div style={{borderBottom:"2px solid #003366",paddingBottom:8,marginBottom:14,display:"flex",justifyContent:"space-between"}}>
+        <div style={{fontWeight:700,color:"#003366"}}>CONTRACT OF SALE — {dp.dealerName} — LMCT {dp.lmct}</div>
+        <div style={{fontSize:10,color:"#666"}}>Page 2</div>
+      </div>
+    </div>
+    <div style={{padding:"0 24px"}}>
+
+      {/* STANDARD CONDITIONS */}
+      <H t="Standard Conditions of Sale"/>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>1. Subject to Finance.</strong> This contract is: <input type="checkbox" readOnly/> subject to finance   <input type="checkbox" readOnly/> not subject to finance. If subject to finance, the buyer must obtain approval within <strong>___</strong> business days. Finance provider: ____________________________. Finance amount: $______________. If finance is not approved within the specified period, this contract is terminated and all monies paid are refunded in full.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>2. Trade-In.</strong> <input type="checkbox" readOnly/> No trade-in   <input type="checkbox" readOnly/> Trade-in applies. Trade-in vehicle: __________________________________ Registration: __________ Agreed trade-in value: $____________. The buyer warrants that no money is owing on the trade-in vehicle and has full legal title. Any money owing discovered at delivery will be deducted from the purchase price.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>3. Transfer to Credit Provider.</strong> Where the buyer has obtained finance, the buyer authorises the dealer to complete the transfer of the vehicle's registration to the credit provider's name where required, and to attend to any other formalities required by the credit provider.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>4. Delays in Delivery.</strong> The dealer will endeavour to deliver the vehicle on the agreed date. The dealer shall not be liable to the buyer for any delay in delivery due to circumstances beyond the dealer's reasonable control. The buyer may terminate this contract if delivery is delayed by more than 30 days without fault of the buyer, in which event all monies paid are refunded.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>5. Condition of Vehicle at Delivery.</strong> The vehicle will be delivered in roadworthy condition with a current Certificate of Roadworthiness (RWC). The buyer acknowledges they have had a reasonable opportunity to inspect the vehicle prior to signing. The buyer accepts the vehicle in its present condition subject only to those defects listed in the defect notice (if any) and the rights conferred by the statutory warranty and Australian Consumer Law.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>6. Termination by Buyer.</strong> The buyer may terminate this contract during the cooling-off period by giving written notice to the dealer. On termination, the buyer forfeits ${cancel} (the cancellation charge). Other than in the cooling-off period, the buyer may not terminate except as provided by law.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>7. Termination by Dealer.</strong> The dealer may terminate this contract if the buyer fails to make payment when due, fails to provide required documentation, or is in breach of any material term of this contract. On termination by the dealer due to buyer default, the dealer may retain monies paid up to the amount of the cancellation charge.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>8. Title and Risk.</strong> Title to the vehicle remains with the dealer until the full purchase price (including all applicable fees and duties) has been paid in cleared funds. Risk in the vehicle passes to the buyer upon delivery. The buyer should arrange insurance from the date of delivery.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>9. Transfer of Registration.</strong> The dealer will lodge the application for transfer of registration with VicRoads within 14 days of delivery as required by the Road Safety (Vehicles) Regulations 2021. The buyer authorises the dealer to complete and submit the transfer on their behalf. The buyer must pay motor vehicle duty and transfer fees as shown in this contract.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>10. Written-Off Vehicles.</strong> The dealer declares that this vehicle: <input type="checkbox" readOnly/> has not been recorded on the Victorian or interstate written-off vehicles register   <input type="checkbox" readOnly/> has been recorded and this has been disclosed to the buyer in writing. See the Personal Properties Securities Register (ppsr.gov.au) for further information.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:8}}>
+        <strong>11. Non-Exclusion of Statutory Rights.</strong> Nothing in this contract limits, excludes or modifies any guarantee, warranty, condition, right or remedy implied by the Australian Consumer Law or the Motor Car Traders Act 1986 that cannot be excluded or limited. To the extent permitted by law, the dealer's liability for breach of any non-excludable guarantee or warranty is limited to, at the dealer's option: (a) the cost of repairing the vehicle or supplying an equivalent vehicle; or (b) the payment of the cost of having the vehicle repaired.
+      </div>
+
+      <div style={{fontSize:10,lineHeight:1.75,color:"#333",marginBottom:12}}>
+        <strong>12. Goods and Services Tax.</strong> All prices stated in this contract include GST where applicable. The tax invoice for this transaction is incorporated in this contract document. {dp.dealerName} ABN {dp.abn||"__________"} is registered for GST.
+      </div>
+
+      {/* SIGNATURES */}
+      <H t="Execution"/>
+      <div style={{fontSize:10,color:"#555",marginBottom:14,lineHeight:1.6}}>
+        By signing below, both parties confirm they have read and understood this contract, including the cooling-off rights and conditions set out above, and agree to be bound by its terms.
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:28,marginBottom:20}}>
+        {[["Signed by Dealer / Authorised Agent",`For and on behalf of ${dp.dealerName} LMCT ${dp.lmct}`],["Signed by Purchaser / Buyer",bn]].map(([label,sub])=>
+          <div key={label}>
+            <div style={{fontSize:10,fontWeight:700,color:"#003366",textTransform:"uppercase",marginBottom:4}}>{label}</div>
+            <div style={{fontSize:10,color:"#777",marginBottom:12}}>{sub}</div>
+            <div style={{borderBottom:"1.5px solid #222",height:56,marginBottom:6}}/>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+              <div><div style={{fontSize:9,color:"#666"}}>Print Name:</div><div style={{borderBottom:"1px solid #aaa",marginTop:14}}/></div>
+              <div><div style={{fontSize:9,color:"#666"}}>Date: (dd/mm/yyyy)</div><div style={{borderBottom:"1px solid #aaa",marginTop:14}}/></div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div style={{background:"#f8f8f8",border:"1px solid #ddd",borderRadius:4,padding:"8px 12px",marginBottom:8,fontSize:9,color:"#555",lineHeight:1.6}}>
+        <strong>Important:</strong> The buyer should retain a signed copy of this contract. The dealer must provide the buyer with a copy of this contract as soon as practicable after signing. If you have any concerns about this contract, you may contact Consumer Affairs Victoria on 1300 55 81 81 or visit consumer.vic.gov.au.
+      </div>
+
+      <div style={{textAlign:"center",fontSize:9,color:"#aaa",borderTop:"1px solid #eee",paddingTop:8,marginTop:8}}>
+        Contract of Sale (Schedule 2) · {dp.dealerName} · LMCT {dp.lmct} · {dp.abn?"ABN "+dp.abn:""} · Generated by LMCT PRO · {new Date().toLocaleDateString("en-AU")}
+      </div>
+    </div>
+  </div>;
+}
+// ── PRINT: INVOICE (with transfer fees) ──
+function PrintInvoice({dp,car:c,sale:s,b,duty}){
+  const sp=parseFloat(b.mv||s?.sale||c.price||0);
+  const gst=Math.round(sp/11*100)/100;
+  const exGst=Math.round((sp-gst)*100)/100;
+  const bn=(b.gn+" "+b.sn).trim()||s?.buyer||"";
+  const bAddr=b.addr||s?.bAddr||"";
+  const bPhone=b.phone||s?.bPhone||"";
+  const bEmail=b.email||s?.bEmail||"";
+  const inv="INV-"+new Date().getFullYear()+"-"+String(Date.now()).slice(-5);
+  const dd=b.delDate?new Date(b.delDate).toLocaleDateString("en-AU"):new Date().toLocaleDateString("en-AU");
+  const payMethod=s?.pay||b.pay||"Cash";
+  const tFee=b.ttype==="Dealer-to-Private"?35.10:0;
+  const totalAll=sp+duty+tFee;
+  const acnAbn=dp.acn?`ACN ${dp.acn}`:dp.abn?`ABN ${dp.abn}`:"";
+  return <div style={{background:"white",color:"#111",fontFamily:"Arial,sans-serif",padding:28,border:"2px solid #333"}}>
+    {/* Header */}
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20,borderBottom:"3px solid #003366",paddingBottom:14}}>
+      <div>
+        <div style={{fontSize:28,fontWeight:900,color:"#003366",letterSpacing:-1}}>TAX INVOICE</div>
+        <div style={{fontSize:11,color:"#555",marginTop:4}}>{acnAbn} {dp.abn?"· ":""} GST Registered</div>
+        <div style={{fontSize:14,fontWeight:800,marginTop:4}}>{dp.dealerName}</div>
+        <div style={{fontSize:11,color:"#555"}}>LMCT {dp.lmct}</div>
+        <div style={{fontSize:11,color:"#555"}}>{dp.address}</div>
+        <div style={{fontSize:11,color:"#555"}}>{dp.phone}{dp.email?" · "+dp.email:""}</div>
+      </div>
+      <div style={{textAlign:"right",background:"#f8f9ff",border:"1px solid #dde",borderRadius:6,padding:"12px 16px"}}>
+        <div style={{fontSize:12,color:"#555",marginBottom:4}}>Invoice Number</div>
+        <div style={{fontSize:18,fontWeight:900,color:"#003366"}}>{inv}</div>
+        <div style={{fontSize:11,color:"#555",marginTop:8}}>Invoice Date: <strong>{dd}</strong></div>
+        <div style={{fontSize:11,color:"#555",marginTop:3}}>Payment: <strong>{payMethod}</strong></div>
+      </div>
+    </div>
+
+    {/* Bill To */}
+    <div style={{marginBottom:18}}>
+      <div style={{fontSize:10,fontWeight:700,color:"#555",textTransform:"uppercase",letterSpacing:.5,marginBottom:8}}>Bill To</div>
+      <div style={{fontSize:14,fontWeight:700}}>{bn||"________________________"}</div>
+      <div style={{fontSize:12,color:"#555",marginTop:3}}>{bAddr||"________________________"}</div>
+      {bPhone&&<div style={{fontSize:11,color:"#555"}}>{bPhone}</div>}
+      {bEmail&&<div style={{fontSize:11,color:"#555"}}>{bEmail}</div>}
+    </div>
+
+    {/* Line items */}
+    <table style={{width:"100%",borderCollapse:"collapse",marginBottom:4}}>
+      <thead>
+        <tr style={{background:"#003366",color:"white"}}>
+          <th style={{padding:"9px 12px",textAlign:"left",fontSize:11,fontWeight:700,width:"35%"}}>Description</th>
+          <th style={{padding:"9px 12px",textAlign:"left",fontSize:11,fontWeight:700,width:"35%"}}>Details</th>
+          <th style={{padding:"9px 12px",textAlign:"right",fontSize:11,fontWeight:700,width:"15%"}}>Amount</th>
+          <th style={{padding:"9px 12px",textAlign:"right",fontSize:11,fontWeight:700,width:"15%"}}>GST</th>
+        </tr>
+      </thead>
+      <tbody>
+        {/* Vehicle */}
+        <tr style={{borderBottom:"1px solid #eee"}}>
+          <td style={{padding:"12px",verticalAlign:"top"}}>
+            <div style={{fontSize:13,fontWeight:700}}>{c.year} {c.make} {c.model}</div>
+            <div style={{fontSize:10,color:"#555",marginTop:2}}>Used Motor Vehicle</div>
+          </td>
+          <td style={{padding:"12px",fontSize:11,color:"#555",verticalAlign:"top"}}>
+            <div>Rego: {c.rego||"—"}</div>
+            <div>VIN: {c.vin||"—"}</div>
+            <div>{c.colour||""} {c.body||""}{c.odo?" · "+c.odo.toLocaleString()+" km":""}</div>
+            <div>{c.trans||""}{c.fuel?" · "+c.fuel:""}</div>
+          </td>
+          <td style={{padding:"12px",textAlign:"right",fontSize:15,fontWeight:800,color:"#003366",verticalAlign:"top"}}>
+            ${exGst.toLocaleString("en-AU",{minimumFractionDigits:2})}
+          </td>
+          <td style={{padding:"12px",textAlign:"right",fontSize:12,color:"#555",verticalAlign:"top"}}>
+            ${gst.toLocaleString("en-AU",{minimumFractionDigits:2})}
+          </td>
+        </tr>
+        {/* Stamp Duty */}
+        <tr style={{background:"#fafafa",borderBottom:"1px solid #eee"}}>
+          <td style={{padding:"9px 12px"}}>
+            <div style={{fontSize:12,fontWeight:600}}>Motor Vehicle Duty (Stamp Duty)</div>
+          </td>
+          <td style={{padding:"9px 12px",fontSize:11,color:"#555"}}>
+            Duties Act 2000 (VIC) · Collected by dealer, payable to VicRoads on behalf of buyer · {(b.lowEm||b.pProd)?"Reduced rate (Low Emission/Primary Producer)":"Standard rate applied to sale price"}
+          </td>
+          <td style={{padding:"9px 12px",textAlign:"right",fontWeight:700,fontSize:13}}>${duty.toFixed(2)}</td>
+          <td style={{padding:"9px 12px",textAlign:"right",fontSize:11,color:"#777"}}>Exempt</td>
+        </tr>
+        {/* Transfer Fee */}
+        <tr style={{borderBottom:"1px solid #eee"}}>
+          <td style={{padding:"9px 12px"}}>
+            <div style={{fontSize:12,fontWeight:600}}>VicRoads Transfer of Registration Fee</div>
+          </td>
+          <td style={{padding:"9px 12px",fontSize:11,color:"#555"}}>
+            Road Safety (Vehicles) Regulations 2021 · Dealer lodges transfer form (DTP1142) within 14 days · Verify exact fee at vicroads.vic.gov.au/transfer-fees
+          </td>
+          <td style={{padding:"9px 12px",textAlign:"right",fontWeight:700,fontSize:13}}>{tFee>0?"$"+tFee.toFixed(2):"See VicRoads"}</td>
+          <td style={{padding:"9px 12px",textAlign:"right",fontSize:11,color:"#777"}}>Exempt</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {/* Totals */}
+    <div style={{display:"flex",justifyContent:"flex-end",marginBottom:18}}>
+      <div style={{width:320,border:"1px solid #ddd",borderRadius:5,overflow:"hidden"}}>
+        {[
+          ["Vehicle Subtotal (excl. GST)","$"+exGst.toLocaleString("en-AU",{minimumFractionDigits:2}),false],
+          ["GST (10% on vehicle)","$"+gst.toLocaleString("en-AU",{minimumFractionDigits:2}),false],
+          ["Vehicle Total (incl. GST)","$"+sp.toLocaleString("en-AU",{minimumFractionDigits:2}),false],
+          ["Motor Vehicle Duty","$"+duty.toFixed(2),false],
+          ["Transfer Fee",tFee>0?"$"+tFee.toFixed(2):"See VicRoads",false],
+          ["TOTAL AMOUNT DUE","$"+(sp+duty+(tFee||0)).toLocaleString("en-AU",{minimumFractionDigits:2}),true],
+        ].map(([l,v,bold])=>
+          <div key={l} style={{display:"flex",justifyContent:"space-between",padding:"7px 12px",borderBottom:"1px solid #eee",background:bold?"#003366":"transparent"}}>
+            <span style={{fontSize:11,color:bold?"white":"#555",fontWeight:bold?700:400}}>{l}</span>
+            <span style={{fontSize:bold?15:12,fontWeight:700,color:bold?"white":"#003366"}}>{v}</span>
+          </div>
+        )}
+      </div>
+    </div>
+
+    {/* GST Statement */}
+    <div style={{background:"#f8f8f8",border:"1px solid #ddd",borderRadius:4,padding:"9px 12px",marginBottom:16,fontSize:10,color:"#555",lineHeight:1.6}}>
+      <strong>Tax Invoice Statement:</strong> {dp.dealerName} ({acnAbn}) is registered for Goods and Services Tax. The GST amount of ${gst.toLocaleString("en-AU",{minimumFractionDigits:2})} is included in the vehicle price of ${sp.toLocaleString("en-AU",{minimumFractionDigits:2})}. Motor vehicle duty and VicRoads transfer fees are GST-exempt under the A New Tax System (Goods and Services Tax) Act 1999. This document constitutes a valid tax invoice for GST purposes.
+    </div>
+
+    {/* Payment details */}
+    <div style={{marginBottom:16,fontSize:10,color:"#555"}}>
+      <strong>Payment Terms:</strong> Payment due upon delivery. Accepted methods: Cash, Bank Transfer (BSB/Account on request), Finance settlement, Bank Cheque.
+        <strong>Payment Method for this transaction:</strong> {payMethod}
+    </div>
+
+    {/* Signatures */}
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:24,marginTop:16}}>
+      {[["Authorised by Dealer",`${dp.dealerName} · LMCT ${dp.lmct}`],["Received by Buyer",bn]].map(([label,sub])=>
+        <div key={label}>
+          <div style={{fontSize:10,fontWeight:700,color:"#003366",textTransform:"uppercase",marginBottom:3}}>{label}</div>
+          <div style={{fontSize:10,color:"#777",marginBottom:10}}>{sub}</div>
+          <div style={{borderBottom:"1.5px solid #222",height:48,marginBottom:6}}/>
+          <div style={{fontSize:9,color:"#777"}}>Signature     Date: ___ / ___ / ______</div>
+        </div>
+      )}
+    </div>
+
+    <div style={{marginTop:14,textAlign:"center",fontSize:9,color:"#aaa",borderTop:"1px solid #eee",paddingTop:8}}>
+      {dp.dealerName} · LMCT {dp.lmct} · {acnAbn} · Invoice {inv} · Generated by LMCT PRO · {new Date().toLocaleDateString("en-AU")}
+    </div>
+  </div>;
+}
+
+function DocsApp(){
+  const [tab,setTab]=useState('transfer');
+  const [data,setData]=useState(null);
+
+  useEffect(()=>{
+    // Register render function for toolbar buttons
+    window.__renderDoc=function(t){setTab(t);};
+    // Load data from localStorage
+    try{
+      const raw=localStorage.getItem('lmct_print_data');
+      if(raw){
+        const parsed=JSON.parse(raw);
+        setData(parsed);
+        document.getElementById('docTitle').textContent=
+          (parsed.car?parsed.car.year+' '+parsed.car.make+' '+parsed.car.model:'')+'  —  '+(parsed.b&&parsed.b.sn?parsed.b.gn+' '+parsed.b.sn:'Buyer TBD');
+      }
+    }catch(e){console.error('Load error:',e);}
+  },[]);
+
+  if(!data) return <div style={{textAlign:"center",padding:60,color:"#555"}}>
+    <div style={{fontSize:40,marginBottom:16}}>⚠️</div>
+    <div style={{fontSize:18,fontWeight:700,marginBottom:8}}>No document data found</div>
+    <div style={{fontSize:14}}>Please open this page from the LMCT PRO app via the VicRoads/Forms section.</div>
+  </div>;
+
+  const {dp,car,sale,b,duty,tFee,totalPayable}=data;
+
+  return <div>
+    {tab==='transfer'&&<PrintTransfer dp={dp} car={car} b={b} duty={duty} tFee={tFee} totalPayable={totalPayable}/>}
+    {tab==='contract'&&<PrintContract dp={dp} car={car} sale={sale} b={b} duty={duty}/>}
+    {tab==='invoice'&&<PrintInvoice dp={dp} car={car} sale={sale} b={b} duty={duty}/>}
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('doc')).render(<DocsApp/>);
+</script>
+</body>
+</html>
