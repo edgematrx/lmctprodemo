@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LMCT PRO — Import / Export</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:#080810;color:#eef;min-height:100vh;padding:20px}
+.toolbar{background:#0e0e1a;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 20px;display:flex;gap:12px;align-items:center;margin-bottom:20px;max-width:760px;margin-left:auto;margin-right:auto}
+#root{max-width:760px;margin:0 auto}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1)}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <div style="font-weight:800;font-size:16px;letter-spacing:-.5px">LMCT<span style="color:#7c6fff">PRO</span></div>
+  <div style="color:#9999b8;font-size:13px;flex:1">Import / Export Data</div>
+  <button onclick="window.close()" style="padding:6px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#9999b8;cursor:pointer;font-size:12px;font-family:inherit">✕ Close</button>
+</div>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
+
+const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
+const fd=d=>{if(!d)return"—";try{return new Date(d).toLocaleDateString("en-AU",{day:"2-digit",month:"short",year:"numeric"});}catch{return d;}};
+const aiScore=(make,model,year,odo)=>{let s=65;if(["toyota","mazda","honda","hyundai"].includes((make||"").toLowerCase()))s+=10;if(year>=2021)s+=10;else if(year>=2019)s+=5;if(odo<40000)s+=8;else if(odo>120000)s-=12;return Math.min(99,Math.max(25,s));};
+const C={bg:"#080810",s1:"#0e0e1a",s2:"#141420",s3:"#1c1c2c",s4:"#222234",b1:"rgba(255,255,255,.05)",b2:"rgba(255,255,255,.09)",b3:"rgba(255,255,255,.16)",t1:"#eeeef8",t2:"#9999b8",t3:"#5f5f7a",t4:"#3a3a52",acc:"#7c6fff",acc2:"#a89dff",accd:"rgba(124,111,255,.12)",g:"#1fd97a",gd:"rgba(31,217,122,.1)",gb:"rgba(31,217,122,.2)",a:"#f5a623",ad:"rgba(245,166,35,.1)",ab:"rgba(245,166,35,.2)",r:"#ff4d4d",rd:"rgba(255,77,77,.1)",rb:"rgba(255,77,77,.2)",b:"#3d9eff",bd:"rgba(61,158,255,.1)",bb:"rgba(61,158,255,.2)"};
+const Btn=({children,onClick,v="ghost",sz="md",disabled,full,st={}})=>{const sizes={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 11px",fontSize:12},md:{padding:"8px 15px",fontSize:13}};const vs={primary:{background:C.acc,color:"#fff",border:"none"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:5,width:full?"100%":"",borderRadius:8,fontWeight:500,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .15s",opacity:disabled?.4:1,...sizes[sz],...vs[v],...st}}>{children}</button>;};
+const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:10,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
+
+// ── DATA IMPORT / EXPORT ──
+function DataManager({stock,setStock,sold,setSold,cust,setCust}){
+  const [tab,setTab]=useState("export");
+  const [importing,setImporting]=useState(false);
+  const [preview,setPreview]=useState(null);
+  const [imported,setImported]=useState(null);
+  const fileRef=React.useRef();
+
+  // ── EXPORT HELPERS ──
+  function toCSV(rows,headers){
+    const esc=v=>{
+      const s=v===null||v===undefined?"":String(v);
+      return s.includes(",")||s.includes("\n")||s.includes('"')?'"'+s.replace(/"/g,'""')+'"':s;
+    };
+    return [headers.join(","),...rows.map(r=>headers.map(h=>esc(r[h])).join(","))].join("\n");
+  }
+  function download(csv,filename){
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;a.download=filename;a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportStock(){
+    const headers=["id","make","model","year","colour","body","trans","fuel","odo","engine","drive","rego","vin","purchase","price","recon","other","source","acq","ppsr","regoExp","seller","sellerAddr","notes","status","score"];
+    download(toCSV(stock,headers),`lmctpro_stock_${new Date().toISOString().split("T")[0]}.csv`);
+  }
+  function exportSales(){
+    const headers=["id","make","model","year","body","rego","vin","sale","cost","recon","profit","buyer","bPhone","bEmail","bAddr","date","pay","finance"];
+    download(toCSV(sold,headers),`lmctpro_sales_${new Date().toISOString().split("T")[0]}.csv`);
+  }
+  function exportCustomers(){
+    const headers=["id","first","last","phone","email","addr","src","status","notes","bought"];
+    download(toCSV(cust,headers),`lmctpro_customers_${new Date().toISOString().split("T")[0]}.csv`);
+  }
+  function exportAll(){
+    // Export all 3 as one combined CSV with section headers
+    const dp=gDP();
+    let out="LMCT PRO — Full Data Export\n";
+    out+=`Dealer: ${dp.dealerName} | LMCT: ${dp.lmct} | ABN: ${dp.abn||""}\n`;
+    out+=`Exported: ${new Date().toLocaleString("en-AU")}\n\n`;
+    out+="=== STOCK ===\n";
+    const sh=["id","make","model","year","colour","body","trans","fuel","odo","engine","drive","rego","vin","purchase","price","recon","other","source","acq","ppsr","regoExp","seller","sellerAddr","notes","status","score"];
+    out+=toCSV(stock,sh)+"\n\n";
+    out+="=== SALES ===\n";
+    const salh=["id","make","model","year","body","rego","vin","sale","cost","recon","profit","buyer","bPhone","bEmail","bAddr","date","pay","finance"];
+    out+=toCSV(sold,salh)+"\n\n";
+    out+="=== CUSTOMERS ===\n";
+    const cuh=["id","first","last","phone","email","addr","src","status","notes","bought"];
+    out+=toCSV(cust,cuh);
+    download(out,`lmctpro_FULL_BACKUP_${new Date().toISOString().split("T")[0]}.csv`);
+  }
+
+  // ── IMPORT HELPERS ──
+  function parseCSV(text){
+    const lines=text.split(/\r?\n/).filter(l=>l.trim());
+    if(lines.length<2)return[];
+    const headers=lines[0].split(",").map(h=>h.trim().replace(/^"|"$/g,"").toLowerCase());
+    return lines.slice(1).map(line=>{
+      const vals=[];let cur="",inQ=false;
+      for(let i=0;i<line.length;i++){
+        const c=line[i];
+        if(c==='"'){inQ=!inQ;}
+        else if(c===","&&!inQ){vals.push(cur.trim());cur="";}
+        else cur+=c;
+      }
+      vals.push(cur.trim());
+      const obj={};
+      headers.forEach((h,i)=>obj[h]=vals[i]||"");
+      return obj;
+    });
+  }
+
+  // Map EasyCars / generic column names to LMCT PRO fields
+  function mapStockRow(r){
+    const g=(...keys)=>{for(const k of keys){const v=r[k]||r[k.toLowerCase()]||r[k.toUpperCase()];if(v)return v;}return "";};
+    return {
+      id:Date.now()+Math.random(),
+      make:g("make","manufacturer","brand"),
+      model:g("model","vehicle model","vehiclemodel"),
+      year:parseInt(g("year","model year","modelyear","yr"))||"",
+      colour:g("colour","color","ext colour","extcolour"),
+      body:g("body","body type","bodytype","style"),
+      trans:g("trans","transmission","gearbox"),
+      fuel:g("fuel","fuel type","fueltype"),
+      odo:parseInt(g("odo","odometer","km","kms","kilometres","mileage"))||0,
+      engine:g("engine","engine size","enginesize","cc"),
+      drive:g("drive","drive type","drivetype","4wd","awd"),
+      rego:g("rego","registration","plate","rego plate","regoplate"),
+      vin:g("vin","chassis","vin number","chassis number"),
+      purchase:parseFloat(g("purchase","cost","cost price","costprice","buy price","buyprice","purchase price","purchaseprice"))||0,
+      price:parseFloat(g("price","sell price","sellprice","asking","asking price","askingprice","list price","listprice","retail"))||0,
+      recon:parseFloat(g("recon","reconditioning","recon cost","reconcost"))||0,
+      other:parseFloat(g("other","other costs","othercosts","misc"))||0,
+      source:g("source","acquired from","acquiredfrom","origin","purchased from"),
+      acq:g("acq","date acquired","dateacquired","date in","datein","purchase date","purchasedate")||new Date().toISOString().split("T")[0],
+      ppsr:g("ppsr","ppsr status","ppsrstatus")||"Clear",
+      regoExp:g("regoexp","rego expiry","regoexpiry","rego exp","expiry","expiry date"),
+      seller:g("seller","seller name","sellername","previous owner","previousowner"),
+      sellerAddr:g("selleraddr","seller address","selleraddress"),
+      notes:g("notes","comments","description","features"),
+      status:g("status")||"Available",
+      score:aiScore(g("make"),g("model"),parseInt(g("year")),parseInt(g("odo","odometer","km"))||50000),
+    };
+  }
+
+  function mapSaleRow(r){
+    const g=(...keys)=>{for(const k of keys){const v=r[k]||r[k.toLowerCase()];if(v)return v;}return "";};
+    const salePrice=parseFloat(g("sale","sale price","saleprice","selling price","sellingprice"))||0;
+    const cost=parseFloat(g("cost","cost price","costprice","purchase","purchase price"))||0;
+    const profit=parseFloat(g("profit","gross profit","grossproffit"))||(salePrice-cost);
+    return {
+      id:Date.now()+Math.random(),
+      make:g("make","manufacturer"),model:g("model"),
+      year:parseInt(g("year"))||"",body:g("body","body type"),
+      rego:g("rego","registration","plate"),vin:g("vin","chassis"),
+      sale:salePrice,cost,recon:parseFloat(g("recon","reconditioning"))||0,
+      profit,
+      buyer:g("buyer","buyer name","buyername","customer","customer name","customername"),
+      bPhone:g("bphone","buyer phone","buyerphone","phone","customer phone"),
+      bEmail:g("bemail","buyer email","buyeremail","email","customer email"),
+      bAddr:g("baddr","buyer address","buyeraddress","address","customer address"),
+      date:g("date","sale date","saledate","sold date","solddate"),
+      pay:g("pay","payment","payment method","paymentmethod")||"Cash",
+    };
+  }
+
+  function onFileSelect(e){
+    const file=e.target.files&&e.target.files[0];
+    if(!file)return;
+    setImported(null);setPreview(null);
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      try{
+        const text=ev.target.result;
+        const rows=parseCSV(text);
+        if(!rows.length){setPreview({error:"No data found in this file."});return;}
+
+        // Detect type by sniffing columns
+        const headers=Object.keys(rows[0]).join(" ").toLowerCase();
+        const isStock=headers.includes("make")||headers.includes("model")||headers.includes("rego");
+        const isSales=headers.includes("sale")||headers.includes("buyer")||headers.includes("sold");
+
+        if(isStock&&!isSales){
+          const mapped=rows.filter(r=>r.make||r.model).map(mapStockRow);
+          setPreview({type:"stock",rows:mapped,raw:rows.length});
+        } else if(isSales&&!isStock){
+          const mapped=rows.filter(r=>r.make||r.buyer).map(mapSaleRow);
+          setPreview({type:"sales",rows:mapped,raw:rows.length});
+        } else if(isStock&&isSales){
+          // Combined — try to split
+          const stockR=rows.filter(r=>!r.buyer&&!r.sale).map(mapStockRow);
+          const salesR=rows.filter(r=>r.buyer||r.sale).map(mapSaleRow);
+          setPreview({type:"both",stockRows:stockR,salesRows:salesR,raw:rows.length});
+        } else {
+          setPreview({error:"Cannot detect file type. Make sure it has columns like Make, Model, Rego, Sale Price etc."});
+        }
+      }catch(e){setPreview({error:"Could not read file: "+e.message});}
+    };
+    reader.readAsText(file);
+  }
+
+  function confirmImport(){
+    if(!preview)return;
+    if(preview.type==="stock"){
+      setStock(p=>[...p,...preview.rows]);
+      setImported({stock:preview.rows.length,sales:0});
+    } else if(preview.type==="sales"){
+      setSold(p=>[...p,...preview.rows]);
+      setImported({stock:0,sales:preview.rows.length});
+    } else if(preview.type==="both"){
+      setStock(p=>[...p,...(preview.stockRows||[])]);
+      setSold(p=>[...p,...(preview.salesRows||[])]);
+      setImported({stock:(preview.stockRows||[]).length,sales:(preview.salesRows||[]).length});
+    }
+    setPreview(null);
+  }
+
+  return <div style={{maxWidth:720}}>
+
+    {/* Tabs */}
+    <div style={{display:"flex",gap:2,marginBottom:20,background:C.s2,padding:4,borderRadius:10,border:`1px solid ${C.b1}`}}>
+      {[["export","📤 Export Data"],["import","📥 Import from EasyCars / CSV"]].map(([id,lb])=>
+        <button key={id} onClick={()=>{setTab(id);setPreview(null);setImported(null);}} style={{flex:1,padding:"9px 14px",borderRadius:7,border:"none",cursor:"pointer",fontWeight:tab===id?700:400,fontSize:13,background:tab===id?C.s1:C.s2,color:tab===id?C.t1:C.t3,fontFamily:"inherit",transition:"all .15s"}}>{lb}</button>
+      )}
+    </div>
+
+    {/* ── EXPORT TAB ── */}
+    {tab==="export"&&<div>
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:20,marginBottom:12}}>
+        <div style={{fontWeight:700,fontSize:15,marginBottom:4}}>Full Data Backup</div>
+        <div style={{fontSize:12,color:C.t3,marginBottom:16}}>Downloads all stock, sales and customers in one CSV file. Keep this as your backup.</div>
+        <button onClick={exportAll} style={{width:"100%",padding:"14px",background:`linear-gradient(135deg,${C.acc},#5b4ee0)`,border:"none",borderRadius:9,color:"white",fontWeight:700,fontSize:14,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+          <span style={{fontSize:18}}>💾</span> Download Full Backup (.csv)
+        </button>
+        <div style={{marginTop:10,fontSize:11,color:C.t4,textAlign:"center"}}>Includes {stock.length} vehicles · {sold.length} sales · {cust.length} customers</div>
+      </div>
+
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+        {[
+          {label:"Stock Only",icon:"🚗",count:`${stock.length} vehicles`,color:C.b,fn:exportStock},
+          {label:"Sales History",icon:"💰",count:`${sold.length} sales`,color:C.g,fn:exportSales},
+          {label:"Customers",icon:"👥",count:`${cust.length} customers`,color:C.acc2,fn:exportCustomers},
+        ].map(item=><div key={item.label} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:16,textAlign:"center"}}>
+          <div style={{fontSize:28,marginBottom:8}}>{item.icon}</div>
+          <div style={{fontWeight:700,marginBottom:3}}>{item.label}</div>
+          <div style={{fontSize:11,color:C.t3,marginBottom:12}}>{item.count}</div>
+          <button onClick={item.fn} style={{width:"100%",padding:"8px",background:C.s2,border:`1px solid ${C.b2}`,borderRadius:7,color:item.color,fontWeight:600,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Export CSV</button>
+        </div>)}
+      </div>
+
+      <div style={{background:C.s2,borderRadius:9,padding:"12px 14px",marginTop:12,fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>
+        💡 Export regularly as a backup. If you ever need to move to another system or give data to your accountant, this is all you need.
+      </div>
+    </div>}
+
+    {/* ── IMPORT TAB ── */}
+    {tab==="import"&&<div>
+      {/* Instructions */}
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:18,marginBottom:14}}>
+        <div style={{fontWeight:700,fontSize:15,marginBottom:12}}>Import from EasyCars or any CSV</div>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:16}}>
+          {[
+            {step:"1",title:"Export from EasyCars",desc:"In EasyCars: Reports → Export → Stock List CSV (or Sales CSV)",icon:"📋"},
+            {step:"2",title:"Upload here",desc:"Drop your CSV file below — we auto-detect stock vs sales",icon:"📤"},
+            {step:"3",title:"Review & confirm",desc:"See a preview of what will be imported before committing",icon:"✅"},
+          ].map(s=><div key={s.step} style={{background:C.s2,borderRadius:9,padding:"12px 13px",border:`1px solid ${C.b1}`}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
+              <div style={{width:22,height:22,borderRadius:"50%",background:C.acc,color:"white",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,flexShrink:0}}>{s.step}</div>
+              <span style={{fontSize:13,fontWeight:600}}>{s.title}</span>
+            </div>
+            <div style={{fontSize:11,color:C.t3,lineHeight:1.5}}>{s.desc}</div>
+          </div>)}
+        </div>
+
+        <div style={{background:C.s2,borderRadius:9,padding:"10px 13px",marginBottom:14,fontSize:11,color:C.t3,border:`1px solid ${C.b1}`}}>
+          <strong style={{color:C.a}}>Supported software:</strong> EasyCars · DealerSocket · AutoMate · Titan DMS · Excel/Google Sheets · Any CSV with Make/Model/Rego columns
+        </div>
+
+        {/* File upload */}
+        <input ref={fileRef} type="file" accept=".csv,.txt" style={{display:"none"}} onChange={onFileSelect}/>
+        {!preview&&!imported&&<div onClick={()=>fileRef.current&&fileRef.current.click()} style={{border:`2px dashed ${C.b3}`,borderRadius:12,padding:"32px 20px",textAlign:"center",cursor:"pointer",background:C.s2,transition:"all .2s"}}
+          onMouseEnter={e=>e.currentTarget.style.borderColor=C.acc}
+          onMouseLeave={e=>e.currentTarget.style.borderColor=C.b3}>
+          <div style={{fontSize:40,marginBottom:10}}>📂</div>
+          <div style={{fontSize:14,fontWeight:700,marginBottom:4}}>Click to select CSV file</div>
+          <div style={{fontSize:12,color:C.t3}}>EasyCars export · Stock list · Sales history · Any CSV</div>
+        </div>}
+
+        {/* Preview */}
+        {preview&&!imported&&<div>
+          {preview.error?<div style={{background:C.rd,border:`1px solid ${C.rb}`,borderRadius:9,padding:"12px 14px",color:C.r,fontSize:13}}>⚠️ {preview.error}<div style={{marginTop:10}}><Btn onClick={()=>setPreview(null)} v="ghost">Try Again</Btn></div></div>:
+          <div>
+            <div style={{background:C.gd,border:`1px solid ${C.gb}`,borderRadius:9,padding:"12px 14px",marginBottom:14}}>
+              <div style={{fontWeight:700,color:C.g,marginBottom:4}}>✅ File read successfully</div>
+              <div style={{fontSize:12,color:C.t2}}>
+                {preview.type==="stock"&&`Found ${preview.rows.length} vehicles to import`}
+                {preview.type==="sales"&&`Found ${preview.rows.length} sale records to import`}
+                {preview.type==="both"&&`Found ${(preview.stockRows||[]).length} vehicles + ${(preview.salesRows||[]).length} sale records`}
+              </div>
+            </div>
+
+            {/* Preview table — stock */}
+            {(preview.type==="stock"||preview.type==="both")&&<div style={{marginBottom:14}}>
+              <div style={{fontWeight:600,fontSize:13,marginBottom:8,color:C.b}}>🚗 Stock Preview (first 5)</div>
+              <div style={{background:C.s2,borderRadius:9,overflow:"hidden",border:`1px solid ${C.b1}`}}>
+                <table style={{width:"100%",borderCollapse:"collapse",fontSize:11}}>
+                  <thead><tr>{["Year","Make","Model","Colour","Rego","ODO","Status"].map(h=><th key={h} style={{padding:"7px 10px",textAlign:"left",color:C.t3,fontWeight:600,borderBottom:`1px solid ${C.b1}`,background:C.s3,fontSize:10,textTransform:"uppercase"}}>{h}</th>)}</tr></thead>
+                  <tbody>{(preview.rows||preview.stockRows||[]).slice(0,5).map((r,i)=><tr key={i}>
+                    {[r.year,r.make,r.model,r.colour||"—",r.rego||"—",(r.odo||0).toLocaleString()+"km",r.status||"Available"].map((v,j)=><td key={j} style={{padding:"7px 10px",borderBottom:`1px solid ${C.b1}`,color:C.t1}}>{v}</td>)}
+                  </tr>)}</tbody>
+                </table>
+              </div>
+            </div>}
+
+            {/* Preview table — sales */}
+            {(preview.type==="sales"||preview.type==="both")&&<div style={{marginBottom:14}}>
+              <div style={{fontWeight:600,fontSize:13,marginBottom:8,color:C.g}}>💰 Sales Preview (first 5)</div>
+              <div style={{background:C.s2,borderRadius:9,overflow:"hidden",border:`1px solid ${C.b1}`}}>
+                <table style={{width:"100%",borderCollapse:"collapse",fontSize:11}}>
+                  <thead><tr>{["Year","Make","Model","Buyer","Sale Price","Date"].map(h=><th key={h} style={{padding:"7px 10px",textAlign:"left",color:C.t3,fontWeight:600,borderBottom:`1px solid ${C.b1}`,background:C.s3,fontSize:10,textTransform:"uppercase"}}>{h}</th>)}</tr></thead>
+                  <tbody>{(preview.rows||preview.salesRows||[]).slice(0,5).map((r,i)=><tr key={i}>
+                    {[r.year,r.make,r.model,r.buyer||"—",r.sale?"$"+Number(r.sale).toLocaleString():"—",r.date||"—"].map((v,j)=><td key={j} style={{padding:"7px 10px",borderBottom:`1px solid ${C.b1}`,color:C.t1}}>{v}</td>)}
+                  </tr>)}</tbody>
+                </table>
+              </div>
+            </div>}
+
+            <div style={{display:"flex",gap:9}}>
+              <Btn v="primary" full onClick={confirmImport}>✅ Confirm Import</Btn>
+              <Btn onClick={()=>{setPreview(null);if(fileRef.current)fileRef.current.value="";}}>Cancel</Btn>
+            </div>
+          </div>}
+        </div>}
+
+        {/* Success */}
+        {imported&&<div style={{background:C.gd,border:`1px solid ${C.gb}`,borderRadius:12,padding:"20px",textAlign:"center"}}>
+          <div style={{fontSize:40,marginBottom:10}}>🎉</div>
+          <div style={{fontSize:18,fontWeight:800,color:C.g,marginBottom:6}}>Import Complete!</div>
+          <div style={{fontSize:13,color:C.t2,marginBottom:16}}>
+            {imported.stock>0&&<div>✅ {imported.stock} vehicles added to stock</div>}
+            {imported.sales>0&&<div>✅ {imported.sales} sales records imported</div>}
+          </div>
+          <Btn v="primary" onClick={()=>setImported(null)}>Import Another File</Btn>
+        </div>}
+      </div>
+    </div>}
+  </div>;
+}
+
+function DataApp(){
+  // Load stock/sold/cust from localStorage (shared with app.html)
+  const loadData=()=>{
+    try{
+      const stock=JSON.parse(localStorage.getItem("lmct_stock")||"[]");
+      const sold=JSON.parse(localStorage.getItem("lmct_sold")||"[]");
+      const cust=JSON.parse(localStorage.getItem("lmct_cust")||"[]");
+      return {stock,sold,cust};
+    }catch(e){return {stock:[],sold:[],cust:[]};}
+  };
+  const [data,setData]=useState(loadData);
+  function setStock(fn){const s=typeof fn==="function"?fn(data.stock):fn;setData(p=>({...p,stock:s}));localStorage.setItem("lmct_stock",JSON.stringify(s));}
+  function setSold(fn){const s=typeof fn==="function"?fn(data.sold):fn;setData(p=>({...p,sold:s}));localStorage.setItem("lmct_sold",JSON.stringify(s));}
+  function setCust(fn){const s=typeof fn==="function"?fn(data.cust):fn;setData(p=>({...p,cust:s}));localStorage.setItem("lmct_cust",JSON.stringify(s));}
+  return <DataManager stock={data.stock} setStock={setStock} sold={data.sold} setSold={setSold} cust={data.cust} setCust={setCust}/>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<DataApp/>);
+</script>
+</body>
+</html>
