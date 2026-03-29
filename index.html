@@ -901,6 +901,173 @@ h1{
 
 .section-wrap{max-width:1140px;margin:0 auto;width:100%}
 .section-wrap-sm{max-width:860px;margin:0 auto;width:100%}
+
+/* ═══════════════════════════════════════════════
+   2026 FEATURES GRID — PREMIUM REDESIGN
+   ═══════════════════════════════════════════════ */
+
+/* Main grid: asymmetric 2026 layout */
+.feat2026-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto;
+  gap:14px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* HERO CARD: spans full width */
+.f26-hero{
+  grid-column:1/-1;
+  background:linear-gradient(135deg,#0a0a1a,#0e0e20);
+  border:1px solid rgba(124,111,255,.2);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(124,111,255,.08);
+  transition:transform .3s ease,box-shadow .3s;
+}
+.f26-hero:hover{
+  transform:translateY(-3px);
+  box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 40px rgba(124,111,255,.1);
+}
+.f26-hero-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:300px;
+}
+
+/* Terminal side */
+.f26-terminal{
+  background:rgba(0,0,0,.4);
+  border-right:1px solid rgba(255,255,255,.06);
+  padding:0;
+  overflow:hidden;
+}
+.f26-terminal-bar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.f26-terminal-body{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.f26-terminal-footer{
+  margin-top:8px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.05);
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  color:rgba(255,255,255,.2);
+}
+.f26-insight{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 11px;
+  border-radius:9px;
+  animation:fadeIn .4s ease;
+}
+.f26-stop{background:rgba(255,79,79,.07);border:1px solid rgba(255,79,79,.14)}
+.f26-buy{background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.14)}
+.f26-price{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.14)}
+.f26-pill{font-family:'DM Mono',monospace;font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;letter-spacing:.3px}
+.f26-pill-red{background:rgba(255,79,79,.15);color:#ff6b6b;border:1px solid rgba(255,79,79,.2)}
+.f26-pill-green{background:rgba(31,217,122,.15);color:#4ade80;border:1px solid rgba(31,217,122,.2)}
+.f26-pill-amber{background:rgba(245,166,35,.15);color:#f5a623;border:1px solid rgba(245,166,35,.2)}
+.f26-pill-blue{background:rgba(61,158,255,.15);color:#60a5fa;border:1px solid rgba(61,158,255,.2)}
+.f26-insight-text{font-size:11px;color:rgba(255,255,255,.65);line-height:1.45}
+
+/* Hero body */
+.f26-hero-body{
+  padding:36px 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.f26-hero-body::before{
+  content:'';
+  position:absolute;
+  top:-40px;right:-40px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(124,111,255,.12),transparent 70%);
+  pointer-events:none;
+}
+
+/* Tags */
+.f26-tag{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;display:inline-block;margin-bottom:12px}
+.f26-tag-ai{background:rgba(124,111,255,.15);color:rgba(168,157,255,.9);border:1px solid rgba(124,111,255,.2)}
+.f26-tag-compliance{background:rgba(22,163,74,.1);color:#16a34a;border:1px solid rgba(22,163,74,.2)}
+.f26-tag-intel{background:rgba(61,158,255,.1);color:#60a5fa;border:1px solid rgba(61,158,255,.18)}
+.f26-tag-live{background:rgba(245,166,35,.1);color:#f5a623;border:1px solid rgba(245,166,35,.18)}
+.f26-tag-team{background:rgba(232,152,30,.1);color:#e8981e;border:1px solid rgba(232,152,30,.18)}
+.f26-tag-crm{background:rgba(255,79,79,.1);color:#ff6b6b;border:1px solid rgba(255,79,79,.18)}
+
+.f26-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:white;letter-spacing:-.5px;line-height:1.15;margin-bottom:12px}
+.f26-title-sm{font-family:'Fraunces',serif;font-size:17px;font-weight:700;letter-spacing:-.3px;line-height:1.2;margin-bottom:8px;color:white}
+.f26-desc{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:18px}
+.f26-desc-sm{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.65}
+.f26-checks{display:flex;flex-direction:column;gap:7px}
+.f26-check{font-size:13px;color:rgba(255,255,255,.6);display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.f26-check::before{content:'→';color:#7c6fff;font-weight:700;flex-shrink:0;margin-top:0}
+.f26-check em{color:rgba(255,255,255,.9);font-style:normal;font-weight:600}
+
+/* Regular cards */
+.f26-card{
+  border-radius:16px;
+  overflow:hidden;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+}
+.f26-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.4)!important}
+
+.f26-card-dark{
+  background:linear-gradient(160deg,#0c0c1a,#0a0a14);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.f26-card-light{
+  background:white;
+  border:1px solid rgba(13,31,60,.08);
+  box-shadow:0 8px 32px rgba(13,31,60,.08);
+}
+
+.f26-card-visual{
+  padding:18px 18px 12px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  min-height:130px;
+  display:flex;
+  align-items:center;
+}
+.f26-card-visual-light{
+  padding:18px 18px 12px;
+  border-bottom:1px solid rgba(13,31,60,.06);
+  min-height:130px;
+  display:flex;
+  align-items:center;
+}
+.f26-card-body{padding:16px 18px 20px}
+.f26-card-body-light{padding:16px 18px 20px}
+
+/* Responsive */
+@media(max-width:1100px){
+  .feat2026-grid{grid-template-columns:1fr 1fr}
+  .f26-hero{grid-column:1/-1}
+  .f26-hero-inner{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .feat2026-grid{grid-template-columns:1fr}
+  .f26-hero-body{padding:24px 20px}
+}
 </style>
 </head>
 <body>
@@ -1135,13 +1302,13 @@ h1{
 
       <div class="t-card">
         <div class="t-stars">★★★★★</div>
-        <div class="t-text">"The compliance forms used to take me 20 minutes per sale. Now I record the sale, print the form, done. It's already filled in perfectly. EasyCars never had this."</div>
+        <div class="t-text">"The compliance forms used to take me 20 minutes per sale. Now I record the sale, print the form, done. It's already filled in perfectly. Nothing else comes close."</div>
         <div class="t-author"><div class="t-av">R</div><div><div class="t-name">Dealer from Hoppers Crossing, VIC</div><div class="t-biz">Software Plan</div></div></div>
       </div>
 
       <div class="t-card">
         <div class="t-stars">★★★★★</div>
-        <div class="t-text">"We switched from EasyCars. The migration took 20 minutes. Everything came across. Two months later I genuinely can't understand why we stayed on EasyCars for as long as we did."</div>
+        <div class="t-text">"Migration from our old system took 20 minutes. Everything came across. Two months later I genuinely can't understand why we stayed on it for as long as we did."</div>
         <div class="t-author"><div class="t-av">K</div><div><div class="t-name">Dealer from Broadmeadows, VIC</div><div class="t-biz">Done For You Plan</div></div></div>
       </div>
 
@@ -1360,334 +1527,225 @@ h1{
 
 <!-- FEATURES BENTO -->
 <section class="feat-section" id="features">
-  <div class="rev" style="text-align:center;max-width:700px;margin:0 auto 60px">
-    <div class="section-ey">The platform</div>
-    <h2>Not just software.<br><em>An unfair advantage.</em></h2>
-    <p class="ssub" style="margin:0 auto">Every feature is built around one question — does this help the dealer sell more cars with less effort? If not, it's not in here.</p>
+
+  <!-- Section header -->
+  <div class="rev" style="text-align:center;max-width:680px;margin:0 auto 72px">
+    <div class="section-ey">The Platform</div>
+    <h2 style="margin-bottom:14px">Built for 2026.<br><em>Not retrofitted.</em></h2>
+    <p class="ssub" style="margin:0 auto;max-width:520px">Every feature is purpose-built for Australian dealers. Real AI. Real compliance. Real results — not a list of checkboxes ported from a 2008 system.</p>
   </div>
 
-  <!-- ROW 1: AI Strategy + Stock -->
-  <div class="feat-row rev2">
+  <!-- FEATURE GRID: 2026 premium layout -->
+  <div class="feat2026-grid rev2">
 
-    <!-- BIG: AI Strategy Engine -->
-    <div class="feat-big">
-      <div class="feat-big-inner">
-        <div class="feat-dark-card">
-          <div class="feat-card-header">
-            <span class="feat-badge-ai">🧠 AI Strategy Engine</span>
-            <span class="feat-badge-live">● Live</span>
+    <!-- CARD 1: AI Strategy Engine — HERO DARK CARD -->
+    <div class="f26-hero">
+      <div class="f26-hero-inner">
+        <!-- Dark terminal side -->
+        <div class="f26-terminal">
+          <div class="f26-terminal-bar">
+            <div style="display:flex;gap:5px"><div style="width:8px;height:8px;border-radius:50%;background:#ff5f56"></div><div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e"></div><div style="width:8px;height:8px;border-radius:50%;background:#27c93f"></div></div>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.2)">lmctpro.com.au / ai-strategy</span>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:5px"><div style="width:5px;height:5px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite"></div><span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(31,217,122,.7)">Running</span></div>
           </div>
-          <div class="feat-insight-row feat-insight-stop">
-            <div class="feat-insight-pill stop">🛑 Stop Buying</div>
-            <div class="feat-insight-text">Large SUVs sitting <strong>52 days</strong> avg — 3 in stock, <span style="color:#ff6b6b">$94k tied up</span></div>
-          </div>
-          <div class="feat-insight-row feat-insight-buy">
-            <div class="feat-insight-pill buy">✅ Buy More</div>
-            <div class="feat-insight-text">Toyota Camry — sells in <strong style="color:#4ade80">19 days</strong> avg. Zero in stock.</div>
-          </div>
-          <div class="feat-insight-row feat-insight-price">
-            <div class="feat-insight-pill price">💰 Reprice</div>
-            <div class="feat-insight-text">Ford Ranger 73 days. Drop to <strong style="color:#f5a623">$29,990</strong> to move it.</div>
-          </div>
-          <div class="feat-insight-row feat-insight-buy">
-            <div class="feat-insight-pill buy">📈 Sweet Spot</div>
-            <div class="feat-insight-text">$18k–$23k sedans — best margin <strong style="color:#4ade80">+ fastest turn</strong> for you</div>
-          </div>
-          <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:6px">
-            <div style="width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>
-            <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.25)">Updated from your last 90 days · runs every morning</span>
+          <div class="f26-terminal-body">
+            <div class="f26-insight f26-stop">
+              <div class="f26-pill f26-pill-red">🛑 STOP BUYING</div>
+              <div class="f26-insight-text">Large SUVs · <strong>52 days avg</strong> · 3 in stock · <span style="color:#ff6b6b;font-weight:700">$94k tied up</span></div>
+            </div>
+            <div class="f26-insight f26-buy">
+              <div class="f26-pill f26-pill-green">✅ BUY NOW</div>
+              <div class="f26-insight-text">Camry sedans · sells in <strong style="color:#4ade80">19 days</strong> for you · 0 in stock</div>
+            </div>
+            <div class="f26-insight f26-price">
+              <div class="f26-pill f26-pill-amber">💰 REPRICE</div>
+              <div class="f26-insight-text">Ranger · 73 days · drop to <strong style="color:#f5a623">$29,990</strong></div>
+            </div>
+            <div class="f26-insight f26-buy">
+              <div class="f26-pill f26-pill-blue">📈 SWEET SPOT</div>
+              <div class="f26-insight-text">$18k–$23k sedans · best margin + fastest turn</div>
+            </div>
+            <div class="f26-terminal-footer">
+              <div style="width:5px;height:5px;border-radius:50%;background:#1fd97a;flex-shrink:0"></div>
+              <span>Updated from your last 90 days of sales · runs every morning at 6am</span>
+            </div>
           </div>
         </div>
-        <div class="feat-big-body">
-          <div class="b-tag">AI ONLY — NO COMPETITOR HAS THIS</div>
-          <div class="b-title" style="font-size:24px">Inventory Strategy Engine</div>
-          <div class="b-desc" style="font-size:14px;line-height:1.75">Every morning, the AI reads your complete sales history and tells you exactly what to buy, what to stop buying, and which vehicles need a price drop — based on your data, not guesses.</div>
-          <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-            <div class="feat-check">What body types are selling fastest for you</div>
-            <div class="feat-check">Which makes deliver your highest margins</div>
-            <div class="feat-check">Specific price recommendations for aged stock</div>
-            <div class="feat-check">Monthly targets based on your turn rate</div>
+        <!-- Content side -->
+        <div class="f26-hero-body">
+          <div class="f26-tag f26-tag-ai">⚡ AI-Powered Intelligence</div>
+          <h3 class="f26-title">Inventory Strategy Engine</h3>
+          <p class="f26-desc">Every morning, the AI reads your complete sales history and tells you exactly what to buy, what to stop buying, and which vehicles need a price drop — from your data, not generic market guesses.</p>
+          <div class="f26-checks">
+            <div class="f26-check">Body types selling fastest for <em>your</em> dealership</div>
+            <div class="f26-check">Makes delivering your highest margins</div>
+            <div class="f26-check">Specific reprice recommendations for aged stock</div>
+            <div class="f26-check">Monthly buy targets based on your turn rate</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SMALL STACK -->
-    <div class="feat-small-stack">
-
-      <!-- AI Listing Generator -->
-      <div class="bc feat-small">
-        <div class="feat-small-vis navy">
-          <div style="display:flex;flex-direction:column;gap:5px;width:100%;padding:0 8px">
-            <div style="background:rgba(232,152,30,.15);border:1px solid rgba(232,152,30,.25);border-radius:5px;padding:5px 8px">
-              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(232,152,30,.6);margin-bottom:3px">CARSALES HEADLINE</div>
-              <div style="font-size:10px;color:rgba(255,255,255,.7);line-height:1.4">Immaculate 2020 Mazda CX-5 AWD — One Owner, Full History</div>
+    <!-- CARD 2: Smart Listing Builder -->
+    <div class="f26-card f26-card-dark">
+      <div class="f26-card-visual">
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%">
+          <div style="background:rgba(232,152,30,.12);border:1px solid rgba(232,152,30,.2);border-radius:8px;padding:8px 10px">
+            <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(232,152,30,.6);margin-bottom:4px;letter-spacing:1px">CARSALES HEADLINE · AI WRITTEN</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.8);line-height:1.5;font-weight:500">Immaculate 2021 RAV4 GXL Hybrid — One Owner, Pan Roof, Full History</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <div style="background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.18);border-radius:6px;padding:6px 8px">
+              <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(124,111,255,.6);margin-bottom:2px">FACEBOOK</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.6);line-height:1.4">🚙 RAV4 GXL — $33,490. One owner...</div>
             </div>
-            <div style="background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.2);border-radius:5px;padding:5px 8px">
-              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(124,111,255,.6);margin-bottom:3px">FACEBOOK POST</div>
-              <div style="font-size:10px;color:rgba(255,255,255,.6);line-height:1.4">🚙 2020 CX-5 AWD — $28,990. One owner, full service history...</div>
-            </div>
-            <div style="background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 8px">
-              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(31,217,122,.5)">GUMTREE + SMS READY ✓</div>
+            <div style="background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.14);border-radius:6px;padding:6px 8px">
+              <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(31,217,122,.5);margin-bottom:2px">GUMTREE</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);line-height:1.4">SUV · Hybrid · 41,000km...</div>
             </div>
           </div>
-        </div>
-        <div class="b-body">
-          <div class="b-tag">AI COPYWRITER</div>
-          <div class="b-title">AI Listing Generator</div>
-          <div class="b-desc">One click — AI writes your CarSales, Facebook, Gumtree listing and SMS follow-up template. Better copy means more enquiries.</div>
-        </div>
-      </div>
-
-      <!-- Compliance Forms -->
-      <div class="bc feat-small">
-        <div class="feat-small-vis cream">
-          <div style="background:white;border:1px solid rgba(13,31,60,.12);border-radius:8px;padding:10px 12px;width:85%;box-shadow:0 4px 16px rgba(13,31,60,.08)">
-            <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">Transfer Form</div>
-            <div style="display:flex;flex-direction:column;gap:4px">
-              <div style="display:flex;justify-content:space-between;font-size:9px">
-                <span style="color:var(--t3)">Seller</span><span style="color:var(--navy);font-weight:600">MDMR Motors</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;font-size:9px">
-                <span style="color:var(--t3)">Vehicle</span><span style="color:var(--navy);font-weight:600">2020 Mazda CX-5</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;font-size:9px">
-                <span style="color:var(--t3)">Sale Price</span><span style="color:var(--amber);font-weight:700">$28,990</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;font-size:9px">
-                <span style="color:var(--t3)">Stamp Duty</span><span style="color:var(--navy);font-weight:600">$1,449.50</span>
-              </div>
-            </div>
-            <div style="margin-top:8px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:4px;padding:4px 8px;font-size:8px;color:#16a34a;text-align:center">✓ Auto-filled · Ready to print</div>
-          </div>
-        </div>
-        <div class="b-body">
-          <div class="b-tag">COMPLIANCE</div>
-          <div class="b-title">Compliance Forms — Auto-filled</div>
-          <div class="b-desc">Transfer form, sales contract and GST invoice — all pre-populated the moment you record a sale. Print in 60 seconds.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ROW 2: Four equal cards -->
-  <div class="feat-grid4 rev2">
-
-    <!-- Market Intelligence -->
-    <div class="bc">
-      <div class="feat-mini-vis navy">
-        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3)">BODY TYPE PERFORMANCE</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Sedan</span>
-            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:82%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:3px"></div></div>
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#4ade80;width:28px;text-align:right">18d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Hatch</span>
-            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:70%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:3px"></div></div>
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#4ade80;width:28px;text-align:right">23d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">SUV</span>
-            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:38%;height:100%;background:linear-gradient(90deg,#ff4d4d,#ff6b6b);border-radius:3px"></div></div>
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#ff6b6b;width:28px;text-align:right">52d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Ute</span>
-            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f5a623,#fbbf24);border-radius:3px"></div></div>
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#f5a623;width:28px;text-align:right">38d</span>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:5px 8px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.25)">Rego entered 2m ago</span>
+            <span style="font-size:8px;color:#4ade80;font-weight:600">✓ All 3 platforms ready</span>
           </div>
         </div>
       </div>
-      <div class="b-body">
-        <div class="b-tag">INTELLIGENCE</div>
-        <div class="b-title">Market Intelligence</div>
-        <div class="b-desc">See exactly which body types, makes and price bands move fastest for your specific dealership — not the market average.</div>
+      <div class="f26-card-body">
+        <div class="f26-tag f26-tag-ai">✍️ AI Copywriter</div>
+        <h3 class="f26-title-sm">Smart Listing Builder</h3>
+        <p class="f26-desc-sm">Enter a plate. Upload photos. Walk away with a professional listing ready for CarSales, Facebook and Gumtree — written by AI, reviewed by you.</p>
       </div>
     </div>
 
-    <!-- Today's Tasks -->
-    <div class="bc">
-      <div class="feat-mini-vis cream">
-        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
-          <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--t3);margin-bottom:3px">TODAY'S TASKS · 3/5 DONE</div>
-          <div style="height:3px;background:var(--cream3);border-radius:2px;overflow:hidden;margin-bottom:6px"><div style="width:60%;height:100%;background:var(--amber)"></div></div>
-          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--t3);text-decoration:line-through;opacity:.5">
-            <div style="width:13px;height:13px;border-radius:4px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;flex-shrink:0">✓</div>Follow up Michael re Camry
-          </div>
-          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)">
-            <div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Reprice Ford Ranger — 73 days
-          </div>
-          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)">
-            <div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Upload 2 new cars · assign to Sam
-          </div>
-          <div style="margin-top:4px;font-size:9px;color:var(--amber);font-family:'DM Mono',monospace">← AI suggested · based on your stock</div>
-        </div>
-      </div>
-      <div class="b-body">
-        <div class="b-tag">TEAM</div>
-        <div class="b-title">Team Task Board</div>
-        <div class="b-desc">AI generates daily tasks from your live data. Assign to staff, track completion, add notes. Manager sees who did what and when.</div>
-      </div>
-    </div>
-
-    <!-- EasyCars Migration -->
-    <div class="bc">
-      <div class="feat-mini-vis navy">
-        <div style="width:90%;display:flex;flex-direction:column;gap:6px">
-          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3);margin-bottom:2px">EASYCARS MIGRATION</div>
-          <div style="background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.2);border-radius:6px;padding:8px 10px">
-            <div style="font-size:10px;color:#4ade80;font-weight:600;margin-bottom:3px">✅ Import complete</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.4);line-height:1.5">47 vehicles imported<br>312 sale records<br>89 customer profiles</div>
-          </div>
-          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:6px 8px;font-family:"DM Mono",monospace;font-size:8px;color:rgba(255,255,255,.3)">Upload CSV → Preview → Confirm</div>
-        </div>
-      </div>
-      <div class="b-body">
-        <div class="b-tag">MIGRATION</div>
-        <div class="b-title">Switch from EasyCars in 5 Minutes</div>
-        <div class="b-desc">Upload your EasyCars CSV export. We auto-map every column — stock, sales, customers — and import everything. Nothing is lost.</div>
-      </div>
-    </div>
-
-    <!-- Rego Lookup -->
-    <div class="bc">
-      <div class="feat-mini-vis cream">
-        <div style="width:90%;display:flex;flex-direction:column;gap:6px;align-items:center">
-          <div style="background:#002a6e;border-radius:8px;padding:8px 14px 6px;display:flex;flex-direction:column;align-items:center;width:100%">
-            <div style="display:flex;align-items:center;gap:6px">
-              <div style="width:6px;height:6px;background:#FFCD00;border-radius:50%"></div>
-              <span style="color:#FFCD00;font-size:14px;font-weight:900;font-family:monospace;letter-spacing:4px">ABC 123</span>
+    <!-- CARD 3: AI Photo Scanner -->
+    <div class="f26-card f26-card-dark">
+      <div class="f26-card-visual">
+        <div style="display:flex;gap:8px;width:100%">
+          <div style="width:70px;height:65px;background:rgba(124,111,255,.08);border:1px solid rgba(124,111,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">📸</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+            <div style="background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.18);border-radius:7px;padding:7px 9px">
+              <div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(124,111,255,.6);margin-bottom:3px">AI IDENTIFIED</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:600">2021 Toyota RAV4 GXL</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:1px">Hybrid · AWD · Glacier White</div>
             </div>
+            <div style="display:flex;gap:4px">
+              <div style="flex:1;background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.14);border-radius:5px;padding:4px 7px;font-family:'DM Mono',monospace;font-size:8px;color:#4ade80">Score: 91 ▲</div>
+              <div style="flex:1;background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.14);border-radius:5px;padding:4px 7px;font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">~$42,990</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="f26-card-body">
+        <div class="f26-tag f26-tag-ai">👁 AI Vision</div>
+        <h3 class="f26-title-sm">AI Photo Scanner</h3>
+        <p class="f26-desc-sm">Photo a car at auction. AI identifies make, model, variant and colour — then pulls comparable listings and live pricing instantly.</p>
+      </div>
+    </div>
+
+    <!-- CARD 4: Compliance Forms — LIGHT -->
+    <div class="f26-card f26-card-light">
+      <div class="f26-card-visual-light">
+        <div style="background:white;border:1px solid rgba(13,31,60,.1);border-radius:10px;padding:12px 14px;width:100%;box-shadow:0 6px 24px rgba(13,31,60,.08)">
+          <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);letter-spacing:1.5px;margin-bottom:8px;text-transform:uppercase">Transfer Form · Auto-Filled</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding-bottom:5px;border-bottom:1px solid rgba(13,31,60,.06)"><span style="color:var(--t2)">Seller</span><span style="color:var(--navy);font-weight:700">MDMR Motors</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding-bottom:5px;border-bottom:1px solid rgba(13,31,60,.06)"><span style="color:var(--t2)">Vehicle</span><span style="color:var(--navy);font-weight:700">2021 Toyota RAV4</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding-bottom:5px;border-bottom:1px solid rgba(13,31,60,.06)"><span style="color:var(--t2)">Sale Price</span><span style="color:var(--amber);font-weight:700">$33,490</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--t2)">Stamp Duty</span><span style="color:var(--navy);font-weight:700">$1,841.95</span></div>
+          </div>
+          <div style="margin-top:9px;background:rgba(22,163,74,.07);border:1px solid rgba(22,163,74,.18);border-radius:6px;padding:5px 9px;font-size:8px;color:#16a34a;text-align:center;font-weight:600">✓ Auto-filled · Ready to print · 60 seconds</div>
+        </div>
+      </div>
+      <div class="f26-card-body-light">
+        <div class="f26-tag f26-tag-compliance">📋 Compliance</div>
+        <h3 class="f26-title-sm" style="color:var(--navy)">Compliance Forms</h3>
+        <p class="f26-desc-sm" style="color:var(--t2)">Transfer form, sales contract and GST invoice — pre-populated the moment you record a sale. Print and sign in under a minute.</p>
+      </div>
+    </div>
+
+    <!-- CARD 5: Market Intelligence -->
+    <div class="f26-card f26-card-dark">
+      <div class="f26-card-visual">
+        <div style="width:100%;display:flex;flex-direction:column;gap:5px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-bottom:4px;letter-spacing:.5px">YOUR BODY TYPE PERFORMANCE</div>
+          {["SUV","Sedan","Ute","Hatch"].map((t,i)=> '')}
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:rgba(255,255,255,.4);width:42px;flex-shrink:0">SUV</span><div style="flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:linear-gradient(90deg,#4ade80,#1fd97a);border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-size:8px;color:#4ade80;width:22px">22d</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:rgba(255,255,255,.4);width:42px;flex-shrink:0">Sedan</span><div style="flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:90%;height:100%;background:linear-gradient(90deg,#7c6fff,#a89dff);border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-size:8px;color:#a89dff;width:22px">18d</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:rgba(255,255,255,.4);width:42px;flex-shrink:0">Ute</span><div style="flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f5a623,#fbbf24);border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-size:8px;color:#f5a623;width:22px">38d</span></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:rgba(255,255,255,.4);width:42px;flex-shrink:0">Hatch</span><div style="flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#ff6b6b,#ff4f4f);border-radius:3px"></div></div><span style="font-family:'DM Mono',monospace;font-size:8px;color:#ff6b6b;width:22px">45d</span></div>
+          <div style="margin-top:5px;padding-top:7px;border-top:1px solid rgba(255,255,255,.06);font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.2)">Based on your last 90 days · updated daily</div>
+        </div>
+      </div>
+      <div class="f26-card-body">
+        <div class="f26-tag f26-tag-intel">📊 Intelligence</div>
+        <h3 class="f26-title-sm">Market Intelligence</h3>
+        <p class="f26-desc-sm">See exactly which body types, makes and price bands move fastest for your dealership — not the national average. Your data. Your insights.</p>
+      </div>
+    </div>
+
+    <!-- CARD 6: Rego Lookup -->
+    <div class="f26-card f26-card-light">
+      <div class="f26-card-visual-light">
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;width:100%">
+          <div style="background:#002a6e;border-radius:9px;padding:9px 16px 7px;display:inline-flex;flex-direction:column;align-items:center;box-shadow:0 8px 24px rgba(0,30,140,.35)">
+            <div style="display:flex;align-items:center;gap:6px"><div style="width:6px;height:6px;background:#FFCD00;border-radius:50%"></div><span style="color:#FFCD00;font-size:15px;font-weight:900;font-family:monospace;letter-spacing:4px">ABC 123</span></div>
             <div style="font-size:6px;color:#FFCD00;font-weight:800;letter-spacing:3px;margin-top:2px;opacity:.6">VICTORIA</div>
           </div>
-          <div style="background:white;border:1px solid var(--b2);border-radius:6px;padding:7px 10px;width:100%;box-shadow:0 2px 8px rgba(13,31,60,.06)">
-            <div style="font-size:9px;color:var(--navy);font-weight:700;margin-bottom:3px">2020 Toyota Camry SL</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
-              <div style="font-size:8px;color:var(--t3)">Auto · Petrol · FWD</div>
-              <div style="font-size:8px;color:var(--amber);font-weight:600">Rego: Aug 2026</div>
-            </div>
+          <div style="background:white;border:1px solid rgba(13,31,60,.1);border-radius:8px;padding:8px 11px;width:100%;box-shadow:0 3px 12px rgba(13,31,60,.07)">
+            <div style="font-size:10px;color:var(--navy);font-weight:700;margin-bottom:4px">2021 Toyota RAV4 GXL Hybrid</div>
+            <div style="display:flex;gap:8px;font-size:8px;color:var(--t3)"><span>CVT</span><span>·</span><span>Petrol/Electric</span><span>·</span><span style="color:var(--amber);font-weight:600">Rego: Aug 2026</span></div>
           </div>
-          <div style="font-size:8px;color:var(--green);font-family:'DM Mono',monospace">↳ Added to stock in 1 click</div>
+          <div style="font-size:9px;color:var(--green);font-family:'DM Mono',monospace;font-weight:600">✓ Added to stock in 1 click</div>
         </div>
       </div>
-      <div class="b-body">
-        <div class="b-tag">LIVE DATA</div>
-        <div class="b-title">Rego Lookup — Auto-fill</div>
-        <div class="b-desc">Enter a plate — get make, model, year, transmission, fuel type and rego expiry instantly. Add to stock with one click. No manual entry.</div>
+      <div class="f26-card-body-light">
+        <div class="f26-tag f26-tag-live">⚡ Live Data</div>
+        <h3 class="f26-title-sm" style="color:var(--navy)">Rego Lookup</h3>
+        <p class="f26-desc-sm" style="color:var(--t2)">Enter a plate — get make, model, year, variant, transmission and rego expiry instantly. Add to stock in one click.</p>
+      </div>
+    </div>
+
+    <!-- CARD 7: Team Tasks -->
+    <div class="f26-card f26-card-light">
+      <div class="f26-card-visual-light">
+        <div style="width:100%;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--t3)">TODAY · 3 of 5 done</span>
+            <div style="width:60px;height:4px;background:var(--cream3);border-radius:2px;overflow:hidden"><div style="width:60%;height:100%;background:var(--amber);border-radius:2px"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--t3);text-decoration:line-through;opacity:.55"><div style="width:13px;height:13px;border-radius:4px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:7px;color:white;flex-shrink:0">✓</div>Follow up Michael re Camry</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)"><div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Reprice Ranger — 73 days in yard</div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)"><div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Upload 2 new vehicles · assign Sam</div>
+          <div style="margin-top:3px;font-size:8px;color:var(--amber);font-family:'DM Mono',monospace">← AI generated from your live stock</div>
+        </div>
+      </div>
+      <div class="f26-card-body-light">
+        <div class="f26-tag f26-tag-team">👥 Team</div>
+        <h3 class="f26-title-sm" style="color:var(--navy)">Team Task Board</h3>
+        <p class="f26-desc-sm" style="color:var(--t2)">AI generates daily tasks from your live data. Assign to staff, track completion, manager sees everything in real time.</p>
+      </div>
+    </div>
+
+    <!-- CARD 8: CRM -->
+    <div class="f26-card f26-card-dark">
+      <div class="f26-card-visual">
+        <div style="width:100%;display:flex;flex-direction:column;gap:5px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.25);margin-bottom:3px">CUSTOMER PIPELINE</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 9px;background:rgba(255,79,79,.07);border:1px solid rgba(255,79,79,.14);border-radius:7px"><div style="width:6px;height:6px;border-radius:50%;background:#ff4f4f;flex-shrink:0"></div><span style="font-size:10px;color:rgba(255,255,255,.75);flex:1">Priya S. — 7-seater SUV, $35k</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:#ff6b6b">HOT</span></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 9px;background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.14);border-radius:7px"><div style="width:6px;height:6px;border-radius:50%;background:#f5a623;flex-shrink:0"></div><span style="font-size:10px;color:rgba(255,255,255,.65);flex:1">Tom M. — Diesel ute, flexible</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">WARM</span></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:6px 9px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px"><div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0"></div><span style="font-size:10px;color:rgba(255,255,255,.4);flex:1">David K. — First time buyer</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.25)">NEW</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="f26-card-body">
+        <div class="f26-tag f26-tag-crm">👤 CRM</div>
+        <h3 class="f26-title-sm">Customer Intelligence</h3>
+        <p class="f26-desc-sm">Hot leads, buyer history, follow-up reminders. Every customer interaction in one place — so no deal ever falls through a gap.</p>
       </div>
     </div>
 
   </div>
-
-  <!-- ROW 3: Wide compliance + CRM -->
-  <div class="feat-row rev2" style="margin-top:12px">
-
-    <!-- Photo AI Scanner -->
-    <div class="bc" style="flex:1">
-      <div class="feat-wide-vis navy">
-        <div style="display:flex;gap:8px;align-items:center">
-          <div style="width:80px;height:70px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">📸</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:5px">
-            <div style="background:rgba(124,111,255,.12);border:1px solid rgba(124,111,255,.2);border-radius:6px;padding:6px 10px">
-              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(124,111,255,.7);margin-bottom:2px">AI DETECTED</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">2021 Toyota RAV4 GXL</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.4)">Hybrid · AWD · Glacier White</div>
-            </div>
-            <div style="display:flex;gap:5px">
-              <div style="flex:1;background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:8px;color:#4ade80">AI Score: 91</div>
-              <div style="flex:1;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.15);border-radius:5px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">Est. $42,990</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="b-body">
-        <div class="b-tag">AI VISION</div>
-        <div class="b-title">AI Photo Scanner</div>
-        <div class="b-desc">Photo a car at auction or on the lot. AI identifies the exact make, model, variant and colour — then searches CarSales for comparable listings and pricing.</div>
-      </div>
-    </div>
-
-    <!-- CRM -->
-    <div class="bc" style="flex:1">
-      <div class="feat-wide-vis cream">
-        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px">
-            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
-              <div style="font-size:16px;font-weight:800;color:var(--navy);font-family:'Fraunces',serif">89</div>
-              <div style="font-size:7px;color:var(--t3);margin-top:2px">Customers</div>
-            </div>
-            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
-              <div style="font-size:16px;font-weight:800;color:var(--green);font-family:'Fraunces',serif">31</div>
-              <div style="font-size:7px;color:var(--t3);margin-top:2px">Buyers</div>
-            </div>
-            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
-              <div style="font-size:16px;font-weight:800;color:var(--amber);font-family:'Fraunces',serif">12</div>
-              <div style="font-size:7px;color:var(--t3);margin-top:2px">Hot Leads</div>
-            </div>
-            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
-              <div style="font-size:16px;font-weight:800;color:var(--navy);font-family:'Fraunces',serif">46</div>
-              <div style="font-size:7px;color:var(--t3);margin-top:2px">Enquiries</div>
-            </div>
-          </div>
-          <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(13,31,60,.04)">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:11px;flex-shrink:0">MJ</div>
-            <div style="flex:1">
-              <div style="font-size:10px;font-weight:600;color:var(--navy)">Michael Johnson</div>
-              <div style="font-size:8.5px;color:var(--t3)">Bought 2 cars · Last: 2020 Camry · 0412 345 678</div>
-            </div>
-            <div style="font-size:9px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);color:var(--green);border-radius:10px;padding:2px 8px">Buyer</div>
-          </div>
-        </div>
-      </div>
-      <div class="b-body">
-        <div class="b-tag">CRM</div>
-        <div class="b-title">Full Customer Database</div>
-        <div class="b-desc">Every buyer, lead and enquiry tracked automatically. Purchase history, licence records, contact details — all in one place, every sale.</div>
-      </div>
-    </div>
-
-    <!-- Xero/MYOB -->
-    <div class="bc" style="flex:1">
-      <div class="feat-wide-vis navy">
-        <div style="display:flex;flex-direction:column;gap:6px;width:90%">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3)">GST INVOICE AUTO-GENERATED</span>
-          </div>
-          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:9px 11px">
-            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.06)">
-              <span style="color:rgba(255,255,255,.4)">Vehicle sale</span><span style="color:rgba(255,255,255,.7)">$28,990.00</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px">
-              <span style="color:rgba(255,255,255,.4)">GST collected</span><span style="color:#f5a623">$2,635.45</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px">
-              <span style="color:rgba(255,255,255,.4)">Stamp duty</span><span style="color:rgba(255,255,255,.7)">$1,449.50</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;padding-top:5px;border-top:1px solid rgba(255,255,255,.06)">
-              <span style="color:rgba(255,255,255,.6)">Total payable</span><span style="color:#4ade80">$30,439.50</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:5px">
-            <div style="flex:1;background:rgba(31,217,122,.06);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#4ade80">→ Xero</div>
-            <div style="flex:1;background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">→ MYOB</div>
-            <div style="flex:1;background:rgba(61,158,255,.06);border:1px solid rgba(61,158,255,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#3d9eff">→ Print</div>
-          </div>
-        </div>
-      </div>
-      <div class="b-body">
-        <div class="b-tag">ACCOUNTING</div>
-        <div class="b-title">Xero & MYOB Sync</div>
-        <div class="b-desc">Every sale auto-generates a GST invoice with stamp duty calculated correctly per the Duties Act 2000. Syncs to Xero or MYOB instantly.</div>
-      </div>
-    </div>
-
-  </div>
-
 </section>
 
 <!-- SPECIALIST -->
