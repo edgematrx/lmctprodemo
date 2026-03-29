@@ -471,6 +471,37 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
   .advisor-section{padding:60px 24px}
   .advisor-right{order:-1}
 }
+
+/* ── HERO MOCKUP UPGRADE ── */
+.dc-status{display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(74,222,128,.8);margin-left:auto}
+.dc-status-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:aiPulse 2s infinite}
+@keyframes aiPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(74,222,128,0)}}
+.dc-tabs{display:flex;gap:2px;background:rgba(255,255,255,.04);border-radius:6px;padding:3px;margin:10px 0 8px}
+.dc-tab{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);padding:5px 4px;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
+.dc-tab.active{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);font-weight:500}
+.dc-panel{transition:opacity .3s}
+.dc-panel.hidden{display:none}
+.dc-lbl-inline{font-family:'DM Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px}
+/* AI Insights */
+.ai-insight{display:flex;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden;margin-bottom:6px}
+.ai-insight.urgent{border-color:rgba(255,77,77,.2);background:rgba(255,77,77,.04)}
+.ai-insight.buy{border-color:rgba(74,222,128,.2);background:rgba(74,222,128,.04)}
+.ai-insight.price{border-color:rgba(232,152,30,.2);background:rgba(232,152,30,.04)}
+.ai-insight-bar{width:3px;background:rgba(255,77,77,.6);flex-shrink:0}
+.buy-bar{background:rgba(74,222,128,.6)}
+.price-bar{background:rgba(232,152,30,.6)}
+.ai-insight-body{padding:8px 10px;flex:1}
+.ai-tag{font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,77,77,.8);letter-spacing:.5px;margin-bottom:3px;text-transform:uppercase}
+.buy-tag{color:rgba(74,222,128,.8)}
+.price-tag{color:rgba(232,152,30,.8)}
+.ai-text{font-size:11px;color:rgba(255,255,255,.7);line-height:1.5}
+.ai-footer{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.2);margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.05)}
+.ai-footer-dot{width:4px;height:4px;border-radius:50%;background:#4ade80;flex-shrink:0}
+/* Stock footer */
+.dc-stock-footer{display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06);font-family:'DM Mono',monospace;font-size:8.5px}
+/* Tasks bar */
+.dc-tasks-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:10px;overflow:hidden}
+.dc-tasks-fill{width:80%;height:100%;background:linear-gradient(90deg,#4ade80,#e8981e);border-radius:2px}
 </style>
 </head>
 <body>
@@ -508,37 +539,102 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
   </div>
   <div class="hero-right">
     <div class="dash-card">
+      <!-- Browser bar -->
       <div class="dc-bar">
         <div class="dc-dot" style="background:#ff5f56"></div>
         <div class="dc-dot" style="background:#ffbd2e"></div>
         <div class="dc-dot" style="background:#27c93f"></div>
         <div class="dc-url">lmctpro.com.au / dashboard</div>
+        <div class="dc-status"><span class="dc-status-dot"></span>AI Active</div>
       </div>
       <div class="dc-body">
-        <div class="live-banner">
-          <div class="live-dot"></div>
-          <div class="live-text">SPECIALIST ACTIVE</div>
-          <div class="live-timer" id="liveTimer">00:42:17</div>
-        </div>
+
+        <!-- Stats row - always visible -->
         <div class="dc-stats">
-          <div class="dc-stat"><div class="dc-stat-l">In stock</div><div class="dc-stat-v a">14</div></div>
+          <div class="dc-stat"><div class="dc-stat-l">In Stock</div><div class="dc-stat-v" style="color:#e8981e">14</div></div>
           <div class="dc-stat"><div class="dc-stat-l">Sold MTD</div><div class="dc-stat-v">7</div></div>
-          <div class="dc-stat"><div class="dc-stat-l">Profit</div><div class="dc-stat-v a">$38k</div></div>
+          <div class="dc-stat"><div class="dc-stat-l">Gross Profit</div><div class="dc-stat-v" style="color:#4ade80">$38k</div></div>
         </div>
-        <div class="dc-lbl">Live stock — AI scored</div>
-        <div class="dc-cars">
-          <div class="dc-car"><div class="dc-car-ico">🚙</div><div class="dc-car-info"><div class="dc-car-n">2020 Mazda CX-5 AWD</div><div class="dc-car-m">ABC456 · 45,000km</div></div><div><div class="dc-car-p">$28,990</div><span class="dc-score sc-hi">AI 94</span></div></div>
-          <div class="dc-car"><div class="dc-car-ico">🚗</div><div class="dc-car-info"><div class="dc-car-n">2021 Honda CR-V Turbo</div><div class="dc-car-m">DEF321 · 31,000km</div></div><div><div class="dc-car-p">$31,990</div><span class="dc-score sc-hi">AI 91</span></div></div>
-          <div class="dc-car"><div class="dc-car-ico">🛻</div><div class="dc-car-info"><div class="dc-car-n">2018 Ford Ranger XLT</div><div class="dc-car-m">LMN789 · 89,000km</div></div><div><div class="dc-car-p">$34,990</div><span class="dc-score sc-md">AI 72</span></div></div>
+
+        <!-- Tab switcher -->
+        <div class="dc-tabs">
+          <div class="dc-tab active" id="tab-ai">🧠 AI Strategy</div>
+          <div class="dc-tab" id="tab-stock">🚗 Live Stock</div>
+          <div class="dc-tab" id="tab-activity">⚡ Today</div>
         </div>
-        <div class="dc-lbl">Today — handled by your specialist</div>
-        <div class="dc-act">
-          <div class="dc-act-r"><span class="dc-act-l">CarSales listings live</span><span class="dc-act-v">3 ✓ &lt;45min</span></div>
-          <div class="dc-act-r"><span class="dc-act-l">Facebook + Gumtree</span><span class="dc-act-v">5 ✓ &lt;60min</span></div>
-          <div class="dc-act-r"><span class="dc-act-l">Enquiries responded</span><span class="dc-act-v">8 replied ✓</span></div>
-          <div class="dc-act-r"><span class="dc-act-l">VicRoads VP151 form</span><span class="dc-act-v">1 ready ✓</span></div>
+
+        <!-- TAB 1: AI Strategy -->
+        <div class="dc-panel" id="panel-ai">
+          <div class="ai-insight urgent">
+            <div class="ai-insight-bar"></div>
+            <div class="ai-insight-body">
+              <div class="ai-tag">🛑 Stop Buying</div>
+              <div class="ai-text">Large SUVs sitting <strong>52 days avg</strong> — you have 3 in stock tying up <strong style="color:#ff6b6b">$94,000</strong></div>
+            </div>
+          </div>
+          <div class="ai-insight buy">
+            <div class="ai-insight-bar buy-bar"></div>
+            <div class="ai-insight-body">
+              <div class="ai-tag buy-tag">✅ Buy More</div>
+              <div class="ai-text">Toyotas sell in <strong style="color:#4ade80">19 days</strong> avg for you — <strong>0 in stock</strong> right now</div>
+            </div>
+          </div>
+          <div class="ai-insight price">
+            <div class="ai-insight-bar price-bar"></div>
+            <div class="ai-insight-body">
+              <div class="ai-tag price-tag">💰 Price Drop</div>
+              <div class="ai-text">Ford Ranger — 73 days. Drop to <strong style="color:#e8981e">$29,990</strong> to move it this week</div>
+            </div>
+          </div>
+          <div class="ai-footer">
+            <span class="ai-footer-dot"></span>Strategy updated from your last 90 days of sales data
+          </div>
         </div>
-        <div class="dc-ticker"><span class="dc-ticker-inner">✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ Google Business updated &nbsp;·&nbsp; ✓ VP151 form ready in 60sec &nbsp;·&nbsp; ✓ 3 Facebook posts live &nbsp;·&nbsp; ✓ Photos processed &nbsp;·&nbsp; ✓ Gumtree refreshed &nbsp;·&nbsp; ✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ Google Business updated &nbsp;·&nbsp; ✓ VP151 form ready in 60sec &nbsp;·&nbsp; ✓ 3 Facebook posts live &nbsp;·&nbsp; ✓ Photos processed &nbsp;·&nbsp; ✓ Gumtree refreshed &nbsp;·&nbsp;</span></div>
+
+        <!-- TAB 2: Live Stock -->
+        <div class="dc-panel hidden" id="panel-stock">
+          <div class="dc-lbl-inline">Live stock — AI scored</div>
+          <div class="dc-cars">
+            <div class="dc-car">
+              <div class="dc-car-ico">🚙</div>
+              <div class="dc-car-info"><div class="dc-car-n">2020 Mazda CX-5 AWD</div><div class="dc-car-m">ABC456 · 45,000km · 12 days</div></div>
+              <div style="text-align:right"><div class="dc-car-p">$28,990</div><span class="dc-score sc-hi">AI 94</span></div>
+            </div>
+            <div class="dc-car">
+              <div class="dc-car-ico">🚗</div>
+              <div class="dc-car-info"><div class="dc-car-n">2021 Honda CR-V Turbo</div><div class="dc-car-m">DEF321 · 31,000km · 8 days</div></div>
+              <div style="text-align:right"><div class="dc-car-p">$31,990</div><span class="dc-score sc-hi">AI 91</span></div>
+            </div>
+            <div class="dc-car" style="border:1px solid rgba(255,77,77,.2);border-radius:6px;padding:4px 6px;background:rgba(255,77,77,.04)">
+              <div class="dc-car-ico">🛻</div>
+              <div class="dc-car-info"><div class="dc-car-n">2018 Ford Ranger XLT</div><div class="dc-car-m" style="color:#ff6b6b">LMN789 · 89,000km · ⚠️ 73 days</div></div>
+              <div style="text-align:right"><div class="dc-car-p">$34,990</div><span class="dc-score" style="background:rgba(255,77,77,.15);color:#ff6b6b">AI 52</span></div>
+            </div>
+          </div>
+          <div class="dc-stock-footer">
+            <span style="color:#4ade80">● 11 available</span>
+            <span style="color:#e8981e">● 2 reserved</span>
+            <span style="color:#ff6b6b">● 1 urgent reprice</span>
+          </div>
+        </div>
+
+        <!-- TAB 3: Today's Activity -->
+        <div class="dc-panel hidden" id="panel-activity">
+          <div class="dc-lbl-inline">Handled by your specialist today</div>
+          <div class="dc-act">
+            <div class="dc-act-r"><span class="dc-act-l">CarSales listings live</span><span class="dc-act-v" style="color:#4ade80">3 ✓ &lt;45min</span></div>
+            <div class="dc-act-r"><span class="dc-act-l">Facebook + Gumtree</span><span class="dc-act-v" style="color:#4ade80">5 ✓ &lt;60min</span></div>
+            <div class="dc-act-r"><span class="dc-act-l">Enquiries responded</span><span class="dc-act-v" style="color:#4ade80">8 replied ✓</span></div>
+            <div class="dc-act-r"><span class="dc-act-l">VicRoads form</span><span class="dc-act-v" style="color:#4ade80">1 ready ✓</span></div>
+            <div class="dc-act-r"><span class="dc-act-l">Tasks completed</span><span class="dc-act-v" style="color:#e8981e">4/5 done</span></div>
+          </div>
+          <div class="dc-tasks-bar">
+            <div class="dc-tasks-fill"></div>
+          </div>
+        </div>
+
+        <!-- Ticker -->
+        <div class="dc-ticker"><span class="dc-ticker-inner">🧠 Stop buying SUVs — 52 day avg &nbsp;·&nbsp; ✅ Toyota sells in 19 days — 0 in stock &nbsp;·&nbsp; ⚡ Ranger 73 days — drop to $29,990 &nbsp;·&nbsp; 📈 Best margin: $18k–$24k sedans &nbsp;·&nbsp; ✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ 8 enquiries replied &nbsp;·&nbsp; 🧠 Stop buying SUVs — 52 day avg &nbsp;·&nbsp; ✅ Toyota sells in 19 days — 0 in stock &nbsp;·&nbsp; ⚡ Ranger 73 days — drop to $29,990 &nbsp;·&nbsp; 📈 Best margin: $18k–$24k sedans &nbsp;·&nbsp; ✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ 8 enquiries replied &nbsp;·&nbsp;</span></div>
       </div>
     </div>
   </div>
@@ -687,15 +783,14 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
 <script>
 (function(){
   var messages=[
-    {role:"user",text:"What should I stock before auction tomorrow?"},
-    {role:"ai",html:'Your fastest movers are <span class="highlight-stat">Toyota</span> and <span class="highlight-stat">Mazda</span> — avg <span class="highlight-stat">19 days</span> to sell. You have <span class="highlight-warn">0 Toyotas</span> in stock right now.'},
-    {role:"ai",html:'<strong style="color:rgba(255,255,255,.85)">Avoid:</strong> Large SUVs. You have <span class="highlight-warn">3 sitting 60+ days</span> — <span class="highlight-warn">$94k</span> tied up.'},
-    {role:"user",text:"Max buy on a 2020 Camry?"},
-    {role:"ai",html:'Your avg sell price is <span class="highlight-stat">$23,200</span>. At 15% margin, max buy is <span class="highlight-stat">$19,500</span> inc. recon. Pickles clearing at <span class="highlight-amber">$17,800–$19,200</span>. You have room.'},
-    {role:"user",text:"Anything urgent today?"},
-    {role:"ai",html:'<span class="highlight-warn">Ranger</span> — 73 days. Drop to <span class="highlight-amber">$29,990</span>.<br><span class="highlight-warn">Tucson</span> — 61 days. Drop to <span class="highlight-amber">$21,490</span>.<br><span class="highlight-warn">CX-5 rego</span> expires in 9 days.'},
+    {role:"user",text:"What's been our best selling body type this month?"},
+    {role:"ai",html:'Sedans are your strongest — <span class="highlight-stat">6 sold</span> this month, avg <span class="highlight-stat">18 days</span> to move. SUVs sold 2, avg <span class="highlight-warn">47 days</span>. Your money is in sedans right now.'},
+    {role:"user",text:"What should we be looking to buy next?"},
+    {role:"ai",html:'Based on your last 90 days — target <span class="highlight-stat">Toyota Camry</span> or <span class="highlight-stat">Mazda 3</span>, 2018–2021, under 80,000km. Your sweet spot is <span class="highlight-amber">$18k–$23k</span>. These are leaving your yard in under 3 weeks.'},
+    {role:"user",text:"Anything sitting too long I should know about?"},
+    {role:"ai",html:'<span class="highlight-warn">3 vehicles need attention:</span><br>Ranger — <span class="highlight-warn">73 days</span>, consider <span class="highlight-amber">$29,990</span><br>Tucson — <span class="highlight-warn">61 days</span>, consider <span class="highlight-amber">$21,490</span><br>Outlander — <span class="highlight-warn">55 days</span>, reprice or wholesale'},
   ];
-  var inputs=["What should I stock before auction tomorrow?","Max buy on a 2020 Camry?","Anything urgent today?"];
+  var inputs=["What's been our best selling body type this month?","What should we be looking to buy next?","Anything sitting too long I should know about?"];
   var mi=0,ii=0,ci=0,wt=null;
   var body=document.getElementById("chatBody");
   var inp=document.getElementById("chatInputText");
@@ -1393,6 +1488,32 @@ document.querySelectorAll('.faq-q').forEach(function(q){
     if(!isOpen) item.classList.add('open');
   });
 });
+
+// Hero mockup tab switcher + auto-rotate
+(function(){
+  var tabs=['ai','stock','activity'];
+  var cur=0;
+  function activate(name){
+    tabs.forEach(function(t){
+      var tab=document.getElementById('tab-'+t);
+      var panel=document.getElementById('panel-'+t);
+      if(!tab||!panel)return;
+      if(t===name){tab.classList.add('active');panel.classList.remove('hidden');}
+      else{tab.classList.remove('active');panel.classList.add('hidden');}
+    });
+    cur=tabs.indexOf(name);
+  }
+  tabs.forEach(function(t){
+    var tab=document.getElementById('tab-'+t);
+    if(tab)tab.addEventListener('click',function(){activate(t);});
+  });
+  // Auto-rotate every 3.5s
+  setInterval(function(){
+    cur=(cur+1)%tabs.length;
+    activate(tabs[cur]);
+  },3500);
+})();
+
 </script>
 </body>
 </html>
