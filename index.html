@@ -62,10 +62,26 @@ h1 em{font-style:italic;color:var(--amber);font-weight:600}
 .pill-green strong{color:var(--green)}
 
 /* HERO RIGHT */
-.hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:60px 60px 60px 40px;background:var(--navy);opacity:0;animation:fadeIn .9s ease forwards .4s}
-.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(232,152,30,.12) 0%,transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(232,152,30,.06) 0%,transparent 50%)}
-.hero-right::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px}
-.dash-card{position:relative;z-index:2;width:100%;max-width:440px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:var(--rl);overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 40px 80px rgba(0,0,0,.4)}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:40px 40px 40px 20px;background:var(--navy);opacity:0;animation:fadeIn .9s ease forwards .4s;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(124,111,255,.18) 0%,transparent 50%),radial-gradient(ellipse at 30% 80%,rgba(232,152,30,.10) 0%,transparent 50%),radial-gradient(ellipse at 90% 90%,rgba(31,217,122,.08) 0%,transparent 45%);pointer-events:none}
+.hero-right::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+/* 3D scene container */
+.scene-3d{position:relative;z-index:2;width:100%;max-width:480px;perspective:1200px;perspective-origin:50% 40%}
+/* Floating glow orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbFloat 6s ease-in-out infinite}
+.orb1{width:220px;height:220px;background:rgba(124,111,255,.25);top:-60px;right:-40px;animation-delay:0s}
+.orb2{width:160px;height:160px;background:rgba(232,152,30,.18);bottom:-40px;left:-20px;animation-delay:-2s}
+.orb3{width:120px;height:120px;background:rgba(31,217,122,.15);top:40%;right:10%;animation-delay:-4s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+/* Main card — 3D tilted */
+.dash-card{position:relative;width:100%;background:rgba(10,10,20,.85);border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 60px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.1);transform:rotateY(-8deg) rotateX(4deg) translateZ(0);transform-style:preserve-3d;transition:transform .6s ease;animation:cardFloat 5s ease-in-out infinite}
+.dash-card:hover{transform:rotateY(-4deg) rotateX(2deg) translateZ(20px)}
+@keyframes cardFloat{0%,100%{transform:rotateY(-8deg) rotateX(4deg) translateZ(0) translateY(0)}50%{transform:rotateY(-8deg) rotateX(4deg) translateZ(0) translateY(-8px)}}
+/* Floating mini cards */
+.mini-card{position:absolute;background:rgba(10,10,20,.9);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);z-index:3;animation:miniFloat 4s ease-in-out infinite}
+.mini-card1{top:-20px;right:-30px;animation-delay:-1s}
+.mini-card2{bottom:40px;left:-40px;animation-delay:-2.5s}
+@keyframes miniFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .dc-bar{background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.07);padding:11px 16px;display:flex;align-items:center;gap:7px}
 .dc-dot{width:9px;height:9px;border-radius:50%}
 .dc-url{margin-left:8px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.25);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:3px;padding:3px 10px}
@@ -502,6 +518,319 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
 /* Tasks bar */
 .dc-tasks-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:10px;overflow:hidden}
 .dc-tasks-fill{width:80%;height:100%;background:linear-gradient(90deg,#4ade80,#e8981e);border-radius:2px}
+
+/* ── FEATURES UPGRADE ── */
+.feat-section{background:var(--cream);border-top:1px solid var(--b);padding:100px 72px}
+.feat-row{display:flex;gap:12px;margin-bottom:12px}
+.feat-big{flex:1.4;background:white;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden}
+.feat-big-inner{display:grid;grid-template-columns:1fr 1fr;min-height:320px}
+.feat-big-body{padding:28px 28px 28px 0;display:flex;flex-direction:column;justify-content:center}
+.feat-small-stack{flex:1;display:flex;flex-direction:column;gap:12px}
+.feat-small{display:flex;flex-direction:column}
+.feat-small-vis{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.feat-mini-vis{height:140px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.feat-wide-vis{height:140px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.navy{background:var(--navy)}
+.navy::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(232,152,30,.1) 0%,transparent 65%)}
+.cream{background:var(--cream2)}
+.feat-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+/* Dark card inside big feature */
+.feat-dark-card{background:var(--navy);padding:14px;height:100%;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.feat-dark-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(124,111,255,.12) 0%,transparent 65%),radial-gradient(ellipse at 80% 20%,rgba(232,152,30,.06) 0%,transparent 50%)}
+.feat-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:relative;z-index:1}
+.feat-badge-ai{font-family:'DM Mono',monospace;font-size:9px;color:rgba(124,111,255,.8);background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.2);border-radius:4px;padding:3px 8px}
+.feat-badge-live{font-family:'DM Mono',monospace;font-size:9px;color:#4ade80;display:flex;align-items:center;gap:4px}
+.feat-insight-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;position:relative;z-index:1}
+.feat-insight-pill{font-family:'DM Mono',monospace;font-size:8px;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.feat-insight-stop .feat-insight-pill{background:rgba(255,77,77,.15);color:#ff6b6b;border:1px solid rgba(255,77,77,.2)}
+.feat-insight-buy .feat-insight-pill{background:rgba(31,217,122,.12);color:#4ade80;border:1px solid rgba(31,217,122,.2)}
+.feat-insight-price .feat-insight-pill{background:rgba(245,166,35,.12);color:#f5a623;border:1px solid rgba(245,166,35,.2)}
+.feat-insight-text{font-size:11px;color:rgba(255,255,255,.65);line-height:1.5}
+.feat-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2)}
+.feat-check::before{content:'→';color:var(--amber);font-weight:700;flex-shrink:0}
+@media(max-width:1100px){.feat-row{flex-direction:column}.feat-big-inner{grid-template-columns:1fr}.feat-grid4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.feat-grid4{grid-template-columns:1fr}.feat-section{padding:60px 20px}}
+
+/* ── HERO 3D ENHANCEMENTS ── */
+.dc-status{display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(74,222,128,.8);margin-left:auto}
+.dc-status-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:aiPulse 2s infinite}
+@keyframes aiPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+/* Animated stat counter */
+.dc-stat-v{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:white;transition:color .3s}
+/* AI insight animations */
+.ai-insight{opacity:0;transform:translateX(-8px);transition:opacity .4s ease,transform .4s ease}
+.ai-insight.ai-visible{opacity:1;transform:translateX(0)}
+/* Tab glow on active */
+.dc-tab.active{background:rgba(124,111,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(124,111,255,.3);box-shadow:0 0 12px rgba(124,111,255,.15)}
+/* Scan line effect on card */
+.dash-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(124,111,255,.015) 50%,transparent 100%);background-size:100% 4px;animation:scanLine 3s linear infinite;pointer-events:none;z-index:10}
+@keyframes scanLine{0%{background-position:0 -100%}100%{background-position:0 200%}}
+/* Particle grid on hero-right */
+.hero-right .grid-line{position:absolute;background:rgba(124,111,255,.04);pointer-events:none}
+
+/* ═══════════════════════════════════════════════
+   ULTRA PREMIUM 3D SYSTEM — LMCT PRO
+   ═══════════════════════════════════════════════ */
+
+/* Global depth layer */
+:root{
+  --shadow-sm:0 2px 8px rgba(13,31,60,.06),0 1px 2px rgba(13,31,60,.04);
+  --shadow-md:0 8px 32px rgba(13,31,60,.10),0 2px 8px rgba(13,31,60,.06);
+  --shadow-lg:0 20px 60px rgba(13,31,60,.14),0 8px 24px rgba(13,31,60,.08);
+  --shadow-xl:0 40px 100px rgba(13,31,60,.18),0 16px 40px rgba(13,31,60,.10);
+  --shadow-float:0 30px 80px rgba(13,31,60,.22),0 0 0 1px rgba(13,31,60,.06);
+  --shadow-amber:0 20px 60px rgba(232,152,30,.20),0 0 0 1px rgba(232,152,30,.10);
+  --shadow-purple:0 20px 60px rgba(124,111,255,.25),0 0 0 1px rgba(124,111,255,.12);
+}
+
+/* ── NAV 3D ── */
+nav{
+  box-shadow:0 1px 0 var(--b),0 4px 20px rgba(13,31,60,.04);
+  transition:box-shadow .3s,background .3s;
+}
+nav.scrolled{
+  background:rgba(250,248,243,.97)!important;
+  box-shadow:0 1px 0 var(--b),0 8px 40px rgba(13,31,60,.10);
+}
+
+/* ── HERO LEFT enhanced ── */
+.hero-left{transform:translateZ(0)}
+h1{
+  text-shadow:0 2px 4px rgba(13,31,60,.08);
+}
+
+/* ── FEATURE CARDS 3D ── */
+.bc{
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease,border-color .25s;
+  box-shadow:var(--shadow-sm);
+  transform:translateY(0) translateZ(0);
+}
+.bc:hover{
+  transform:translateY(-6px) translateZ(0);
+  box-shadow:var(--shadow-xl);
+  border-color:rgba(13,31,60,.14)!important;
+}
+
+/* ── SAVING CARDS 3D ── */
+.saving-card{
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+  transform:translateY(0) translateZ(0);
+  box-shadow:0 4px 16px rgba(255,255,255,.04);
+}
+.saving-card:hover{
+  transform:translateY(-5px) translateZ(0);
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+.saving-card.hero-card{box-shadow:0 8px 32px rgba(34,197,94,.15)}
+.saving-card.hero-card:hover{box-shadow:0 24px 60px rgba(34,197,94,.25)}
+
+/* ── PRICING CARDS 3D ── */
+.price-card{
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+  transform:translateY(0) perspective(800px) rotateX(0deg);
+  box-shadow:var(--shadow-md);
+}
+.price-card:hover:not(.price-hero){
+  transform:translateY(-8px) perspective(800px) rotateX(-1deg);
+  box-shadow:var(--shadow-xl);
+}
+.price-hero{
+  box-shadow:var(--shadow-amber),var(--shadow-lg)!important;
+  transform:translateY(-4px) perspective(800px) rotateX(-0.5deg)!important;
+}
+.price-hero:hover{
+  transform:translateY(-10px) perspective(800px) rotateX(-1.5deg)!important;
+  box-shadow:0 50px 120px rgba(232,152,30,.25),var(--shadow-xl)!important;
+}
+
+/* ── SPEC CARD 3D ── */
+.spec-card{
+  transform:perspective(1000px) rotateY(-2deg) rotateX(1deg);
+  transition:transform .4s ease,box-shadow .4s;
+  box-shadow:var(--shadow-float);
+}
+.spec-card:hover{
+  transform:perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-4px);
+  box-shadow:var(--shadow-xl);
+}
+
+/* ── HOW IT WORKS demo card 3D ── */
+.demo-card{
+  transform:perspective(800px) rotateY(3deg);
+  transition:transform .4s ease,box-shadow .4s;
+  box-shadow:var(--shadow-float);
+}
+.demo-card:hover{
+  transform:perspective(800px) rotateY(0deg) translateY(-4px);
+}
+
+/* ── TESTIMONIAL CARDS 3D ── */
+.testi-card{
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;
+  transform:translateY(0) translateZ(0);
+  box-shadow:var(--shadow-sm);
+}
+.testi-card:hover{
+  transform:translateY(-6px) translateZ(0);
+  box-shadow:var(--shadow-lg);
+}
+
+/* ── CTA BUTTONS 3D ── */
+.btn-primary{
+  box-shadow:0 4px 14px rgba(13,31,60,.25),0 2px 4px rgba(13,31,60,.15);
+  transform:translateY(0);
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+}
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(13,31,60,.30),0 4px 8px rgba(13,31,60,.15);
+}
+.btn-primary:active{transform:translateY(0);box-shadow:0 2px 8px rgba(13,31,60,.2)}
+
+.nav-cta{
+  box-shadow:0 2px 8px rgba(13,31,60,.15);
+  transform:translateY(0);
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+}
+.nav-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(13,31,60,.20);
+}
+
+/* ── TIME PILLS 3D ── */
+.time-pill{
+  box-shadow:var(--shadow-sm);
+  transform:translateY(0);
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+}
+.time-pill:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+
+/* ── COMPARISON TABLE 3D ── */
+.compare-section{perspective:2000px}
+.compare-table-wrap{
+  box-shadow:var(--shadow-float);
+  transform:perspective(1000px) rotateX(2deg);
+  transition:transform .4s ease;
+  border-radius:var(--rl);
+  overflow:hidden;
+}
+.compare-table-wrap:hover{
+  transform:perspective(1000px) rotateX(0deg) translateY(-4px);
+}
+
+/* ── FAQ ITEMS 3D ── */
+.faq-item.open{
+  box-shadow:var(--shadow-md);
+  border-radius:var(--r);
+  transform:translateX(4px);
+  transition:transform .2s ease,box-shadow .2s;
+}
+
+/* ── BIG NUMBER 3D ── */
+.big-number{
+  text-shadow:0 8px 32px rgba(245,176,64,.4),0 2px 4px rgba(0,0,0,.2);
+}
+
+/* ── SECTION REVEAL ANIMATIONS ── */
+.rev{opacity:0;transform:translateY(24px) translateZ(0);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rev.visible{opacity:1;transform:translateY(0) translateZ(0)}
+.rev2{opacity:0;transform:translateY(28px) translateZ(0);transition:opacity .7s cubic-bezier(.22,1,.36,1) .15s,transform .7s cubic-bezier(.22,1,.36,1) .15s}
+.rev2.visible{opacity:1;transform:translateY(0) translateZ(0)}
+
+/* ── AMBIENT SECTION DEPTH ── */
+.savings-section{
+  position:relative;
+  overflow:hidden;
+}
+.savings-section::after{
+  content:'';position:absolute;top:0;right:0;width:500px;height:500px;
+  background:radial-gradient(ellipse,rgba(232,152,30,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.feat-section{
+  position:relative;
+}
+.feat-section::before{
+  content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+  width:800px;height:400px;
+  background:radial-gradient(ellipse,rgba(13,31,60,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* ── ADVISOR SECTION 3D ── */
+.chat-window{
+  transform:perspective(1200px) rotateY(-3deg) rotateX(2deg);
+  transition:transform .5s ease;
+}
+.chat-window:hover{
+  transform:perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-4px);
+}
+.advisor-right::after{
+  content:'';position:absolute;inset:-40px;
+  background:radial-gradient(ellipse at 60% 40%,rgba(124,111,255,.15) 0%,transparent 65%);
+  pointer-events:none;border-radius:50%;
+  animation:advGlow 4s ease-in-out infinite;
+}
+@keyframes advGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+
+/* ── PRICING SECTION ATMOSPHERE ── */
+.price-section{
+  position:relative;overflow:hidden;
+}
+.price-section::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:1000px;height:600px;
+  background:radial-gradient(ellipse,rgba(232,152,30,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+/* ── CTA SECTION 3D ── */
+.cta-section{
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.03) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 50%,rgba(232,152,30,.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.cta-h{
+  text-shadow:0 4px 24px rgba(255,255,255,.15);
+}
+
+/* ── SECTION EYEBROW 3D ── */
+.section-ey{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);
+  letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;
+}
+.section-ey::before{
+  content:'';width:14px;height:1.5px;background:var(--amber);border-radius:1px;flex-shrink:0;
+}
+
+/* ── BENTO GRID DEPTH ── */
+.bento{
+  filter:drop-shadow(0 20px 60px rgba(13,31,60,.08));
+}
+.feat-big{
+  box-shadow:var(--shadow-float)!important;
+  transform:translateZ(0);
+  transition:transform .3s ease,box-shadow .3s;
+}
+.feat-big:hover{
+  transform:translateY(-4px) translateZ(0);
+  box-shadow:var(--shadow-xl)!important;
+}
+
+/* ── MOBILE 3D REDUCED ── */
+@media(max-width:768px){
+  .spec-card,.demo-card,.chat-window{transform:none!important}
+  .bc:hover,.saving-card:hover,.price-card:hover,.testi-card:hover{transform:translateY(-3px)!important}
+}
 </style>
 </head>
 <body>
@@ -538,6 +867,28 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
     </div>
   </div>
   <div class="hero-right">
+    <!-- Glow orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <!-- Floating mini card 1 — AI insight -->
+    <div class="mini-card mini-card1">
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(124,111,255,.7);letter-spacing:1px;margin-bottom:4px">🧠 AI INSIGHT</div>
+      <div style="font-size:11px;color:white;font-weight:600">Sedans selling <span style="color:#4ade80">3× faster</span></div>
+      <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">than SUVs this month</div>
+    </div>
+
+    <!-- Floating mini card 2 — alert -->
+    <div class="mini-card mini-card2">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ff6b6b;flex-shrink:0;animation:livePulse 1.5s infinite"></div>
+        <div style="font-size:10px;font-weight:700;color:#ff6b6b">Ranger — 73 days</div>
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">Drop to <span style="color:#e8981e;font-weight:600">$29,990</span> to move it</div>
+    </div>
+
+    <div class="scene-3d">
     <div class="dash-card">
       <!-- Browser bar -->
       <div class="dc-bar">
@@ -637,6 +988,7 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
         <div class="dc-ticker"><span class="dc-ticker-inner">🧠 Stop buying SUVs — 52 day avg &nbsp;·&nbsp; ✅ Toyota sells in 19 days — 0 in stock &nbsp;·&nbsp; ⚡ Ranger 73 days — drop to $29,990 &nbsp;·&nbsp; 📈 Best margin: $18k–$24k sedans &nbsp;·&nbsp; ✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ 8 enquiries replied &nbsp;·&nbsp; 🧠 Stop buying SUVs — 52 day avg &nbsp;·&nbsp; ✅ Toyota sells in 19 days — 0 in stock &nbsp;·&nbsp; ⚡ Ranger 73 days — drop to $29,990 &nbsp;·&nbsp; 📈 Best margin: $18k–$24k sedans &nbsp;·&nbsp; ✓ CX-5 live on CarSales in 38min &nbsp;·&nbsp; ✓ 8 enquiries replied &nbsp;·&nbsp;</span></div>
       </div>
     </div>
+    </div><!-- /scene-3d -->
   </div>
 </section>
 
@@ -913,134 +1265,334 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
 
 <!-- FEATURES BENTO -->
 <section class="feat-section" id="features">
-  <div class="rev">
+  <div class="rev" style="text-align:center;max-width:700px;margin:0 auto 60px">
     <div class="section-ey">The platform</div>
-    <h2>Everything a modern dealer needs.<br><em>Built for Australia.</em></h2>
-    <p class="ssub">From AI-powered stock management to auto-filled compliance forms — LMCT PRO is the complete operating system your dealership deserves.</p>
+    <h2>Not just software.<br><em>An unfair advantage.</em></h2>
+    <p class="ssub" style="margin:0 auto">Every feature is built around one question — does this help the dealer sell more cars with less effort? If not, it's not in here.</p>
   </div>
-  <div class="bento rev2">
-    <div class="bc b1">
-      <div class="b1-layout">
-        <div class="b1-vis">
-          <svg width="180" height="100" viewBox="0 0 180 100" fill="none" style="position:relative;z-index:1;opacity:.7">
-            <path d="M20 65 L35 40 Q40 32 50 30 L120 28 Q132 28 140 35 L162 55 L165 65 Q167 72 160 75 L25 75 Q18 75 18 68 Z" stroke="rgba(232,152,30,0.8)" stroke-width="1.5" fill="rgba(232,152,30,0.06)"/>
-            <circle cx="45" cy="76" r="10" stroke="rgba(232,152,30,0.6)" stroke-width="1.5" fill="rgba(232,152,30,0.08)"/>
-            <circle cx="135" cy="76" r="10" stroke="rgba(232,152,30,0.6)" stroke-width="1.5" fill="rgba(232,152,30,0.08)"/>
-            <circle cx="45" cy="76" r="5" fill="rgba(232,152,30,0.3)"/>
-            <circle cx="135" cy="76" r="5" fill="rgba(232,152,30,0.3)"/>
-            <path d="M60 30 L70 48 L115 48 L125 30" stroke="rgba(232,152,30,0.4)" stroke-width="1" fill="none"/>
-            <line x1="90" y1="30" x2="90" y2="48" stroke="rgba(232,152,30,0.25)" stroke-width="1"/>
-          </svg>
+
+  <!-- ROW 1: AI Strategy + Stock -->
+  <div class="feat-row rev2">
+
+    <!-- BIG: AI Strategy Engine -->
+    <div class="feat-big">
+      <div class="feat-big-inner">
+        <div class="feat-dark-card">
+          <div class="feat-card-header">
+            <span class="feat-badge-ai">🧠 AI Strategy Engine</span>
+            <span class="feat-badge-live">● Live</span>
+          </div>
+          <div class="feat-insight-row feat-insight-stop">
+            <div class="feat-insight-pill stop">🛑 Stop Buying</div>
+            <div class="feat-insight-text">Large SUVs sitting <strong>52 days</strong> avg — 3 in stock, <span style="color:#ff6b6b">$94k tied up</span></div>
+          </div>
+          <div class="feat-insight-row feat-insight-buy">
+            <div class="feat-insight-pill buy">✅ Buy More</div>
+            <div class="feat-insight-text">Toyota Camry — sells in <strong style="color:#4ade80">19 days</strong> avg. Zero in stock.</div>
+          </div>
+          <div class="feat-insight-row feat-insight-price">
+            <div class="feat-insight-pill price">💰 Reprice</div>
+            <div class="feat-insight-text">Ford Ranger 73 days. Drop to <strong style="color:#f5a623">$29,990</strong> to move it.</div>
+          </div>
+          <div class="feat-insight-row feat-insight-buy">
+            <div class="feat-insight-pill buy">📈 Sweet Spot</div>
+            <div class="feat-insight-text">$18k–$23k sedans — best margin <strong style="color:#4ade80">+ fastest turn</strong> for you</div>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.25)">Updated from your last 90 days · runs every morning</span>
+          </div>
         </div>
-        <div class="b-body" style="display:flex;flex-direction:column;justify-content:flex-end;padding:28px 26px">
-          <div class="b-tag">AI POWERED</div>
-          <div class="b-title">Smart Stock Management</div>
-          <div class="b-desc">Add vehicles with one photo. AI scores sellability against live market data, suggests optimal pricing, and calculates your gross margin instantly.</div>
+        <div class="feat-big-body">
+          <div class="b-tag">AI ONLY — NO COMPETITOR HAS THIS</div>
+          <div class="b-title" style="font-size:24px">Inventory Strategy Engine</div>
+          <div class="b-desc" style="font-size:14px;line-height:1.75">Every morning, the AI reads your complete sales history and tells you exactly what to buy, what to stop buying, and which vehicles need a price drop — based on your data, not guesses.</div>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+            <div class="feat-check">What body types are selling fastest for you</div>
+            <div class="feat-check">Which makes deliver your highest margins</div>
+            <div class="feat-check">Specific price recommendations for aged stock</div>
+            <div class="feat-check">Monthly targets based on your turn rate</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="bc b2">
-      <div class="cv cv-navy">
-        <svg width="80" height="90" viewBox="0 0 80 90" fill="none" style="position:relative;z-index:1;opacity:.7">
-          <rect x="8" y="5" width="64" height="80" rx="5" stroke="rgba(232,152,30,0.6)" stroke-width="1.5" fill="rgba(232,152,30,0.05)"/>
-          <line x1="20" y1="25" x2="60" y2="25" stroke="rgba(232,152,30,0.5)" stroke-width="1.2"/>
-          <line x1="20" y1="37" x2="60" y2="37" stroke="rgba(232,152,30,0.5)" stroke-width="1.2"/>
-          <line x1="20" y1="49" x2="60" y2="49" stroke="rgba(232,152,30,0.5)" stroke-width="1.2"/>
-          <line x1="20" y1="61" x2="45" y2="61" stroke="rgba(232,152,30,0.5)" stroke-width="1.2"/>
-          <circle cx="58" cy="67" r="10" fill="rgba(34,197,94,0.15)" stroke="rgba(34,197,94,0.5)" stroke-width="1.5"/>
-          <path d="M53 67 L57 71 L64 63" stroke="rgba(34,197,94,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+
+    <!-- SMALL STACK -->
+    <div class="feat-small-stack">
+
+      <!-- AI Listing Generator -->
+      <div class="bc feat-small">
+        <div class="feat-small-vis navy">
+          <div style="display:flex;flex-direction:column;gap:5px;width:100%;padding:0 8px">
+            <div style="background:rgba(232,152,30,.15);border:1px solid rgba(232,152,30,.25);border-radius:5px;padding:5px 8px">
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(232,152,30,.6);margin-bottom:3px">CARSALES HEADLINE</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.7);line-height:1.4">Immaculate 2020 Mazda CX-5 AWD — One Owner, Full History</div>
+            </div>
+            <div style="background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.2);border-radius:5px;padding:5px 8px">
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(124,111,255,.6);margin-bottom:3px">FACEBOOK POST</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.6);line-height:1.4">🚙 2020 CX-5 AWD — $28,990. One owner, full service history...</div>
+            </div>
+            <div style="background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 8px">
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(31,217,122,.5)">GUMTREE + SMS READY ✓</div>
+            </div>
+          </div>
+        </div>
+        <div class="b-body">
+          <div class="b-tag">AI COPYWRITER</div>
+          <div class="b-title">AI Listing Generator</div>
+          <div class="b-desc">One click — AI writes your CarSales, Facebook, Gumtree listing and SMS follow-up template. Better copy means more enquiries.</div>
+        </div>
+      </div>
+
+      <!-- VicRoads Compliance -->
+      <div class="bc feat-small">
+        <div class="feat-small-vis cream">
+          <div style="background:white;border:1px solid rgba(13,31,60,.12);border-radius:8px;padding:10px 12px;width:85%;box-shadow:0 4px 16px rgba(13,31,60,.08)">
+            <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">VicRoads DTP-1142</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;justify-content:space-between;font-size:9px">
+                <span style="color:var(--t3)">Seller</span><span style="color:var(--navy);font-weight:600">MDMR Motors</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px">
+                <span style="color:var(--t3)">Vehicle</span><span style="color:var(--navy);font-weight:600">2020 Mazda CX-5</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px">
+                <span style="color:var(--t3)">Sale Price</span><span style="color:var(--amber);font-weight:700">$28,990</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px">
+                <span style="color:var(--t3)">Stamp Duty</span><span style="color:var(--navy);font-weight:600">$1,449.50</span>
+              </div>
+            </div>
+            <div style="margin-top:8px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);border-radius:4px;padding:4px 8px;font-size:8px;color:#16a34a;text-align:center">✓ Auto-filled · Ready to print</div>
+          </div>
+        </div>
+        <div class="b-body">
+          <div class="b-tag">COMPLIANCE</div>
+          <div class="b-title">VicRoads Forms — Auto-filled</div>
+          <div class="b-desc">DTP-1142 transfer form, sales contract and GST invoice — all pre-populated the moment you record a sale. Print in 60 seconds.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 2: Four equal cards -->
+  <div class="feat-grid4 rev2">
+
+    <!-- Market Intelligence -->
+    <div class="bc">
+      <div class="feat-mini-vis navy">
+        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3)">BODY TYPE PERFORMANCE</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Sedan</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:82%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:3px"></div></div>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#4ade80;width:28px;text-align:right">18d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Hatch</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:70%;height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:3px"></div></div>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#4ade80;width:28px;text-align:right">23d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">SUV</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:38%;height:100%;background:linear-gradient(90deg,#ff4d4d,#ff6b6b);border-radius:3px"></div></div>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#ff6b6b;width:28px;text-align:right">52d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:9px;color:rgba(255,255,255,.5);width:52px;flex-shrink:0">Ute</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f5a623,#fbbf24);border-radius:3px"></div></div>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#f5a623;width:28px;text-align:right">38d</span>
+          </div>
+        </div>
       </div>
       <div class="b-body">
-        <div class="b-tag">COMPLIANCE</div>
-        <div class="b-title">VicRoads Forms — Auto-filled</div>
-        <div class="b-desc">VP151 transfer forms, dealings book, disposal notices — auto-populated from your sale. Print and sign in 60 seconds every time.</div>
+        <div class="b-tag">INTELLIGENCE</div>
+        <div class="b-title">Market Intelligence</div>
+        <div class="b-desc">See exactly which body types, makes and price bands move fastest for your specific dealership — not the market average.</div>
       </div>
     </div>
-    <div class="bc b3">
-      <div class="cv cv-cream">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:.7">
-          <circle cx="40" cy="40" r="8" fill="rgba(13,31,60,0.15)" stroke="rgba(13,31,60,0.4)" stroke-width="1.5"/>
-          <path d="M26 26 Q40 12 54 26" stroke="rgba(13,31,60,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M19 19 Q40 0 61 19" stroke="rgba(13,31,60,0.18)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M26 54 Q40 68 54 54" stroke="rgba(13,31,60,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M19 61 Q40 80 61 61" stroke="rgba(13,31,60,0.18)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <circle cx="40" cy="40" r="3" fill="rgba(232,152,30,0.8)"/>
-        </svg>
+
+    <!-- Today's Tasks -->
+    <div class="bc">
+      <div class="feat-mini-vis cream">
+        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--t3);margin-bottom:3px">TODAY'S TASKS · 3/5 DONE</div>
+          <div style="height:3px;background:var(--cream3);border-radius:2px;overflow:hidden;margin-bottom:6px"><div style="width:60%;height:100%;background:var(--amber)"></div></div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--t3);text-decoration:line-through;opacity:.5">
+            <div style="width:13px;height:13px;border-radius:4px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:8px;color:white;flex-shrink:0">✓</div>Follow up Michael re Camry
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)">
+            <div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Reprice Ford Ranger — 73 days
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:var(--navy)">
+            <div style="width:13px;height:13px;border-radius:4px;border:1.5px solid var(--b2);flex-shrink:0"></div>Upload 2 new cars · assign to Sam
+          </div>
+          <div style="margin-top:4px;font-size:9px;color:var(--amber);font-family:'DM Mono',monospace">← AI suggested · based on your stock</div>
+        </div>
       </div>
       <div class="b-body">
-        <div class="b-tag">MANAGED</div>
-        <div class="b-title">Multi-Platform Syndication</div>
-        <div class="b-desc">CarSales, Gumtree, Facebook Marketplace, your website — one upload, live in under 60 minutes.</div>
+        <div class="b-tag">TEAM</div>
+        <div class="b-title">Team Task Board</div>
+        <div class="b-desc">AI generates daily tasks from your live data. Assign to staff, track completion, add notes. Manager sees who did what and when.</div>
       </div>
     </div>
-    <div class="bc b4">
-      <div class="cv cv-navy">
-        <svg width="90" height="70" viewBox="0 0 90 70" fill="none" style="position:relative;z-index:1;opacity:.7">
-          <path d="M10 60 L25 45 L40 50 L60 25 L80 10" stroke="rgba(232,152,30,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <path d="M10 60 L25 45 L40 50 L60 25 L80 10 L80 65 L10 65 Z" fill="rgba(232,152,30,0.07)"/>
-          <circle cx="80" cy="10" r="4" fill="rgba(232,152,30,0.8)"/>
-          <circle cx="60" cy="25" r="3" fill="rgba(232,152,30,0.5)"/>
-          <line x1="10" y1="65" x2="80" y2="65" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-        </svg>
+
+    <!-- EasyCars Migration -->
+    <div class="bc">
+      <div class="feat-mini-vis navy">
+        <div style="width:90%;display:flex;flex-direction:column;gap:6px">
+          <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3);margin-bottom:2px">EASYCARS MIGRATION</div>
+          <div style="background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.2);border-radius:6px;padding:8px 10px">
+            <div style="font-size:10px;color:#4ade80;font-weight:600;margin-bottom:3px">✅ Import complete</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);line-height:1.5">47 vehicles imported<br>312 sale records<br>89 customer profiles</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:5px;padding:6px 8px;font-family:"DM Mono",monospace;font-size:8px;color:rgba(255,255,255,.3)">Upload CSV → Preview → Confirm</div>
+        </div>
       </div>
       <div class="b-body">
-        <div class="b-tag">SEO</div>
-        <div class="b-title">Dealer Website + SEO</div>
-        <div class="b-desc">Custom website built for you, Google Business managed weekly. Buyers find you when they search your suburb.</div>
+        <div class="b-tag">MIGRATION</div>
+        <div class="b-title">Switch from EasyCars in 5 Minutes</div>
+        <div class="b-desc">Upload your EasyCars CSV export. We auto-map every column — stock, sales, customers — and import everything. Nothing is lost.</div>
       </div>
     </div>
-    <div class="bc b5">
-      <div class="cv cv-cream">
-        <svg width="110" height="55" viewBox="0 0 110 55" fill="none" style="opacity:.7">
-          <rect x="5" y="8" width="100" height="40" rx="5" stroke="rgba(13,31,60,0.4)" stroke-width="1.5" fill="rgba(13,31,60,0.04)"/>
-          <rect x="10" y="13" width="90" height="30" rx="3" stroke="rgba(13,31,60,0.2)" stroke-width="1" fill="none"/>
-          <text x="55" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" font-weight="500" fill="rgba(13,31,60,0.55)" letter-spacing="3">ABC 123</text>
-          <circle cx="18" cy="28" r="4" fill="rgba(232,152,30,0.4)" stroke="rgba(232,152,30,0.6)" stroke-width="1"/>
-          <circle cx="92" cy="28" r="4" fill="rgba(232,152,30,0.4)" stroke="rgba(232,152,30,0.6)" stroke-width="1"/>
-        </svg>
+
+    <!-- Rego Lookup -->
+    <div class="bc">
+      <div class="feat-mini-vis cream">
+        <div style="width:90%;display:flex;flex-direction:column;gap:6px;align-items:center">
+          <div style="background:#002a6e;border-radius:8px;padding:8px 14px 6px;display:flex;flex-direction:column;align-items:center;width:100%">
+            <div style="display:flex;align-items:center;gap:6px">
+              <div style="width:6px;height:6px;background:#FFCD00;border-radius:50%"></div>
+              <span style="color:#FFCD00;font-size:14px;font-weight:900;font-family:monospace;letter-spacing:4px">ABC 123</span>
+            </div>
+            <div style="font-size:6px;color:#FFCD00;font-weight:800;letter-spacing:3px;margin-top:2px;opacity:.6">VICTORIA</div>
+          </div>
+          <div style="background:white;border:1px solid var(--b2);border-radius:6px;padding:7px 10px;width:100%;box-shadow:0 2px 8px rgba(13,31,60,.06)">
+            <div style="font-size:9px;color:var(--navy);font-weight:700;margin-bottom:3px">2020 Toyota Camry SL</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+              <div style="font-size:8px;color:var(--t3)">Auto · Petrol · FWD</div>
+              <div style="font-size:8px;color:var(--amber);font-weight:600">Rego: Aug 2026</div>
+            </div>
+          </div>
+          <div style="font-size:8px;color:var(--green);font-family:'DM Mono',monospace">↳ Added to stock in 1 click</div>
+        </div>
       </div>
       <div class="b-body">
         <div class="b-tag">LIVE DATA</div>
-        <div class="b-title">Registration Lookup</div>
-        <div class="b-desc">Search any VIC plate — get make, model, year, rego expiry instantly. Import to stock in one click.</div>
+        <div class="b-title">Rego Lookup — Auto-fill</div>
+        <div class="b-desc">Enter a plate — get make, model, year, transmission, fuel type and rego expiry instantly. Add to stock with one click. No manual entry.</div>
       </div>
     </div>
-    <div class="bc b6">
-      <div class="cv cv-cream">
-        <svg width="100" height="70" viewBox="0 0 100 70" fill="none" style="opacity:.7">
-          <circle cx="35" cy="22" r="13" stroke="rgba(13,31,60,0.35)" stroke-width="1.5" fill="rgba(13,31,60,0.04)"/>
-          <path d="M10 60 Q10 42 35 42 Q60 42 60 60" stroke="rgba(13,31,60,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <circle cx="68" cy="20" r="10" stroke="rgba(232,152,30,0.5)" stroke-width="1.5" fill="rgba(232,152,30,0.06)"/>
-          <path d="M50 60 Q50 44 68 44 Q86 44 86 60" stroke="rgba(232,152,30,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        </svg>
+
+  </div>
+
+  <!-- ROW 3: Wide compliance + CRM -->
+  <div class="feat-row rev2" style="margin-top:12px">
+
+    <!-- Photo AI Scanner -->
+    <div class="bc" style="flex:1">
+      <div class="feat-wide-vis navy">
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="width:80px;height:70px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">📸</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+            <div style="background:rgba(124,111,255,.12);border:1px solid rgba(124,111,255,.2);border-radius:6px;padding:6px 10px">
+              <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(124,111,255,.7);margin-bottom:2px">AI DETECTED</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">2021 Toyota RAV4 GXL</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4)">Hybrid · AWD · Glacier White</div>
+            </div>
+            <div style="display:flex;gap:5px">
+              <div style="flex:1;background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:8px;color:#4ade80">AI Score: 91</div>
+              <div style="flex:1;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.15);border-radius:5px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">Est. $42,990</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="b-body">
+        <div class="b-tag">AI VISION</div>
+        <div class="b-title">AI Photo Scanner</div>
+        <div class="b-desc">Photo a car at auction or on the lot. AI identifies the exact make, model, variant and colour — then searches CarSales for comparable listings and pricing.</div>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div class="bc" style="flex:1">
+      <div class="feat-wide-vis cream">
+        <div style="width:90%;display:flex;flex-direction:column;gap:5px">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px">
+            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
+              <div style="font-size:16px;font-weight:800;color:var(--navy);font-family:'Fraunces',serif">89</div>
+              <div style="font-size:7px;color:var(--t3);margin-top:2px">Customers</div>
+            </div>
+            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
+              <div style="font-size:16px;font-weight:800;color:var(--green);font-family:'Fraunces',serif">31</div>
+              <div style="font-size:7px;color:var(--t3);margin-top:2px">Buyers</div>
+            </div>
+            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
+              <div style="font-size:16px;font-weight:800;color:var(--amber);font-family:'Fraunces',serif">12</div>
+              <div style="font-size:7px;color:var(--t3);margin-top:2px">Hot Leads</div>
+            </div>
+            <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(13,31,60,.05)">
+              <div style="font-size:16px;font-weight:800;color:var(--navy);font-family:'Fraunces',serif">46</div>
+              <div style="font-size:7px;color:var(--t3);margin-top:2px">Enquiries</div>
+            </div>
+          </div>
+          <div style="background:white;border:1px solid var(--b);border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(13,31,60,.04)">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:11px;flex-shrink:0">MJ</div>
+            <div style="flex:1">
+              <div style="font-size:10px;font-weight:600;color:var(--navy)">Michael Johnson</div>
+              <div style="font-size:8.5px;color:var(--t3)">Bought 2 cars · Last: 2020 Camry · 0412 345 678</div>
+            </div>
+            <div style="font-size:9px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);color:var(--green);border-radius:10px;padding:2px 8px">Buyer</div>
+          </div>
+        </div>
       </div>
       <div class="b-body">
         <div class="b-tag">CRM</div>
-        <div class="b-title">Customer & CRM Database</div>
-        <div class="b-desc">Full buyer profiles, purchase history, licence records. Every sale auto-creates or updates the customer record.</div>
+        <div class="b-title">Full Customer Database</div>
+        <div class="b-desc">Every buyer, lead and enquiry tracked automatically. Purchase history, licence records, contact details — all in one place, every sale.</div>
       </div>
     </div>
-    <div class="bc b7">
-      <div class="cv cv-navy">
-        <svg width="100" height="70" viewBox="0 0 100 70" fill="none" style="position:relative;z-index:1;opacity:.7">
-          <rect x="8" y="10" width="84" height="50" rx="5" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
-          <line x1="8" y1="24" x2="92" y2="24" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
-          <rect x="16" y="30" width="18" height="24" rx="2" fill="rgba(232,152,30,0.25)" stroke="rgba(232,152,30,0.4)" stroke-width="1"/>
-          <rect x="41" y="20" width="18" height="34" rx="2" fill="rgba(232,152,30,0.18)" stroke="rgba(232,152,30,0.35)" stroke-width="1"/>
-          <rect x="66" y="14" width="18" height="40" rx="2" fill="rgba(232,152,30,0.35)" stroke="rgba(232,152,30,0.55)" stroke-width="1"/>
-          <text x="20" y="62" font-family="DM Mono,monospace" font-size="7" fill="rgba(232,152,30,0.5)">XERO</text>
-          <text x="44" y="62" font-family="DM Mono,monospace" font-size="7" fill="rgba(232,152,30,0.5)">MYOB</text>
-          <text x="68" y="62" font-family="DM Mono,monospace" font-size="7" fill="rgba(232,152,30,0.5)">GST</text>
-        </svg>
+
+    <!-- Xero/MYOB -->
+    <div class="bc" style="flex:1">
+      <div class="feat-wide-vis navy">
+        <div style="display:flex;flex-direction:column;gap:6px;width:90%">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3)">GST INVOICE AUTO-GENERATED</span>
+          </div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:9px 11px">
+            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.06)">
+              <span style="color:rgba(255,255,255,.4)">Vehicle sale</span><span style="color:rgba(255,255,255,.7)">$28,990.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px">
+              <span style="color:rgba(255,255,255,.4)">GST collected</span><span style="color:#f5a623">$2,635.45</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:9px;margin-bottom:5px">
+              <span style="color:rgba(255,255,255,.4)">Stamp duty</span><span style="color:rgba(255,255,255,.7)">$1,449.50</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:700;padding-top:5px;border-top:1px solid rgba(255,255,255,.06)">
+              <span style="color:rgba(255,255,255,.6)">Total payable</span><span style="color:#4ade80">$30,439.50</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:5px">
+            <div style="flex:1;background:rgba(31,217,122,.06);border:1px solid rgba(31,217,122,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#4ade80">→ Xero</div>
+            <div style="flex:1;background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#f5a623">→ MYOB</div>
+            <div style="flex:1;background:rgba(61,158,255,.06);border:1px solid rgba(61,158,255,.15);border-radius:5px;padding:4px 6px;text-align:center;font-family:'DM Mono',monospace;font-size:8px;color:#3d9eff">→ Print</div>
+          </div>
+        </div>
       </div>
       <div class="b-body">
         <div class="b-tag">ACCOUNTING</div>
         <div class="b-title">Xero & MYOB Sync</div>
-        <div class="b-desc">Two-way sync with Xero and MYOB. Motor vehicle GST calculated automatically per ATO requirements.</div>
+        <div class="b-desc">Every sale auto-generates a GST invoice with stamp duty calculated correctly per the Duties Act 2000. Syncs to Xero or MYOB instantly.</div>
       </div>
     </div>
+
   </div>
+
 </section>
 
 <!-- SPECIALIST -->
@@ -1451,33 +2003,19 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
 
 <script>
 const io = new IntersectionObserver(
-  entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }),
-  { threshold:0.07, rootMargin:'0px 0px -30px 0px' }
+  (entries) => entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Stagger children if present
+      var children = e.target.querySelectorAll('.bc, .saving-card, .price-card, .testi-card, .hstep');
+      children.forEach(function(c,i){
+        c.style.transitionDelay = (i*0.08)+'s';
+        setTimeout(function(){c.style.transitionDelay='';},1200);
+      });
+    }
+  }),
+  {threshold:0.12,rootMargin:'0px 0px -40px 0px'}
 );
-document.querySelectorAll('.rev,.rev2').forEach(el => io.observe(el));
-
-// live timer
-(function(){
-  const el = document.getElementById('liveTimer');
-  if(!el) return;
-  let s = 42*60+17;
-  setInterval(()=>{
-    s++;
-    const m = Math.floor((s%3600)/60);
-    const sec = s%60;
-    el.textContent = String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
-  }, 1000);
-})();
-
-
-// Progress bar
-var prog=document.createElement('div');prog.id='prog';document.body.prepend(prog);
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
-  prog.style.width=Math.min(pct,100)+'%';
-  document.querySelector('nav').classList.toggle('scrolled',h.scrollTop>40);
-},{ passive:true });
 
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(function(q){
@@ -1489,8 +2027,33 @@ document.querySelectorAll('.faq-q').forEach(function(q){
   });
 });
 
-// Hero mockup tab switcher + auto-rotate
+// Hero mockup — 3D card + tab switcher + AI insight stagger
 (function(){
+  // Stagger animate AI insights on load
+  function animateInsights(){
+    var insights=document.querySelectorAll('.ai-insight');
+    insights.forEach(function(el,i){
+      setTimeout(function(){el.classList.add('ai-visible');},300+i*200);
+    });
+  }
+  setTimeout(animateInsights,800);
+
+  // Subtle mouse parallax on 3D card
+  var card=document.querySelector('.dash-card');
+  var scene=document.querySelector('.scene-3d');
+  if(scene&&card){
+    scene.addEventListener('mousemove',function(e){
+      var r=scene.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-0.5;
+      var y=(e.clientY-r.top)/r.height-0.5;
+      card.style.transform='rotateY('+(-8+x*6)+'deg) rotateX('+(4-y*4)+'deg) translateZ(20px)';
+    });
+    scene.addEventListener('mouseleave',function(){
+      card.style.transform='';
+    });
+  }
+
+  // Tab switcher
   var tabs=['ai','stock','activity'];
   var cur=0;
   function activate(name){
@@ -1498,20 +2061,30 @@ document.querySelectorAll('.faq-q').forEach(function(q){
       var tab=document.getElementById('tab-'+t);
       var panel=document.getElementById('panel-'+t);
       if(!tab||!panel)return;
-      if(t===name){tab.classList.add('active');panel.classList.remove('hidden');}
-      else{tab.classList.remove('active');panel.classList.add('hidden');}
+      if(t===name){
+        tab.classList.add('active');
+        panel.classList.remove('hidden');
+        // Re-animate insights when AI tab activates
+        if(t==='ai'){
+          var ins=panel.querySelectorAll('.ai-insight');
+          ins.forEach(function(el){el.classList.remove('ai-visible');});
+          ins.forEach(function(el,i){setTimeout(function(){el.classList.add('ai-visible');},i*180);});
+        }
+      } else {
+        tab.classList.remove('active');
+        panel.classList.add('hidden');
+      }
     });
     cur=tabs.indexOf(name);
   }
   tabs.forEach(function(t){
     var tab=document.getElementById('tab-'+t);
-    if(tab)tab.addEventListener('click',function(){activate(t);});
+    if(tab)tab.addEventListener('click',function(){activate(t);clearInterval(rotateInterval);});
   });
-  // Auto-rotate every 3.5s
-  setInterval(function(){
+  var rotateInterval=setInterval(function(){
     cur=(cur+1)%tabs.length;
     activate(tabs[cur]);
-  },3500);
+  },3800);
 })();
 
 </script>
