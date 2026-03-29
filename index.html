@@ -38,7 +38,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;display:flex;ali
 .nav-cta:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(13,31,60,.2)}
 
 /* ── HERO ── */
-.hero{min-height:100vh;padding-top:64px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--cream)}
+.hero{min-height:100vh;padding-top:64px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--cream);align-items:stretch}
 .hero::before{content:'';position:absolute;top:-20%;left:-10%;width:55%;height:130%;background:radial-gradient(ellipse at 40% 50%,rgba(232,152,30,.07) 0%,transparent 65%);pointer-events:none}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px 80px 80px;position:relative;z-index:2}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fadeUp .7s ease forwards .1s}
@@ -62,25 +62,25 @@ h1 em{font-style:italic;color:var(--amber);font-weight:600}
 .pill-green strong{color:var(--green)}
 
 /* HERO RIGHT */
-.hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:40px 40px 40px 20px;background:var(--navy);opacity:0;animation:fadeIn .9s ease forwards .4s;overflow:hidden}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:60px 48px;background:var(--navy);opacity:0;animation:fadeIn .9s ease forwards .4s;overflow:hidden}
 .hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(124,111,255,.18) 0%,transparent 50%),radial-gradient(ellipse at 30% 80%,rgba(232,152,30,.10) 0%,transparent 50%),radial-gradient(ellipse at 90% 90%,rgba(31,217,122,.08) 0%,transparent 45%);pointer-events:none}
 .hero-right::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
 /* 3D scene container */
-.scene-3d{position:relative;z-index:2;width:100%;max-width:480px;perspective:1200px;perspective-origin:50% 40%}
+.scene-3d{position:relative;z-index:2;width:100%;max-width:420px;perspective:1200px;perspective-origin:50% 45%;padding:24px}
 /* Floating glow orbs */
 .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:orbFloat 6s ease-in-out infinite}
-.orb1{width:220px;height:220px;background:rgba(124,111,255,.25);top:-60px;right:-40px;animation-delay:0s}
-.orb2{width:160px;height:160px;background:rgba(232,152,30,.18);bottom:-40px;left:-20px;animation-delay:-2s}
-.orb3{width:120px;height:120px;background:rgba(31,217,122,.15);top:40%;right:10%;animation-delay:-4s}
+.orb1{width:200px;height:200px;background:rgba(124,111,255,.22);top:-20px;right:0px;animation-delay:0s}
+.orb2{width:140px;height:140px;background:rgba(232,152,30,.16);bottom:0px;left:20px;animation-delay:-2s}
+.orb3{width:100px;height:100px;background:rgba(31,217,122,.12);top:35%;right:15%;animation-delay:-4s}
 @keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
 /* Main card — 3D tilted */
-.dash-card{position:relative;width:100%;background:rgba(10,10,20,.85);border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 60px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.1);transform:rotateY(-8deg) rotateX(4deg) translateZ(0);transform-style:preserve-3d;transition:transform .6s ease;animation:cardFloat 5s ease-in-out infinite}
-.dash-card:hover{transform:rotateY(-4deg) rotateX(2deg) translateZ(20px)}
-@keyframes cardFloat{0%,100%{transform:rotateY(-8deg) rotateX(4deg) translateZ(0) translateY(0)}50%{transform:rotateY(-8deg) rotateX(4deg) translateZ(0) translateY(-8px)}}
+.dash-card{position:relative;width:100%;background:rgba(8,8,18,.92);border:1px solid rgba(255,255,255,.10);border-radius:16px;overflow:hidden;backdrop-filter:blur(24px);box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.05),inset 0 1px 0 rgba(255,255,255,.08);transform:rotateY(-5deg) rotateX(3deg);transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1);animation:cardFloat 6s ease-in-out infinite}
+.dash-card:hover{transform:rotateY(-1deg) rotateX(1deg) translateY(-4px)}
+@keyframes cardFloat{0%,100%{transform:rotateY(-5deg) rotateX(3deg) translateY(0)}50%{transform:rotateY(-5deg) rotateX(3deg) translateY(-6px)}}
 /* Floating mini cards */
-.mini-card{position:absolute;background:rgba(10,10,20,.9);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);z-index:3;animation:miniFloat 4s ease-in-out infinite}
-.mini-card1{top:-20px;right:-30px;animation-delay:-1s}
-.mini-card2{bottom:40px;left:-40px;animation-delay:-2.5s}
+.mini-card{position:absolute;background:rgba(8,8,20,.95);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:9px 13px;backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);z-index:5;animation:miniFloat 4s ease-in-out infinite;white-space:nowrap}
+.mini-card1{top:-16px;right:0px;animation-delay:-1s}
+.mini-card2{bottom:30px;left:-10px;animation-delay:-2.5s}
 @keyframes miniFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .dc-bar{background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.07);padding:11px 16px;display:flex;align-items:center;gap:7px}
 .dc-dot{width:9px;height:9px;border-radius:50%}
@@ -157,7 +157,6 @@ h2 em{font-style:italic;color:var(--amber);font-weight:600}
 .big-sublabel{font-family:'DM Mono',monospace;font-size:10px;color:rgba(232,152,30,.5);letter-spacing:1.5px;text-transform:uppercase;margin-top:16px;position:relative;z-index:1}
 
 /* BENTO */
-.feat-section{background:var(--cream);border-top:1px solid var(--b)}
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:56px}
 .bc{background:white;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s}
 .bc:hover{border-color:var(--b2);transform:translateY(-3px);box-shadow:0 20px 50px rgba(13,31,60,.08)}
@@ -218,7 +217,7 @@ h2 em{font-style:italic;color:var(--amber);font-weight:600}
 .cn{color:var(--t3)}
 
 /* COMPARE */
-.compare-section{background:var(--cream2);border-top:1px solid var(--b)}
+.compare-section{background:var(--cream2);border-top:1px solid var(--b);padding:100px 80px}
 .compare-table{border:1.5px solid var(--b2);border-radius:var(--rl);overflow:hidden;margin-top:56px;background:white;box-shadow:0 8px 32px rgba(13,31,60,.06)}
 .compare-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;background:var(--navy)}
 .ch-cell{padding:16px 20px;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:white;letter-spacing:-.2px}
@@ -232,14 +231,15 @@ h2 em{font-style:italic;color:var(--amber);font-weight:600}
 .cc-price{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--navy)}
 
 /* TESTIMONIALS */
-.testi-section{background:white;border-top:1px solid var(--b)}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.t-card{background:var(--cream);border:1.5px solid var(--b);border-radius:var(--rl);padding:28px;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.testi-section{background:white;border-top:1px solid var(--b);padding:100px 80px;overflow:hidden}
+.testi-inner{max-width:920px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.t-card{background:var(--cream);border:1.5px solid var(--b);border-radius:var(--rl);padding:26px 28px 24px;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .t-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,var(--amberd) 0%,transparent 70%);opacity:0;transition:opacity .3s}
 .t-card:hover{border-color:var(--amberb);transform:translateY(-2px);box-shadow:0 16px 40px rgba(13,31,60,.07)}
 .t-card:hover::before{opacity:1}
 .t-stars{color:var(--amber);font-size:13px;letter-spacing:2px;margin-bottom:14px}
-.t-text{font-size:14px;color:var(--t2);line-height:1.78;margin-bottom:20px;font-style:italic;font-weight:300}
+.t-text{font-size:14px;color:var(--t2);line-height:1.78;margin-bottom:20px;font-style:italic;font-weight:300;flex:1}
 .t-author{display:flex;align-items:center;gap:10px}
 .t-av{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:var(--amber2);flex-shrink:0}
 .t-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
@@ -249,7 +249,7 @@ h2 em{font-style:italic;color:var(--amber);font-weight:600}
    PRICING — 3 PLANS, GROWTH HERO
 ══════════════════════════════════ */
 .price-section{background:var(--cream2);border-top:1px solid var(--b)}
-.price-intro{margin-bottom:60px}
+.price-intro{margin-bottom:60px;max-width:640px}
 .trial-banner{display:inline-flex;align-items:center;gap:10px;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.22);border-radius:30px;padding:8px 18px;font-size:13px;font-weight:500;color:var(--green);margin-top:16px}
 .trial-banner svg{width:16px;height:16px;flex-shrink:0}
 
@@ -394,10 +394,10 @@ footer{padding:48px 80px;border-top:1px solid var(--b);display:grid;grid-templat
 /* ANIMS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.rev.vis{opacity:1;transform:none}
-.rev2{opacity:0;transform:translateY(24px);transition:opacity .7s ease .16s,transform .7s ease .16s}
-.rev2.vis{opacity:1;transform:none}
+.rev{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rev.vis,.rev.visible{opacity:1;transform:none}
+.rev2{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.22,1,.36,1) .14s,transform .65s cubic-bezier(.22,1,.36,1) .14s}
+.rev2.vis,.rev2.visible{opacity:1;transform:none}
 
 /* RESPONSIVE */
 @media(max-width:1100px){
@@ -520,7 +520,7 @@ nav.scrolled{background:rgba(250,248,243,.97);box-shadow:0 1px 0 var(--b),0 8px 
 .dc-tasks-fill{width:80%;height:100%;background:linear-gradient(90deg,#4ade80,#e8981e);border-radius:2px}
 
 /* ── FEATURES UPGRADE ── */
-.feat-section{background:var(--cream);border-top:1px solid var(--b);padding:100px 72px}
+.feat-section{background:var(--cream);border-top:1px solid var(--b);padding:100px 72px;position:relative}
 .feat-row{display:flex;gap:12px;margin-bottom:12px}
 .feat-big{flex:1.4;background:white;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden}
 .feat-big-inner{display:grid;grid-template-columns:1fr 1fr;min-height:320px}
@@ -735,25 +735,16 @@ h1{
 }
 
 /* ── SECTION REVEAL ANIMATIONS ── */
-.rev{opacity:0;transform:translateY(24px) translateZ(0);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-.rev.visible{opacity:1;transform:translateY(0) translateZ(0)}
-.rev2{opacity:0;transform:translateY(28px) translateZ(0);transition:opacity .7s cubic-bezier(.22,1,.36,1) .15s,transform .7s cubic-bezier(.22,1,.36,1) .15s}
-.rev2.visible{opacity:1;transform:translateY(0) translateZ(0)}
+/* rev/rev2 defined above */
 
 /* ── AMBIENT SECTION DEPTH ── */
-.savings-section{
-  position:relative;
-  overflow:hidden;
-}
+.savings-section{position:relative;overflow:hidden;}
 .savings-section::after{
   content:'';position:absolute;top:0;right:0;width:500px;height:500px;
   background:radial-gradient(ellipse,rgba(232,152,30,.08) 0%,transparent 70%);
   pointer-events:none;
 }
 
-.feat-section{
-  position:relative;
-}
 .feat-section::before{
   content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);
   width:800px;height:400px;
@@ -778,9 +769,7 @@ h1{
 @keyframes advGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 
 /* ── PRICING SECTION ATMOSPHERE ── */
-.price-section{
-  position:relative;overflow:hidden;
-}
+.price-section{position:relative;overflow:hidden;}
 .price-section::before{
   content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
   width:1000px;height:600px;
@@ -789,9 +778,6 @@ h1{
 }
 
 /* ── CTA SECTION 3D ── */
-.cta-section{
-  position:relative;overflow:hidden;
-}
 .cta-section::before{
   content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.03) 0%,transparent 60%),
@@ -831,6 +817,90 @@ h1{
   .spec-card,.demo-card,.chat-window{transform:none!important}
   .bc:hover,.saving-card:hover,.price-card:hover,.testi-card:hover{transform:translateY(-3px)!important}
 }
+
+/* ── FEATURED TESTIMONIAL ── */
+.testi-hero-wrap{max-width:100%;margin:0 auto 40px;width:100%}
+.testi-hero{background:var(--navy);border-radius:var(--rxl);padding:48px 52px;position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(13,31,60,.22),0 0 0 1px rgba(255,255,255,.04)}
+.testi-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(232,152,30,.12) 0%,transparent 70%);pointer-events:none}
+.testi-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(124,111,255,.10) 0%,transparent 70%);pointer-events:none}
+.testi-hero-quote{font-family:'Fraunces',serif;font-size:120px;line-height:.7;color:var(--amber);opacity:.25;position:absolute;top:24px;left:40px;font-style:italic;pointer-events:none}
+.testi-hero-text{font-family:'Fraunces',serif;font-size:clamp(18px,2.2vw,26px);font-weight:300;font-style:italic;color:rgba(255,255,255,.88);line-height:1.55;margin-bottom:28px;position:relative;z-index:1}
+.testi-hero-text strong{color:var(--amber2);font-style:normal;font-weight:700}
+.testi-hero-stars{color:var(--amber);font-size:16px;letter-spacing:3px;margin-bottom:20px}
+.testi-hero-author{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+.testi-hero-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber3));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--navy);flex-shrink:0}
+.testi-hero-name{font-size:14px;font-weight:600;color:white;margin-bottom:3px}
+.testi-hero-sub{font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace}
+.testi-hero-stats{display:flex;align-items:center;gap:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 24px}
+.th-stat{flex:1;text-align:center}
+.th-stat-num{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--amber2);line-height:1;margin-bottom:5px}
+.th-stat-label{font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;letter-spacing:.3px}
+.th-stat-div{width:1px;height:40px;background:rgba(255,255,255,.1);flex-shrink:0}
+
+@media(max-width:1000px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.testi-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.testi-section{padding:70px 24px}.testi-inner{padding:0}.testi-hero{padding:32px 24px}.testi-hero-text{font-size:18px}.testi-hero-stats{padding:14px 16px}.th-stat-num{font-size:24px}}
+@media(max-width:600px){
+  .testi-section{padding:56px 16px}
+  .testi-hero{padding:28px 20px}
+  .testi-hero-quote{font-size:80px;top:16px;left:16px}
+}
+
+/* ADVISOR SECTION */
+
+.advisor-section{padding:96px 80px;background:var(--navy);position:relative;overflow:hidden}
+.advisor-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(232,152,30,.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(124,111,255,.06) 0%,transparent 50%);pointer-events:none}
+.advisor-wrap{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;z-index:2}
+.advisor-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+.advisor-h{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(38px,4.2vw,60px);line-height:1.05;letter-spacing:-1.5px;color:white;margin-bottom:18px}
+.advisor-h em{color:var(--amber);font-style:italic}
+.advisor-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:36px;max-width:440px}
+.advisor-points{display:flex;flex-direction:column;gap:18px;margin-bottom:36px}
+.adv-pt{display:flex;align-items:flex-start;gap:14px}
+.adv-pt-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
+.adv-pt-title{font-size:13px;font-weight:600;color:white;margin-bottom:3px}
+.adv-pt-desc{font-size:12px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;line-height:1.5}
+.adv-cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:white;font-weight:600;font-size:14px;padding:13px 26px;border-radius:var(--r);text-decoration:none;transition:all .2s;margin-bottom:12px}
+.adv-cta:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(232,152,30,.3)}
+.adv-note{font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(255,255,255,.2);letter-spacing:.5px}
+/* CHAT */
+.advisor-right{position:relative}
+.advisor-right::before{content:'';position:absolute;top:-40px;right:-40px;width:280px;height:280px;background:radial-gradient(circle,rgba(124,111,255,.12) 0%,transparent 70%);pointer-events:none;border-radius:50%}
+.chat-window{background:#080810;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);position:relative;z-index:2}
+.chat-header{background:#0e0e1a;border-bottom:1px solid rgba(255,255,255,.06);padding:11px 16px;display:flex;align-items:center;gap:8px}
+.chat-header-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);flex-shrink:0}
+.chat-title{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);flex:1;text-align:center;letter-spacing:.5px}
+.chat-live{display:flex;align-items:center;gap:5px;font-size:9px;color:rgba(31,217,122,.7);font-family:'DM Mono',monospace;white-space:nowrap}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.chat-body{padding:18px 18px 6px;min-height:320px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.chat-msg{display:flex;gap:9px;align-items:flex-start;opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
+.chat-msg.visible{opacity:1;transform:translateY(0)}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px}
+.avatar-ai{background:rgba(124,111,255,.18);border:1px solid rgba(124,111,255,.25)}
+.avatar-user{background:rgba(232,152,30,.12);border:1px solid rgba(232,152,30,.25)}
+.chat-bubble{max-width:84%;padding:10px 13px;border-radius:11px;font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.85)}
+.bubble-ai{background:#141420;border:1px solid rgba(255,255,255,.05);border-bottom-left-radius:3px}
+.bubble-user{background:rgba(232,152,30,.1);border:1px solid rgba(232,152,30,.18);border-bottom-right-radius:3px;color:rgba(255,255,255,.65);text-align:right}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:4px 0}
+.chat-typing-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);animation:typingBounce .9s infinite}
+.chat-typing-dot:nth-child(2){animation-delay:.15s}
+.chat-typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.highlight-stat{display:inline-block;background:rgba(31,217,122,.1);border:1px solid rgba(31,217,122,.22);border-radius:4px;padding:1px 6px;color:#1fd97a;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
+.highlight-warn{display:inline-block;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.2);border-radius:4px;padding:1px 6px;color:#ff6b6b;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
+.highlight-amber{display:inline-block;background:rgba(232,152,30,.1);border:1px solid rgba(232,152,30,.22);border-radius:4px;padding:1px 6px;color:#e8981e;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
+.chat-footer{padding:11px 14px;border-top:1px solid rgba(255,255,255,.05);display:flex;gap:8px;align-items:center}
+.chat-input-fake{flex:1;background:#141420;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:8px 12px;font-size:12.5px;color:rgba(255,255,255,.45);font-family:'Plus Jakarta Sans',sans-serif;min-height:36px;display:flex;align-items:center}
+.chat-cursor{color:rgba(124,111,255,.8);animation:blink .8s infinite;font-weight:300}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.chat-send{width:34px;height:34px;background:rgba(124,111,255,.18);border:1px solid rgba(124,111,255,.28);border-radius:7px;display:flex;align-items:center;justify-content:center;color:rgba(124,111,255,.75);font-size:15px;flex-shrink:0}
+@media(max-width:900px){.advisor-wrap{grid-template-columns:1fr;gap:40px}.advisor-right{order:-1}}
+
+
+.section-wrap{max-width:1140px;margin:0 auto;width:100%}
+.section-wrap-sm{max-width:860px;margin:0 auto;width:100%}
 </style>
 </head>
 <body>
@@ -862,7 +932,7 @@ h1{
     <div class="time-pills">
       <div class="time-pill pill-green"><div class="time-pill-dot"></div>Cars live in <strong>under 60 min</strong></div>
       <div class="time-pill"><div class="time-pill-dot"></div>Save <strong>15+ hrs</strong> per week</div>
-      <div class="time-pill"><div class="time-pill-dot"></div>VicRoads forms in <strong>60 sec</strong></div>
+      <div class="time-pill"><div class="time-pill-dot"></div>Compliance forms in <strong>60 sec</strong></div>
       <div class="time-pill"><div class="time-pill-dot"></div><strong>No</strong> lock-in contracts</div>
     </div>
   </div>
@@ -976,7 +1046,7 @@ h1{
             <div class="dc-act-r"><span class="dc-act-l">CarSales listings live</span><span class="dc-act-v" style="color:#4ade80">3 ✓ &lt;45min</span></div>
             <div class="dc-act-r"><span class="dc-act-l">Facebook + Gumtree</span><span class="dc-act-v" style="color:#4ade80">5 ✓ &lt;60min</span></div>
             <div class="dc-act-r"><span class="dc-act-l">Enquiries responded</span><span class="dc-act-v" style="color:#4ade80">8 replied ✓</span></div>
-            <div class="dc-act-r"><span class="dc-act-l">VicRoads form</span><span class="dc-act-v" style="color:#4ade80">1 ready ✓</span></div>
+            <div class="dc-act-r"><span class="dc-act-l">Compliance form</span><span class="dc-act-v" style="color:#4ade80">1 ready ✓</span></div>
             <div class="dc-act-r"><span class="dc-act-l">Tasks completed</span><span class="dc-act-v" style="color:#e8981e">4/5 done</span></div>
           </div>
           <div class="dc-tasks-bar">
@@ -997,7 +1067,7 @@ h1{
   <div class="strip-inner">
     <div class="strip-item"><div class="strip-dot"></div>Cars Live in Under 60 Minutes</div>
     <div class="strip-item"><div class="strip-dot"></div>14-Day Software Trial</div>
-    <div class="strip-item"><div class="strip-dot"></div>VicRoads Auto-fill</div>
+    <div class="strip-item"><div class="strip-dot"></div>Compliance Auto-fill</div>
     <div class="strip-item"><div class="strip-dot"></div>CarSales Integration</div>
     <div class="strip-item"><div class="strip-dot"></div>Facebook Marketplace</div>
     <div class="strip-item"><div class="strip-dot"></div>AI Vehicle Scoring</div>
@@ -1009,6 +1079,82 @@ h1{
     <div class="strip-item"><div class="strip-dot"></div>Australian Owned</div>
   </div>
 </div>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="rev" style="text-align:center;margin-bottom:52px">
+      <div class="section-ey">Real dealers. Real results.</div>
+      <h2 style="margin-bottom:10px">The numbers speak<br><em>for themselves.</em></h2>
+      <p style="font-size:15px;color:var(--t2);font-weight:300;max-width:500px;margin:0 auto">Victorian LMCT dealers using LMCT PRO across Software, Done For You, and Growth plans.</p>
+    </div>
+
+    <!-- FEATURED HERO TESTIMONIAL -->
+    <div class="rev testi-hero-wrap">
+      <div class="testi-hero">
+        <div class="testi-hero-quote">"</div>
+        <div class="testi-hero-text">I saved over <strong>15 hours a week</strong> that I used to waste on admin, listings, and chasing paperwork. My revenue went up <strong>34% in three months</strong> — not because I worked harder, but because the AI finally showed me what to buy, what to drop the price on, and what was quietly killing my cash flow. The data LMCT PRO gives you is unlike anything else in this industry.</div>
+        <div class="testi-hero-stars">★★★★★</div>
+        <div class="testi-hero-author">
+          <div class="testi-hero-av">D</div>
+          <div>
+            <div class="testi-hero-name">Dealer from Dandenong, VIC</div>
+            <div class="testi-hero-sub">Growth Plan · 20+ cars/month</div>
+          </div>
+        </div>
+        <div class="testi-hero-stats">
+          <div class="th-stat"><div class="th-stat-num">15<span style="font-size:18px">hrs</span></div><div class="th-stat-label">Saved every week</div></div>
+          <div class="th-stat-div"></div>
+          <div class="th-stat"><div class="th-stat-num">34<span style="font-size:18px">%</span></div><div class="th-stat-label">Revenue increase</div></div>
+          <div class="th-stat-div"></div>
+          <div class="th-stat"><div class="th-stat-num">3<span style="font-size:18px">mo</span></div><div class="th-stat-label">To see the results</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 CARDS: 3 TOP ROW + 3 BOTTOM ROW -->
+    <div class="testi-grid rev2">
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"I had 4 cars sitting 60+ days. The strategy engine flagged all of them, told me what to drop each one to, and I moved all four in under two weeks. That's cash I didn't know was stuck."</div>
+        <div class="t-author"><div class="t-av">S</div><div><div class="t-name">Dealer from St Albans, VIC</div><div class="t-biz">Done For You Plan</div></div></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"Used to spend Sunday nights doing listings. Now I send the photos on Saturday morning, everything is live by lunch. Got my weekends back after 11 years in the industry."</div>
+        <div class="t-author"><div class="t-av">A</div><div><div class="t-name">Dealer from Sunshine, VIC</div><div class="t-biz">Done For You Plan</div></div></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"Page 4 to page 1 on Google in 6 weeks. Enquiries went from 3 a week to 18. The SEO alone pays for the whole subscription — everything else is free money."</div>
+        <div class="t-author"><div class="t-av">M</div><div><div class="t-name">Dealer from Werribee, VIC</div><div class="t-biz">Growth Plan</div></div></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"The compliance forms used to take me 20 minutes per sale. Now I record the sale, print the form, done. It's already filled in perfectly. EasyCars never had this."</div>
+        <div class="t-author"><div class="t-av">R</div><div><div class="t-name">Dealer from Hoppers Crossing, VIC</div><div class="t-biz">Software Plan</div></div></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"We switched from EasyCars. The migration took 20 minutes. Everything came across. Two months later I genuinely can't understand why we stayed on EasyCars for as long as we did."</div>
+        <div class="t-author"><div class="t-av">K</div><div><div class="t-name">Dealer from Broadmeadows, VIC</div><div class="t-biz">Done For You Plan</div></div></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-text">"First month on Growth, my specialist got us 14 Google reviews and ranked us for three suburbs we weren't even targeting. The phone actually rings now. That's never happened before."</div>
+        <div class="t-author"><div class="t-av">J</div><div><div class="t-name">Dealer from Pakenham, VIC</div><div class="t-biz">Growth Plan</div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <!-- AI BUSINESS ADVISOR -->
 <section class="advisor-section" id="advisor">
@@ -1079,58 +1225,7 @@ h1{
   </div>
 </section>
 
-<style>
-/* ADVISOR SECTION */
-.advisor-section{padding:96px 80px;background:var(--navy);position:relative;overflow:hidden}
-.advisor-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(232,152,30,.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(124,111,255,.06) 0%,transparent 50%);pointer-events:none}
-.advisor-wrap{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;z-index:2}
-.advisor-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
-.advisor-h{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(38px,4.2vw,60px);line-height:1.05;letter-spacing:-1.5px;color:white;margin-bottom:18px}
-.advisor-h em{color:var(--amber);font-style:italic}
-.advisor-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:36px;max-width:440px}
-.advisor-points{display:flex;flex-direction:column;gap:18px;margin-bottom:36px}
-.adv-pt{display:flex;align-items:flex-start;gap:14px}
-.adv-pt-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
-.adv-pt-title{font-size:13px;font-weight:600;color:white;margin-bottom:3px}
-.adv-pt-desc{font-size:12px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;line-height:1.5}
-.adv-cta{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:white;font-weight:600;font-size:14px;padding:13px 26px;border-radius:var(--r);text-decoration:none;transition:all .2s;margin-bottom:12px}
-.adv-cta:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(232,152,30,.3)}
-.adv-note{font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(255,255,255,.2);letter-spacing:.5px}
-/* CHAT */
-.advisor-right{position:relative}
-.advisor-right::before{content:'';position:absolute;top:-40px;right:-40px;width:280px;height:280px;background:radial-gradient(circle,rgba(124,111,255,.12) 0%,transparent 70%);pointer-events:none;border-radius:50%}
-.chat-window{background:#080810;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);position:relative;z-index:2}
-.chat-header{background:#0e0e1a;border-bottom:1px solid rgba(255,255,255,.06);padding:11px 16px;display:flex;align-items:center;gap:8px}
-.chat-header-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);flex-shrink:0}
-.chat-title{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);flex:1;text-align:center;letter-spacing:.5px}
-.chat-live{display:flex;align-items:center;gap:5px;font-size:9px;color:rgba(31,217,122,.7);font-family:'DM Mono',monospace;white-space:nowrap}
-.live-dot{width:5px;height:5px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite}
-@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-.chat-body{padding:18px 18px 6px;min-height:320px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.chat-msg{display:flex;gap:9px;align-items:flex-start;opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
-.chat-msg.visible{opacity:1;transform:translateY(0)}
-.chat-msg.user{flex-direction:row-reverse}
-.chat-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px}
-.avatar-ai{background:rgba(124,111,255,.18);border:1px solid rgba(124,111,255,.25)}
-.avatar-user{background:rgba(232,152,30,.12);border:1px solid rgba(232,152,30,.25)}
-.chat-bubble{max-width:84%;padding:10px 13px;border-radius:11px;font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.85)}
-.bubble-ai{background:#141420;border:1px solid rgba(255,255,255,.05);border-bottom-left-radius:3px}
-.bubble-user{background:rgba(232,152,30,.1);border:1px solid rgba(232,152,30,.18);border-bottom-right-radius:3px;color:rgba(255,255,255,.65);text-align:right}
-.chat-typing{display:flex;gap:4px;align-items:center;padding:4px 0}
-.chat-typing-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);animation:typingBounce .9s infinite}
-.chat-typing-dot:nth-child(2){animation-delay:.15s}
-.chat-typing-dot:nth-child(3){animation-delay:.3s}
-@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-.highlight-stat{display:inline-block;background:rgba(31,217,122,.1);border:1px solid rgba(31,217,122,.22);border-radius:4px;padding:1px 6px;color:#1fd97a;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
-.highlight-warn{display:inline-block;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.2);border-radius:4px;padding:1px 6px;color:#ff6b6b;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
-.highlight-amber{display:inline-block;background:rgba(232,152,30,.1);border:1px solid rgba(232,152,30,.22);border-radius:4px;padding:1px 6px;color:#e8981e;font-weight:600;font-family:'DM Mono',monospace;font-size:11px}
-.chat-footer{padding:11px 14px;border-top:1px solid rgba(255,255,255,.05);display:flex;gap:8px;align-items:center}
-.chat-input-fake{flex:1;background:#141420;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:8px 12px;font-size:12.5px;color:rgba(255,255,255,.45);font-family:'Plus Jakarta Sans',sans-serif;min-height:36px;display:flex;align-items:center}
-.chat-cursor{color:rgba(124,111,255,.8);animation:blink .8s infinite;font-weight:300}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.chat-send{width:34px;height:34px;background:rgba(124,111,255,.18);border:1px solid rgba(124,111,255,.28);border-radius:7px;display:flex;align-items:center;justify-content:center;color:rgba(124,111,255,.75);font-size:15px;flex-shrink:0}
-@media(max-width:900px){.advisor-wrap{grid-template-columns:1fr;gap:40px}.advisor-right{order:-1}}
-</style>
+
 
 <script>
 (function(){
@@ -1223,8 +1318,8 @@ h1{
         <div class="saving-card">
           <div class="saving-icon">📋</div>
           <div class="saving-time">60<span style="font-size:16px;color:rgba(232,152,30,.6)">sec</span></div>
-          <div class="saving-task">VicRoads form</div>
-          <div class="saving-desc">VP151 transfer form auto-fills the moment you record a sale. Print and sign. Done every time.</div>
+          <div class="saving-task">Compliance form</div>
+          <div class="saving-desc">compliance transfer form auto-fills the moment you record a sale. Print and sign. Done every time.</div>
           <div class="saving-badge">SAVED</div>
         </div>
         <div class="saving-card">
@@ -1344,11 +1439,11 @@ h1{
         </div>
       </div>
 
-      <!-- VicRoads Compliance -->
+      <!-- Compliance Forms -->
       <div class="bc feat-small">
         <div class="feat-small-vis cream">
           <div style="background:white;border:1px solid rgba(13,31,60,.12);border-radius:8px;padding:10px 12px;width:85%;box-shadow:0 4px 16px rgba(13,31,60,.08)">
-            <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">VicRoads DTP-1142</div>
+            <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">Transfer Form</div>
             <div style="display:flex;flex-direction:column;gap:4px">
               <div style="display:flex;justify-content:space-between;font-size:9px">
                 <span style="color:var(--t3)">Seller</span><span style="color:var(--navy);font-weight:600">MDMR Motors</span>
@@ -1368,8 +1463,8 @@ h1{
         </div>
         <div class="b-body">
           <div class="b-tag">COMPLIANCE</div>
-          <div class="b-title">VicRoads Forms — Auto-filled</div>
-          <div class="b-desc">DTP-1142 transfer form, sales contract and GST invoice — all pre-populated the moment you record a sale. Print in 60 seconds.</div>
+          <div class="b-title">Compliance Forms — Auto-filled</div>
+          <div class="b-desc">Transfer form, sales contract and GST invoice — all pre-populated the moment you record a sale. Print in 60 seconds.</div>
         </div>
       </div>
 
@@ -1645,7 +1740,7 @@ h1{
     <div class="hsteps rev">
       <div class="hstep"><div class="hn-wrap"><span class="hn">01</span></div><div><div class="htitle">You send a photo. That's it.</div><div class="hdesc">WhatsApp your new stock — photos and basic details. Your specialist writes the listing, processes photos, and has everything live on CarSales, Gumtree, and Facebook in under 60 minutes. You don't touch a keyboard.</div></div></div>
       <div class="hstep"><div class="hn-wrap"><span class="hn">02</span></div><div><div class="htitle">Buyers find you on Google.</div><div class="hdesc">Your specialist manages your Google Business Profile, builds local SEO, and keeps your website updated. Growth plan dealers consistently reach page 1 for their suburb within 6–10 weeks.</div></div></div>
-      <div class="hstep"><div class="hn-wrap"><span class="hn">03</span></div><div><div class="htitle">Sell a car. Forms in 60 seconds.</div><div class="hdesc">Record the sale in LMCT PRO and the VP151 VicRoads transfer form auto-populates with all vehicle, dealer, and buyer details. Print. Sign. Done before the handshake ends.</div></div></div>
+      <div class="hstep"><div class="hn-wrap"><span class="hn">03</span></div><div><div class="htitle">Sell a car. Forms in 60 seconds.</div><div class="hdesc">Record the sale in LMCT PRO and the government transfer form auto-populates with all vehicle, dealer, and buyer details. Print. Sign. Done before the handshake ends.</div></div></div>
       <div class="hstep"><div class="hn-wrap"><span class="hn">04</span></div><div><div class="htitle">Friday report in your inbox.</div><div class="hdesc">No dashboards to check. Every Friday your specialist sends a clean summary — stock live, enquiries received, website visits, Google position. Fully informed without lifting a finger.</div></div></div>
     </div>
     <div class="how-panel rev2">
@@ -1693,7 +1788,7 @@ h1{
       <div class="ch-cell a">Growth ★</div>
     </div>
     <div class="compare-row"><div class="cc">Full platform software access</div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div></div>
-    <div class="compare-row"><div class="cc">VicRoads forms auto-filled</div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div></div>
+    <div class="compare-row"><div class="cc">Compliance forms auto-filled</div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div></div>
     <div class="compare-row"><div class="cc">Xero / MYOB sync</div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div></div>
     <div class="compare-row"><div class="cc">Custom dealer website (one-time build)</div><div class="cc"><span class="chk">✓ Included</span></div><div class="cc"><span class="chk">✓ Included</span></div><div class="cc"><span class="chk">✓ Premium</span></div></div>
     <div class="compare-row"><div class="cc">Assigned specialist — cars live &lt;60 min</div><div class="cc"><span class="crs">✗</span></div><div class="cc"><span class="chk">✓</span></div><div class="cc"><span class="chk">✓</span></div></div>
@@ -1714,30 +1809,6 @@ h1{
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testi-section">
-  <div class="rev">
-    <div class="section-ey">Dealer reviews</div>
-    <h2>What our dealers<br><em>actually say.</em></h2>
-  </div>
-  <div class="testi-grid rev2">
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <div class="t-text">"I used to spend Sunday nights uploading stock. Now I send photos Saturday morning and everything is live by lunchtime. That's my Sunday back and my Saturday afternoon free."</div>
-      <div class="t-author"><div class="t-av">AK</div><div><div class="t-name">Ahmad K.</div><div class="t-biz">Prestige Auto · Dandenong VIC</div></div></div>
-    </div>
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <div class="t-text">"Page 4 to page 1 for 'used cars Sunshine' in 6 weeks. Enquiries went from 3 a week to 18. The SEO work alone pays for the subscription many times over every single month."</div>
-      <div class="t-author"><div class="t-av">MR</div><div><div class="t-name">Mohammed R.</div><div class="t-biz">City Motors · Sunshine VIC</div></div></div>
-    </div>
-    <div class="t-card">
-      <div class="t-stars">★★★★★</div>
-      <div class="t-text">"My cars are live in under an hour every time. I send the photos, they handle everything. I didn't believe it at first but it's been consistent for months. Absolute game changer."</div>
-      <div class="t-author"><div class="t-av">TC</div><div><div class="t-name">Tony C.</div><div class="t-biz">TC Autos · Werribee VIC</div></div></div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════════════
      PRICING — 3 PLANS
@@ -1746,8 +1817,8 @@ h1{
 <section class="price-section" id="pricing">
   <div class="price-intro rev">
     <div class="section-ey">Pricing</div>
-    <h2>Three plans.<br><em>All include your website.</em></h2>
-    <p class="ssub">Transparent pricing — no lock-in, no hidden fees, cancel anytime. All prices in Australian dollars including GST.</p>
+    <h2>Three plans.<br><em>No lock-in. Ever.</em></h2>
+    <p class="ssub">Transparent pricing — no setup surprises, no hidden fees, cancel anytime. Every plan includes your dealer website. All prices in Australian dollars including GST.</p>
     <div class="trial-banner">
       <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" stroke-width="1.2"/><path d="M5 8 L7 10 L11 6" stroke="#16a34a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       14-day free trial on the Software plan — no credit card required
@@ -1786,7 +1857,7 @@ h1{
           <div class="sw-access-grid">
             <div class="sw-feat"><div class="sw-feat-dot"></div>Stock management</div>
             <div class="sw-feat"><div class="sw-feat-dot"></div>AI pricing scores</div>
-            <div class="sw-feat"><div class="sw-feat-dot"></div>VicRoads auto-fill</div>
+            <div class="sw-feat"><div class="sw-feat-dot"></div>Compliance auto-fill</div>
             <div class="sw-feat"><div class="sw-feat-dot"></div>Rego lookup</div>
             <div class="sw-feat"><div class="sw-feat-dot"></div>Customer CRM</div>
             <div class="sw-feat"><div class="sw-feat-dot"></div>Xero / MYOB sync</div>
@@ -1966,7 +2037,7 @@ h1{
       <div class="faq-item"><div class="faq-q">What does the "under 60 minutes" guarantee mean?<span class="faq-arrow">↓</span></div><div class="faq-a">When you send your specialist photos and vehicle details during business hours (Mon–Fri, 9am–6pm), they will have your car live on CarSales, Gumtree, Facebook Marketplace, and your website in under 60 minutes. Our average is 38 minutes.</div></div>
       <div class="faq-item"><div class="faq-q">What is included in the dealer website?<span class="faq-arrow">↓</span></div><div class="faq-a">A professionally designed, SEO-optimised website that auto-syncs with your LMCT PRO stock. Add a car and it appears on your site. Sell it and it disappears. One-time build — yours forever, no ongoing website fees. Growth plan dealers receive premium design and monthly improvement updates.</div></div>
       <div class="faq-item"><div class="faq-q">How do I send new cars to my specialist?<span class="faq-arrow">↓</span></div><div class="faq-a">WhatsApp is the easiest — send photos and basic details (make, model, year, km, rego, price). Your specialist handles everything in under 60 minutes. No app knowledge required from you.</div></div>
-      <div class="faq-item"><div class="faq-q">Does LMCT PRO work outside Victoria?<span class="faq-arrow">↓</span></div><div class="faq-a">The platform works nationally. VicRoads form auto-fill is built for Victoria. NSW and QLD compliance forms are on the roadmap — speak to us about your state's specific requirements.</div></div>
+      <div class="faq-item"><div class="faq-q">Does LMCT PRO work outside Victoria?<span class="faq-arrow">↓</span></div><div class="faq-a">The platform works nationally. Compliance form auto-fill is built for Victoria. NSW and QLD compliance forms are on the roadmap — speak to us about your state's specific requirements.</div></div>
       <div class="faq-item"><div class="faq-q">Does it sync with Xero or MYOB?<span class="faq-arrow">↓</span></div><div class="faq-a">Yes, both. Two-way sync with Xero and MYOB included on all plans. GST calculations for motor vehicle transactions are handled automatically in line with ATO requirements for licensed motor car traders.</div></div>
     </div>
   </div>
@@ -2002,20 +2073,59 @@ h1{
 </footer>
 
 <script>
-const io = new IntersectionObserver(
-  (entries) => entries.forEach(e => {
-    if(e.isIntersecting) {
-      e.target.classList.add('visible');
-      // Stagger children if present
-      var children = e.target.querySelectorAll('.bc, .saving-card, .price-card, .testi-card, .hstep');
-      children.forEach(function(c,i){
-        c.style.transitionDelay = (i*0.08)+'s';
-        setTimeout(function(){c.style.transitionDelay='';},1200);
+// ── SCROLL REVEAL ──
+document.addEventListener('DOMContentLoaded',function(){
+(function(){
+  function showEl(el){
+    el.classList.add('visible');
+    el.classList.add('vis');
+  }
+
+  // Show immediately if already visible
+  function checkVisible(){
+    document.querySelectorAll('.rev,.rev2').forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight+80) showEl(el);
+    });
+  }
+
+  // Stagger child cards when parent reveals
+  function staggerKids(parent){
+    var kids=parent.querySelectorAll('.bc,.saving-card,.price-card,.t-card,.hstep,.adv-pt,.plan-col');
+    kids.forEach(function(c,i){
+      c.style.opacity='0';
+      c.style.transform='translateY(14px)';
+      c.style.transition='none';
+      setTimeout(function(){
+        c.style.transition='opacity .5s ease,transform .5s ease';
+        c.style.opacity='1';
+        c.style.transform='translateY(0)';
+      },50+i*90);
+    });
+  }
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          showEl(e.target);
+          staggerKids(e.target);
+          io.unobserve(e.target);
+        }
       });
-    }
-  }),
-  {threshold:0.12,rootMargin:'0px 0px -40px 0px'}
-);
+    },{threshold:0.05,rootMargin:'0px 0px 0px 0px'});
+    document.querySelectorAll('.rev,.rev2').forEach(function(el){io.observe(el);});
+  } else {
+    // No IO support — just show everything
+    document.querySelectorAll('.rev,.rev2').forEach(function(el){showEl(el);});
+  }
+
+  // Immediate check + scroll fallback
+  checkVisible();
+  window.addEventListener('scroll',checkVisible,{passive:true});
+})();
+});
+
 
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(function(q){
@@ -2038,18 +2148,22 @@ document.querySelectorAll('.faq-q').forEach(function(q){
   }
   setTimeout(animateInsights,800);
 
-  // Subtle mouse parallax on 3D card
+  // Mouse parallax on 3D card — pause float animation on hover
   var card=document.querySelector('.dash-card');
   var scene=document.querySelector('.scene-3d');
   if(scene&&card){
+    scene.addEventListener('mouseenter',function(){
+      card.style.animationPlayState='paused';
+    });
     scene.addEventListener('mousemove',function(e){
       var r=scene.getBoundingClientRect();
-      var x=(e.clientX-r.left)/r.width-0.5;
-      var y=(e.clientY-r.top)/r.height-0.5;
-      card.style.transform='rotateY('+(-8+x*6)+'deg) rotateX('+(4-y*4)+'deg) translateZ(20px)';
+      var x=((e.clientX-r.left)/r.width-0.5)*2;
+      var y=((e.clientY-r.top)/r.height-0.5)*2;
+      card.style.transform='rotateY('+(-5+x*4)+'deg) rotateX('+(3-y*3)+'deg) translateY(-6px)';
     });
     scene.addEventListener('mouseleave',function(){
       card.style.transform='';
+      card.style.animationPlayState='running';
     });
   }
 
