@@ -7,36 +7,75 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body,#root{height:100%;overflow:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:#080810;color:#eef}
-#ld{position:fixed;inset:0;background:#080810;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .5s}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;background:#06060f;color:#f0f0fa;-webkit-font-smoothing:antialiased} @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(31,217,122,.4)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(31,217,122,0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(124,111,255,.15)}50%{box-shadow:0 0 40px rgba(124,111,255,.3)}}
+@keyframes countUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}} #ld{position:fixed;inset:0;background:#06060f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .6s}
 #ld.gone{opacity:0;pointer-events:none}
-.ll{font-size:30px;font-weight:900;color:#eef;letter-spacing:-1px;margin-bottom:6px}
-.ll b{color:#7c6fff}
-.ls{font-size:9px;color:#444;font-family:monospace;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px}
-.lbar{width:180px;height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
-.lfill{height:100%;width:0;background:linear-gradient(90deg,#7c6fff,#a89dff);border-radius:2px;transition:width .35s}
-.ltxt{font-size:10px;color:#444;margin-top:10px;font-family:monospace}
-.po{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
-.pb{background:#10101a;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px 32px;width:310px;text-align:center}
-.pd{display:flex;justify-content:center;gap:12px;margin:18px 0}
-.pdot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.15);transition:all .18s}
-.pdot.on{background:#7c6fff;border-color:#7c6fff;box-shadow:0 0 12px rgba(124,111,255,.5)}
-.pdot.err{background:#f44;border-color:#f44;animation:shk .3s}
-@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
-.pk{padding:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;color:#eef;font-size:18px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
-.pk:hover{background:rgba(124,111,255,.2);border-color:#7c6fff}
-.pk:active{transform:scale(.94)}
-.pz{grid-column:2}.pdl{font-size:13px;color:#66a}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
-@media print{#root{overflow:visible!important} .noprint{display:none!important} body{background:white;color:#111}}
+.ll{font-size:28px;font-weight:900;color:#f0f0fa;letter-spacing:-1.5px;margin-bottom:4px}
+.ll b{background:linear-gradient(135deg,#7c6fff,#a89dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ls{font-size:8px;color:#35354e;font-family:monospace;letter-spacing:4px;text-transform:uppercase;margin-bottom:32px}
+.lbar{width:200px;height:1.5px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lfill{height:100%;width:0;background:linear-gradient(90deg,#7c6fff,#a89dff,#7c6fff);background-size:200%;animation:shimmerLoad 1.5s infinite;border-radius:2px;transition:width .3s}
+@keyframes shimmerLoad{0%{background-position:0%}100%{background-position:200%}}
+.ltxt{font-size:10px;color:#35354e;margin-top:12px;font-family:monospace;letter-spacing:.5px} .po{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(16px)}
+.pb{background:linear-gradient(135deg,#0c0c1a,#111120);border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:40px 36px;width:320px;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04)}
+.pd{display:flex;justify-content:center;gap:14px;margin:20px 0}
+.pdot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.12);transition:all .2s}
+.pdot.on{background:#7c6fff;border-color:#7c6fff;box-shadow:0 0 14px rgba(124,111,255,.6)}
+.pdot.err{background:#ff4f4f;border-color:#ff4f4f;animation:shk .3s}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.pk{padding:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:12px;color:#f0f0fa;font-size:18px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.pk:hover{background:rgba(124,111,255,.18);border-color:rgba(124,111,255,.4);transform:translateY(-1px)}
+.pk:active{transform:scale(.92)}
+.pz{grid-column:2}.pdl{font-size:12px;color:#5a5a78} ::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.16)} .nav-item{transition:all .15s;border-radius:8px}
+.nav-item:hover{background:rgba(255,255,255,.05)!important}
+.nav-item.active{animation:slideIn .2s ease} .glass{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08)} .stat-card{transition:all .2s cubic-bezier(.34,1.56,.64,1)}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.4)} .ai-badge{background:linear-gradient(135deg,rgba(124,111,255,.2),rgba(168,157,255,.1));border:1px solid rgba(124,111,255,.25);color:#a89dff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;font-family:monospace} .score-ring{position:relative;display:inline-flex;align-items:center;justify-content:center} .days-ok{background:rgba(31,217,122,.1);color:#1fd97a;border:1px solid rgba(31,217,122,.2)}
+.days-warn{background:rgba(245,166,35,.1);color:#f5a623;border:1px solid rgba(245,166,35,.2)}
+.days-bad{background:rgba(255,79,79,.1);color:#ff4f4f;border:1px solid rgba(255,79,79,.2)} @media print{#root{overflow:visible!important}.noprint{display:none!important}body{background:white;color:#111}}
+
+/* ═══════════════════════════════════
+   LMCT PRO — PREMIUM UI SYSTEM
+   ═══════════════════════════════════ */
+
+/* Nav items */
+.nav-section{font-size:9px;color:rgba(255,255,255,.18);text-transform:uppercase;letter-spacing:1.8px;padding:14px 11px 4px;font-weight:800}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:9px;cursor:pointer;width:100%;text-align:left;border:none;font-family:inherit;font-size:12.5px;font-weight:500;transition:all .18s;margin-bottom:1px;position:relative;overflow:hidden;letter-spacing:-.1px}
+.nav-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:3px;border-radius:0 3px 3px 0;background:transparent;transition:all .18s}
+.nav-item.active::before{background:linear-gradient(180deg,#a89dff,#7c6fff)}
+.nav-item.active{font-weight:700}
+.nav-item:hover:not(.active){background:rgba(255,255,255,.04)!important}
+.nav-item-icon{font-size:15px;flex-shrink:0;width:18px;text-align:center}
+.nav-item-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-ai-label{font-size:8px;background:rgba(124,111,255,.22);color:rgba(168,157,255,.9);padding:1px 6px;border-radius:8px;font-weight:800;letter-spacing:.5px;flex-shrink:0;border:1px solid rgba(124,111,255,.2)}
+.nav-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center;flex-shrink:0}
+
+/* Topbar */
+.topbar{display:flex;align-items:center;gap:12px;padding:0 24px;height:56px;border-bottom:1px solid rgba(255,255,255,.055);background:linear-gradient(180deg,rgba(255,255,255,.03) 0%,transparent 100%);flex-shrink:0}
+.topbar-title{font-size:17px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.topbar-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;font-family:monospace;letter-spacing:.3px}
+.ai-status{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(31,217,122,.8);background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.15);padding:5px 11px;border-radius:20px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite;flex-shrink:0}
+
+/* Content area */
+.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:22px 24px;animation:fadeIn .25s ease}
+.content-area::-webkit-scrollbar{width:3px}
+.content-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
 </style>
 </head>
 <body>
 <div id="ld">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(124,111,255,.08) 0%,transparent 65%)"></div>
   <div class="ll">LMCT<b>PRO</b></div>
-  <div class="ls">Dealer Platform</div>
+  <div class="ls">Dealer Operating System</div>
   <div class="lbar"><div class="lfill" id="lf"></div></div>
   <div class="ltxt" id="lt">Loading...</div>
 </div>
@@ -45,368 +84,187 @@ body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;backgroun
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <script>
-var p=0,mi=0,msgs=["Loading...","Stock data...","Dashboard...","Almost ready..."];
+var p=0,mi=0,msgs=["Initialising platform...","Loading stock data...","Preparing dashboard...","Almost ready..."];
 var iv=setInterval(function(){p+=Math.random()*15+5;if(p>92)p=92;document.getElementById("lf").style.width=p+"%";document.getElementById("lt").textContent=msgs[Math.min(mi++,3)];},300);
 window.__done=function(){clearInterval(iv);document.getElementById("lf").style.width="100%";setTimeout(function(){document.getElementById("ld").classList.add("gone");},350);};
 </script>
 <script type="text/babel">
 
+const {useState,useEffect,useRef,useCallback}=React;
+
+// ── PREMIUM COLOR SYSTEM v2 ──
+const C={
+  // Backgrounds — deep layered dark
+  bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",
+  // Borders
+  b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",
+  // Text
+  t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",
+  // Accent — purple
+  acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",
+  // Green
+  g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",
+  // Amber
+  a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",
+  // Red
+  r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",
+  // Blue
+  b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",
+  // Gradients
+  grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",
+  grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",
+  grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))",
+};
+
+// ── UTILITIES ──
+const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
+const fd=d=>d?new Date(d).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}):"—";
+const dAgo=d=>{if(!d)return 0;return Math.floor((Date.now()-new Date(d))/86400000);};
+const dUntil=d=>{if(!d)return 999;return Math.floor((new Date(d)-Date.now())/86400000);};
+const ce=b=>{const m={"SUV":"🚙","Sedan":"🚗","Hatchback":"🚗","Ute":"🛻","Van":"🚐","Wagon":"🚗","Coupe":"🚗","Convertible":"🚗","4WD":"🛻"};return m[b]||"🚗";};
+
+// ── STORAGE ──
+const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au"};
+const ES0={apiKey:"",senderName:"",senderEmail:"",replyTo:"",signature:"",autoCc:false,autoSend:true,sendContract:true,sendInvoice:true,sendVicRoads:true};
+function gDP(){try{return {...DP0,...JSON.parse(localStorage.getItem("lp_d")||"{}")};}catch(e){return DP0;}}
+function sDP(v){localStorage.setItem("lp_d",JSON.stringify(v));}
+function gDM(){try{return {...{pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""},...JSON.parse(localStorage.getItem("lp_dm")||"{}")};}catch(e){return {pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""}}}
+function sDM(v){localStorage.setItem("lp_dm",JSON.stringify(v));}
+function gES(){try{return {...ES0,...JSON.parse(localStorage.getItem("lmct_email")||"{}")};}catch(e){return ES0;}}
+function sES(v){localStorage.setItem("lmct_email",JSON.stringify(v));}
+
+// ── SEED DATA ──
+const SS=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_stock")||"[]");return d.length?d:[
+  {id:1,make:"Toyota",model:"RAV4",year:2021,colour:"Pearl White",body:"SUV",trans:"Auto",fuel:"Petrol",odo:41000,rego:"ABC123",vin:"JTMWB3FV21D",price:33490,purchase:26800,recon:800,other:200,source:"Auction",acq:"2024-12-01",ppsr:"Clear",regoExp:"2026-08-15",status:"Available",score:92},
+  {id:2,make:"Mazda",model:"CX-5",year:2020,colour:"Soul Red",body:"SUV",trans:"Auto",fuel:"Petrol",odo:62000,rego:"XYZ456",vin:"JM3KFBCM0L",price:28990,purchase:22400,recon:600,other:0,source:"Trade-in",acq:"2024-11-15",ppsr:"Clear",regoExp:"2026-05-20",status:"Available",score:78},
+  {id:3,make:"Ford",model:"Ranger",year:2019,colour:"White",body:"Ute",trans:"Auto",fuel:"Diesel",odo:89000,rego:"LMN789",vin:"6FPAAAJJXJR",price:34990,purchase:27500,recon:1200,other:300,source:"Dealer",acq:"2024-10-20",ppsr:"Clear",regoExp:"2025-11-30",status:"Available",score:65},
+  {id:4,make:"Honda",model:"CR-V",year:2022,colour:"Sonic Grey",body:"SUV",trans:"Auto",fuel:"Petrol",odo:28000,rego:"DEF321",vin:"7FARW2H55NE",price:38990,purchase:31200,recon:400,other:0,source:"Auction",acq:"2025-01-08",ppsr:"Clear",regoExp:"2027-01-15",status:"Available",score:95},
+  {id:5,make:"Hyundai",model:"Tucson",year:2021,colour:"Black",body:"SUV",trans:"Auto",fuel:"Petrol",odo:55000,rego:"GHI654",vin:"KMHJ3",price:27490,purchase:21000,recon:900,other:100,source:"Trade-in",acq:"2024-09-05",ppsr:"Clear",regoExp:"2026-03-10",status:"Reserved",score:71},
+];}catch(e){return [];}})();
+const SL=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_sold")||"[]");return d.length?d:[
+  {id:101,make:"Toyota",model:"Camry",year:2020,rego:"OLD001",sale:24990,cost:19800,profit:5190,buyer:"Michael Chen",bPhone:"0411111111",bEmail:"m.chen@email.com",date:"2025-01-15",pay:"Finance"},
+  {id:102,make:"Mazda",model:"3",year:2019,rego:"OLD002",sale:18490,cost:14200,profit:4290,buyer:"Sarah Williams",bPhone:"0422222222",bEmail:"s.williams@email.com",date:"2025-01-22",pay:"Cash"},
+  {id:103,make:"Toyota",model:"HiLux",year:2020,rego:"OLD003",sale:42990,cost:35500,profit:7490,buyer:"James O'Brien",bPhone:"0433333333",bEmail:"jobrien@email.com",date:"2025-02-03",pay:"Finance"},
+];}catch(e){return [];}})();
+const CU=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_cust")||"[]");return d.length?d:[
+  {id:201,first:"Michael",last:"Chen",phone:"0411111111",email:"m.chen@email.com",addr:"12 Oak St, Clayton VIC",status:"Buyer",notes:"Bought 2020 Camry",bought:1},
+  {id:202,first:"Priya",last:"Sharma",phone:"0444444444",email:"priya@email.com",addr:"56 Main Rd, Dandenong VIC",status:"Hot Lead",notes:"Looking for 7-seater SUV, budget $35k"},
+  {id:203,first:"Tom",last:"Murphy",phone:"0455555555",email:"tom.m@email.com",addr:"88 Church St, Sunshine VIC",status:"Hot Lead",notes:"Wants diesel ute, happy to wait"},
+];}catch(e){return [];}})();
+
+// ── PREMIUM UI PRIMITIVES ──
+const Inp=({value,onChange,placeholder,type="text",disabled,autoFocus})=><input autoFocus={autoFocus} disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
+  <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}15 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/>
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10,position:"relative"}}>
+    <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>
+    {icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>{icon}</div>}
+  </div>
+  {locked?<Locked onReq={()=>{}}/>:<div style={{position:"relative"}}>
+    <div style={{fontSize:26,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>
+    {sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>
+      {trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}
+    </div>}
+  </div>}
+</div>;
+
+const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}><div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>{locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:26,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}</div>;
 
 
-// ── DATA PAGE (export inline, import via data.html) ──
-function DataPage({stock,sold,cust,setStock,setSold}){
-  function toCSV(rows,headers){
-    const esc=v=>{const s=v===null||v===undefined?"":String(v);return s.includes(",")||s.includes("\n")||s.includes('"')?'"'+s.replace(/"/g,'""')+'"':s;};
-    return [headers.join(","),...rows.map(r=>headers.map(h=>esc(r[h])).join(","))].join("\n");
-  }
-  function dl(csv,name){const b=new Blob([csv],{type:"text/csv"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
-  const dp=gDP();
-  function exportAll(){
-    let out="LMCT PRO Export\n";
-    out+=`${dp.dealerName} | LMCT ${dp.lmct} | ${new Date().toLocaleString("en-AU")}\n\n`;
-    out+="=== STOCK ===\n";
-    out+=toCSV(stock,["id","make","model","year","colour","body","trans","fuel","odo","engine","drive","rego","vin","purchase","price","recon","other","source","acq","ppsr","regoExp","seller","sellerAddr","notes","status","score"])+"\n\n";
-    out+="=== SALES ===\n";
-    out+=toCSV(sold,["id","make","model","year","body","rego","vin","sale","cost","recon","profit","buyer","bPhone","bEmail","bAddr","date","pay"])+"\n\n";
-    out+="=== CUSTOMERS ===\n";
-    out+=toCSV(cust,["id","first","last","phone","email","addr","src","status","notes","bought"]);
-    dl(out,`lmctpro_backup_${new Date().toISOString().split("T")[0]}.csv`);
-  }
-  function openImport(){
-    try{
-      localStorage.setItem("lmct_import_callback","1");
-      const w=window.open("data.html","_blank");
-      if(!w)alert("Please allow popups to open the import tool.");
-    }catch(e){alert("Error: "+e.message);}
-  }
-  return <div style={{maxWidth:680}}>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:14}}>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
-        <div style={{fontSize:40,marginBottom:10}}>💾</div>
-        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Export All Data</div>
-        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>{stock.length} vehicles · {sold.length} sales · {cust.length} customers<br/>Downloads as one CSV backup file</div>
-        <button onClick={exportAll} style={{width:"100%",padding:"11px",background:`linear-gradient(135deg,${C.acc},#5b4ee0)`,border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>Download Full Backup</button>
+// ── UI PRIMITIVES ──
+const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const{bg,c,brd}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:bg,color:c,border:`1px solid ${brd}`}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0,animation:"livePulse 2s infinite"}}/>}{children}</span>;};
+const Btn=({children,onClick,v="ghost",sz="md",disabled,full,icon,st={}})=>{const S={primary:{background:C.grad1,color:"#fff",border:"none",boxShadow:"0 4px 14px rgba(124,111,255,.3)"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?.4:1,...Z[sz],...S[v],...st}}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
+const Inp=({value,onChange,placeholder,type="text",disabled})=><input disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
+const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
+const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4,marginTop:1}}>{hint}</div>}</div>;
+const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:9,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
+const Modal=({open,onClose,title,children,w=500})=>open?<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(14px)",padding:20}} onClick={e=>e.target===e.currentTarget&&onClose()}><div style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:16,width:"100%",maxWidth:w,maxHeight:"90vh",overflow:"auto",boxShadow:"0 40px 100px rgba(0,0,0,.7)"}}><div style={{padding:"16px 20px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2,zIndex:1}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>✕</button></div><div style={{padding:20}}>{children}</div></div></div>:null;
+const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer",padding:"4px 0"}}><span>🔐</span><span>PIN required</span></div>;
+
+// ── AI MANAGER (stub — main intelligence widget) ──
+function AIManager({stock,sold}){
+  const [loading,setLoading]=useState(false),[insight,setInsight]=useState(null);
+  const active=stock.filter(c=>c.status!=="Sold");
+  const aged=active.filter(c=>dAgo(c.acq)>45);
+  const avgDays=sold.length?Math.round(sold.reduce((a,s)=>{const m=stock.find(x=>x.rego===s.rego);return m&&m.acq?a+Math.round((new Date(s.date)-new Date(m.acq))/86400000):a;},0)/sold.length):null;
+  const topMake=Object.entries(sold.reduce((a,s)=>{a[s.make]=(a[s.make]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1])[0];
+  const quickInsights=[];
+  if(aged.length>0)quickInsights.push({icon:"⏱",col:C.r,text:`${aged.length} vehicle${aged.length>1?"s":""} over 45 days — consider repricing`});
+  if(topMake)quickInsights.push({icon:"🏆",col:C.g,text:`${topMake[0]}s are your fastest seller — ${topMake[1]} sold`});
+  if(avgDays)quickInsights.push({icon:"📈",col:C.b,text:`Average days to sell: ${avgDays} days`});
+  if(active.length<4)quickInsights.push({icon:"🚨",col:C.a,text:"Stock running low — source vehicles now"});
+  if(!quickInsights.length)quickInsights.push({icon:"💡",col:C.acc2,text:"Add stock and record sales to unlock AI insights"});
+  return <div style={{background:`linear-gradient(135deg,rgba(124,111,255,.10),rgba(31,217,122,.04))`,border:`1px solid rgba(124,111,255,.18)`,borderRadius:14,overflow:"hidden"}}>
+    <div style={{padding:"14px 18px",borderBottom:`1px solid rgba(124,111,255,.12)`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+      <div style={{display:"flex",alignItems:"center",gap:10}}>
+        <div style={{width:36,height:36,borderRadius:10,background:"rgba(124,111,255,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>🤖</div>
+        <div><div style={{fontWeight:800,fontSize:14}}>AI Manager</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>Live insights from your data</div></div>
       </div>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
-        <div style={{fontSize:40,marginBottom:10}}>📥</div>
-        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Import from EasyCars</div>
-        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>Upload a CSV from EasyCars,<br/>DealerSocket, Excel or any DMS</div>
-        <button onClick={openImport} style={{width:"100%",padding:"11px",background:C.gd,border:`1px solid ${C.gb}`,borderRadius:8,color:C.g,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>Open Import Tool</button>
-      </div>
+      <Badge color="purple" dot>Active</Badge>
     </div>
-    <div style={{background:C.s2,borderRadius:9,padding:"11px 14px",fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>
-      💡 Export regularly as a backup. The import tool opens in a new tab where you can upload and preview your EasyCars CSV before importing.
+    <div style={{padding:"14px 18px",display:"flex",flexDirection:"column",gap:8}}>
+      {quickInsights.map((ins,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 13px",background:"rgba(0,0,0,.2)",borderRadius:10,border:`1px solid ${ins.col}18`}}>
+        <span style={{fontSize:18,flexShrink:0}}>{ins.icon}</span>
+        <span style={{fontSize:13,color:C.t1,lineHeight:1.5}}>{ins.text}</span>
+      </div>)}
     </div>
   </div>;
 }
 
-
-const {useState,useEffect}=React;
-// ── COLORS ──
-const C={bg:"#080810",s1:"#0e0e1a",s2:"#141420",s3:"#1c1c2c",s4:"#222234",b1:"rgba(255,255,255,.05)",b2:"rgba(255,255,255,.09)",b3:"rgba(255,255,255,.16)",t1:"#eeeef8",t2:"#9999b8",t3:"#5f5f7a",t4:"#3a3a52",acc:"#7c6fff",acc2:"#a89dff",accd:"rgba(124,111,255,.12)",g:"#1fd97a",gd:"rgba(31,217,122,.1)",gb:"rgba(31,217,122,.2)",a:"#f5a623",ad:"rgba(245,166,35,.1)",ab:"rgba(245,166,35,.2)",r:"#ff4d4d",rd:"rgba(255,77,77,.1)",rb:"rgba(255,77,77,.2)",b:"#3d9eff",bd:"rgba(61,158,255,.1)",bb:"rgba(61,158,255,.2)"};
-// ── DEFAULTS ──
-const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au"};
-const DM0={pin:"1234",minMargin:12,targetMargin:20,warnMargin:8,notes:""};
-const gDP=()=>JSON.parse(localStorage.getItem("lp_d")||JSON.stringify(DP0));
-const gDM=()=>JSON.parse(localStorage.getItem("lp_m")||JSON.stringify(DM0));
-const sDP=v=>localStorage.setItem("lp_d",JSON.stringify(v));
-const sDM=v=>localStorage.setItem("lp_m",JSON.stringify(v));
-// ── SEED ──
-const SS=[
-  {id:1,make:"Toyota",model:"Camry",year:2019,colour:"Silver",body:"Sedan",trans:"Automatic",fuel:"Petrol",odo:62000,engine:"2.5L",drive:"FWD",rego:"XYZ123",vin:"JTNBE46KX73065432",purchase:16500,price:21990,recon:800,other:200,source:"Auction",acq:"2024-11-10",ppsr:"Clear",regoExp:"2025-08-01",seller:"Manheim Auctions",sellerAddr:"",notes:"CarPlay, reverse cam, new tyres",status:"Available",score:88},
-  {id:2,make:"Mazda",model:"CX-5",year:2020,colour:"Red",body:"SUV",trans:"Automatic",fuel:"Petrol",odo:45000,engine:"2.5L",drive:"AWD",rego:"ABC456",vin:"JM3KFBCM0L0123456",purchase:22000,price:28990,recon:300,other:0,source:"Trade-In",acq:"2024-12-01",ppsr:"Clear",regoExp:"2025-10-15",seller:"ABC Motors",sellerAddr:"",notes:"Sunroof, leather, service history",status:"Available",score:94},
-  {id:3,make:"Ford",model:"Ranger",year:2018,colour:"White",body:"Ute",trans:"Automatic",fuel:"Diesel",odo:89000,engine:"3.2L Turbo",drive:"4WD",rego:"LMN789",vin:"6FPAAAJJXJR000120",purchase:28000,price:34990,recon:1200,other:500,source:"Auction",acq:"2024-10-28",ppsr:"Clear",regoExp:"2025-06-20",seller:"Pickles",sellerAddr:"",notes:"Bull bar, tow bar, canopy",status:"Reserved",score:72},
-  {id:4,make:"Honda",model:"CR-V",year:2021,colour:"Blue",body:"SUV",trans:"CVT",fuel:"Petrol",odo:31000,engine:"1.5T",drive:"AWD",rego:"DEF321",vin:"7FARW2H55ME000890",purchase:26000,price:31990,recon:200,other:0,source:"Private",acq:"2025-01-05",ppsr:"Clear",regoExp:"2026-01-20",seller:"Jane Cooper",sellerAddr:"45 Oak Rd, Geelong VIC",notes:"One owner, full logbook",status:"Available",score:91},
-];
-const SL=[
-  {id:101,make:"Hyundai",model:"Tucson",year:2019,body:"SUV",rego:"QWE567",vin:"",sale:26500,cost:20000,recon:600,other:0,buyer:"Michael Johnson",bPhone:"0412 345 678",bEmail:"michael@gmail.com",bAddr:"12 Elm St, Footscray VIC",date:"2024-11-15",pay:"Finance",profit:5900},
-  {id:102,make:"Volkswagen",model:"Golf",year:2020,body:"Hatchback",rego:"RTY890",vin:"",sale:22990,cost:18500,recon:400,other:0,buyer:"Sarah Williams",bPhone:"0423 456 789",bEmail:"sarah@email.com",bAddr:"67 Pine Ave, Richmond VIC",date:"2024-12-08",pay:"Cash",profit:4090},
-  {id:103,make:"Nissan",model:"X-Trail",year:2018,body:"SUV",rego:"UIO234",vin:"",sale:19990,cost:15000,recon:900,other:0,buyer:"David Chen",bPhone:"0434 567 890",bEmail:"david@work.com",bAddr:"89 Cedar Rd, Box Hill VIC",date:"2025-01-10",pay:"Bank Transfer",profit:4090},
-];
-const CU=[
-  {id:1,first:"Michael",last:"Johnson",phone:"0412 345 678",email:"michael@gmail.com",addr:"12 Elm St, Footscray VIC 3011",src:"CarSales",status:"Buyer",notes:"Bought Tucson. Wants SUV.",bought:1},
-  {id:2,first:"Sarah",last:"Williams",phone:"0423 456 789",email:"sarah@email.com",addr:"67 Pine Ave, Richmond VIC",src:"Facebook",status:"Buyer",notes:"Likes hatchbacks.",bought:1},
-  {id:3,first:"David",last:"Chen",phone:"0434 567 890",email:"david@work.com",addr:"89 Cedar Rd, Box Hill VIC",src:"Walk-in",status:"Buyer",notes:"Fleet buyer.",bought:1},
-  {id:4,first:"Lisa",last:"Nguyen",phone:"0445 678 901",email:"lisa@hotmail.com",addr:"34 Maple Dr, Dandenong VIC",src:"Referral",status:"Hot Lead",notes:"Budget $20k, wants SUV.",bought:0},
-];
-// ── UTILS ──
-const fd=d=>{if(!d)return"—";try{return new Date(d).toLocaleDateString("en-AU",{day:"2-digit",month:"short",year:"numeric"});}catch{return d;}};
-const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
-const ce=b=>({Sedan:"🚗",Hatchback:"🚙",SUV:"🚙",Ute:"🛻",Van:"🚐",Wagon:"🚗",Coupe:"🏎️"}[b]||"🚗");
-const sc=s=>s>=85?C.g:s>=65?C.a:C.r;
-const scb=s=>s>=85?C.gd:s>=65?C.ad:C.rd;
-const dAgo=d=>d?Math.round((new Date()-new Date(d))/86400000):0;
-const dUntil=d=>d?Math.round((new Date(d)-new Date())/86400000):999;
-const aiScore=(make,model,year,odo)=>{let s=65;if(["toyota","mazda","honda","hyundai"].includes((make||"").toLowerCase()))s+=10;if(["camry","cx-5","cr-v","ranger","rav4"].includes((model||"").toLowerCase()))s+=8;if(year>=2021)s+=10;else if(year>=2019)s+=5;if(odo<40000)s+=8;else if(odo>120000)s-=12;return Math.min(99,Math.max(25,s));};
-const suggestP=(make,model,year,odo)=>{const b={toyota:22000,mazda:24000,honda:23000,hyundai:20000,ford:28000,volkswagen:21000,nissan:19000};let p=(b[(make||"").toLowerCase()]||20000)+((year||2019)-2018)*1400-((odo||50000)/1000)*75;return Math.round(Math.max(7000,p)/500)*500;};
-// Stamp duty calc (Duties Act 2000 VIC)
-const calcDuty=(price,lowEm,primProd)=>{const p=parseFloat(price)||0;if(!p)return{duty:0,rate:0.042,rounded:0};let rate=(!lowEm&&!primProd)?(p>150000?0.09:p>100000?0.07:p>80567?0.052:0.042):0.042;const rounded=Math.ceil(p/200)*200;return{duty:Math.round(rate*rounded*100)/100,rate,rounded};};
-// ── BASE COMPONENTS ──
-const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g},amber:{bg:C.ad,c:C.a},red:{bg:C.rd,c:C.r},blue:{bg:C.bd,c:C.b},purple:{bg:C.accd,c:C.acc2},grey:{bg:C.b1,c:C.t3}};const{bg,c}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 8px",borderRadius:20,fontSize:11,fontWeight:600,background:bg,color:c}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0}}/>}{children}</span>;};
-const Btn=({children,onClick,v="ghost",sz="md",disabled,full,st={}})=>{const sizes={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 11px",fontSize:12},md:{padding:"8px 15px",fontSize:13}};const vs={primary:{background:C.acc,color:"#fff",border:"none"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:5,width:full?"100%":"",borderRadius:8,fontWeight:500,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .15s",opacity:disabled?.4:1,...sizes[sz],...vs[v],...st}}>{children}</button>;};
-const Inp=({value,onChange,placeholder,type="text",disabled})=><input disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type}/>;
-const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
-const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:11,color:C.t3,fontWeight:600,textTransform:"uppercase",letterSpacing:.5}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4}}>{hint}</div>}</div>;
-const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:10,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
-const Modal=({open,onClose,title,children,w=600})=>{if(!open)return null;return <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.85)",zIndex:300,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(6px)"}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}><div style={{background:C.s1,border:`1px solid ${C.b3}`,borderRadius:16,width:w,maxWidth:"95vw",maxHeight:"90vh",overflowY:"auto",padding:24,boxShadow:"0 50px 100px rgba(0,0,0,.7)"}}>{title&&<div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}><span style={{fontSize:16,fontWeight:700}}>{title}</span><button onClick={onClose} style={{background:C.s3,border:`1px solid ${C.b2}`,color:C.t2,width:28,height:28,borderRadius:7,cursor:"pointer",fontSize:16,display:"flex",alignItems:"center",justifyContent:"center"}}>x</button></div>}{children}</div></div>;};
-const StatCard=({label,value,sub,color,icon,locked,onClick})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:"16px 18px",cursor:onClick?"pointer":"default"}}><div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}><div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.7,fontWeight:600}}>{label}</div>{icon&&<div style={{fontSize:16,opacity:.5}}>{icon}</div>}</div>{locked?<div style={{display:"flex",alignItems:"center",gap:6,color:C.t3,fontSize:13}}><span>🔒</span>PIN required</div>:<div><div style={{fontSize:24,fontWeight:800,color:color||C.t1,lineHeight:1}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:4}}>{sub}</div>}</div>}</div>;
-const Locked=({onReq})=><div onClick={onReq} style={{display:"inline-flex",alignItems:"center",gap:5,cursor:"pointer",background:C.s3,border:`1px solid ${C.b2}`,borderRadius:6,padding:"3px 9px",userSelect:"none"}}><span style={{fontSize:11}}>🔒</span><span style={{fontSize:11,color:C.t3}}>PIN</span></div>;
-function Clock(){const [t,st]=useState(new Date());useEffect(()=>{const i=setInterval(()=>st(new Date()),1000);return()=>clearInterval(i);},[]);return <div style={{textAlign:"right",lineHeight:1}}><div style={{fontSize:13,fontWeight:700}}>{t.toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit",hour12:true})}</div><div style={{fontSize:10,color:C.t3,marginTop:2}}>{t.toLocaleDateString("en-AU",{weekday:"short",day:"2-digit",month:"short"})}</div></div>;}
 // ── PIN MODAL ──
-function PINModal({onSuccess,onClose,title="Manager PIN"}){
-  const [d,sd]=useState([]);const [err,se]=useState(false);
-  function press(n){if(d.length>=4)return;const nx=[...d,n];sd(nx);se(false);if(nx.length===4){setTimeout(()=>{if(nx.join("")===gDM().pin)onSuccess();else{se(true);setTimeout(()=>{sd([]);se(false);},700);}},100);}}
-  return <div className="po" onClick={e=>{if(e.target===e.currentTarget)onClose();}}><div className="pb">
-    <div style={{fontSize:22,marginBottom:6}}>🔐</div>
-    <div style={{fontSize:16,fontWeight:700,color:C.t1,marginBottom:4}}>{title}</div>
-    <div style={{fontSize:12,color:C.t3}}>Enter your 4-digit manager PIN</div>
-    <div className="pd">{[0,1,2,3].map(i=><div key={i} className={`pdot${i<d.length?" on":""}${err?" err":""}`}/>)}</div>
-    {err&&<div style={{fontSize:12,color:C.r,marginBottom:8}}>Incorrect PIN</div>}
-    <div className="pg">
-      {[1,2,3,4,5,6,7,8,9].map(n=><button key={n} className="pk" onClick={()=>press(String(n))}>{n}</button>)}
-      <button className="pk pz" onClick={()=>press("0")}>0</button>
-      <button className="pk pdl" onClick={()=>sd(x=>x.slice(0,-1))}>&#9003;</button>
-    </div>
-    <button onClick={onClose} style={{marginTop:14,background:"none",border:"none",color:C.t3,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Cancel</button>
+function PINModal({onSuccess,onClose}){
+  const m=gDM();
+  const [pin,setPin]=useState([]),[err,setErr]=useState(false);
+  function press(d){
+    if(pin.length>=4)return;
+    const np=[...pin,d];
+    setPin(np);
+    if(np.length===4){
+      if(np.join("")===String(m.pin)){setTimeout(onSuccess,150);}
+      else{setTimeout(()=>{setPin([]);setErr(true);setTimeout(()=>setErr(false),600);},200);}
+    }
+  }
+  return <div className="po"><div className="pb">
+    <div style={{fontSize:13,fontWeight:700,color:C.t1,marginBottom:4}}>Manager PIN</div>
+    <div style={{fontSize:12,color:C.t3,marginBottom:16}}>Enter your 4-digit PIN</div>
+    <div className="pd">{[0,1,2,3].map(i=><div key={i} className={`pdot${pin.length>i?" on":""}${err?" err":""}`}/>)}</div>
+    <div className="pg">{[1,2,3,4,5,6,7,8,9].map(n=><button key={n} className="pk" onClick={()=>press(String(n))}>{n}</button>)}<div/><button className="pk pz" onClick={()=>press("0")}>0</button><button className="pk" onClick={()=>setPin(p=>p.slice(0,-1))}>⌫</button></div>
+    <div className="pdl" style={{marginTop:14,cursor:"pointer",color:C.t3,fontSize:11}} onClick={onClose}>Cancel</div>
   </div></div>;
 }
-// ── AI MANAGER ──
-function AIManager({stock,sold}){
-  const [resp,setResp]=useState(null);
-  const [loading,setLoading]=useState(false);
-  const [err,setErr]=useState(null);
-  const [expanded,setExpanded]=useState(false);
 
-  // Build real dealer analytics from actual data
-  function buildAnalytics(){
-    const active=stock.filter(c=>c.status!=="Sold");
-    const now=new Date();
-
-    // Days to sell per sold vehicle
-    const dts=sold.map(s=>{
-      const match=stock.find(c=>c.rego===s.rego||c.make===s.make&&c.model===s.model&&c.year===s.year);
-      if(match&&match.acq&&s.date){
-        const days=Math.round((new Date(s.date)-new Date(match.acq))/86400000);
-        return days>0&&days<365?days:null;
-      }
-      return null;
-    }).filter(Boolean);
-    const avgDTS=dts.length?Math.round(dts.reduce((a,b)=>a+b,0)/dts.length):null;
-
-    // Source breakdown
-    const sources={};
-    sold.forEach(s=>{
-      const match=stock.find(c=>c.rego===s.rego);
-      const src=match?.source||"Unknown";
-      if(!sources[src])sources[src]={count:0,profit:0};
-      sources[src].count++;
-      sources[src].profit+=s.profit||0;
-    });
-
-    // Ageing stock
-    const aged=active.filter(c=>dAgo(c.acq)>60).map(c=>({
-      vehicle:`${c.year} ${c.make} ${c.model}`,
-      days:dAgo(c.acq),
-      price:c.price,
-      score:c.score
-    }));
-
-    // Margin analysis
-    const margins=sold.map(s=>s.profit&&s.sale?((s.profit/s.sale)*100).toFixed(1):null).filter(Boolean).map(Number);
-    const avgMargin=margins.length?(margins.reduce((a,b)=>a+b,0)/margins.length).toFixed(1):null;
-
-    // Best/worst sellers by make
-    const makeStats={};
-    sold.forEach(s=>{
-      if(!makeStats[s.make])makeStats[s.make]={count:0,profit:0,revenue:0};
-      makeStats[s.make].count++;
-      makeStats[s.make].profit+=s.profit||0;
-      makeStats[s.make].revenue+=s.sale||0;
-    });
-
-    // Rego expiry risks
-    const regoRisk=active.filter(c=>c.regoExp&&dUntil(c.regoExp)<30).map(c=>({
-      vehicle:`${c.year} ${c.make} ${c.model}`,
-      rego:c.rego,
-      days:dUntil(c.regoExp)
-    }));
-
-    // Monthly revenue trend
-    const monthly={};
-    sold.forEach(s=>{
-      if(!s.date)return;
-      const key=s.date.substring(0,7);
-      if(!monthly[key])monthly[key]={revenue:0,profit:0,count:0};
-      monthly[key].revenue+=s.sale||0;
-      monthly[key].profit+=s.profit||0;
-      monthly[key].count++;
-    });
-
-    return {
-      totalStock:active.length,
-      totalSold:sold.length,
-      avgDaysToSell:avgDTS,
-      allDaysToSell:dts,
-      agedStock:aged,
-      sourceBreakdown:sources,
-      avgMarginPct:avgMargin,
-      makeStats,
-      regoRisk,
-      monthlyTrend:monthly,
-      totalRevenue:sold.reduce((a,s)=>a+s.sale,0),
-      totalProfit:sold.reduce((a,s)=>a+(s.profit||0),0),
-      stockValue:active.reduce((a,c)=>a+c.price,0),
-      stockCost:active.reduce((a,c)=>a+c.purchase+c.recon+(c.other||0),0),
-    };
+// ── DATA PAGE ──
+function DataPage({stock,sold,cust}){
+  function dl(csv,name){const b=new Blob([csv],{type:"text/csv"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
+  function esc(v){const s=v===null||v===undefined?"":String(v);return s.includes(",")||s.includes("\n")||s.includes('"')?'"'+s.replace(/"/g,'""')+'"':s;}
+  function toCSV(rows,headers){return [headers.join(","),...rows.map(r=>headers.map(h=>esc(r[h])).join(","))].join("\n");}
+  function exportAll(){
+    const dp=gDP();
+    let out=`LMCT PRO Export\n${dp.dealerName} | LMCT ${dp.lmct} | ${new Date().toLocaleString("en-AU")}\n\n=== STOCK ===\n`;
+    out+=toCSV(stock,["id","make","model","year","colour","body","trans","fuel","odo","rego","vin","purchase","price","recon","other","source","acq","ppsr","regoExp","seller","notes","status"])+"\n\n=== SALES ===\n";
+    out+=toCSV(sold,["id","make","model","year","rego","sale","cost","profit","buyer","bPhone","date","pay"])+"\n\n=== CUSTOMERS ===\n";
+    out+=toCSV(cust,["id","first","last","phone","email","addr","status","notes"]);
+    dl(out,`lmctpro_backup_${new Date().toISOString().split("T")[0]}.csv`);
   }
-
-  async function analyse(){
-    setLoading(true);
-    setErr(null);
-    setResp(null);
-    const analytics=buildAnalytics();
-    const prompt=`You are an expert automotive dealer business manager and analyst for an Australian used car dealership. Analyse this dealer's REAL business data and give sharp, specific, actionable advice.
-
-DEALER DATA:
-- Stock: ${analytics.totalStock} vehicles in stock (value $${analytics.stockValue.toLocaleString()}, cost $${analytics.stockCost.toLocaleString()})
-- Total sold: ${analytics.totalSold} vehicles
-- Total revenue: $${analytics.totalRevenue.toLocaleString()} AUD
-- Total gross profit: $${analytics.totalProfit.toLocaleString()} AUD
-- Average gross margin: ${analytics.avgMarginPct||"N/A"}%
-- Average days to sell: ${analytics.avgDaysToSell||"N/A"} days
-- All days-to-sell data: ${analytics.allDaysToSell.join(", ")||"insufficient data"}
-
-AGED STOCK (60+ days):
-${analytics.agedStock.length?analytics.agedStock.map(c=>`- ${c.vehicle}: ${c.days} days, listed at $${c.price.toLocaleString()}, AI score ${c.score}`).join("\n"):"None — great turnover!"}
-
-STOCK SOURCE PERFORMANCE:
-${Object.entries(analytics.sourceBreakdown).map(([src,d])=>`- ${src}: ${d.count} sold, $${d.profit.toLocaleString()} profit`).join("\n")||"Insufficient data"}
-
-MAKE PERFORMANCE:
-${Object.entries(analytics.makeStats).map(([make,d])=>`- ${make}: ${d.count} sold, $${d.profit.toLocaleString()} profit, $${d.revenue.toLocaleString()} revenue`).join("\n")||"Insufficient data"}
-
-REGO EXPIRY RISKS:
-${analytics.regoRisk.length?analytics.regoRisk.map(c=>`- ${c.vehicle} (${c.rego}): ${c.days<=0?"EXPIRED":`${c.days} days left`}`).join("\n"):"No urgent risks"}
-
-MONTHLY TREND:
-${Object.entries(analytics.monthlyTrend).sort().map(([m,d])=>`- ${m}: ${d.count} sold, $${d.revenue.toLocaleString()} revenue, $${d.profit.toLocaleString()} profit`).join("\n")||"Insufficient data"}
-
-Give a concise analysis in this EXACT JSON format (no markdown, just raw JSON):
-{
-  "headline": "one sharp sentence summarising the dealer's current situation",
-  "score": <business health score 1-100>,
-  "scoreLabel": "<Poor|Fair|Good|Strong|Excellent>",
-  "insights": [
-    {"type": "warning|opportunity|tip|urgent", "title": "short title", "detail": "specific actionable advice based on their real numbers"},
-    ...4-6 total insights...
-  ],
-  "topAction": "the single most important thing this dealer should do RIGHT NOW",
-  "forecast": "brief 30-day outlook based on current stock and trends"
-}`;
-
-    try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
-          max_tokens:1000,
-          messages:[{role:"user",content:prompt}]
-        })
-      });
-      const data=await res.json();
-      const text=data.content?.find(b=>b.type==="text")?.text||"";
-      const clean=text.replace(/```json|```/g,"").trim();
-      const parsed=JSON.parse(clean);
-      setResp(parsed);
-      setExpanded(true);
-    }catch(e){
-      setErr("Analysis failed — check your connection and try again.");
-    }
-    setLoading(false);
-  }
-
-  const scoreColor=s=>s>=80?C.g:s>=60?C.a:C.r;
-  const typeColor=t=>({warning:C.a,urgent:C.r,opportunity:C.g,tip:C.b}[t]||C.acc2);
-  const typeIcon=t=>({warning:"⚠️",urgent:"🚨",opportunity:"💡",tip:"📌"}[t]||"•");
-
-  return <div style={{background:C.s1,border:`1px solid rgba(124,111,255,.25)`,borderRadius:14,overflow:"hidden",marginTop:14}}>
-    {/* Header */}
-    <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(124,111,255,.05))",padding:"16px 20px",borderBottom:`1px solid rgba(124,111,255,.15)`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-      <div style={{display:"flex",alignItems:"center",gap:12}}>
-        <div style={{width:40,height:40,borderRadius:10,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🤖</div>
-        <div>
-          <div style={{fontWeight:800,fontSize:15,letterSpacing:-.3}}>AI Business Manager</div>
-          <div style={{fontSize:11,color:C.t3,marginTop:1}}>Analyses your real stock, sales & performance data</div>
-        </div>
+  function openImport(){try{const w=window.open("data.html","_blank");if(!w)alert("Allow popups to open import tool.");}catch(e){alert("Error: "+e.message);}}
+  return <div style={{maxWidth:600}}>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:14}}>
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
+        <div style={{fontSize:36,marginBottom:10}}>💾</div>
+        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Export All Data</div>
+        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>{stock.length} vehicles · {sold.length} sales · {cust.length} customers</div>
+        <Btn v="primary" full onClick={exportAll}>Download Backup (.csv)</Btn>
       </div>
-      <button onClick={analyse} disabled={loading} style={{padding:"9px 20px",background:loading?"rgba(124,111,255,.2)":"rgba(124,111,255,1)",border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:13,cursor:loading?"not-allowed":"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",gap:7,transition:"all .2s"}}>
-        {loading?<span style={{display:"inline-block",width:14,height:14,border:"2px solid rgba(255,255,255,.3)",borderTopColor:"white",borderRadius:"50%",animation:"spin .7s linear infinite"}}>{"  "}</span>:"✨"}
-        {loading?"Analysing...":"Run Analysis"}
-      </button>
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
+        <div style={{fontSize:36,marginBottom:10}}>📥</div>
+        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Import from EasyCars</div>
+        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>Upload CSV from EasyCars, DealerSocket or any DMS</div>
+        <Btn v="green" full onClick={openImport}>Open Import Tool</Btn>
+      </div>
     </div>
-
-    {/* Loading state */}
-    {loading&&<div style={{padding:"24px 20px"}}>
-      <div style={{display:"flex",flexDirection:"column",gap:8}}>
-        {["Reading your stock inventory...","Calculating days-to-sell rates...","Analysing profit margins by source...","Generating recommendations..."].map((t,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,opacity:1}}>
-          <div style={{width:6,height:6,borderRadius:"50%",background:C.acc,animation:`pulse 1s ${i*.2}s infinite`}}/>
-          <span style={{fontSize:12,color:C.t3}}>{t}</span>
-        </div>)}
-      </div>
-    </div>}
-
-    {/* Error */}
-    {err&&<div style={{padding:"16px 20px",color:C.r,fontSize:13}}>{err}</div>}
-
-    {/* Results */}
-    {resp&&<div style={{padding:"16px 20px"}}>
-      {/* Score + headline */}
-      <div style={{display:"flex",gap:16,alignItems:"center",marginBottom:16,padding:"14px 16px",background:C.s2,borderRadius:10,border:`1px solid ${C.b1}`}}>
-        <div style={{textAlign:"center",flexShrink:0}}>
-          <div style={{fontSize:36,fontWeight:900,color:scoreColor(resp.score),lineHeight:1}}>{resp.score}</div>
-          <div style={{fontSize:10,fontWeight:700,color:scoreColor(resp.score),textTransform:"uppercase",letterSpacing:.5,marginTop:2}}>{resp.scoreLabel}</div>
-        </div>
-        <div style={{width:1,height:48,background:C.b2}}/>
-        <div style={{flex:1}}>
-          <div style={{fontSize:14,fontWeight:600,color:C.t1,lineHeight:1.5}}>{resp.headline}</div>
-        </div>
-      </div>
-
-      {/* Top action */}
-      <div style={{background:"rgba(124,111,255,.1)",border:"1px solid rgba(124,111,255,.25)",borderRadius:9,padding:"11px 14px",marginBottom:14,display:"flex",gap:10,alignItems:"flex-start"}}>
-        <span style={{fontSize:16,flexShrink:0}}>🎯</span>
-        <div><div style={{fontSize:11,fontWeight:700,color:C.acc2,textTransform:"uppercase",letterSpacing:.5,marginBottom:3}}>Priority Action</div><div style={{fontSize:13,color:C.t1}}>{resp.topAction}</div></div>
-      </div>
-
-      {/* Insights */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:14}}>
-        {resp.insights&&resp.insights.map((ins,i)=><div key={i} style={{background:C.s2,border:`1px solid ${C.b1}`,borderRadius:9,padding:"11px 13px",borderLeft:`3px solid ${typeColor(ins.type)}`}}>
-          <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:5}}>
-            <span style={{fontSize:13}}>{typeIcon(ins.type)}</span>
-            <span style={{fontSize:11,fontWeight:700,color:typeColor(ins.type),textTransform:"uppercase",letterSpacing:.4}}>{ins.type}</span>
-          </div>
-          <div style={{fontSize:13,fontWeight:600,color:C.t1,marginBottom:4}}>{ins.title}</div>
-          <div style={{fontSize:11,color:C.t2,lineHeight:1.55}}>{ins.detail}</div>
-        </div>)}
-      </div>
-
-      {/* Forecast */}
-      <div style={{background:C.s2,border:`1px solid ${C.b1}`,borderRadius:9,padding:"11px 14px",display:"flex",gap:10,alignItems:"flex-start"}}>
-        <span style={{fontSize:16,flexShrink:0}}>📈</span>
-        <div><div style={{fontSize:11,fontWeight:700,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:3}}>30-Day Outlook</div><div style={{fontSize:12,color:C.t2,lineHeight:1.55}}>{resp.forecast}</div></div>
-      </div>
-    </div>}
-
-    {/* Empty state */}
-    {!resp&&!loading&&!err&&<div style={{padding:"20px",textAlign:"center",color:C.t3}}>
-      <div style={{fontSize:13,marginBottom:4}}>Click <strong style={{color:C.acc2}}>Run Analysis</strong> to get AI-powered insights based on your actual dealership data</div>
-      <div style={{fontSize:11,color:C.t4}}>Analyses stock age, days-to-sell, margins, source performance and more</div>
-    </div>}
-
-    <style>{`@keyframes spin{to{transform:rotate(360deg)}} @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}`}</style>
+    <div style={{background:C.s2,borderRadius:9,padding:"11px 14px",fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>💡 Export regularly as a backup. Import opens a full preview tool in a new tab.</div>
   </div>;
 }
+
 // ── TODAY'S TASKS (stub — opens tasks.html) ──
 function TodaysTasks({stock,cust,ul}){
   const TODAY=new Date().toISOString().split("T")[0];
@@ -481,110 +339,232 @@ function TodaysTasks({stock,cust,ul}){
 }
 
 // ── DASHBOARD ──
-function Dashboard({stock,sold,cust,setPage,ul,onReq,mp}){
+function Dashboard({stock,sold,cust,setPage,ul,onReq}){
   const active=stock.filter(c=>c.status!=="Sold");
-  const rev=sold.reduce((a,s)=>a+s.sale,0),profit=sold.reduce((a,s)=>a+s.profit,0);
-  const sv=active.reduce((a,c)=>a+c.price,0),cost=active.reduce((a,c)=>a+c.purchase+c.recon+c.other,0);
+  const reserved=active.filter(c=>c.status==="Reserved");
+  const thisMonth=new Date().toISOString().slice(0,7);
+  const mtdSales=sold.filter(s=>s.date&&s.date.startsWith(thisMonth));
+  const mtdRev=mtdSales.reduce((a,s)=>a+s.sale,0);
+  const mtdProfit=mtdSales.reduce((a,s)=>a+(s.profit||0),0);
+  const totalRev=sold.reduce((a,s)=>a+s.sale,0);
+  const sv=active.reduce((a,c)=>a+c.price,0);
+  const cost=active.reduce((a,c)=>a+(c.purchase||0)+(c.recon||0)+(c.other||0),0);
+  const hotLeads=cust.filter(c=>c.status==="Hot Lead");
+  const aged60=active.filter(c=>dAgo(c.acq)>60);
+  const aged30=active.filter(c=>dAgo(c.acq)>30&&dAgo(c.acq)<=60);
   const alerts=active.filter(c=>c.regoExp&&dUntil(c.regoExp)<30);
-  return <div>
-    <TodaysTasks stock={stock} cust={cust} setPage={setPage} ul={ul}/>
-    {alerts.length>0&&<div style={{marginBottom:12,display:"flex",flexDirection:"column",gap:6}}>
-      {alerts.map(c=>{const d=dUntil(c.regoExp);return <div key={c.id} style={{background:d<=0?C.rd:C.ad,border:`1px solid ${d<=0?C.rb:C.ab}`,borderRadius:9,padding:"9px 14px",display:"flex",alignItems:"center",gap:8,fontSize:12}}><span>{d<=0?"⚠️":"🕐"}</span><strong>{c.year} {c.make} {c.model}</strong> ({c.rego}) — {d<=0?"rego EXPIRED":`rego expires in ${d}d`}</div>;})}
+  const avgScore=active.length?Math.round(active.reduce((a,c)=>a+(c.score||70),0)/active.length):0;
+
+  // Inventory health 0-100
+  const healthScore=active.length?Math.round(
+    (active.filter(c=>dAgo(c.acq)<=30).length/active.length)*100
+  ):100;
+
+  return <div style={{display:"flex",flexDirection:"column",gap:14}}>
+
+    {/* ── REGO ALERTS ── */}
+    {alerts.length>0&&<div style={{display:"flex",flexDirection:"column",gap:5}}>
+      {alerts.slice(0,2).map(c=>{const d=dUntil(c.regoExp);return <div key={c.id} style={{background:d<=0?C.rd:"rgba(245,166,35,.06)",border:`1px solid ${d<=0?C.rb:C.ab}`,borderRadius:10,padding:"9px 14px",display:"flex",alignItems:"center",gap:9,fontSize:12}}>
+        <span>{d<=0?"🚨":"⏰"}</span>
+        <span style={{flex:1,color:C.t1}}><strong>{c.year} {c.make} {c.model}</strong> ({c.rego}) — {d<=0?"rego EXPIRED":`rego expires in ${d} days`}</span>
+        <Btn sz="xs" v="amber" onClick={()=>setPage("vr")}>Lodge Form</Btn>
+      </div>;})}
     </div>}
-    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:10}}>
-      <StatCard label="In Stock" value={active.length} sub={`${stock.filter(c=>c.status==="Reserved").length} reserved`} color={C.b} icon="🚗"/>
-      <StatCard label="Revenue" value={fm(rev)} sub={`${sold.length} sales`} color={C.g} icon="💰"/>
-      <StatCard label="Stock Value" value={fm(sv)} sub="at asking" icon="📦"/>
-      <StatCard label="Customers" value={cust.length} sub={`${cust.filter(c=>c.status==="Hot Lead").length} hot leads`} icon="👥"/>
+
+    {/* ── KPI ROW ── */}
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10}}>
+      <StatCard label="In Stock" value={active.length} sub={`${reserved.length} reserved`} color={C.b} icon="🚗" onClick={()=>setPage("stock")}/>
+      <StatCard label="MTD Revenue" value={fm(mtdRev)} sub={`${mtdSales.length} sales this month`} color={C.g} icon="💰"/>
+      <StatCard label="Hot Leads" value={hotLeads.length} sub={`${cust.length} total customers`} color={C.a} icon="🔥" onClick={()=>setPage("cust")}/>
+      <StatCard label="Avg AI Score" value={avgScore} sub="portfolio quality" color={avgScore>=80?C.g:avgScore>=60?C.a:C.r} icon="🧠"/>
     </div>
-    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginBottom:10}}>
-      {[["Gross Profit",profit,"g"],["Stock Cost",cost,"a"],["Potential Profit",sv-cost,"acc2"]].map(([label,val,col])=>
-        <div key={label} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:"16px 18px"}}>
-          <div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.7,fontWeight:600,marginBottom:10}}>{label}</div>
-          {ul?<div style={{fontSize:22,fontWeight:800,color:C[col]}}>{fm(val)}</div>:<Locked onReq={onReq}/>}
+
+    {/* ── MANAGER ROW ── */}
+    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
+      {[
+        ["MTD Gross Profit",mtdProfit,C.g,"This month's earnings"],
+        ["Total Revenue",totalRev,C.acc2,`${sold.length} all-time sales`],
+        ["Potential Margin",sv-cost,C.a,"If all stock sold today"],
+      ].map(([label,val,col,sub])=><div key={label} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:-20,right:-20,width:80,height:80,background:`radial-gradient(circle,${col}15,transparent 70%)`,pointerEvents:"none"}}/>
+        <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700,marginBottom:6}}>{label}</div>
+        <div style={{fontSize:10,color:C.t4,marginBottom:8}}>{sub}</div>
+        {ul?<div style={{fontSize:24,fontWeight:900,color:col,letterSpacing:-.8}}>{fm(val)}</div>:<Locked onReq={onReq}/>}
+      </div>)}
+    </div>
+
+    {/* ── AGED STOCK ALERT ── */}
+    {(aged60.length>0||aged30.length>0)&&<div style={{background:C.s1,border:`1px solid ${aged60.length>0?C.rb:C.ab}`,borderRadius:13,padding:"14px 18px"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
+        <div style={{display:"flex",alignItems:"center",gap:9}}>
+          <div style={{width:32,height:32,borderRadius:9,background:aged60.length>0?C.rd:C.ad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⏱</div>
+          <div><div style={{fontWeight:700,fontSize:13}}>Stock Ageing Alert</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>These vehicles are tying up your cash</div></div>
         </div>
-      )}
-    </div>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:16}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><span style={{fontWeight:700}}>Recent Stock</span><Btn sz="sm" onClick={()=>setPage("stock")}>All</Btn></div>
-        {active.slice(0,4).map(c=>{const mg=c.price-c.purchase-c.recon-c.other;return <div key={c.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
-          <div style={{width:34,height:34,borderRadius:8,background:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>{ce(c.body)}</div>
-          <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.year} {c.make} {c.model}</div><div style={{fontSize:11,color:C.t3}}>{c.rego} · {(c.odo||0).toLocaleString()}km</div></div>
-          <div style={{textAlign:"right"}}><div style={{fontSize:13,fontWeight:700,color:C.g}}>{fm(c.price)}</div>{ul?<div style={{fontSize:10,color:mg>0?C.g:C.r,fontWeight:600}}>{fm(mg)}</div>:<div style={{fontSize:10,color:C.t4}}>🔒</div>}</div>
-        </div>;})}
+        <Btn sz="sm" v="amber" onClick={()=>setPage("strategy")}>Run Strategy →</Btn>
       </div>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:16}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><span style={{fontWeight:700}}>Recent Sales</span><Btn sz="sm" onClick={()=>setPage("sold")}>All</Btn></div>
-        {[...sold].reverse().slice(0,4).map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
-          <div style={{width:34,height:34,borderRadius:8,background:C.gd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>✅</div>
-          <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.year} {s.make} {s.model}</div><div style={{fontSize:11,color:C.t3}}>{s.buyer} · {fd(s.date)}</div></div>
-          <div style={{textAlign:"right"}}><div style={{fontSize:13,fontWeight:700,color:C.g}}>{fm(s.sale)}</div>{ul?<div style={{fontSize:10,color:s.profit>0?C.g:C.r,fontWeight:600}}>+{fm(s.profit)}</div>:<div style={{fontSize:10,color:C.t4}}>🔒</div>}</div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+        {aged60.length>0&&<div style={{background:C.rd,border:`1px solid ${C.rb}`,borderRadius:9,padding:"10px 13px"}}>
+          <div style={{fontSize:10,color:C.r,fontWeight:700,marginBottom:6}}>🚨 60+ DAYS · {aged60.length} vehicle{aged60.length>1?"s":""}</div>
+          {aged60.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:11,color:C.t2,marginBottom:2}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.r,fontWeight:700}}>{dAgo(c.acq)}d</span></div>)}
+        </div>}
+        {aged30.length>0&&<div style={{background:C.ad,border:`1px solid ${C.ab}`,borderRadius:9,padding:"10px 13px"}}>
+          <div style={{fontSize:10,color:C.a,fontWeight:700,marginBottom:6}}>⚠️ 30–60 DAYS · {aged30.length} vehicle{aged30.length>1?"s":""}</div>
+          {aged30.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:11,color:C.t2,marginBottom:2}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.a,fontWeight:700}}>{dAgo(c.acq)}d</span></div>)}
+        </div>}
+      </div>
+    </div>}
+
+    {/* ── BOTTOM GRID: Stock + Sales + Quick Actions ── */}
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+
+      {/* Recent Stock */}
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+          <div style={{fontWeight:700,fontSize:13}}>Recent Stock</div>
+          <Btn sz="xs" v="ghost" onClick={()=>setPage("stock")}>View all →</Btn>
+        </div>
+        {active.length===0?<div style={{textAlign:"center",color:C.t3,fontSize:12,padding:"20px 0"}}>No stock — add your first vehicle</div>:
+        active.slice(0,4).map(c=>{
+          const mg=c.price-(c.purchase||0)-(c.recon||0)-(c.other||0);
+          const age=dAgo(c.acq);
+          const ageColor=age>60?C.r:age>30?C.a:C.g;
+          return <div key={c.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
+            <div style={{width:34,height:34,borderRadius:9,background:age>60?C.rd:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>{ce(c.body)}</div>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:12,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.year} {c.make} {c.model}</div>
+              <div style={{fontSize:10,color:ageColor,marginTop:1}}>{age}d · {c.rego}</div>
+            </div>
+            <div style={{textAlign:"right",flexShrink:0}}>
+              <div style={{fontSize:12,fontWeight:700,color:C.g}}>{fm(c.price)}</div>
+              {ul&&<div style={{fontSize:9,color:mg>0?C.g:C.r}}>{fm(mg)}</div>}
+            </div>
+          </div>;
+        })}
+      </div>
+
+      {/* Recent Sales */}
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+          <div style={{fontWeight:700,fontSize:13}}>Recent Sales</div>
+          <Btn sz="xs" v="ghost" onClick={()=>setPage("sold")}>View all →</Btn>
+        </div>
+        {sold.length===0?<div style={{textAlign:"center",color:C.t3,fontSize:12,padding:"20px 0"}}>No sales yet</div>:
+        [...sold].reverse().slice(0,4).map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
+          <div style={{width:34,height:34,borderRadius:9,background:C.gd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>✅</div>
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{fontSize:12,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.year} {s.make} {s.model}</div>
+            <div style={{fontSize:10,color:C.t3,marginTop:1}}>{s.buyer} · {fd(s.date)}</div>
+          </div>
+          <div style={{textAlign:"right",flexShrink:0}}>
+            <div style={{fontSize:12,fontWeight:700,color:C.g}}>{fm(s.sale)}</div>
+            {ul&&<div style={{fontSize:9,color:(s.profit||0)>0?C.g:C.r}}>+{fm(s.profit||0)}</div>}
+          </div>
         </div>)}
       </div>
-    </div>
-    <AIManager stock={stock} sold={sold}/>
-  </div>;
-}
-function Stock({stock,setStock,onSell,setPage,ul,onReq}){
-  const [q,setQ]=useState(""),[fil,setFil]=useState(""),[srt,setSrt]=useState("recent"),[det,setDet]=useState(null),[vw,setVw]=useState("grid");
-  let items=stock.filter(c=>c.status!=="Sold").filter(c=>!q||`${c.make} ${c.model} ${c.rego} ${c.vin}`.toLowerCase().includes(q.toLowerCase())).filter(c=>!fil||c.status===fil);
-  if(srt==="phi")items=[...items].sort((a,b)=>b.price-a.price);else if(srt==="plo")items=[...items].sort((a,b)=>a.price-b.price);else if(srt==="ai")items=[...items].sort((a,b)=>b.score-a.score);else if(srt==="age")items=[...items].sort((a,b)=>new Date(a.acq)-new Date(b.acq));
-  return <div>
-    <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap",alignItems:"center"}}>
-      <div style={{flex:1,minWidth:180,display:"flex",alignItems:"center",gap:8,background:C.s2,border:`1px solid ${C.b1}`,borderRadius:8,padding:"7px 12px"}}>
-        <span style={{color:C.t3}}>🔍</span>
-        <input style={{background:"none",border:"none",outline:"none",color:C.t1,fontSize:13,flex:1}} placeholder="Search..." value={q} onChange={e=>setQ(e.target.value)}/>
-        {q&&<button onClick={()=>setQ("")} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18}}>x</button>}
+
+      {/* Quick Actions */}
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
+        <div style={{fontWeight:700,fontSize:13,marginBottom:12}}>Quick Actions</div>
+        <div style={{display:"flex",flexDirection:"column",gap:6}}>
+          {[
+            ["🚗","Add Vehicle","add",C.b],
+            ["✍️","Smart Listing","listing",C.acc2],
+            ["🧠","Strategy Engine","strategy",C.acc],
+            ["📊","Market Intel","intel",C.acc],
+            ["📋","Compliance Forms","vr",C.a],
+            ["📂","Import / Export","data",C.g],
+          ].map(([ic,lb,pg,col])=><div key={pg} onClick={()=>setPage(pg)} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 10px",borderRadius:9,cursor:"pointer",background:C.s2,border:`1px solid ${C.b1}`,transition:"all .18s"}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor=col;e.currentTarget.style.background=C.s3;}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.background=C.s2;}}>
+            <div style={{width:28,height:28,borderRadius:7,background:`${col}15`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>{ic}</div>
+            <span style={{fontSize:12,fontWeight:600,color:C.t1,flex:1}}>{lb}</span>
+            <span style={{color:C.t4,fontSize:11}}>→</span>
+          </div>)}
+        </div>
       </div>
-      <select style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:7,padding:"7px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}} value={fil} onChange={e=>setFil(e.target.value)}><option value="">All</option><option value="Available">Available</option><option value="Reserved">Reserved</option></select>
-      <select style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:7,padding:"7px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}} value={srt} onChange={e=>setSrt(e.target.value)}><option value="recent">Recent</option><option value="age">Oldest</option><option value="phi">Price High</option><option value="plo">Price Low</option><option value="ai">AI Score</option></select>
-      <div style={{display:"flex",background:C.s2,border:`1px solid ${C.b1}`,borderRadius:7,overflow:"hidden"}}>{[["grid","⊞"],["list","☰"]].map(([v,ic])=><button key={v} onClick={()=>setVw(v)} style={{padding:"7px 10px",border:"none",background:vw===v?C.s4:"transparent",color:vw===v?C.t1:C.t3,cursor:"pointer"}}>{ic}</button>)}</div>
-      <Btn v="primary" onClick={()=>setPage("add")}>+ Add Vehicle</Btn>
     </div>
-    {vw==="grid"?<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(210px,1fr))",gap:12}}>
-      {items.map(c=>{const mg=c.price-c.purchase-c.recon-c.other,pct=c.price>0?((mg/c.price)*100).toFixed(1):0,re=c.regoExp?dUntil(c.regoExp):999,exp=re<=0,soon=!exp&&re<30,old=dAgo(c.acq)>60;
-        return <div key={c.id} onClick={()=>setDet(c)} style={{background:C.s1,border:`1px solid ${exp?C.rb:C.b1}`,borderRadius:12,overflow:"hidden",cursor:"pointer",transition:"all .18s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=C.b3;e.currentTarget.style.transform="translateY(-2px)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor=exp?C.rb:C.b1;e.currentTarget.style.transform="";}}>
-          <div style={{height:110,background:`linear-gradient(135deg,${C.s2},${C.s3})`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:44,position:"relative"}}>
-            {ce(c.body)}
-            <div style={{position:"absolute",top:7,left:7,display:"flex",gap:4,flexWrap:"wrap"}}>
-              <Badge color={c.status==="Reserved"?"amber":"green"} dot>{c.status}</Badge>
-              {exp&&<Badge color="red">EXP</Badge>}
-              {soon&&<Badge color="amber">{re}d</Badge>}
-            </div>
-            <div style={{position:"absolute",top:7,right:7}}><span style={{fontSize:10,fontWeight:700,padding:"2px 6px",borderRadius:4,background:scb(c.score),color:sc(c.score)}}>AI {c.score}</span></div>
-            {old&&<div style={{position:"absolute",bottom:7,right:7}}><Badge color="red">{dAgo(c.acq)}d</Badge></div>}
-          </div>
-          <div style={{padding:12}}>
-            <div style={{fontWeight:700,fontSize:13,marginBottom:2}}>{c.year} {c.make} {c.model}</div>
-            <div style={{fontSize:11,color:C.t3,marginBottom:9}}>{c.colour} · {(c.odo||0).toLocaleString()}km</div>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-              <span style={{fontSize:14,fontWeight:800,color:C.g}}>{fm(c.price)}</span>
-              {ul?<span style={{fontSize:11,fontWeight:700,padding:"2px 6px",borderRadius:4,background:scb(parseFloat(pct)),color:mg>0?C.g:C.r}}>{fm(mg)}</span>:<span onClick={e=>{e.stopPropagation();onReq();}} style={{fontSize:11,color:C.t3,cursor:"pointer"}}>🔒</span>}
-            </div>
-          </div>
-        </div>;})}
-      {items.length===0&&<div style={{gridColumn:"1/-1",textAlign:"center",padding:60,color:C.t3}}><div style={{fontSize:40,marginBottom:10}}>🚗</div>No vehicles found</div>}
-    </div>:<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,overflow:"hidden"}}>
-      <table style={{width:"100%",borderCollapse:"collapse"}}>
-        <thead><tr style={{background:C.s2}}>{["Vehicle","Rego","ODO","Age","Price","Margin","Score","Status",""].map(h=><th key={h} style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,fontWeight:600,padding:"9px 12px",textAlign:"left",borderBottom:`1px solid ${C.b1}`}}>{h}</th>)}</tr></thead>
-        <tbody>{items.map(c=>{const mg=c.price-c.purchase-c.recon-c.other;return <tr key={c.id} onClick={()=>setDet(c)} style={{cursor:"pointer"}} onMouseEnter={e=>e.currentTarget.style.background=C.s2} onMouseLeave={e=>e.currentTarget.style.background=""}>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><div style={{fontWeight:600,fontSize:13}}>{c.year} {c.make} {c.model}</div><div style={{fontSize:11,color:C.t3}}>{c.colour}</div></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontFamily:"monospace",fontSize:12,color:C.t2}}>{c.rego}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontSize:12,color:C.t2}}>{(c.odo||0).toLocaleString()}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><span style={{fontSize:12,color:dAgo(c.acq)>60?C.r:dAgo(c.acq)>30?C.a:C.t3}}>{dAgo(c.acq)}d</span></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontWeight:700,color:C.g}}>{fm(c.price)}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}>{ul?<div><div style={{fontSize:12,fontWeight:700,color:mg>0?C.g:C.r}}>{fm(mg)}</div><div style={{fontSize:10,color:C.t3}}>{c.price>0?((mg/c.price)*100).toFixed(1):0}%</div></div>:<Locked onReq={onReq}/>}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><span style={{fontSize:11,fontWeight:700,padding:"2px 7px",borderRadius:4,background:scb(c.score),color:sc(c.score)}}>AI {c.score}</span></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><Badge color={c.status==="Reserved"?"amber":"green"} dot>{c.status}</Badge></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><Btn sz="xs" onClick={e=>{e.stopPropagation();setDet(c);}}>View</Btn></td>
-        </tr>;})}
-        </tbody>
-      </table>
-    </div>}
-    <Modal open={!!det} onClose={()=>setDet(null)} title={det?`${det.year} ${det.make} ${det.model}`:""} w={700}>{det&&<StockDetail car={det} onSell={()=>{onSell(det);setDet(null);}} onDelete={()=>{setStock(p=>p.filter(x=>x.id!==det.id));setDet(null);}} onStatus={s=>setStock(p=>p.map(c=>c.id===det.id?{...c,status:s}:c))} ul={ul} onReq={onReq}/>}</Modal>
+
+    {/* ── AI MANAGER ── */}
+    <AIManager stock={stock} sold={sold}/>
+    <TodaysTasks stock={stock} cust={cust} setPage={setPage} ul={ul}/>
   </div>;
 }
+
+function Stock({stock,setStock,onSell,setPage,ul,onReq}){
+  const [q,setQ]=useState(""),[fil,setFil]=useState(""),[srt,setSrt]=useState("recent"),[det,setDet]=useState(null);
+  let items=stock.filter(c=>c.status!=="Sold")
+    .filter(c=>!q||`${c.make} ${c.model} ${c.rego} ${c.year} ${c.colour}`.toLowerCase().includes(q.toLowerCase()))
+    .filter(c=>!fil||c.status===fil);
+  if(srt==="phi")items=[...items].sort((a,b)=>b.price-a.price);
+  else if(srt==="plo")items=[...items].sort((a,b)=>a.price-b.price);
+  else if(srt==="age")items=[...items].sort((a,b)=>new Date(a.acq)-new Date(b.acq));
+  else if(srt==="score")items=[...items].sort((a,b)=>(b.score||0)-(a.score||0));
+  else items=[...items].sort((a,b)=>b.id-a.id);
+  const aged=items.filter(c=>dAgo(c.acq)>30).length;
+  return <div>
+    {det&&<StockDetail car={det} onSell={c=>{onSell(c);setDet(null);}} onDelete={id=>{setStock(p=>p.filter(x=>x.id!==id));setDet(null);}} onStatus={(id,st)=>{setStock(p=>p.map(x=>x.id===id?{...x,status:st}:x));setDet(p2=>p2&&p2.id===id?{...p2,status:st}:p2);}} ul={ul} onReq={onReq}/>}
+    <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap",alignItems:"center"}}>
+      <div style={{flex:1,minWidth:180,display:"flex",alignItems:"center",gap:8,background:C.s2,border:`1px solid ${C.b2}`,borderRadius:9,padding:"8px 13px"}}>
+        <span style={{color:C.t3}}>🔍</span>
+        <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search make, model, rego..." style={{background:"transparent",border:"none",outline:"none",color:C.t1,fontSize:13,flex:1,fontFamily:"inherit"}}/>
+        {q&&<span onClick={()=>setQ("")} style={{color:C.t3,cursor:"pointer",fontSize:12}}>✕</span>}
+      </div>
+      <select value={fil} onChange={e=>setFil(e.target.value)} style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:9,padding:"8px 12px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}}>
+        <option value="">All Status</option>
+        {["Available","Reserved","On Hold"].map(s=><option key={s} value={s}>{s}</option>)}
+      </select>
+      <select value={srt} onChange={e=>setSrt(e.target.value)} style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:9,padding:"8px 12px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}}>
+        <option value="recent">Latest First</option><option value="phi">Price ↓</option><option value="plo">Price ↑</option><option value="age">Oldest First</option><option value="score">AI Score</option>
+      </select>
+      <Btn v="primary" sz="sm" onClick={()=>setPage("add")} icon="+">Add Vehicle</Btn>
+    </div>
+    <div style={{display:"flex",gap:7,marginBottom:14,flexWrap:"wrap"}}>
+      {[[`${items.length} vehicles`,C.t2],[`${items.filter(c=>c.status==="Available").length} available`,C.g],[`${items.filter(c=>c.status==="Reserved").length} reserved`,C.b],aged>0?[`${aged} aging 30d+`,C.a]:null].filter(Boolean).map(([lb,col])=><div key={lb} style={{fontSize:10,color:col,fontWeight:700,background:`${col}12`,border:`1px solid ${col}25`,padding:"3px 10px",borderRadius:20}}>{lb}</div>)}
+    </div>
+    {items.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:C.t3}}>
+      <div style={{fontSize:40,marginBottom:12}}>🚗</div>
+      <div style={{fontSize:15,fontWeight:700,marginBottom:6,color:C.t2}}>No vehicles match</div>
+      <Btn v="primary" onClick={()=>setPage("add")}>Add Your First Vehicle</Btn>
+    </div>:
+    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(268px,1fr))",gap:11}}>
+      {items.map(c=>{
+        const mg=c.price-(c.purchase||0)-(c.recon||0)-(c.other||0);
+        const age=dAgo(c.acq);
+        const ageCol=age>60?C.r:age>30?C.a:C.g;
+        const re=c.regoExp?dUntil(c.regoExp):999;
+        const exp=re<=0,soon=!exp&&re<30;
+        const score=c.score||70;
+        const sClass=score>=80?"score-high":score>=55?"score-mid":"score-low";
+        return <div key={c.id} className="card-hover" onClick={()=>setDet(c)} style={{background:C.s1,border:`1px solid ${exp?C.rb:C.b1}`,borderRadius:14,overflow:"hidden",cursor:"pointer",boxShadow:"0 4px 20px rgba(0,0,0,.25)"}}>
+          <div style={{height:100,background:`linear-gradient(135deg,${C.s3},${C.s4})`,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden"}}>
+            <div style={{fontSize:42,opacity:.2}}>{ce(c.body)}</div>
+            <div style={{position:"absolute",inset:0,background:`linear-gradient(135deg,${ageCol}06,transparent)`}}/>
+            <div style={{position:"absolute",top:8,left:9}}>
+              {c.status==="Reserved"?<Badge color="blue" dot>Reserved</Badge>:c.status==="On Hold"?<Badge color="amber">On Hold</Badge>:<Badge color="green" dot>Available</Badge>}
+            </div>
+            <div style={{position:"absolute",top:8,right:9}}><div className={sClass} style={{fontSize:9,fontWeight:800,padding:"2px 7px",borderRadius:9}}>AI {score}</div></div>
+            {age>30&&<div style={{position:"absolute",bottom:8,right:9,fontSize:9,fontWeight:700,color:ageCol,background:`${ageCol}18`,border:`1px solid ${ageCol}35`,padding:"2px 7px",borderRadius:8}}>{age}d in yard</div>}
+          </div>
+          <div style={{padding:"12px 14px"}}>
+            <div style={{fontSize:14,fontWeight:800,letterSpacing:-.3,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.year} {c.make} {c.model}</div>
+            <div style={{fontSize:11,color:C.t3,marginBottom:10,display:"flex",gap:7,flexWrap:"wrap"}}>
+              <span>{c.colour}</span>{c.odo&&<><span>·</span><span>{(c.odo||0).toLocaleString()}km</span></>}<span>·</span><span style={{fontFamily:"monospace",color:C.acc2,fontSize:10}}>{c.rego}</span>
+              {(exp||soon)&&<span style={{color:exp?C.r:C.a,fontWeight:700,fontSize:10}}>{exp?"⚠️ REGO EXP":re+"d rego"}</span>}
+            </div>
+            <div style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between"}}>
+              <div>
+                <div style={{fontSize:18,fontWeight:900,color:C.g,letterSpacing:-.5}}>{fm(c.price)}</div>
+                {ul?<div style={{fontSize:10,color:mg>0?C.g:C.r,marginTop:1}}>{fm(mg)} margin</div>:<div style={{fontSize:10,color:C.t4}}>🔒 margin</div>}
+              </div>
+              <Btn sz="xs" v="primary" onClick={e=>{e.stopPropagation();onSell(c);}}>Sell</Btn>
+            </div>
+          </div>
+        </div>;
+      })}
+    </div>}
+  </div>;
+}
+
 function StockDetail({car:c,onSell,onDelete,onStatus,ul,onReq}){
   const mg=c.price-c.purchase-c.recon-c.other,pct=c.price>0?((mg/c.price)*100).toFixed(1):0;
   return <div>
@@ -615,9 +595,13 @@ function StockDetail({car:c,onSell,onDelete,onStatus,ul,onReq}){
       </div>
     </div>
     <Divider/>
-    <div style={{display:"flex",gap:8,justifyContent:"space-between",alignItems:"center"}}>
+    <div style={{display:"flex",gap:8,justifyContent:"space-between",alignItems:"center",flexWrap:"wrap"}}>
       <select value={c.status} onChange={e=>onStatus(e.target.value)} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"6px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}}><option value="Available">Available</option><option value="Reserved">Reserved</option></select>
-      <div style={{display:"flex",gap:8}}><Btn v="red" onClick={onDelete}>🗑 Remove</Btn><Btn v="green" onClick={onSell}>💰 Sell</Btn></div>
+      <div style={{display:"flex",gap:8}}>
+        <Btn v="ghost" onClick={()=>{try{localStorage.setItem("lmct_listing_car",JSON.stringify(c));const w=window.open("listing.html","_blank");if(!w)alert("Allow popups to open listing generator.");}catch(e){alert("Error: "+e.message);}}}>✍️ Generate Listing</Btn>
+        <Btn v="red" onClick={onDelete}>🗑 Remove</Btn>
+        <Btn v="green" onClick={onSell}>💰 Sell</Btn>
+      </div>
     </div>
   </div>;
 }
@@ -685,14 +669,14 @@ function AddCar({setStock,setPage}){
 
   return <div style={{maxWidth:760}}>
 
-    {/* REGO LOOKUP — top of page */}
+    { }
     <div style={{background:C.s1,border:`1px solid ${regoFound==="found"?C.gb:C.b1}`,borderRadius:12,padding:18,marginBottom:16}}>
       <div style={{fontWeight:700,fontSize:14,marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
         🔍 <span>Rego Lookup</span>
         <span style={{fontSize:11,color:C.t3,fontWeight:400}}>— Enter plate to auto-fill all vehicle details</span>
       </div>
       <div style={{display:"flex",gap:10,alignItems:"flex-end"}}>
-        {/* VIC plate widget */}
+        { }
         <div style={{background:"#002a6e",borderRadius:10,padding:"10px 16px 8px",display:"inline-flex",flexDirection:"column",alignItems:"center",boxShadow:"0 8px 24px rgba(0,30,140,.35)",flexShrink:0}}>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <div style={{width:8,height:8,background:"#FFCD00",borderRadius:"50%"}}/>
@@ -718,7 +702,7 @@ function AddCar({setStock,setPage}){
       </div>
     </div>
 
-    {/* AI Score banner */}
+    { }
     {aiScore2&&<div style={{background:C.accd,border:`1px solid rgba(124,111,255,.2)`,borderRadius:12,padding:"12px 16px",marginBottom:14,display:"flex",alignItems:"center",gap:14}}>
       <div style={{fontSize:36,fontWeight:900,color:sc(aiScore2),letterSpacing:-1,lineHeight:1}}>{aiScore2}</div>
       <div>
@@ -731,7 +715,7 @@ function AddCar({setStock,setPage}){
       </div>
     </div>}
 
-    {/* SINGLE PAGE FORM */}
+    { }
     <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:20}}>
 
       <Divider label="Vehicle Details"/>
@@ -1000,14 +984,14 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
 
   return <div style={{maxWidth:600,margin:"0 auto"}}>
 
-    {/* Header */}
+    { }
     <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.08))",border:`1px solid rgba(124,111,255,.2)`,borderRadius:14,padding:"18px 20px",marginBottom:18,textAlign:"center"}}>
       <div style={{fontSize:32,marginBottom:8}}>📸</div>
       <div style={{fontSize:18,fontWeight:800,marginBottom:4}}>AI Vehicle Scanner</div>
       <div style={{fontSize:13,color:C.t3,lineHeight:1.6}}>Take or upload a photo of any vehicle — rear, front, or number plate.<br/>AI identifies the car and finds it on CarSales automatically.</div>
     </div>
 
-    {/* Upload area */}
+    { }
     {!img&&<div>
       <input ref={fileRef} type="file" accept="image/*" capture="environment" style={{display:"none"}} onChange={onFile}/>
       <div onClick={()=>fileRef.current&&fileRef.current.click()} style={{border:`2px dashed ${C.b3}`,borderRadius:14,padding:"40px 20px",textAlign:"center",cursor:"pointer",background:C.s1,transition:"all .2s"}}
@@ -1024,7 +1008,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
       </div>
     </div>}
 
-    {/* Photo preview */}
+    { }
     {img&&<div style={{marginBottom:14}}>
       <div style={{position:"relative",borderRadius:12,overflow:"hidden",background:C.s2,marginBottom:10}}>
         <img src={img} style={{width:"100%",maxHeight:300,objectFit:"contain",display:"block"}}/>
@@ -1036,7 +1020,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
       </div>}
     </div>}
 
-    {/* Loading */}
+    { }
     {loading&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:24,textAlign:"center"}}>
       <div style={{width:36,height:36,border:`3px solid ${C.accd}`,borderTopColor:C.acc,borderRadius:"50%",margin:"0 auto 14px",animation:"spin .8s linear infinite"}}/>
       <div style={{fontSize:14,fontWeight:600,marginBottom:4}}>AI is analysing the photo...</div>
@@ -1044,13 +1028,13 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
     </div>}
 
-    {/* Error */}
+    { }
     {err&&<div style={{background:C.rd,border:`1px solid ${C.rb}`,borderRadius:10,padding:"14px 16px",color:C.r,fontSize:13,marginBottom:12}}>
       ⚠️ {err}
       <div style={{marginTop:10}}><Btn onClick={reset} v="ghost">Try Again</Btn></div>
     </div>}
 
-    {/* Result — confirmation step */}
+    { }
     {result&&!confirmed&&<div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:14,overflow:"hidden"}}>
       <div style={{background:"rgba(124,111,255,.1)",padding:"14px 18px",borderBottom:`1px solid ${C.b1}`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div style={{fontWeight:700,fontSize:15}}>Is this the vehicle?</div>
@@ -1060,7 +1044,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
         </div>
       </div>
       <div style={{padding:"18px"}}>
-        {/* Big car display */}
+        { }
         <div style={{background:C.s2,borderRadius:12,padding:"20px",textAlign:"center",marginBottom:16}}>
           <div style={{fontSize:56,marginBottom:8}}>{ce(result.body)}</div>
           <div style={{fontSize:24,fontWeight:900,letterSpacing:-.5,marginBottom:4}}>{result.year} {result.make} {result.model}</div>
@@ -1072,7 +1056,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
           </div>}
         </div>
 
-        {/* Details grid */}
+        { }
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:12}}>
           {[["Year",result.yearRange||result.year],["Engine",result.engine],["Fuel",result.fuel],["Transmission",result.trans],["Body",result.body],["Colour",result.colour]].map(([l,v])=>
             <div key={l} style={{background:C.s2,borderRadius:8,padding:"8px 10px"}}>
@@ -1086,7 +1070,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
           💡 {result.notes}
         </div>}
 
-        {/* Confirm / Retry */}
+        { }
         <div style={{display:"flex",gap:9}}>
           <Btn v="green" full onClick={()=>setConfirmed(true)}>✅ Yes, this is the car</Btn>
           <Btn v="red" onClick={reset}>❌ No, retake</Btn>
@@ -1094,7 +1078,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
       </div>
     </div>}
 
-    {/* Confirmed — action panel */}
+    { }
     {result&&confirmed&&<div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:14,overflow:"hidden"}}>
       <div style={{background:"rgba(31,217,122,.1)",padding:"14px 18px",borderBottom:`1px solid ${C.gb}`,display:"flex",alignItems:"center",gap:10}}>
         <span style={{fontSize:20}}>✅</span>
@@ -1102,7 +1086,7 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
       </div>
       <div style={{padding:18,display:"flex",flexDirection:"column",gap:10}}>
 
-        {/* CarSales search — the big one */}
+        { }
         <div style={{background:"rgba(255,102,0,.06)",border:"1px solid rgba(255,102,0,.2)",borderRadius:12,padding:"14px 16px"}}>
           <div style={{fontWeight:700,fontSize:14,color:"#ff6600",marginBottom:4}}>🔍 CarSales Market Search</div>
           <div style={{fontSize:12,color:C.t3,marginBottom:12}}>AI has built the exact search URL for this vehicle — opens CarSales pre-filtered to {result.year} {result.make} {result.model}</div>
@@ -1114,19 +1098,19 @@ If you cannot identify the vehicle at all, return: {"error": "Cannot identify ve
           </button>
         </div>
 
-        {/* Facebook Marketplace */}
+        { }
         <button onClick={()=>window.open(`https://www.facebook.com/marketplace/search/?query=${encodeURIComponent(result.year+" "+result.make+" "+result.model)}&exact=false`,"_blank")} style={{padding:"10px",background:C.accd,border:`1px solid ${C.b2}`,borderRadius:8,color:C.acc2,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"inherit",textAlign:"left"}}>
           📘 Search Facebook Marketplace — {result.year} {result.make} {result.model}
         </button>
 
-        {/* Gumtree */}
+        { }
         <button onClick={()=>window.open(`https://www.gumtree.com.au/s-cars-vans-utes/vic/${encodeURIComponent((result.make+" "+result.model).toLowerCase().replace(/ /g,"-"))}/k0c18320l3008858`,"_blank")} style={{padding:"10px",background:C.gd,border:`1px solid ${C.gb}`,borderRadius:8,color:C.g,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"inherit",textAlign:"left"}}>
           🟢 Search Gumtree VIC — {result.make} {result.model}
         </button>
 
         <Divider label="or"/>
 
-        {/* Import to stock */}
+        { }
         <Btn v="primary" full onClick={importToStock}>
           + Import to Stock as {result.year} {result.make} {result.model}
         </Btn>
@@ -1200,265 +1184,147 @@ function CarSalesHub({stock}){
 }
 // ── VICROADS FORMS ──
 function VRForms({stock,sold}){
-  const dp=gDP();
-  const [tab,setTab]=useState("transfer");
-  const [selId,setSelId]=useState("");
-  const [salId,setSalId]=useState("");
-  const [showForm,setShowForm]=useState(false);
-  const [b,setB]=useState({
-    sn:"",gn:"",vic:"",blmct:"",addr:"",pc:"",postalAddr:"",postalPc:"",gAddr:"",gPc:"",
-    phone:"",email:"",mv:"",lowEm:false,pProd:false,
-    rwcSer:"",rwcDate:"",rwcTes:"",delDate:new Date().toISOString().split("T")[0],
-    wo:"no",ttype:"Dealer-to-Private",pay:"Cash"
-  });
-  const setF=k=>v=>setB(prev=>({...prev,[k]:v}));
-
-  // Build combined vehicle list
-  const allVehicles=[
-    ...stock.map(c=>({...c,_type:"stock"})),
-    ...sold.map(s=>({...s,id:"s"+s.id,make:s.make,model:s.model,year:s.year,body:s.body,rego:s.rego,vin:s.vin||"",odo:s.odo||0,colour:"",trans:"",fuel:"",engine:"",_type:"sold"}))
-  ];
-  const car=allVehicles.find(c=>String(c.id)===selId)||null;
-  const sale=sold.find(s=>String(s.id)===salId)||null;
-
-  useEffect(()=>{
-    if(sale){
-      const pts=(sale.buyer||"").split(" ");
-      setB(prev=>({...prev,
-        sn:pts.slice(1).join(" "),gn:pts[0]||"",
-        phone:sale.bPhone||"",email:sale.bEmail||"",
-        addr:sale.bAddr||"",mv:String(sale.sale||""),
-        delDate:sale.date||prev.delDate
-      }));
-    }
-  },[salId]);
-
-  const {duty,rate}=calcDuty(b.mv,b.lowEm,b.pProd);
-  const tFee=b.ttype==="Dealer-to-Private"?35.10:0;
-  const totalPayable=duty+tFee;
-
-  // Field render helper — defined here, not passed as prop
-  function FK(label,val,wide){
-    return <div style={{marginBottom:8,gridColumn:wide?"1/-1":""}}>
-      <div style={{fontSize:8,fontWeight:700,color:"#555",textTransform:"uppercase",letterSpacing:.4,marginBottom:2}}>{label}</div>
-      <div style={{fontSize:12,borderBottom:"1.5px solid #222",paddingBottom:3,minHeight:22,fontWeight:val?600:300,color:val?"#111":"#bbb",fontFamily:label.includes("VIN")||label.includes("Number")||label.includes("Licence")?"monospace":"inherit"}}>{val||""}</div>
-    </div>;
+  function open(){
+    try{
+      localStorage.setItem("lmct_stock",JSON.stringify(stock));
+      localStorage.setItem("lmct_sold",JSON.stringify(sold));
+      const w=window.open("forms.html","_blank");
+      if(!w)alert("Allow popups to open Compliance Forms.");
+    }catch(e){alert("Error: "+e.message);}
   }
-
-  const tabs=[["transfer","📋 VicRoads Transfer"],["contract","📝 Sales Contract"],["invoice","🧾 Tax Invoice"]];
-
-  return <div>
-    {/* Tab bar */}
-    <div style={{display:"flex",borderBottom:`1px solid ${C.b1}`,marginBottom:16,background:C.s1,borderRadius:"12px 12px 0 0",overflow:"hidden"}}>
-      {tabs.map(([id,lb])=><div key={id} onClick={()=>{setTab(id);setShowForm(false);}} style={{padding:"12px 18px",fontSize:13,cursor:"pointer",fontWeight:tab===id?700:400,color:tab===id?C.acc2:C.t3,borderBottom:tab===id?`2px solid ${C.acc}`:"2px solid transparent",marginBottom:-1,flex:1,textAlign:"center",userSelect:"none"}}>{lb}</div>)}
-    </div>
-
-    {/* Data entry panel */}
-    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:20,marginBottom:14}}>
-
-      {/* Vehicle + sale selectors — always shown */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:14}}>
-        <FG label="Select Vehicle" full>
-          <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"9px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={selId} onChange={e=>{setSelId(e.target.value);setShowForm(false);}}>
-            <option value="">— Choose vehicle —</option>
-            <optgroup label="In Stock">{stock.map(c=><option key={c.id} value={String(c.id)}>{c.year} {c.make} {c.model} ({c.rego||"no rego"})</option>)}</optgroup>
-            <optgroup label="Sold Vehicles">{sold.map(s=><option key={s.id} value={"s"+s.id}>{s.year} {s.make} {s.model} — {s.buyer}</option>)}</optgroup>
-          </select>
-        </FG>
-        <FG label="Auto-fill from Sale Record">
-          <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"9px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={salId} onChange={e=>setSalId(e.target.value)}>
-            <option value="">— Select sale to auto-fill buyer —</option>
-            {sold.map(s=><option key={s.id} value={String(s.id)}>{s.year} {s.make} {s.model} — {s.buyer} ({fd(s.date)})</option>)}
-          </select>
-        </FG>
+  const dp=gDP();
+  const recent=sold.slice(-3).reverse();
+  return <div style={{maxWidth:680}}>
+    <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(245,166,35,.08))",border:`1px solid rgba(124,111,255,.2)`,borderRadius:16,padding:"28px",marginBottom:14}}>
+      <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:20}}>
+        <div style={{width:52,height:52,borderRadius:14,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,flexShrink:0}}>📋</div>
+        <div><div style={{fontSize:20,fontWeight:900,letterSpacing:-.3}}>Compliance Forms</div><div style={{fontSize:13,color:C.t3,marginTop:3}}>All forms auto-filled from your dealer profile and sale records</div></div>
       </div>
-
-      {/* TRANSFER TAB fields */}
-      {tab==="transfer"&&<div>
-        <Divider label="Transfer Details"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11,marginBottom:12}}>
-          <FG label="Transfer Type">
-            <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={b.ttype} onChange={e=>setF("ttype")(e.target.value)}>
-              <option value="Dealer-to-Private">Dealer to Private Buyer</option>
-              <option value="Dealer-to-Dealer">Dealer to Dealer</option>
-              <option value="Private-to-Dealer">Private to Dealer</option>
-            </select>
-          </FG>
-          <FG label="Date of Delivery" hint="Date buyer takes possession — exact date, avoid traffic liability">
-            <Inp value={b.delDate} onChange={setF("delDate")} type="date"/>
-          </FG>
-        </div>
-        <Divider label="Buyer Details"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11,marginBottom:12}}>
-          <FG label="Buyer Surname or Company Name"><Inp value={b.sn} onChange={setF("sn")} placeholder="Smith"/></FG>
-          <FG label="Given Name(s) or ACN/ARBN"><Inp value={b.gn} onChange={setF("gn")} placeholder="John William"/></FG>
-          <FG label="Victorian Licence / Customer Number"><Inp value={b.vic} onChange={setF("vic")} placeholder="123456789 (9 digits)"/></FG>
-          <FG label="Buyer LMCT Number (if dealer buyer)"><Inp value={b.blmct} onChange={setF("blmct")} placeholder="Leave blank for private buyer"/></FG>
-          <FG label="Residential / Company Address" full><Inp value={b.addr} onChange={setF("addr")} placeholder="123 Smith St, Melbourne VIC"/></FG>
-          <FG label="Postcode"><Inp value={b.pc} onChange={setF("pc")} placeholder="3000"/></FG>
-          <FG label="Postal Address (if different to above)" full><Inp value={b.postalAddr} onChange={setF("postalAddr")} placeholder="Leave blank if same as above"/></FG>
-          <FG label="Postal Postcode"><Inp value={b.postalPc} onChange={setF("postalPc")} placeholder=""/></FG>
-          <FG label="Garage Address (where vehicle kept)" full><Inp value={b.gAddr} onChange={setF("gAddr")} placeholder="Leave blank if same as residential"/></FG>
-          <FG label="Garage Postcode"><Inp value={b.gPc} onChange={setF("gPc")} placeholder=""/></FG>
-          <FG label="Phone"><Inp value={b.phone} onChange={setF("phone")} placeholder="04xx xxx xxx"/></FG>
-          <FG label="Email"><Inp value={b.email} onChange={setF("email")} type="email"/></FG>
-        </div>
-        <Divider label="Certificate of Roadworthiness (RWC)"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:11,marginBottom:12}}>
-          <FG label="RWC Serial Number"><Inp value={b.rwcSer} onChange={setF("rwcSer")} placeholder="RWC serial no."/></FG>
-          <FG label="RWC Issue Date"><Inp value={b.rwcDate} onChange={setF("rwcDate")} type="date"/></FG>
-          <FG label="RWC Licensed Vehicle Tester No."><Inp value={b.rwcTes} onChange={setF("rwcTes")} placeholder="Tester licence no."/></FG>
-        </div>
-        <Divider label="Written-Off Register"/>
-        <div style={{display:"flex",gap:16,marginBottom:14}}>
-          <label style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",fontSize:13,color:C.t2}}>
-            <input type="radio" name="wo" value="no" checked={b.wo==="no"} onChange={()=>setF("wo")("no")} style={{accentColor:C.g}}/>
-            No — Not on written-off register
-          </label>
-          <label style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",fontSize:13,color:C.a}}>
-            <input type="radio" name="wo" value="yes" checked={b.wo==="yes"} onChange={()=>setF("wo")("yes")} style={{accentColor:C.a}}/>
-            Yes — Recorded on register (must advise buyer in writing)
-          </label>
-        </div>
-        <Divider label="Market Value & Stamp Duty"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11,marginBottom:12}}>
-          <FG label="Market Value / Sale Price ($)" hint="⚠️ Do NOT under-declare — double duty penalty (Duties Act 2000 s.215)">
-            <Inp value={b.mv} onChange={setF("mv")} type="number" placeholder="22990"/>
-          </FG>
-          <FG label="Payment Method">
-            <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={b.pay} onChange={e=>setF("pay")(e.target.value)}>
-              {["Cash","Bank Transfer","Finance","Cheque"].map(o=><option key={o} value={o}>{o}</option>)}
-            </select>
-          </FG>
-          <div style={{gridColumn:"1/-1",display:"flex",gap:20}}>
-            <label style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",fontSize:13,color:C.t2}}>
-              <input type="checkbox" checked={b.lowEm} onChange={e=>setF("lowEm")(e.target.checked)} style={{accentColor:C.acc}}/>
-              Low Emission Vehicle (CO₂ ≤120g/km)
-            </label>
-            <label style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",fontSize:13,color:C.t2}}>
-              <input type="checkbox" checked={b.pProd} onChange={e=>setF("pProd")(e.target.checked)} style={{accentColor:C.acc}}/>
-              Buyer is Primary Producer
-            </label>
-          </div>
-        </div>
-        {/* Live duty calculator */}
-        {b.mv&&parseFloat(b.mv)>0&&<div style={{background:C.gd,border:`1px solid ${C.gb}`,borderRadius:10,padding:16,marginBottom:14}}>
-          <div style={{fontSize:11,fontWeight:700,color:C.g,marginBottom:12}}>⚡ Stamp Duty Calculation — Duties Act 2000 (VIC)</div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10}}>
-            {[
-              ["Sale Price","$"+parseFloat(b.mv).toLocaleString("en-AU"),C.t1],
-              ["Rate Applied",`${(rate*100).toFixed(1)}%`,C.b],
-              ["Motor Vehicle Duty","$"+duty.toFixed(2),C.g],
-              [b.ttype==="Dealer-to-Private"?"Total to VicRoads":"Dealer Duty Only","$"+totalPayable.toFixed(2),C.g]
-            ].map(([l,v,col])=><div key={l} style={{background:C.s2,borderRadius:8,padding:"10px 12px"}}>
-              <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:5}}>{l}</div>
-              <div style={{fontSize:15,fontWeight:700,color:col}}>{v}</div>
-            </div>)}
-          </div>
-          <div style={{marginTop:10,fontSize:11,color:C.t3}}>
-            Transfer fee ~${tFee.toFixed(2)} (verify exact amount at{" "}
-            <a href="https://www.vicroads.vic.gov.au/registration/buy-sell-or-transfer-a-vehicle/transfer-fees-and-calculators" target="_blank" style={{color:C.b}}>vicroads.vic.gov.au</a>)
-          </div>
-        </div>}
-      </div>}
-
-      {/* CONTRACT TAB */}
-      {tab==="contract"&&<div>
-        <Divider label="Sale Details"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11}}>
-          <FG label="Buyer Full Name"><Inp value={(b.gn+" "+b.sn).trim()} onChange={v=>{const pts=v.split(" ");setB(prev=>({...prev,gn:pts[0]||"",sn:pts.slice(1).join(" ")}));}} placeholder="John Smith"/></FG>
-          <FG label="Sale / Drive-Away Price ($)"><Inp value={b.mv} onChange={setF("mv")} type="number" placeholder="22990"/></FG>
-          <FG label="Buyer Phone"><Inp value={b.phone} onChange={setF("phone")} placeholder="04xx xxx xxx"/></FG>
-          <FG label="Buyer Email"><Inp value={b.email} onChange={setF("email")} type="email"/></FG>
-          <FG label="Buyer Address" full><Inp value={b.addr} onChange={setF("addr")} placeholder="123 St, Melbourne VIC 3000"/></FG>
-          <FG label="Date of Sale / Delivery"><Inp value={b.delDate} onChange={setF("delDate")} type="date"/></FG>
-          <FG label="Payment Method">
-            <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={b.pay} onChange={e=>setF("pay")(e.target.value)}>
-              {["Cash","Bank Transfer","Finance","Cheque"].map(o=><option key={o} value={o}>{o}</option>)}
-            </select>
-          </FG>
-          {b.mv&&parseFloat(b.mv)>0&&<div style={{gridColumn:"1/-1",background:C.s2,borderRadius:9,padding:12,display:"flex",gap:20,flexWrap:"wrap"}}>
-            <span style={{fontSize:13,color:C.t2}}>Stamp duty: <strong style={{color:C.g}}>${duty.toFixed(2)}</strong></span>
-            <span style={{fontSize:13,color:C.t2}}>Rate: <strong style={{color:C.t1}}>{(rate*100).toFixed(1)}%</strong></span>
-            <span style={{fontSize:13,color:C.t2}}>Cooling-off cancellation fee: <strong style={{color:C.a}}>${Math.max(100,parseFloat(b.mv)*0.01).toFixed(2)}</strong></span>
-          </div>}
-        </div>
-      </div>}
-
-      {/* INVOICE TAB */}
-      {tab==="invoice"&&<div>
-        <Divider label="Invoice Details"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11}}>
-          <FG label="Buyer Full Name"><Inp value={(b.gn+" "+b.sn).trim()} onChange={v=>{const pts=v.split(" ");setB(prev=>({...prev,gn:pts[0]||"",sn:pts.slice(1).join(" ")}));}} placeholder="John Smith"/></FG>
-          <FG label="Sale Price ($)"><Inp value={b.mv} onChange={setF("mv")} type="number" placeholder="22990"/></FG>
-          <FG label="Buyer Address" full><Inp value={b.addr} onChange={setF("addr")} placeholder="123 St, Melbourne VIC 3000"/></FG>
-          <FG label="Invoice Date"><Inp value={b.delDate} onChange={setF("delDate")} type="date"/></FG>
-          <FG label="Payment Method">
-            <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={b.pay} onChange={e=>setF("pay")(e.target.value)}>
-              {["Cash","Bank Transfer","Finance","Cheque"].map(o=><option key={o} value={o}>{o}</option>)}
-            </select>
-          </FG>
-        </div>
-      </div>}
-
-      {/* Generate button */}
-      <div style={{display:"flex",gap:10,marginTop:16}}> 
-        <Btn v="primary" onClick={()=>{
-          if(!car){alert("Please select a vehicle first.");return;}
-          if(!b.mv||parseFloat(b.mv)<=0){alert("Please enter the market value / sale price.");return;}
-          try{
-            localStorage.setItem("lmct_print_data",JSON.stringify({dp,car,sale,b,duty,tFee,totalPayable}));
-            const win=window.open("forms.html","_blank");
-            if(!win){alert("Please allow popups for this site to open documents.");}
-            else{
-              setTimeout(()=>{
-                if(win.__renderDoc) win.__renderDoc(tab);
-              },800);
-            }
-          }catch(e){alert("Error opening document: "+e.message);}
-        }}>
-          Open Document
-        </Btn>
-        <Btn v="ghost" onClick={()=>window.open("https://www.vicroads.vic.gov.au/registration/buy-sell-or-transfer-a-vehicle/transfer-fees-and-calculators","_blank")}>
-          VicRoads Fee Calculator ↗
-        </Btn>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
+        {[["📝","Transfer Form","DTP-1142 · Auto-populated · Print in 60 seconds"],["🧾","Tax Invoice","GST compliant · Stamp duty calculated · PDF ready"],["📄","Sales Contract","Motor Car Traders Act 1986 · Schedule 2 compliant"]].map(([ic,t,d])=><div key={t} style={{background:"rgba(0,0,0,.2)",borderRadius:10,padding:"14px 12px"}}>
+          <div style={{fontSize:22,marginBottom:8}}>{ic}</div>
+          <div style={{fontSize:12,fontWeight:700,marginBottom:4}}>{t}</div>
+          <div style={{fontSize:11,color:C.t3,lineHeight:1.5}}>{d}</div>
+        </div>)}
       </div>
+      <button onClick={open} style={{width:"100%",padding:"14px",background:C.grad1,border:"none",borderRadius:10,color:"white",fontWeight:800,fontSize:15,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:8,boxShadow:"0 4px 20px rgba(124,111,255,.35)"}}>
+        <span>📋</span> Open Compliance Forms →
+      </button>
+      <div style={{marginTop:10,fontSize:11,color:C.t4,textAlign:"center"}}>Opens in a new tab · Pre-filled from {dp.dealerName}</div>
     </div>
+    {recent.length>0&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:16}}>
+      <div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.7,fontWeight:700,marginBottom:10}}>Recent Sales — Forms Ready</div>
+      {recent.map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:`1px solid ${C.b1}`}}>
+        <div style={{width:34,height:34,borderRadius:9,background:C.gd,border:`1px solid ${C.gb}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>✅</div>
+        <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600}}>{s.year} {s.make} {s.model}</div><div style={{fontSize:11,color:C.t3}}>{s.buyer} · {fd(s.date)} · {fm(s.sale)}</div></div>
+        <button onClick={open} style={{padding:"5px 12px",background:C.accd,border:`1px solid ${C.accb}`,borderRadius:7,color:C.acc2,fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>Forms →</button>
+      </div>)}
+    </div>}
   </div>;
 }
+
 // ── DEALER PROFILE ──
 function DealerProfile(){
-  const [p,sp]=useState(gDP),[saved,ss]=useState(false);
+  const [p,sp]=useState(gDP),[saved,ss]=useState(false),[tab,st]=useState("profile");
   const set=k=>v=>sp(x=>({...x,[k]:v}));
+  const [es,se]=useState(gES);
+  const sete=k=>v=>se(x=>({...x,[k]:v}));
+  const [etst,sett]=useState(null);
+  const logoRef=React.useRef();
+  const dp2=gDP();
+
   function save(){sDP(p);ss(true);setTimeout(()=>ss(false),2500);}
-  return <div style={{maxWidth:720}}><div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:24}}>
-    <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:20}}>
-      <div style={{width:50,height:50,borderRadius:12,background:C.accd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>🏢</div>
-      <div><div style={{fontSize:18,fontWeight:800}}>{p.dealerName}</div><div style={{fontSize:12,color:C.acc2,fontFamily:"monospace",marginTop:2}}>LMCT {p.lmct}</div></div>
+  function saveEmail(){sES(es);ss(true);setTimeout(()=>ss(false),2500);}
+  async function testEmail(){
+    sett("sending");
+    const r=await sendSaleEmail({buyer:"Test Buyer",email:es.replyTo||dp2.email,sale:28990,year:2020,make:"Toyota",model:"Camry",rego:"ABC123",date:new Date().toLocaleDateString("en-AU"),pay:"Cash",odo:45000,colour:"Silver",bPhone:"0412 345 678",bAddr:"12 Smith St, Melbourne VIC 3000"},null,dp2);
+    sett(r.sent?"sent":"failed");setTimeout(()=>sett(null),4000);
+  }
+  function onLogo(e){const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>sete("logoUrl")(ev.target.result);r.readAsDataURL(f);}
+
+  return <div style={{maxWidth:960}}>
+    <div style={{display:"flex",gap:2,marginBottom:16,background:C.s2,padding:4,borderRadius:10,border:`1px solid ${C.b1}`}}>
+      {[["profile","🏢 Dealer Profile"],["email","📧 Email & Documents"]].map(([id,lb])=>
+        <button key={id} onClick={()=>st(id)} style={{flex:1,padding:"9px",borderRadius:7,border:"none",cursor:"pointer",fontWeight:tab===id?700:400,fontSize:13,background:tab===id?C.s1:C.s2,color:tab===id?C.t1:C.t3,fontFamily:"inherit"}}>{lb}</button>
+      )}
     </div>
-    <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",marginBottom:18,fontSize:12,color:C.a,border:`1px solid ${C.ab}`}}>
-      ⚠️ These details are auto-populated on all VicRoads transfer forms, sales contracts and tax invoices. Keep them accurate.
-    </div>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-      <FG label="Dealership / Company Name" hint="As registered with ASIC — no trading name"><Inp value={p.dealerName} onChange={set("dealerName")} placeholder="Smith Automotive Pty Ltd"/></FG>
-      <FG label="LMCT Licence Number"><Inp value={p.lmct} onChange={set("lmct")} placeholder="11234"/></FG>
-      <FG label="ABN (Australian Business Number)"><Inp value={p.abn} onChange={set("abn")} placeholder="12 345 678 901"/></FG>
-      <FG label="ACN (Australian Company Number)" hint="9-digit number from ASIC — leave blank if sole trader"><Inp value={p.acn||""} onChange={set("acn")} placeholder="123 456 789"/></FG>
-      <FG label="VicRoads Customer Number" hint="9-digit number issued by VicRoads"><Inp value={p.vicCust||""} onChange={set("vicCust")} placeholder="123456789"/></FG>
-      <FG label="Phone"><Inp value={p.phone} onChange={set("phone")} placeholder="03 9000 0000"/></FG>
-      <FG label="Business Street Address" full><Inp value={p.address} onChange={set("address")} placeholder="123 Dealer Drive, Melbourne VIC 3000"/></FG>
-      <FG label="Postcode"><Inp value={p.postcode||""} onChange={set("postcode")} placeholder="3000"/></FG>
-      <FG label="Email"><Inp value={p.email} onChange={set("email")} type="email" placeholder="info@dealer.com.au"/></FG>
-      <FG label="Website"><Inp value={p.website} onChange={set("website")} placeholder="yourdealer.com.au"/></FG>
-    </div>
-    <Divider/>
-    <div style={{display:"flex",gap:10,alignItems:"center"}}><Btn v="primary" onClick={save}>💾 Save Profile</Btn>{saved&&<span style={{fontSize:12,color:C.g,fontWeight:600}}>✓ Saved</span>}</div>
-    <div style={{marginTop:14,padding:"10px 14px",background:C.s2,borderRadius:8,fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>
-      Margin targets and PIN settings are under <strong style={{color:C.acc2}}>Margin Profile</strong>.
-    </div>
-  </div></div>;
+    {tab==="profile"&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:24}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:20}}>
+        <div style={{width:50,height:50,borderRadius:12,background:C.accd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>🏢</div>
+        <div><div style={{fontSize:18,fontWeight:800}}>{p.dealerName}</div><div style={{fontSize:12,color:C.acc2,fontFamily:"monospace",marginTop:2}}>LMCT {p.lmct}</div></div>
+      </div>
+      <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",marginBottom:18,fontSize:12,color:C.a,border:`1px solid ${C.ab}`}}>⚠️ These details auto-populate on all VicRoads forms, sales contracts and invoices.</div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+        <FG label="Dealership / Company Name"><Inp value={p.dealerName} onChange={set("dealerName")} placeholder="Smith Automotive Pty Ltd"/></FG>
+        <FG label="LMCT Licence Number"><Inp value={p.lmct} onChange={set("lmct")} placeholder="11234"/></FG>
+        <FG label="ABN"><Inp value={p.abn} onChange={set("abn")} placeholder="12 345 678 901"/></FG>
+        <FG label="ACN" hint="Leave blank if sole trader"><Inp value={p.acn||""} onChange={set("acn")} placeholder="123 456 789"/></FG>
+        <FG label="VicRoads Customer Number"><Inp value={p.vicCust||""} onChange={set("vicCust")} placeholder="123456789"/></FG>
+        <FG label="Phone"><Inp value={p.phone} onChange={set("phone")} placeholder="03 9000 0000"/></FG>
+        <FG label="Business Address" full><Inp value={p.address} onChange={set("address")} placeholder="123 Dealer Drive, Melbourne VIC 3000"/></FG>
+        <FG label="Postcode"><Inp value={p.postcode||""} onChange={set("postcode")} placeholder="3000"/></FG>
+        <FG label="Email"><Inp value={p.email} onChange={set("email")} type="email" placeholder="info@dealer.com.au"/></FG>
+        <FG label="Website"><Inp value={p.website} onChange={set("website")} placeholder="yourdealer.com.au"/></FG>
+      </div>
+      <Divider/>
+      <div style={{display:"flex",gap:10,alignItems:"center"}}><Btn v="primary" onClick={save}>💾 Save Profile</Btn>{saved&&<span style={{fontSize:12,color:C.g,fontWeight:600}}>✓ Saved</span>}</div>
+      <div style={{marginTop:14,padding:"10px 14px",background:C.s2,borderRadius:8,fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>Margin targets and PIN under <strong style={{color:C.acc2}}>Margin Profile</strong>.</div>
+    </div>}
+    {tab==="email"&&<div style={{display:"flex",flexDirection:"column",gap:12}}>
+      <div style={{background:C.gd,border:`1px solid ${C.gb}`,borderRadius:10,padding:"12px 16px",fontSize:12,color:C.g}}>
+        ✅ Powered by <strong>Resend.com</strong> — free up to 3,000 emails/month. Buyer receives all 3 documents in one email.
+      </div>
+      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:18}}>
+        <Divider label="Resend API Key"/>
+        <FG label="API Key" hint="From resend.com — starts with re_"><Inp value={es.apiKey||""} onChange={sete("apiKey")} placeholder="re_xxxxxxxxxxxxxxxx"/></FG>
+        <Divider label="Sender Details"/>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11,marginBottom:12}}>
+          <FG label="Sender Name" hint="Appears as From name in inbox"><Inp value={es.senderName||""} onChange={sete("senderName")} placeholder="MDMR Motors"/></FG>
+          <FG label="Sender Email" hint="Must be verified in Resend"><Inp value={es.senderEmail||""} onChange={sete("senderEmail")} placeholder="contracts@mdmrmotors.com.au"/></FG>
+          <FG label="Reply-To Email" full><Inp value={es.replyTo||""} onChange={sete("replyTo")} placeholder="info@mdmrmotors.com.au"/></FG>
+        </div>
+        <Divider label="Branding"/>
+        <div style={{display:"flex",gap:10,alignItems:"center",marginBottom:12}}>
+          <input ref={logoRef} type="file" accept="image/*" style={{display:"none"}} onChange={onLogo}/>
+          {es.logoUrl?<img src={es.logoUrl} alt="logo" style={{height:40,maxWidth:100,objectFit:"contain",borderRadius:4,background:C.s3,padding:3}}/>:
+          <div style={{width:80,height:40,background:C.s2,border:`2px dashed ${C.b2}`,borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:C.t4}}>No logo</div>}
+          <Btn sz="sm" onClick={()=>logoRef.current&&logoRef.current.click()}>📁 Upload Logo</Btn>
+          <div style={{fontSize:10,color:C.t4}}>Appears in email header</div>
+        </div>
+        <div style={{marginBottom:12}}>
+          <div style={{fontSize:11,color:C.t3,fontWeight:600,textTransform:"uppercase",letterSpacing:.5,marginBottom:6}}>Header Colour</div>
+          <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
+            {["#0d1f3c","#1e3a8a","#064e3b","#7c2d12","#111827","#312e81"].map(col=>
+              <div key={col} onClick={()=>sete("headerColor")(col)} style={{width:26,height:26,borderRadius:5,background:col,cursor:"pointer",border:`3px solid ${es.headerColor===col?"white":"transparent"}`,boxShadow:es.headerColor===col?"0 0 0 2px "+col:"none"}}/>
+            )}
+          </div>
+        </div>
+        <FG label="Email Footer / Signature"><textarea value={es.signature||""} onChange={e=>sete("signature")(e.target.value)} placeholder="MDMR Motors · 0412 345 678 · mdmrmotors.com.au" style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none",width:"100%",resize:"vertical",minHeight:50}}/></FG>
+        <Divider label="Auto-Send"/>
+        <div style={{display:"flex",flexDirection:"column",gap:9}}>
+          {[["autoSend","Auto-send documents when sale is confirmed"],["autoCc","CC dealership email on every email sent"]].map(([k,lb])=>
+            <label key={k} style={{display:"flex",alignItems:"center",gap:10,cursor:"pointer",fontSize:13,color:C.t2}}>
+              <div onClick={()=>sete(k)(!es[k])} style={{width:36,height:20,borderRadius:10,background:es[k]?C.g:"rgba(255,255,255,.1)",position:"relative",flexShrink:0,cursor:"pointer",transition:"background .2s"}}>
+                <div style={{width:16,height:16,borderRadius:"50%",background:"white",position:"absolute",top:2,left:es[k]?18:2,transition:"left .2s",boxShadow:"0 1px 3px rgba(0,0,0,.3)"}}/>
+              </div>
+              {lb}
+            </label>
+          )}
+        </div>
+      </div>
+      <div style={{display:"flex",gap:10,alignItems:"center"}}>
+        <Btn v="primary" onClick={saveEmail}>💾 Save Email Settings</Btn>
+        <Btn v="ghost" onClick={testEmail} disabled={!es.apiKey||!es.replyTo}>{etst==="sending"?"📨 Sending...":etst==="sent"?"✅ Test Sent!":etst==="failed"?"❌ Failed":"📨 Send Test"}</Btn>
+        <Btn v="ghost" onClick={()=>{try{window.open("email.html","_blank");}catch(e){}}}>🖥️ Full Preview</Btn>
+        {saved&&<span style={{fontSize:12,color:C.g,fontWeight:600}}>✓ Saved</span>}
+      </div>
+      <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",fontSize:11,color:C.t3,border:`1px solid ${C.b1}`}}>
+        💡 Setup: resend.com → free account → API key → verify domain in Resend → paste key above → test. Takes 15 min.
+      </div>
+    </div>}
+  </div>;
 }
-// ── MARGIN PROFILE ──
+
 function MarginProfile({ul,onReq}){
   const [m,sm]=useState(gDM),[saved,ss]=useState(false),[chg,sc]=useState(false),[np,snp]=useState(""),[cp,scp]=useState(""),[pe,spe]=useState("");
   const set=k=>v=>sm(p=>({...p,[k]:v}));
@@ -1486,7 +1352,7 @@ function MarginProfile({ul,onReq}){
 }
 // ── MARKET INTELLIGENCE (opens intel.html) ──
 function MarketIntelligence({stock,sold,ul,onReq}){
-  if(!ul)return <div style={{maxWidth:520,margin:"40px auto",textAlign:"center"}}>
+  if(!ul)return <div style={{maxWidth:480,margin:"40px auto",textAlign:"center"}}>
     <div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:16,padding:48}}>
       <div style={{fontSize:48,marginBottom:14}}>📊</div>
       <div style={{fontSize:20,fontWeight:800,marginBottom:10}}>Market Intelligence</div>
@@ -1494,51 +1360,35 @@ function MarketIntelligence({stock,sold,ul,onReq}){
       <Btn v="primary" onClick={onReq}>Enter Manager PIN to Access</Btn>
     </div>
   </div>;
-  function open(){
-    try{
-      localStorage.setItem("lmct_stock",JSON.stringify(stock));
-      localStorage.setItem("lmct_sold",JSON.stringify(sold));
-      const w=window.open("intel.html","_blank");
-      if(!w)alert("Please allow popups to open Market Intelligence.");
-    }catch(e){alert("Error: "+e.message);}
-  }
-  // Quick stats for preview
+  function open(){try{localStorage.setItem("lmct_stock",JSON.stringify(stock));localStorage.setItem("lmct_sold",JSON.stringify(sold));const w=window.open("intel.html","_blank");if(!w)alert("Please allow popups.");}catch(e){alert("Error: "+e.message);}}
   const active=stock.filter(c=>c.status!=="Sold");
-  const makeStats={};
-  sold.forEach(s=>{if(!makeStats[s.make])makeStats[s.make]={count:0,sale:0,profit:0};makeStats[s.make].count++;makeStats[s.make].sale+=s.sale||0;makeStats[s.make].profit+=s.profit||0;});
+  const makeStats={};sold.forEach(s=>{if(!makeStats[s.make])makeStats[s.make]={count:0,sale:0,profit:0};makeStats[s.make].count++;makeStats[s.make].sale+=s.sale||0;makeStats[s.make].profit+=s.profit||0;});
   const topMake=Object.entries(makeStats).sort((a,b)=>b[1].count-a[1].count)[0];
   const avgSale=sold.length?Math.round(sold.reduce((a,s)=>a+s.sale,0)/sold.length):0;
-  const under20=sold.filter(s=>s.sale<20000);
-  const over20=sold.filter(s=>s.sale>=20000);
-  const dtsAll=[];
-  sold.forEach(s=>{const match=stock.find(c=>c.rego===s.rego||(c.make===s.make&&c.model===s.model&&c.year===s.year));if(match&&match.acq&&s.date){const d=Math.round((new Date(s.date)-new Date(match.acq))/86400000);if(d>0&&d<365)dtsAll.push({price:s.sale,days:d});}});
-  const fastDTS=dtsAll.filter(d=>d.price<20000);
-  const slowDTS=dtsAll.filter(d=>d.price>=20000);
+  const dtsAll=[];sold.forEach(s=>{const match=stock.find(c=>c.rego===s.rego||(c.make===s.make&&c.model===s.model&&c.year===s.year));if(match&&match.acq&&s.date){const d=Math.round((new Date(s.date)-new Date(match.acq))/86400000);if(d>0&&d<365)dtsAll.push({price:s.sale,days:d});}});
+  const fastDTS=dtsAll.filter(d=>d.price<20000);const slowDTS=dtsAll.filter(d=>d.price>=20000);
   const avgFast=fastDTS.length?Math.round(fastDTS.reduce((a,d)=>a+d.days,0)/fastDTS.length):null;
   const avgSlow=slowDTS.length?Math.round(slowDTS.reduce((a,d)=>a+d.days,0)/slowDTS.length):null;
-
   const insights=[];
-  if(topMake)insights.push(`Your last ${topMake[1].count} ${topMake[0]}s sold at avg ${fm(Math.round(topMake[1].sale/topMake[1].count))}`);
-  if(avgFast&&avgSlow&&avgFast<avgSlow)insights.push(`Cars under $20k sell ${Math.round(((avgSlow-avgFast)/avgSlow)*100)}% faster for you (${avgFast}d vs ${avgSlow}d)`);
-  if(sold.length)insights.push(`Your overall avg sale price is ${fm(avgSale)}`);
-
+  if(topMake)insights.push({icon:"🏆",text:`Your last ${topMake[1].count} ${topMake[0]}s sold at avg ${fm(Math.round(topMake[1].sale/topMake[1].count))}`});
+  if(avgFast&&avgSlow&&avgFast<avgSlow)insights.push({icon:"🚀",text:`Cars under $20k sell ${Math.round(((avgSlow-avgFast)/avgSlow)*100)}% faster (${avgFast}d vs ${avgSlow}d)`});
+  if(sold.length)insights.push({icon:"💡",text:`Overall avg sale price: ${fm(avgSale)}`});
   return <div style={{background:C.s1,border:`1px solid rgba(124,111,255,.2)`,borderRadius:14,overflow:"hidden"}}>
     <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.12),rgba(31,217,122,.06))",padding:"16px 20px",borderBottom:`1px solid rgba(124,111,255,.15)`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
       <div style={{display:"flex",alignItems:"center",gap:12}}>
         <div style={{width:40,height:40,borderRadius:10,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>📊</div>
-        <div><div style={{fontWeight:800,fontSize:15}}>Market Intelligence</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>Your private pricing & performance data</div></div>
+        <div><div style={{fontWeight:800,fontSize:15}}>Market Intelligence</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>Your private pricing and performance data</div></div>
       </div>
       <button onClick={open} style={{padding:"9px 18px",background:C.acc,border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>Open Full Report →</button>
     </div>
     <div style={{padding:"14px 18px"}}>
-      {insights.length>0?<div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:14}}>
-        {insights.map((txt,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 13px",background:C.s2,borderRadius:9,border:`1px solid ${C.b1}`}}>
-          <span style={{fontSize:16}}>{i===0?"🏆":i===1?"🚀":"💡"}</span>
-          <span style={{fontSize:13,color:C.t1}}>{txt}</span>
+      {insights.length>0?<div style={{display:"flex",flexDirection:"column",gap:7,marginBottom:14}}>
+        {insights.map((ins,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 13px",background:C.s2,borderRadius:9,border:`1px solid ${C.b1}`}}>
+          <span style={{fontSize:16}}>{ins.icon}</span><span style={{fontSize:13,color:C.t1}}>{ins.text}</span>
         </div>)}
-      </div>:<div style={{color:C.t3,fontSize:13,marginBottom:14,textAlign:"center",padding:"14px 0"}}>Add sales to see your market intelligence data</div>}
+      </div>:<div style={{color:C.t3,fontSize:13,marginBottom:14,textAlign:"center",padding:"14px 0"}}>Add sales to see your market intelligence</div>}
       <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
-        {[["Total Sold",sold.length,C.g],["In Stock",active.length,C.b],["Avg Sale Price",fm(avgSale),C.a]].map(([l,v,col])=><div key={l} style={{background:C.s2,borderRadius:9,padding:"10px 13px",textAlign:"center"}}>
+        {[["Total Sold",sold.length,C.g],["In Stock",active.length,C.b],["Avg Sale",fm(avgSale),C.a]].map(([l,v,col])=><div key={l} style={{background:C.s2,borderRadius:9,padding:"10px 13px",textAlign:"center"}}>
           <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:5}}>{l}</div>
           <div style={{fontSize:18,fontWeight:800,color:col}}>{v}</div>
         </div>)}
@@ -1547,7 +1397,30 @@ function MarketIntelligence({stock,sold,ul,onReq}){
   </div>;
 }
 
-// ── APP ──
+function ListingPage(){
+  const dp2=gDP();
+  return <div style={{maxWidth:580}}>
+    <div style={{background:C.grad2,border:`1px solid rgba(124,111,255,.22)`,borderRadius:16,padding:"28px"}}>
+      <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}>
+        <div style={{width:50,height:50,borderRadius:14,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>✍️</div>
+        <div><div style={{fontSize:20,fontWeight:900,letterSpacing:-.4}}>Smart Listing Builder</div><div style={{fontSize:12,color:C.t3,marginTop:3}}>Rego number → publish-ready listing in under 3 minutes</div></div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
+        {[["📋","Auto specs","Plate → make, model, badge, features"],["💰","Live pricing","3 price bands from real market data"],["✍️","AI copy","CarSales, Facebook & Gumtree in one click"]].map(([ic,t,d])=><div key={t} style={{background:"rgba(0,0,0,.2)",borderRadius:10,padding:"13px 11px"}}>
+          <div style={{fontSize:20,marginBottom:7}}>{ic}</div>
+          <div style={{fontSize:12,fontWeight:700,marginBottom:3}}>{t}</div>
+          <div style={{fontSize:10,color:C.t3,lineHeight:1.5}}>{d}</div>
+        </div>)}
+      </div>
+      <button onClick={()=>{try{const w=window.open("listing.html","_blank");if(!w)alert("Allow popups.");}catch(e){}}} style={{width:"100%",padding:"14px",background:C.acc,border:"none",borderRadius:10,color:"white",fontWeight:800,fontSize:15,cursor:"pointer",fontFamily:"inherit"}}>
+        Start New Listing →
+      </button>
+      <div style={{marginTop:9,fontSize:11,color:C.t4,textAlign:"center"}}>Opens in new tab · saves to your stock automatically</div>
+    </div>
+  </div>;
+}
+
+
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
@@ -1555,210 +1428,168 @@ function App(){
   const mp=gDM();
   function req(cb){if(ul){if(cb)cb();return;}spcb(()=>cb||null);ssp(true);}
   function pinOK(){su(true);ssp(false);localStorage.setItem("lmct_ul","1");if(pinCB){pinCB();spcb(null);}}
+  const [emailStatus,setEmailStatus]=useState(null);
   function doSell(form){
-    sl(p=>[...p,{id:Date.now(),...form}]);
+    const saleRecord={id:Date.now(),...form};
+    sl(p=>[...p,saleRecord]);
     ss(p=>p.map(c=>c.id===sellCar.id?{...c,status:"Sold"}:c));
     const name=form.buyer;
     if(name&&!cust.find(c=>c.phone===form.phone||`${c.first} ${c.last}`===name)){const pts=name.split(" ");sc(p=>[...p,{id:Date.now()+1,first:pts[0],last:pts.slice(1).join(" "),phone:form.phone||"",email:form.email||"",addr:form.addr||"",src:"Direct Sale",status:"Buyer",notes:`Bought ${sellCar.year} ${sellCar.make} ${sellCar.model}`,bought:1}]);}
+    // Auto-send email documents
+    const dp2=gDP();
+    if(form.email){
+      setEmailStatus("sending");
+      sendSaleEmail(saleRecord,sellCar,dp2).then(r=>{
+        setEmailStatus(r.sent?"sent":"failed");
+        setTimeout(()=>setEmailStatus(null),5000);
+      });
+    }
     setSC(null);sp("sold");
   }
   const dp=gDP();
-  const nav=[
-    {id:"dashboard",label:"Dashboard",icon:"⊞",sec:"Main"},
-    {id:"ai",label:"AI Manager",icon:"🤖",sec:"",aiSpecial:true},
-    {id:"intel",label:"Market Intelligence",icon:"📊",aiSpecial:true},
-    {id:"strategy",label:"Strategy Engine",icon:"🧠",aiSpecial:true},
-    {id:"stock",label:"Stock",icon:"🚗",sec:"Inventory",badge:stock.filter(c=>c.status!=="Sold").length,bc:C.b},
-    {id:"add",label:"Add Vehicle",icon:"+"},
-    {id:"sold",label:"Sales",icon:"✅",badge:sold.length,bc:C.g},
-    {id:"cust",label:"Customers",icon:"👥",sec:"CRM",badge:cust.length,bc:C.b},
-    {id:"rego",label:"AI Photo Scanner",icon:"📸",sec:"Tools"},
-    {id:"cs",label:"CarSales Hub",icon:"🚘",cs:true},
-    {id:"vr",label:"VicRoads / Forms",icon:"📋"},
-    {id:"dealer",label:"Dealer Profile",icon:"🏢",sec:"Settings"},
-    {id:"margin",label:"Margin Profile",icon:"🔐",special:true},
-    {id:"data",label:"Import / Export",icon:"📂"},
+  const active=stock.filter(c=>c.status!=="Sold");
+  const todaySales=sold.filter(s=>s.date===new Date().toISOString().split("T")[0]);
+
+  const NAVG=[
+    {sec:"Overview",items:[{id:"dashboard",label:"Dashboard",icon:"▦"}]},
+    {sec:"AI Intelligence",ai:true,items:[{id:"ai",label:"AI Manager",icon:"✦"},{id:"intel",label:"Market Intel",icon:"◈"},{id:"strategy",label:"Strategy",icon:"◎"}]},
+    {sec:"Inventory",items:[{id:"stock",label:"Stock",icon:"🚗",badge:active.length,bc:C.b},{id:"add",label:"Add Vehicle",icon:"+"},{id:"listing",label:"Listing Builder",icon:"✍️"},{id:"sold",label:"Sales",icon:"✅",badge:sold.length,bc:C.g}]},
+    {sec:"CRM",items:[{id:"cust",label:"Customers",icon:"👥",badge:cust.length,bc:C.b}]},
+    {sec:"Tools",items:[{id:"rego",label:"Photo Scanner",icon:"📸"},{id:"cs",label:"CarSales Hub",icon:"🚘"},{id:"vr",label:"Compliance Forms",icon:"📋"},{id:"data",label:"Import / Export",icon:"📂"}]},
+    {sec:"Settings",items:[{id:"dealer",label:"Dealer Profile",icon:"🏢"},{id:"margin",label:"Margin Profile",icon:"🔐",sp:true}]},
   ];
-  const titles={dashboard:"Dashboard",stock:"Stock Inventory",add:"Add Vehicle",sold:"Sales History",cust:"Customers",rego:"Rego Lookup",cs:"CarSales Hub",vr:"VicRoads Forms",dealer:"Dealer Profile",margin:"Margin Profile"};
+  const PAGE_TITLES={dashboard:"Dashboard",stock:"Stock Inventory",add:"Add Vehicle",sold:"Sales History",cust:"Customers",rego:"AI Photo Scanner",listing:"Smart Listing Builder",cs:"CarSales Hub",vr:"Compliance Forms",dealer:"Dealer Profile",margin:"Margin Profile",data:"Import / Export",ai:"AI Manager",intel:"Market Intelligence",strategy:"Strategy Engine"};
+
   return <div style={{display:"flex",height:"100vh",background:C.bg,color:C.t1,fontSize:14,overflow:"hidden"}}>
     {showPin&&<PINModal onSuccess={pinOK} onClose={()=>ssp(false)}/>}
 
-    {/* ── SIDEBAR ── */}
-    <div style={{width:220,background:C.s1,borderRight:`1px solid ${C.b1}`,display:"flex",flexDirection:"column",flexShrink:0}}>
+    {/* ══ PREMIUM SIDEBAR ══ */}
+    <div style={{width:224,background:C.s1,borderRight:`1px solid ${C.b1}`,display:"flex",flexDirection:"column",flexShrink:0,position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:-40,left:-40,width:180,height:180,background:"radial-gradient(circle,rgba(124,111,255,.07) 0%,transparent 70%)",pointerEvents:"none",zIndex:0}}/>
 
       {/* Logo */}
-      <div style={{padding:"16px 16px 13px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",gap:10}}>
-        <div style={{width:32,height:32,borderRadius:8,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="2" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".9"/>
-            <rect x="9" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".6"/>
-            <rect x="2" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".6"/>
-            <rect x="9" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".9"/>
-          </svg>
+      <div style={{padding:"14px 14px 11px",borderBottom:`1px solid ${C.b1}`,position:"relative",zIndex:1}}>
+        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:9}}>
+          <div style={{width:33,height:33,borderRadius:9,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:"0 4px 14px rgba(124,111,255,.45)"}}>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".95"/><rect x="9" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".45"/><rect x="2" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".45"/><rect x="9" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".95"/></svg>
+          </div>
+          <div>
+            <div style={{fontSize:15,fontWeight:900,letterSpacing:-.8,lineHeight:1,color:C.t1}}>LMCT<span style={{color:C.acc}}>PRO</span></div>
+            <div style={{fontSize:8,color:C.t4,marginTop:2,fontFamily:"monospace",textTransform:"uppercase",letterSpacing:1.5}}>{dp.dealerName||"Dealer Platform"}</div>
+          </div>
         </div>
-        <div>
-          <div style={{fontSize:17,fontWeight:900,letterSpacing:-.5,lineHeight:1}}>LMCT<span style={{color:C.acc}}>PRO</span></div>
-          <div style={{fontSize:8,color:C.t4,marginTop:2,fontFamily:"monospace",textTransform:"uppercase",letterSpacing:1.5}}>Dealer Platform</div>
+        <div style={{display:"flex",alignItems:"center",gap:5,padding:"5px 9px",background:"rgba(31,217,122,.06)",border:"1px solid rgba(31,217,122,.14)",borderRadius:20}}>
+          <div style={{width:5,height:5,borderRadius:"50%",background:C.g,flexShrink:0,animation:"livePulse 2s infinite"}}/>
+          <span style={{fontSize:9,color:C.g,fontWeight:700,letterSpacing:.5,fontFamily:"monospace"}}>AI ACTIVE</span>
+          <span style={{fontSize:9,color:C.t4,marginLeft:"auto",fontFamily:"monospace"}}>{new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"})}</span>
         </div>
       </div>
 
       {/* Nav */}
-      <nav style={{flex:1,padding:"8px 8px",display:"flex",flexDirection:"column",gap:1,overflowY:"auto"}}>
-        {nav.map(item=>{
-          const active=page===item.id,sp2=item.special,isCS=item.cs,isAI=item.aiSpecial;
-          return <div key={item.id}>
-            {item.sec!==undefined&&item.sec!==null&&item.sec!==""&&<div style={{fontSize:9,color:C.t4,textTransform:"uppercase",letterSpacing:1.3,padding:"12px 8px 3px",fontWeight:700}}>{item.sec}</div>}
-            <button onClick={()=>sp(item.id)} style={{
-              display:"flex",alignItems:"center",gap:8,padding:"7px 9px",borderRadius:8,
-              cursor:"pointer",width:"100%",textAlign:"left",border:"none",fontFamily:"inherit",
-              transition:"all .15s",marginBottom:1,
-              color:active?C.acc2:isAI?"#a78bfa":isCS?"#ff8533":sp2?(ul?C.g:C.a):C.t2,
-              fontSize:12.5,fontWeight:active?700:400,
-              background:active?"rgba(124,111,255,.15)":isAI&&!active?"rgba(167,139,250,.06)":isCS&&!active?"rgba(255,102,0,.05)":sp2&&!active?"rgba(245,166,35,.04)":"transparent",
-              boxShadow:active?`inset 0 0 0 1px rgba(124,111,255,.2)`:"none",
-            }}>
-              <span style={{fontSize:14,opacity:active?1:.75}}>{item.icon}</span>
+      <nav style={{flex:1,padding:"6px 7px",display:"flex",flexDirection:"column",overflowY:"auto",position:"relative",zIndex:1}}>
+        {NAVG.map(group=><div key={group.sec} style={{marginBottom:2}}>
+          <div style={{display:"flex",alignItems:"center",gap:5,padding:"8px 8px 3px",marginBottom:1}}>
+            {group.ai&&<div style={{width:4,height:4,borderRadius:"50%",background:C.acc,flexShrink:0}}/>}
+            <span style={{fontSize:8.5,color:group.ai?C.acc2:C.t4,textTransform:"uppercase",letterSpacing:1.4,fontWeight:700}}>{group.sec}</span>
+            {group.ai&&<div style={{flex:1,height:.5,background:"linear-gradient(90deg,rgba(124,111,255,.3),transparent)"}}/>}
+          </div>
+          {group.items.map(item=>{
+            const isActive=page===item.id;
+            return <button key={item.id} onClick={()=>sp(item.id)} style={{display:"flex",alignItems:"center",gap:7,padding:"7px 9px",borderRadius:8,cursor:"pointer",width:"100%",textAlign:"left",border:"none",fontFamily:"inherit",marginBottom:1,transition:"all .13s",color:isActive?C.acc2:group.ai?"rgba(167,139,250,.65)":C.t2,fontSize:12,fontWeight:isActive?700:400,background:isActive?"rgba(124,111,255,.14)":"transparent",boxShadow:isActive?"inset 0 0 0 1px rgba(124,111,255,.22)":"none"}} onMouseEnter={e=>{if(!isActive){e.currentTarget.style.background="rgba(255,255,255,.04)";e.currentTarget.style.color=C.t1;}}} onMouseLeave={e=>{if(!isActive){e.currentTarget.style.background="transparent";e.currentTarget.style.color=group.ai?"rgba(167,139,250,.65)":C.t2;}}}>
+              <span style={{fontSize:12,opacity:isActive?1:.65,flexShrink:0,width:15,textAlign:"center"}}>{item.icon}</span>
               <span style={{flex:1}}>{item.label}</span>
-              {item.badge!=null&&<span style={{background:active?C.acc:item.bc||C.b2,color:active?"#fff":C.t3,fontSize:10,fontWeight:700,padding:"1px 6px",borderRadius:8,minWidth:18,textAlign:"center",transition:"all .2s"}}>{item.badge}</span>}
-              {sp2&&<span style={{fontSize:10,opacity:.6}}>{ul?"🔓":"🔒"}</span>}
-            </button>
-          </div>;
-        })}
+              {item.badge!=null&&<span style={{background:isActive?C.acc:item.bc?item.bc+"25":"rgba(255,255,255,.07)",color:isActive?"#fff":item.bc||C.t3,fontSize:9,fontWeight:700,padding:"1px 5px",borderRadius:7,minWidth:16,textAlign:"center",border:`1px solid ${isActive?C.acc:item.bc?item.bc+"30":C.b1}`}}>{item.badge}</span>}
+              {item.sp&&<span style={{fontSize:10,opacity:.5}}>{ul?"🔓":"🔒"}</span>}
+            </button>;
+          })}
+        </div>)}
       </nav>
 
-      {/* Bottom panel */}
-      <div style={{padding:"10px 10px",borderTop:`1px solid ${C.b1}`}}>
-        {/* Manager toggle */}
-        <div onClick={ul?()=>{su(false);localStorage.setItem("lmct_ul","0");}:()=>req()} style={{
-          display:"flex",alignItems:"center",gap:8,padding:"9px 11px",borderRadius:9,
-          cursor:"pointer",marginBottom:8,transition:"all .2s",userSelect:"none",
-          background:ul?"rgba(31,217,122,.08)":C.s2,
-          border:`1px solid ${ul?"rgba(31,217,122,.2)":C.b1}`,
-        }}>
-          <div style={{width:28,height:16,borderRadius:8,background:ul?C.g:"rgba(255,255,255,.1)",position:"relative",flexShrink:0,transition:"background .2s"}}>
-            <div style={{width:12,height:12,borderRadius:"50%",background:"white",position:"absolute",top:2,left:ul?14:2,transition:"left .2s",boxShadow:"0 1px 3px rgba(0,0,0,.3)"}}/>
+      {/* Bottom */}
+      <div style={{padding:"9px",borderTop:`1px solid ${C.b1}`,position:"relative",zIndex:1}}>
+        <div onClick={ul?()=>{su(false);localStorage.setItem("lmct_ul","0");}:()=>req()} style={{display:"flex",alignItems:"center",gap:8,padding:"8px 10px",borderRadius:9,cursor:"pointer",marginBottom:7,transition:"all .2s",userSelect:"none",background:ul?"rgba(31,217,122,.07)":C.s2,border:`1px solid ${ul?"rgba(31,217,122,.18)":C.b1}`}}>
+          <div style={{width:26,height:15,borderRadius:8,background:ul?C.g:"rgba(255,255,255,.08)",position:"relative",flexShrink:0,transition:"background .25s"}}>
+            <div style={{width:11,height:11,borderRadius:"50%",background:"white",position:"absolute",top:2,left:ul?13:2,transition:"left .22s",boxShadow:"0 1px 3px rgba(0,0,0,.4)"}}/>
           </div>
-          <div style={{flex:1}}>
-            <div style={{fontSize:11.5,fontWeight:700,color:ul?C.g:C.t2,lineHeight:1}}>{ul?"Manager Mode":"Staff View"}</div>
-            <div style={{fontSize:9.5,color:C.t4,marginTop:2}}>{ul?"Tap to lock margins":"Tap to unlock"}</div>
-          </div>
+          <div style={{flex:1}}><div style={{fontSize:10.5,fontWeight:700,color:ul?C.g:C.t2,lineHeight:1}}>{ul?"Manager Mode":"Staff View"}</div><div style={{fontSize:8.5,color:C.t4,marginTop:1}}>{ul?"All data visible":"Margins hidden"}</div></div>
+          <span style={{fontSize:11}}>{ul?"🔓":"🔒"}</span>
         </div>
-
-        {/* Dealer card */}
-        <div style={{background:C.s2,borderRadius:9,padding:"10px 12px",border:`1px solid ${C.b1}`,marginBottom:6}}>
-          <div style={{display:"flex",alignItems:"center",gap:8}}>
-            <div style={{width:28,height:28,borderRadius:7,background:C.accd,border:`1px solid rgba(124,111,255,.2)`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>🏢</div>
-            <div style={{minWidth:0}}>
-              <div style={{fontSize:12,fontWeight:700,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",color:C.t1}}>{dp.dealerName}</div>
-              <div style={{fontSize:10,color:C.acc2,fontFamily:"monospace",marginTop:1}}>LMCT {dp.lmct}</div>
-            </div>
-          </div>
+        <div style={{display:"flex",alignItems:"center",gap:7,padding:"6px 8px",background:C.s2,borderRadius:7,border:`1px solid ${C.b1}`}}>
+          <div style={{width:18,height:18,borderRadius:4,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:8,color:"white",fontWeight:900}}>L</span></div>
+          <div style={{flex:1,minWidth:0}}><div style={{fontSize:10,fontWeight:600,color:C.t1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{dp.dealerName||"MDMR Motors"}</div><div style={{fontSize:8,color:C.t4,fontFamily:"monospace"}}>LMCT {dp.lmct||"—"}</div></div>
         </div>
-
-        <a href="index.html" style={{display:"flex",alignItems:"center",gap:5,padding:"5px 3px",fontSize:10.5,color:C.t4,textDecoration:"none",opacity:.7}}>
-          ← Website
-        </a>
       </div>
     </div>
 
-    {/* ── MAIN ── */}
+    {/* ══ MAIN CONTENT ══ */}
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
-
-      {/* Topbar */}
-      <div style={{height:52,borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",padding:"0 20px",gap:10,flexShrink:0,background:C.s1}}>
-        {/* Breadcrumb title */}
-        <div style={{flex:1,display:"flex",alignItems:"center",gap:8}}>
-          <div style={{fontSize:15,fontWeight:800,letterSpacing:-.3,color:C.t1}}>{titles[page]||page}</div>
-          {page==="dashboard"&&<div style={{fontSize:11,color:C.t4,fontFamily:"monospace"}}>· {new Date().toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"})}</div>}
+      {/* Premium header */}
+      <div style={{height:50,background:C.s1,borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",padding:"0 20px",gap:12,flexShrink:0}}>
+        <div style={{flex:1}}>
+          <div style={{fontSize:14,fontWeight:800,letterSpacing:-.3,color:C.t1}}>{PAGE_TITLES[page]||"LMCT PRO"}</div>
+          <div style={{fontSize:9,color:C.t4,marginTop:1,fontFamily:"monospace"}}>{new Date().toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"})}</div>
         </div>
-
-        {/* Status chips */}
         <div style={{display:"flex",alignItems:"center",gap:7}}>
-          {!ul?<div onClick={()=>req()} style={{display:"flex",alignItems:"center",gap:5,padding:"4px 10px",borderRadius:20,background:C.s2,border:`1px solid ${C.b2}`,cursor:"pointer",fontSize:11,color:C.t3,transition:"all .15s"}}
-            onMouseEnter={e=>e.currentTarget.style.borderColor=C.acc}
-            onMouseLeave={e=>e.currentTarget.style.borderColor=C.b2}>
-            <span style={{fontSize:10}}>🔒</span> Unlock margins
-          </div>:
-          <div style={{display:"flex",alignItems:"center",gap:5,padding:"4px 10px",borderRadius:20,background:"rgba(31,217,122,.08)",border:`1px solid rgba(31,217,122,.2)`,fontSize:11,color:C.g}}>
-            <span style={{width:6,height:6,borderRadius:"50%",background:C.g,display:"inline-block"}}/>
-            Manager
-          </div>}
-
-          {/* Stock alert chip */}
-          {stock.filter(c=>c.status!=="Sold"&&c.regoExp&&Math.round((new Date(c.regoExp)-new Date())/86400000)<=7).length>0&&
-            <div onClick={()=>sp("stock")} style={{display:"flex",alignItems:"center",gap:4,padding:"4px 10px",borderRadius:20,background:C.rd,border:`1px solid ${C.rb}`,cursor:"pointer",fontSize:11,color:C.r}}>
-              ⚠️ {stock.filter(c=>c.status!=="Sold"&&c.regoExp&&Math.round((new Date(c.regoExp)-new Date())/86400000)<=7).length} rego expiring
-            </div>}
-
-          <Clock/>
-
-          <div style={{width:1,height:20,background:C.b2,margin:"0 2px"}}/>
-          <Btn sz="sm" v="ghost" onClick={()=>sp("rego")}>📸 Scan</Btn>
-          <Btn v="primary" sz="sm" onClick={()=>sp("add")}>+ Add Vehicle</Btn>
+          {[{l:"Stock",v:active.length,c:C.b},{l:"Today",v:todaySales.length,c:C.g},{l:"Leads",v:cust.filter(c=>c.status==="Hot Lead").length,c:C.a}].map(({l,v,c})=><div key={l} style={{background:C.s2,border:`1px solid ${C.b1}`,borderRadius:7,padding:"4px 10px",textAlign:"center"}}>
+            <div style={{fontSize:13,fontWeight:800,color:c,lineHeight:1}}>{v}</div>
+            <div style={{fontSize:8,color:C.t4,marginTop:1.5,fontFamily:"monospace"}}>{l}</div>
+          </div>)}
+          <button onClick={()=>sp("add")} style={{padding:"6px 13px",background:C.grad1,border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 4px 12px rgba(124,111,255,.3)",display:"flex",alignItems:"center",gap:5,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";}} onMouseLeave={e=>{e.currentTarget.style.transform="";}}><span>+</span>Add Vehicle</button>
         </div>
       </div>
 
       {/* Page content */}
-      <div style={{flex:1,overflowY:"auto",padding:20}}>
-        {page==="dashboard"&&<Dashboard stock={stock} sold={sold} cust={cust} setPage={sp} ul={ul} onReq={()=>req()} mp={mp}/>}
-        {page==="ai"&&<div><div style={{marginBottom:8}}><div style={{fontSize:20,fontWeight:800}}>AI Business Manager</div><div style={{fontSize:12,color:C.t3,marginTop:3}}>Real-time analysis of your dealership data</div></div><AIManager stock={stock} sold={sold}/></div>}
-        {page==="intel"&&<MarketIntelligence stock={stock} sold={sold} ul={ul} onReq={()=>req()}/>}
-        {page==="strategy"&&<div style={{maxWidth:680}}>
-          {!ul?<div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:16,padding:48,textAlign:"center"}}>
-            <div style={{fontSize:48,marginBottom:14}}>🧠</div>
-            <div style={{fontSize:20,fontWeight:800,marginBottom:10}}>Inventory Strategy Engine</div>
-            <div style={{fontSize:14,color:C.t3,marginBottom:24,lineHeight:1.7}}>AI-powered buy/avoid recommendations based on your sales data. Manager only.</div>
-            <Btn v="primary" onClick={()=>req()}>Enter Manager PIN to Access</Btn>
-          </div>:<div>
-            <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(255,77,77,.08))",border:`1px solid rgba(124,111,255,.2)`,borderRadius:14,padding:"22px 24px",marginBottom:16}}>
-              <div style={{fontSize:18,fontWeight:900,marginBottom:6}}>🧠 Inventory Strategy Engine</div>
-              <div style={{fontSize:13,color:C.t3,lineHeight:1.6,marginBottom:16}}>The AI analyses your complete sales history — body types, makes, price bands, sources — and tells you exactly what to buy more of, what to stop buying, and specific actions for every slow vehicle.</div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:16}}>
-                {[["✅","Buy More","What to stock based on your fastest sellers"],["🛑","Stop Buying","What's sitting too long and draining cash"],["⚡","Fix Now","Price drop recommendations for aged stock"]].map(([ic,t,d])=>
-                  <div key={t} style={{background:C.s2,borderRadius:10,padding:"12px"}}>
-                    <div style={{fontSize:20,marginBottom:5}}>{ic}</div>
-                    <div style={{fontSize:12,fontWeight:700,marginBottom:3}}>{t}</div>
-                    <div style={{fontSize:11,color:C.t3,lineHeight:1.5}}>{d}</div>
-                  </div>
-                )}
-              </div>
-              <button onClick={()=>{
-                try{
-                  localStorage.setItem("lmct_stock",JSON.stringify(stock));
-                  localStorage.setItem("lmct_sold",JSON.stringify(sold));
-                  const w=window.open("strategy.html","_blank");
-                  if(!w)alert("Please allow popups to open the Strategy Engine.");
-                }catch(e){alert("Error: "+e.message);}
-              }} style={{width:"100%",padding:"14px",background:C.acc,border:"none",borderRadius:10,color:"white",fontWeight:800,fontSize:15,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-                <span style={{fontSize:18}}>🧠</span> Open Strategy Engine
-              </button>
-            </div>
-            <div style={{background:C.s2,borderRadius:9,padding:"11px 14px",fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>
-              💡 Run this monthly or before heading to auction. The more sales history you have, the more precise the recommendations.
-            </div>
-          </div>}
-        </div>}
+      <div style={{flex:1,overflow:"auto",padding:"18px 20px"}}>
+        {page==="dashboard"&&<Dashboard stock={stock} sold={sold} cust={cust} setPage={sp} ul={ul} onReq={()=>req()} mp={gDM()}/>}
         {page==="stock"&&<Stock stock={stock} setStock={ss} onSell={c=>setSC(c)} setPage={sp} ul={ul} onReq={()=>req()}/>}
         {page==="add"&&<AddCar setStock={ss} setPage={sp}/>}
         {page==="sold"&&<Sold sold={sold} ul={ul} onReq={()=>req()}/>}
         {page==="cust"&&<Customers cust={cust} setCust={sc} sold={sold}/>}
         {page==="rego"&&<RegoSearch setStock={ss} setPage={sp}/>}
+        {page==="listing"&&<div style={{maxWidth:600}}>
+          <div style={{background:C.grad2,border:"1px solid rgba(124,111,255,.2)",borderRadius:16,padding:"28px 24px",position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",top:-30,right:-30,width:150,height:150,background:"radial-gradient(circle,rgba(124,111,255,.1),transparent 70%)",pointerEvents:"none"}}/>
+            <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}>
+              <div style={{width:48,height:48,borderRadius:12,background:C.accd,border:`1px solid ${C.accb}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>✍️</div>
+              <div><div style={{fontSize:18,fontWeight:900,letterSpacing:-.4}}>Smart Listing Builder</div><div style={{fontSize:12,color:C.t3,marginTop:2}}>Rego to publish-ready in under 3 minutes</div></div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9,marginBottom:18}}>
+              {[["📋","Auto-filled specs","Plate → full specs instantly"],["💰","Live market pricing","3 price bands from real data"],["✍️","AI-written copy","CarSales + Facebook + Gumtree"]].map(([ic,t,d])=><div key={t} style={{background:"rgba(0,0,0,.2)",borderRadius:9,padding:"12px 10px",border:`1px solid ${C.b1}`}}>
+                <div style={{fontSize:18,marginBottom:6}}>{ic}</div>
+                <div style={{fontSize:11,fontWeight:700,marginBottom:3}}>{t}</div>
+                <div style={{fontSize:10,color:C.t3,lineHeight:1.45}}>{d}</div>
+              </div>)}
+            </div>
+            <button onClick={()=>{try{const w=window.open("listing.html","_blank");if(!w)alert("Allow popups.");}catch(e){alert(e.message);}}} style={{width:"100%",padding:"13px",background:C.grad1,border:"none",borderRadius:9,color:"white",fontWeight:800,fontSize:14,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 6px 20px rgba(124,111,255,.4)"}}>✍️  Start New Listing →</button>
+          </div>
+        </div>}
         {page==="cs"&&<CarSalesHub stock={stock}/>}
         {page==="vr"&&<VRForms stock={stock} sold={sold}/>}
         {page==="dealer"&&<DealerProfile/>}
         {page==="margin"&&<MarginProfile ul={ul} onReq={()=>req()}/>}
         {page==="data"&&<DataPage stock={stock} setStock={ss} sold={sold} setSold={sl} cust={cust} setCust={sc}/>}
+        {page==="ai"&&<AIManager stock={stock} sold={sold}/>}
+        {page==="intel"&&<MarketIntelligence stock={stock} sold={sold} ul={ul} onReq={()=>req()}/>}
+        {page==="strategy"&&<div style={{background:C.s1,border:"1px solid rgba(124,111,255,.18)",borderRadius:14,overflow:"hidden"}}>
+          <div style={{background:C.grad2,padding:"14px 18px",borderBottom:"1px solid rgba(124,111,255,.1)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10}}><div style={{width:38,height:38,borderRadius:9,background:C.accd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>🧠</div><div><div style={{fontWeight:800,fontSize:14}}>Strategy Engine</div><div style={{fontSize:11,color:C.t3}}>AI buy/sell recommendations from your data</div></div></div>
+            <button onClick={()=>{try{localStorage.setItem("lmct_stock",JSON.stringify(stock));localStorage.setItem("lmct_sold",JSON.stringify(sold));const w=window.open("strategy.html","_blank");if(!w)alert("Allow popups.");}catch(e){alert(e.message);}}} style={{padding:"8px 16px",background:C.acc,border:"none",borderRadius:7,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Open Full Engine →</button>
+          </div>
+          <div style={{padding:"16px 18px",color:C.t3,fontSize:13,textAlign:"center"}}>Full AI strategy with buy/stop buying recommendations based on your sales history.</div>
+        </div>}
       </div>
     </div>
+
     <Modal open={!!sellCar} onClose={()=>setSC(null)} title="Record Vehicle Sale" w={620}>{sellCar&&<SellModal car={sellCar} onConfirm={doSell} onClose={()=>setSC(null)}/>}</Modal>
+    {emailStatus&&<div style={{position:"fixed",bottom:22,right:22,zIndex:800,background:emailStatus==="sending"?C.s3:emailStatus==="sent"?C.gd:C.rd,border:`1px solid ${emailStatus==="sending"?C.b2:emailStatus==="sent"?C.gb:C.rb}`,borderRadius:11,padding:"11px 16px",display:"flex",alignItems:"center",gap:9,fontSize:13,boxShadow:"0 16px 48px rgba(0,0,0,.5)",backdropFilter:"blur(10px)",animation:"fadeUp .3s ease"}}>
+      <span style={{fontSize:16}}>{emailStatus==="sending"?"📨":emailStatus==="sent"?"✅":"⚠️"}</span>
+      <div><div style={{fontWeight:700,color:emailStatus==="sent"?C.g:emailStatus==="failed"?C.r:C.t1}}>{emailStatus==="sending"?"Sending documents...":emailStatus==="sent"?"Documents sent to buyer":"Email failed — check settings"}</div>{emailStatus==="sent"&&<div style={{fontSize:10,color:C.t3,marginTop:1}}>Contract · Invoice · Compliance forms delivered</div>}</div>
+    </div>}
   </div>;
 }
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-
-
-
-
 </script>
 </body>
 </html>
