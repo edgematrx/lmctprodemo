@@ -201,33 +201,26 @@ var p=0,mi=0,msgs=["Initialising platform...","Loading stock data...","Preparing
 var iv=setInterval(function(){p+=Math.random()*15+5;if(p>92)p=92;document.getElementById("lf").style.width=p+"%";document.getElementById("lt").textContent=msgs[Math.min(mi++,3)];},300);
 window.__done=function(){clearInterval(iv);document.getElementById("lf").style.width="100%";setTimeout(function(){document.getElementById("ld").classList.add("gone");},350);};
 </script>
-<script type="text/babel">const {useState,useEffect,useRef,useCallback}=React;
-const C={
-  bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",
-  b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",
-  t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",
-  acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",
-  g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",
-  a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",
-  r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",
-  b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",
-  grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",
-  grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",
-  grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))",
-};
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
+const C={bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))"};
 const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
-const fd=d=>d?new Date(d).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}):"—";
+const fd=d=>d?new Date(d).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}):"\u2014";
 const dAgo=d=>{if(!d)return 0;return Math.floor((Date.now()-new Date(d))/86400000);};
 const dUntil=d=>{if(!d)return 999;return Math.floor((new Date(d)-Date.now())/86400000);};
-const ce=b=>{const m={"SUV":"🚙","Sedan":"🚗","Hatchback":"🚗","Ute":"🛻","Van":"🚐","Wagon":"🚗","Coupe":"🚗","Convertible":"🚗","4WD":"🛻"};return m[b]||"🚗";};
+const ce=b=>({SUV:"\uD83D\uDE99",Sedan:"\uD83D\uDE97",Hatchback:"\uD83D\uDE97",Ute:"\uD83D\uDEF3",Van:"\uD83D\uDE90",Wagon:"\uD83D\uDE97"}[b]||"\uD83D\uDE97");
 const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au",aiName:"MAX",aiPersonality:"direct",groqKey:"",aiTraining:""};
-const ES0={apiKey:"",senderName:"",senderEmail:"",replyTo:"",signature:"",autoCc:false,autoSend:true,sendContract:true,sendInvoice:true,sendVicRoads:true};
-function gDP(){try{return {...DP0,...JSON.parse(localStorage.getItem("lp_d")||"{}")};}catch(e){return DP0;}}
+function gDP(){try{return Object.assign({},DP0,JSON.parse(localStorage.getItem("lp_d")||"{}"));}catch(e){return DP0;}}
 function sDP(v){localStorage.setItem("lp_d",JSON.stringify(v));}
-function gDM(){try{return {...{pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""},...JSON.parse(localStorage.getItem("lp_dm")||"{}")};}catch(e){return {pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""}}}
+function gDM(){var def={pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""};try{return Object.assign({},def,JSON.parse(localStorage.getItem("lp_dm")||"{}"));}catch(e){return def;}}
 function sDM(v){localStorage.setItem("lp_dm",JSON.stringify(v));}
-function gES(){try{return {...ES0,...JSON.parse(localStorage.getItem("lmct_email")||"{}")};}catch(e){return ES0;}}
+function gES(){try{return JSON.parse(localStorage.getItem("lmct_email")||"{}");}catch(e){return {};}}
 function sES(v){localStorage.setItem("lmct_email",JSON.stringify(v));}
+function gMem(n){try{return JSON.parse(localStorage.getItem("lmct_mem_"+n)||"{}");}catch(e){return {};}}
+function sMem(n,v){try{localStorage.setItem("lmct_mem_"+n,JSON.stringify(v));}catch(e){}}
+function getMemSummary(mem){var p=[];if(mem.facts&&mem.facts.length)p.push(mem.facts.slice(0,5).join("; "));return p.join(" | ");}
+function getAIConvo(){try{return JSON.parse(localStorage.getItem("lmct_ai_convo")||"[]");}catch(e){return [];}}
+function saveAIConvo(v){try{localStorage.setItem("lmct_ai_convo",JSON.stringify(v.slice(-40)));}catch(e){}}
 const SS=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_stock")||"[]");return d.length?d:[
   {id:1,make:"Toyota",model:"RAV4",year:2021,colour:"Pearl White",body:"SUV",trans:"Auto",fuel:"Petrol",odo:41000,rego:"ABC123",vin:"JTMWB3FV21D",price:33490,purchase:26800,recon:800,other:200,source:"Auction",acq:"2026-03-15",ppsr:"Clear",regoExp:"2026-08-15",status:"Available",score:92},
   {id:2,make:"Mazda",model:"CX-5",year:2020,colour:"Soul Red",body:"SUV",trans:"Auto",fuel:"Petrol",odo:62000,rego:"XYZ456",vin:"JM3KFBCM0L",price:28990,purchase:22400,recon:600,other:0,source:"Trade-in",acq:"2026-02-28",ppsr:"Clear",regoExp:"2026-05-20",status:"Available",score:78},
@@ -245,235 +238,231 @@ const CU=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_cust")||"[]");r
   {id:202,first:"Priya",last:"Sharma",phone:"0444444444",email:"priya@email.com",addr:"56 Main Rd, Dandenong VIC",status:"Hot Lead",notes:"Looking for 7-seater SUV, budget $35k"},
   {id:203,first:"Tom",last:"Murphy",phone:"0455555555",email:"tom.m@email.com",addr:"88 Church St, Sunshine VIC",status:"Hot Lead",notes:"Wants diesel ute, happy to wait"},
 ];}catch(e){return [];}})();
-const Inp=({value,onChange,placeholder,type="text",disabled,autoFocus})=><input autoFocus={autoFocus} disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
-const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}><div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>{locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:32,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-1}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}</div>;
-const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const{bg,c,brd}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:bg,color:c,border:`1px solid ${brd}`}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0,animation:"livePulse 2s infinite"}}/>}{children}</span>;};
-const Btn=({children,onClick,v="ghost",sz="md",disabled,full,icon,st={}})=>{const S={primary:{background:C.grad1,color:"#fff",border:"none",boxShadow:"0 4px 14px rgba(124,111,255,.3)"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?.4:1,...Z[sz],...S[v],...st}}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
-const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
-const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4,marginTop:1}}>{hint}</div>}</div>;
+
+const Inp=({value,onChange,placeholder,type,disabled})=><input disabled={!!disabled} style={{background:C.s3,border:"1px solid "+C.b2,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type||"text"} onFocus={e=>{e.target.style.borderColor=C.acc;}} onBlur={e=>{e.target.style.borderColor=C.b2;}}/>;
+const Btn=({children,onClick,v,sz,disabled,full,icon,st})=>{const sv=v||"ghost",ssz=sz||"md",sst=st||{};const S={primary:{background:C.grad1,color:"#fff",border:"none"},ghost:{background:"transparent",color:C.t2,border:"1px solid "+C.b2},green:{background:C.gd,color:C.g,border:"1px solid "+C.gb},red:{background:C.rd,color:C.r,border:"1px solid "+C.rb},amber:{background:C.ad,color:C.a,border:"1px solid "+C.ab},blue:{background:C.bd,color:C.b,border:"1px solid "+C.bb},dark:{background:C.s3,color:C.t1,border:"1px solid "+C.b2}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={!!disabled} style={Object.assign({},{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?0.4:1},Z[ssz]||Z.md,S[sv]||S.ghost,sst)}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
+const Sel=({value,onChange,options})=><select style={{background:C.s3,border:"1px solid "+C.b2,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{(options||[]).map(o=><option key={o} value={o}>{o}</option>)}</select>;
+const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":"auto"}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4}}>{hint}</div>}</div>;
 const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:9,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
-const Modal=({open,onClose,title,children,w=500})=>open?<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(14px)",padding:20}} onClick={e=>e.target===e.currentTarget&&onClose()}><div style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:16,width:"100%",maxWidth:w,maxHeight:"90vh",overflow:"auto",boxShadow:"0 40px 100px rgba(0,0,0,.7)"}}><div style={{padding:"16px 20px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2,zIndex:1}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>✕</button></div><div style={{padding:20}}>{children}</div></div></div>:null;
-const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer",padding:"4px 0"}}><span>🔐</span><span>PIN required</span></div>;
-function gMem(dealerName){
-  try{return JSON.parse(localStorage.getItem("lmct_mem_"+dealerName)||"{}");} catch(e){return {};}
-}
-function sMem(dealerName,mem){
-  try{localStorage.setItem("lmct_mem_"+dealerName,JSON.stringify(mem));}catch(e){}
-}
-function getMemSummary(mem){
-  const parts=[];
-  if(mem.facts?.length)parts.push("Facts dealer has told you:\n"+mem.facts.map(f=>"- "+f).join("\n"));
-  if(mem.preferences?.length)parts.push("Dealer preferences:\n"+mem.preferences.map(p=>"- "+p).join("\n"));
-  if(mem.goals?.length)parts.push("Dealer goals:\n"+mem.goals.map(g=>"- "+g).join("\n"));
-  if(mem.history?.length){const last5=mem.history.slice(-5);parts.push("Recent conversation context:\n"+last5.map(m=>(m.role==="user"?"Dealer: ":"AI: ")+m.content).join("\n"));}
-  return parts.join("\n\n");
-}
-function getAIMem(){try{return JSON.parse(localStorage.getItem("lmct_ai_mem")||"{}");} catch(e){return {};}}
-function saveAIMem(v){try{localStorage.setItem("lmct_ai_mem",JSON.stringify(v));}catch(e){}}
-function getAIConvo(){try{return JSON.parse(localStorage.getItem("lmct_ai_convo")||"[]");}catch(e){return [];}}
-function saveAIConvo(v){try{localStorage.setItem("lmct_ai_convo",JSON.stringify(v.slice(-40)));}catch(e){}}
-const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const{bg,c,brd}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:bg,color:c,border:`1px solid ${brd}`}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0,animation:"livePulse 2s infinite"}}/>}{children}</span>;};
-const Btn=({children,onClick,v="ghost",sz="md",disabled,full,icon,st={}})=>{const S={primary:{background:C.grad1,color:"#fff",border:"none",boxShadow:"0 4px 14px rgba(124,111,255,.3)"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?.4:1,...Z[sz],...S[v],...st}}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
-const Inp=({value,onChange,placeholder,type="text",disabled,autoFocus})=><input autoFocus={autoFocus} disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
-const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
-const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4,marginTop:1}}>{hint}</div>}</div>;
-const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:9,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
-const Modal=({open,onClose,title,children,w=500})=>open?<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(14px)",padding:20}} onClick={e=>e.target===e.currentTarget&&onClose()}><div style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:16,width:"100%",maxWidth:w,maxHeight:"90vh",overflow:"auto",boxShadow:"0 40px 100px rgba(0,0,0,.7)"}}><div style={{padding:"16px 20px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2,zIndex:1}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>✕</button></div><div style={{padding:20}}>{children}</div></div></div>:null;
-const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer",padding:"4px 0"}}><span>🔐</span><span>PIN required</span></div>;
-const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=color||C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}>
-  <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/>
-  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}15`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>
-  {locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:32,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}
-</div>;
+const Modal=({open,onClose,title,children,w})=>{if(!open)return null;return <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}><div style={{background:C.s2,border:"1px solid "+C.b2,borderRadius:16,width:"100%",maxWidth:w||500,maxHeight:"90vh",overflow:"auto"}}><div style={{padding:"16px 20px",borderBottom:"1px solid "+C.b1,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>X</button></div><div style={{padding:20}}>{children}</div></div></div>;};
+const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer"}}><span>🔐</span><span>PIN required</span></div>;
+const StatCard=({label,value,sub,color,icon,locked,onClick})=><div onClick={onClick} style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick)e.currentTarget.style.borderColor=color||C.b3;}} onMouseLeave={e=>{if(onClick)e.currentTarget.style.borderColor=C.b1;}}><div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?"radial-gradient(circle,"+color+"18,transparent 70%)":"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?color+"15":C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>{locked?<Locked onReq={onClick||function(){}}/>:<div><div style={{fontSize:32,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5}}>{sub}</div>}</div>}</div>;
+const Badge=({children,color,dot})=>{const col=color||"purple";const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const s=m[col]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:s.bg,color:s.c,border:"1px solid "+s.brd}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:s.c}}/>}{children}</span>;};
 
 function AIManager({stock,sold}){
-  const dp=gDP(),aiName=dp.aiName||"MAX";
-  const [chat,setChat]=useState(()=>getAIConvo());
-  const [inp,setInp]=useState(""),[typing,setTyping]=useState(false);
+  const dp=gDP();
+  const aiName=dp.aiName||"MAX";
+  const [chat,setChat]=useState(function(){return getAIConvo();});
+  const [inp,setInp]=useState("");
+  const [typing,setTyping]=useState(false);
   const chatRef=useRef(null);
-  const active=stock.filter(c=>c.status!=="Sold");
-  const aged=active.filter(c=>dAgo(c.acq)>45);
-  const mtd=sold.filter(s=>s.date?.startsWith(new Date().toISOString().slice(0,7)));
-  const topMake=Object.entries(sold.reduce((a,s)=>{a[s.make]=(a[s.make]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1])[0];
+  const active=stock.filter(function(c){return c.status!=="Sold";});
+  const aged=active.filter(function(c){return dAgo(c.acq)>45;});
+  const now=new Date().toISOString().slice(0,7);
+  const mtd=sold.filter(function(s){return s.date&&s.date.startsWith(now);});
   const mem=gMem(dp.dealerName);
-  const memSummary=getMemSummary(mem);
+  const makeCounts={};
+  sold.forEach(function(s){if(s.make)makeCounts[s.make]=(makeCounts[s.make]||0)+1;});
+  const makeArr=Object.entries(makeCounts).sort(function(a,b){return b[1]-a[1];});
+  const topMake=makeArr.length?makeArr[0]:null;
+  const memSum=getMemSummary(mem);
+
   function sysPrompt(){
-    const trainingNotes=(mem.notes||[]).map(n=>"- "+n).join("\n");
-    return `You are ${aiName}, the AI business advisor for ${dp.dealerName} (LMCT ${dp.lmct}).
-Be direct and specific. Use their actual numbers. Max 3 sentences unless asked for detail.
-LIVE DATA: ${active.length} in stock. ${aged.length} over 45 days. ${mtd.length} sales this month. ${topMake?"Best seller: "+topMake[0]+".":""}
-${dp.aiTraining?"DEALER TRAINING:\n"+dp.aiTraining:""}
-${trainingNotes?"DEALER NOTES:\n"+trainingNotes:""}
-${memSummary?"MEMORY:\n"+memSummary:""}
-End every reply with one specific action for today.`;
+    return "You are "+aiName+", AI advisor for "+dp.dealerName+". Be direct. Max 3 sentences."
+      +"
+LIVE DATA: "+active.length+" in stock. "+aged.length+" aged 45+ days. "+mtd.length+" sales this month."+(topMake?" Top seller: "+topMake[0]+".":"")
+      +(dp.aiTraining?"
+DEALER RULES:
+"+dp.aiTraining:"")
+      +(memSum?"
+MEMORY: "+memSum:"")
+      +"
+End with one action for today.";
   }
+
   const pills=[
-    aged.length>0&&{t:`${aged.length} cars over 45 days — what do I do?`,c:C.r},
-    topMake&&{t:`Should I buy more ${topMake[0]}s?`,c:C.g},
-    mtd.length===0&&{t:"No sales yet this month — help me",c:C.a},
-    active.length<3&&{t:"Stock is low — what should I source?",c:C.b},
-    {t:`What's my biggest opportunity right now?`,c:C.acc2},
+    aged.length>0?{t:aged.length+" cars aged 45+ days — what should I do?",c:C.r}:null,
+    topMake?{t:"Should I buy more "+topMake[0]+"s?",c:C.g}:null,
+    mtd.length===0?{t:"No sales this month yet — help me fix that",c:C.a}:null,
+    {t:"What is my biggest opportunity right now?",c:C.acc2}
   ].filter(Boolean).slice(0,4);
-  async function send(msg){
-    if(!msg.trim()||typing)return;
-    const newChat=[...chat,{role:"user",content:msg}];
-    setChat(newChat);setInp("");setTyping(true);
+
+  function send(msg){
+    if(!msg||!msg.trim()||typing)return;
+    const newChat=chat.concat([{role:"user",content:msg}]);
+    setChat(newChat);
+    setInp("");
+    setTyping(true);
     if(window.SFX)window.SFX.play("click");
     if(!dp.groqKey){
-      setTimeout(()=>{setChat(p=>[...p,{role:"assistant",content:`Hi! I'm ${aiName}. Add your Groq API key in Dealer Profile → Your AI to activate me. It's completely free at console.groq.com`}]);setTyping(false);},800);
+      setTimeout(function(){
+        setChat(function(p){return p.concat([{role:"assistant",content:"Hi! I am "+aiName+". Add your free Groq API key in Dealer Profile to activate me. Get one free at console.groq.com"}]);});
+        setTyping(false);
+      },800);
       return;
     }
-    try{
-      const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+dp.groqKey},body:JSON.stringify({model:"llama-3.3-70b-versatile",max_tokens:300,messages:[{role:"system",content:sysPrompt()},...newChat]})});
-      const d=await res.json();
-      const reply=d.choices?.[0]?.message?.content||"Error — check your Groq API key.";
-      const updated=[...newChat,{role:"assistant",content:reply}];
-      setChat(updated);saveAIConvo(updated);
+    fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+dp.groqKey},
+      body:JSON.stringify({
+        model:"llama-3.3-70b-versatile",
+        max_tokens:300,
+        messages:[{role:"system",content:sysPrompt()}].concat(newChat)
+      })
+    }).then(function(r){
+      return r.json();
+    }).then(function(d){
+      const reply=(d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||"Error — check your Groq API key.";
+      const updated=newChat.concat([{role:"assistant",content:reply}]);
+      setChat(updated);
+      saveAIConvo(updated);
       if(window.SFX)window.SFX.play("save");
-      const nm=gMem(dp.dealerName);
-      if(/(?:our|my|we).{0,20}(?:target|goal|always|never|only)/i.test(msg)){
-        sMem(dp.dealerName,{...nm,facts:[...new Set([...(nm.facts||[]),msg.slice(0,100)])].slice(-20)});
-      }
-    }catch(e){setChat(p=>[...p,{role:"assistant",content:"Connection issue. Check your Groq API key."}]);}
-    setTyping(false);
+      setTyping(false);
+    }).catch(function(){
+      setChat(function(p){return p.concat([{role:"assistant",content:"Connection issue. Check your Groq key in Dealer Profile."}]);});
+      setTyping(false);
+    });
   }
-  useEffect(()=>{if(chatRef.current)chatRef.current.scrollTop=chatRef.current.scrollHeight;},[chat,typing]);
+
+  useEffect(function(){
+    if(chatRef.current)chatRef.current.scrollTop=chatRef.current.scrollHeight;
+  },[chat,typing]);
+
   const hasChat=chat.length>0;
-  const memCount=(mem.facts?.length||0)+(mem.preferences?.length||0);
+  const memCount=(mem.facts&&mem.facts.length)||0;
+
   return <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.10),rgba(31,217,122,.04))",border:"1px solid rgba(124,111,255,.2)",borderRadius:16,overflow:"hidden"}}>
     <div style={{padding:"14px 18px",borderBottom:"1px solid rgba(124,111,255,.12)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
       <div style={{display:"flex",alignItems:"center",gap:12}}>
-        <div style={{width:42,height:42,borderRadius:12,background:"linear-gradient(135deg,rgba(124,111,255,.3),rgba(31,217,122,.15))",border:"1px solid rgba(124,111,255,.25)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🤖</div>
+        <div style={{width:42,height:42,borderRadius:12,background:"linear-gradient(135deg,rgba(124,111,255,.3),rgba(31,217,122,.15))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🤖</div>
         <div>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <div style={{fontSize:16,fontWeight:900}}>{aiName}</div>
-            <div style={{fontSize:9,background:"rgba(124,111,255,.2)",color:C.acc2,padding:"2px 8px",borderRadius:20,fontWeight:700,textTransform:"uppercase",border:"1px solid rgba(124,111,255,.25)"}}>AI Advisor</div>
-            {memCount>0&&<div style={{fontSize:9,background:"rgba(31,217,122,.12)",color:C.g,padding:"2px 7px",borderRadius:20,fontWeight:700,border:"1px solid rgba(31,217,122,.2)"}}>🧠 {memCount} memories</div>}
+            <div style={{fontSize:9,background:"rgba(124,111,255,.2)",color:C.acc2,padding:"2px 8px",borderRadius:20,fontWeight:700,textTransform:"uppercase"}}>AI Advisor</div>
           </div>
-          <div style={{fontSize:11,color:C.t3,marginTop:1}}>{dp.dealerName} · {dp.groqKey?"Active":"Setup needed"}</div>
+          <div style={{fontSize:11,color:C.t3,marginTop:1}}>{dp.dealerName} · {dp.groqKey?"Active":"Add Groq key to activate"}</div>
         </div>
       </div>
       <div style={{display:"flex",alignItems:"center",gap:8}}>
-        <div style={{display:"flex",alignItems:"center",gap:5}}><div style={{width:7,height:7,borderRadius:"50%",background:dp.groqKey?C.g:C.a,boxShadow:`0 0 8px ${dp.groqKey?C.g:C.a}`,animation:"livePulse 2s infinite"}}/><span style={{fontSize:11,color:dp.groqKey?C.g:C.a,fontWeight:700}}>{dp.groqKey?"Online":"Setup"}</span></div>
-        {hasChat&&<button onClick={()=>{setChat([]);saveAIConvo([]);}} style={{background:"none",border:"none",color:C.t4,cursor:"pointer",fontSize:11,fontFamily:"inherit"}}>Clear</button>}
+        <span style={{fontSize:11,color:dp.groqKey?C.g:C.a,fontWeight:700}}>{dp.groqKey?"Online":"Setup"}</span>
+        {hasChat&&<button onClick={function(){setChat([]);saveAIConvo([]);}} style={{background:"none",border:"none",color:C.t4,cursor:"pointer",fontSize:11,fontFamily:"inherit"}}>Clear</button>}
       </div>
     </div>
-    {!hasChat&&<div style={{padding:"10px 18px 0",display:"flex",gap:7,flexWrap:"wrap"}}>
-      {pills.map((p,i)=><button key={i} onClick={()=>send(p.t)} style={{display:"flex",alignItems:"center",gap:6,padding:"6px 12px",background:`${p.c}10`,border:`1px solid ${p.c}25`,borderRadius:20,color:p.c,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{p.t}</button>)}
+    {!hasChat&&<div style={{padding:"10px 18px 4px",display:"flex",gap:7,flexWrap:"wrap"}}>
+      {pills.map(function(p,i){
+        return <button key={i} onClick={function(){send(p.t);}} style={{padding:"6px 12px",background:p.c+"10",border:"1px solid "+p.c+"30",borderRadius:20,color:p.c,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{p.t}</button>;
+      })}
     </div>}
     {hasChat&&<div ref={chatRef} style={{maxHeight:220,overflowY:"auto",padding:"12px 18px",display:"flex",flexDirection:"column",gap:9}}>
-      {chat.map((msg,i)=><div key={i} style={{display:"flex",gap:9,justifyContent:msg.role==="user"?"flex-end":"flex-start"}}>
-        {msg.role==="assistant"&&<div style={{width:26,height:26,borderRadius:7,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>🤖</div>}
-        <div style={{maxWidth:"82%",padding:"8px 12px",borderRadius:msg.role==="user"?"12px 12px 3px 12px":"12px 12px 12px 3px",background:msg.role==="user"?"rgba(124,111,255,.2)":"rgba(255,255,255,.06)",border:`1px solid ${msg.role==="user"?"rgba(124,111,255,.3)":"rgba(255,255,255,.08)"}`,fontSize:13,color:C.t1,lineHeight:1.55}}>{msg.content}</div>
-      </div>)}
-      {typing&&<div style={{display:"flex",gap:9}}><div style={{width:26,height:26,borderRadius:7,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>🤖</div><div style={{padding:"8px 13px",borderRadius:"12px 12px 12px 3px",background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.08)",display:"flex",gap:4,alignItems:"center"}}>{[0,1,2].map(i=><div key={i} style={{width:5,height:5,borderRadius:"50%",background:C.acc2,animation:`pulse 1.2s ${i*.2}s infinite`}}/>)}</div></div>}
+      {chat.map(function(msg,i){
+        return <div key={i} style={{display:"flex",gap:9,justifyContent:msg.role==="user"?"flex-end":"flex-start"}}>
+          {msg.role==="assistant"&&<div style={{width:26,height:26,borderRadius:7,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>🤖</div>}
+          <div style={{maxWidth:"82%",padding:"8px 12px",borderRadius:"12px",background:msg.role==="user"?"rgba(124,111,255,.2)":"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",fontSize:13,color:C.t1,lineHeight:1.55}}>{msg.content}</div>
+        </div>;
+      })}
+      {typing&&<div style={{padding:"8px 14px",background:"rgba(255,255,255,.06)",borderRadius:12,border:"1px solid rgba(255,255,255,.08)",display:"inline-flex",gap:4,alignItems:"center",alignSelf:"flex-start"}}>
+        {[0,1,2].map(function(i){return <div key={i} style={{width:5,height:5,borderRadius:"50%",background:C.acc2,animation:"pulse 1.2s "+(i*0.2)+"s infinite"}}/>;  })}
+      </div>}
     </div>}
-    {!dp.groqKey&&!hasChat&&<div style={{padding:"8px 18px"}}><div style={{background:"rgba(245,166,35,.08)",border:"1px solid rgba(245,166,35,.2)",borderRadius:8,padding:"8px 12px",fontSize:12,color:C.a}}>⚠️ Add your free Groq API key in <strong>Dealer Profile → Your AI</strong> to activate {aiName}. Free at <strong>console.groq.com</strong></div></div>}
-    <div style={{padding:"10px 16px 12px",borderTop:hasChat?`1px solid ${C.b1}`:"none",display:"flex",gap:8}}>
-      <input value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send(inp)} placeholder={`Ask ${aiName} anything...`} style={{flex:1,background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:9,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none"}} onFocus={e=>e.target.style.borderColor="rgba(124,111,255,.5)"} onBlur={e=>e.target.style.borderColor="rgba(255,255,255,.1)"}/>
-      <button onClick={()=>send(inp)} disabled={!inp.trim()||typing} style={{width:36,height:36,borderRadius:9,background:inp.trim()&&!typing?C.grad1:"rgba(255,255,255,.06)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,transition:"all .18s"}}>→</button>
+    <div style={{padding:"10px 16px 12px",borderTop:hasChat?"1px solid "+C.b1:"none",display:"flex",gap:8}}>
+      <input value={inp} onChange={function(e){setInp(e.target.value);}} onKeyDown={function(e){if(e.key==="Enter")send(inp);}} placeholder={"Ask "+aiName+" anything..."} style={{flex:1,background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:9,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none"}}/>
+      <button onClick={function(){send(inp);}} disabled={!inp.trim()||typing} style={{width:36,height:36,borderRadius:9,background:inp.trim()&&!typing?C.grad1:"rgba(255,255,255,.06)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>→</button>
     </div>
   </div>;
 }
+
 function PINModal({onSuccess,onClose}){
-  const m=gDM();
-  const [pin,setPin]=useState([]),[err,setErr]=useState(false);
-  function press(d){
-    if(pin.length>=4)return;
-    const np=[...pin,d];
-    setPin(np);
-    if(np.length===4){
-      if(np.join("")===String(m.pin)){setTimeout(onSuccess,150);}
-      else{setTimeout(()=>{setPin([]);setErr(true);setTimeout(()=>setErr(false),600);},200);}
-    }
-  }
-  return <div className="po"><div className="pb">
-    <div style={{fontSize:13,fontWeight:700,color:C.t1,marginBottom:4}}>Manager PIN</div>
-    <div style={{fontSize:12,color:C.t3,marginBottom:16}}>Enter your 4-digit PIN</div>
-    <div className="pd">{[0,1,2,3].map(i=><div key={i} className={`pdot${pin.length>i?" on":""}${err?" err":""}`}/>)}</div>
-    <div className="pg">{[1,2,3,4,5,6,7,8,9].map(n=><button key={n} className="pk" onClick={()=>press(String(n))}>{n}</button>)}<div/><button className="pk pz" onClick={()=>press("0")}>0</button><button className="pk" onClick={()=>setPin(p=>p.slice(0,-1))}>⌫</button></div>
-    <div className="pdl" style={{marginTop:14,cursor:"pointer",color:C.t3,fontSize:11}} onClick={onClose}>Cancel</div>
-  </div></div>;
-}
-function DataPage({stock,sold,cust}){
-  function dl(csv,name){const b=new Blob([csv],{type:"text/csv"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
-  function esc(v){const s=v===null||v===undefined?"":String(v);return s.includes(",")||s.includes("\n")||s.includes('"')?'"'+s.replace(/"/g,'""')+'"':s;}
-  function toCSV(rows,headers){return [headers.join(","),...rows.map(r=>headers.map(h=>esc(r[h])).join(","))].join("\n");}
-  function exportAll(){
-    const dp=gDP();
-    let out=`LMCT PRO Export\n${dp.dealerName} | LMCT ${dp.lmct} | ${new Date().toLocaleString("en-AU")}\n\n=== STOCK ===\n`;
-    out+=toCSV(stock,["id","make","model","year","colour","body","trans","fuel","odo","rego","vin","purchase","price","recon","other","source","acq","ppsr","regoExp","seller","notes","status"])+"\n\n=== SALES ===\n";
-    out+=toCSV(sold,["id","make","model","year","rego","sale","cost","profit","buyer","bPhone","date","pay"])+"\n\n=== CUSTOMERS ===\n";
-    out+=toCSV(cust,["id","first","last","phone","email","addr","status","notes"]);
-    dl(out,`lmctpro_backup_${new Date().toISOString().split("T")[0]}.csv`);
-  }
-  function openImport(){try{const w=window.open("data.html","_blank");if(!w)alert("Allow popups to open import tool.");}catch(e){alert("Error: "+e.message);}}
-  return <div style={{maxWidth:600}}>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:14}}>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
-        <div style={{fontSize:36,marginBottom:10}}>💾</div>
-        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Export All Data</div>
-        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>{stock.length} vehicles · {sold.length} sales · {cust.length} customers</div>
-        <Btn v="primary" full onClick={exportAll}>Download Backup (.csv)</Btn>
-      </div>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:22,textAlign:"center"}}>
-        <div style={{fontSize:36,marginBottom:10}}>📥</div>
-        <div style={{fontWeight:700,fontSize:15,marginBottom:5}}>Import from EasyCars</div>
-        <div style={{fontSize:12,color:C.t3,marginBottom:14,lineHeight:1.6}}>Upload CSV from EasyCars, DealerSocket or any DMS</div>
-        <Btn v="green" full onClick={openImport}>Open Import Tool</Btn>
-      </div>
+  const mp=gDM();
+  const [pin,setPin]=useState("");
+  const [err,setErr]=useState(false);
+  function press(d){if(pin.length<4)setPin(function(p){return p+d;});}
+  function check(){if(pin===mp.pin){onSuccess();}else{setErr(true);setPin("");setTimeout(function(){setErr(false);},1000);}}
+  useEffect(function(){if(pin.length===4)check();},[pin]);
+  return <div style={{textAlign:"center",padding:"10px 0"}}>
+    <div style={{fontSize:13,color:C.t3,marginBottom:18}}>Enter your PIN to unlock</div>
+    <div style={{display:"flex",justifyContent:"center",gap:10,marginBottom:22}}>
+      {[0,1,2,3].map(function(i){return <div key={i} style={{width:14,height:14,borderRadius:"50%",background:pin.length>i?C.acc:C.b2,transition:"background .15s",border:"2px solid "+(err?C.r:pin.length>i?C.acc:C.b2)}}/>;  })}
     </div>
-    <div style={{background:C.s2,borderRadius:9,padding:"11px 14px",fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>💡 Export regularly as a backup. Import opens a full preview tool in a new tab.</div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,maxWidth:200,margin:"0 auto"}}>
+      {[1,2,3,4,5,6,7,8,9].map(function(n){return <button key={n} onClick={function(){press(String(n));}} style={{padding:"14px",borderRadius:10,background:C.s3,border:"1px solid "+C.b2,color:C.t1,fontSize:18,fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{n}</button>;})}
+      <div/>
+      <button onClick={function(){press("0");}} style={{padding:"14px",borderRadius:10,background:C.s3,border:"1px solid "+C.b2,color:C.t1,fontSize:18,fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>0</button>
+      <button onClick={function(){setPin(function(p){return p.slice(0,-1);});}} style={{padding:"14px",borderRadius:10,background:C.s3,border:"1px solid "+C.b2,color:C.t3,fontSize:14,cursor:"pointer",fontFamily:"inherit"}}>⌫</button>
+    </div>
+    <div style={{marginTop:16,fontSize:11,color:C.t4}}>Default PIN: 1234</div>
   </div>;
 }
-function TodaysTasks({stock,cust,ul}){
+
+function DataPage({stock,setStock,sold,setSold,cust,setCust}){
+  function exportCSV(){
+    const rows=[["ID","Make","Model","Year","Colour","Body","Rego","Price","Purchase","Recon","Status","Acquired"]].concat(stock.map(function(c){return [c.id,c.make,c.model,c.year,c.colour,c.body,c.rego,c.price,c.purchase,c.recon,c.status,c.acq];}));
+    const csv=rows.map(function(r){return r.join(",");}).join("\n");
+    const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);a.download="lmct_stock.csv";a.click();
+  }
+  function importCSV(e){
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=function(ev){
+      try{
+        const lines=ev.target.result.split("\n").slice(1).filter(Boolean);
+        const imported=lines.map(function(l,idx){const p=l.split(",");return {id:Date.now()+idx,make:p[1]||"",model:p[2]||"",year:parseInt(p[3])||2020,colour:p[4]||"",body:p[5]||"Sedan",rego:p[6]||"",price:parseFloat(p[7])||0,purchase:parseFloat(p[8])||0,recon:parseFloat(p[9])||800,status:p[10]||"Available",acq:p[11]||new Date().toISOString().split("T")[0],score:70};});
+        setStock(function(s){return s.concat(imported);});
+        localStorage.setItem("lmct_stock",JSON.stringify(stock.concat(imported)));
+        alert(imported.length+" vehicles imported!");
+      }catch(err){alert("Import failed. Check file format.");}
+    };
+    r.readAsText(f);
+  }
+  return <div style={{maxWidth:480}}>
+    <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"20px"}}>
+      <div style={{fontSize:16,fontWeight:800,marginBottom:4}}>Import / Export</div>
+      <div style={{fontSize:12,color:C.t3,marginBottom:18}}>Migrate from EasyCars or back up your data.</div>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        <Btn v="primary" full sz="lg" onClick={exportCSV}>📥 Export Stock to CSV</Btn>
+        <label style={{display:"block",padding:"12px 22px",background:C.s2,border:"1px solid "+C.b2,borderRadius:9,color:C.t2,fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:"inherit",textAlign:"center"}}>
+          📤 Import CSV
+          <input type="file" accept=".csv" onChange={importCSV} style={{display:"none"}}/>
+        </label>
+      </div>
+      <div style={{marginTop:16,background:C.s2,borderRadius:8,padding:"10px 12px",fontSize:11,color:C.t3}}>
+        💡 EasyCars users: Export your stock as CSV from EasyCars settings, then import here.
+      </div>
+    </div>
+  </div>;
+}
+
+function TodaysTasks({stock,cust,setPage,ul}){
   const TODAY=new Date().toISOString().split("T")[0];
   const SK="lmct_tasks_"+TODAY;
-  const [tasks,setTasks]=useState(()=>{try{const d=JSON.parse(localStorage.getItem(SK)||"[]");if(d.length)return d;}catch(e){}
-    const active=stock.filter(c=>c.status!=="Sold");
-    const t=[];
-    const aged=active.filter(c=>dAgo(c.acq)>45);
-    if(aged.length>0)t.push({id:1,text:`Reprice ${aged[0].year} ${aged[0].make} ${aged[0].model} — ${dAgo(aged[0].acq)} days in yard`,done:false,ai:true,priority:"high"});
-    const hot=cust.filter(c=>c.status==="Hot Lead");
-    if(hot.length>0)t.push({id:2,text:`Follow up ${hot[0].first} ${hot[0].last} — ${hot[0].notes||"hot lead"}`,done:false,ai:true,priority:"high"});
-    if(active.length<4)t.push({id:3,text:"Source new stock — inventory running low",done:false,ai:true,priority:"medium"});
-    t.push({id:4,text:"Review today's enquiries",done:false,ai:false,priority:"medium"});
-    return t;
-  });
+  function load(){try{return JSON.parse(localStorage.getItem(SK)||"[]");}catch(e){return [];}}
+  const [tasks,setTasks]=useState(function(){return load();});
   const [newTask,setNewTask]=useState("");
-  function toggle(id){const u=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);setTasks(u);try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
-  function add(){if(!newTask.trim())return;const u=[...tasks,{id:Date.now(),text:newTask,done:false,ai:false,priority:"medium"}];setTasks(u);setNewTask("");try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
-  function remove(id){const u=tasks.filter(t=>t.id!==id);setTasks(u);try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
-  const done=tasks.filter(t=>t.done).length;
-  const pct=tasks.length?Math.round((done/tasks.length)*100):0;
-  return <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"16px 18px"}}>
-    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-      <div style={{display:"flex",alignItems:"center",gap:10}}>
-        <div style={{fontWeight:800,fontSize:14}}>Today's Tasks</div>
-        <div style={{fontSize:10,color:C.t3,fontFamily:"monospace"}}>{done}/{tasks.length} done</div>
-      </div>
-      <div style={{width:80,height:5,background:C.s3,borderRadius:3,overflow:"hidden"}}>
-        <div style={{width:pct+"%",height:"100%",background:pct===100?C.g:C.a,borderRadius:3,transition:"width .4s ease"}}/>
-      </div>
+  function save(t){setTasks(t);localStorage.setItem(SK,JSON.stringify(t));}
+  function add(){if(!newTask.trim())return;save(tasks.concat([{id:Date.now(),text:newTask.trim(),done:false}]));setNewTask("");}
+  function toggle(id){save(tasks.map(function(t){return t.id===id?Object.assign({},t,{done:!t.done}):t;}));}
+  function remove(id){save(tasks.filter(function(t){return t.id!==id;}));}
+  const regoAlerts=stock.filter(function(c){return c.regoExp&&dUntil(c.regoExp)<14;});
+  return <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"18px 20px"}}>
+    <div style={{fontWeight:800,fontSize:14,marginBottom:12}}>Today's Tasks · {TODAY}</div>
+    {regoAlerts.length>0&&<div style={{background:C.ad,border:"1px solid "+C.ab,borderRadius:8,padding:"8px 12px",marginBottom:12,fontSize:12,color:C.a}}>
+      ⏰ {regoAlerts.length} vehicle{regoAlerts.length>1?"s":""} with rego expiring within 14 days
+    </div>}
+    <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:12}}>
+      {tasks.length===0&&<div style={{color:C.t4,fontSize:12,textAlign:"center",padding:"12px 0"}}>No tasks yet — add one below</div>}
+      {tasks.map(function(t){return <div key={t.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid "+C.b1}}>
+        <div onClick={function(){toggle(t.id);}} style={{width:18,height:18,borderRadius:5,border:"2px solid "+(t.done?C.g:C.b2),background:t.done?C.g:"transparent",cursor:"pointer",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>{t.done&&<span style={{color:"#060610",fontSize:10}}>✓</span>}</div>
+        <span style={{flex:1,fontSize:13,color:t.done?C.t4:C.t1,textDecoration:t.done?"line-through":"none"}}>{t.text}</span>
+        <button onClick={function(){remove(t.id);}} style={{background:"none",border:"none",color:C.t4,cursor:"pointer",fontSize:12,fontFamily:"inherit"}}>✕</button>
+      </div>;})}
     </div>
-    {tasks.map(t=><div key={t.id} style={{display:"flex",alignItems:"flex-start",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`,opacity:t.done?.5:1,transition:"opacity .2s"}}>
-      <div onClick={()=>toggle(t.id)} style={{width:18,height:18,borderRadius:5,border:`2px solid ${t.done?C.g:t.priority==="high"?C.r:C.b2}`,background:t.done?C.g:"transparent",flexShrink:0,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",marginTop:1,transition:"all .18s"}}>
-        {t.done&&<span style={{color:"#060610",fontSize:10,fontWeight:900}}>✓</span>}
-      </div>
-      <div style={{flex:1}}>
-        <div style={{fontSize:12,color:t.done?C.t4:C.t1,textDecoration:t.done?"line-through":"none",lineHeight:1.4}}>{t.text}</div>
-        {t.ai&&!t.done&&<div style={{fontSize:9,color:C.acc2,marginTop:2,fontFamily:"monospace"}}>AI generated</div>}
-      </div>
-      <div onClick={()=>remove(t.id)} style={{color:C.t4,cursor:"pointer",fontSize:12,padding:"0 3px",flexShrink:0}}>✕</div>
-    </div>)}
-    <div style={{display:"flex",gap:7,marginTop:10}}>
-      <input value={newTask} onChange={e=>setNewTask(e.target.value)} onKeyDown={e=>e.key==="Enter"&&add()} placeholder="Add a task..." style={{flex:1,background:C.s2,border:`1px solid ${C.b2}`,borderRadius:8,padding:"7px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}}/>
+    <div style={{display:"flex",gap:9}}>
+      <input value={newTask} onChange={function(e){setNewTask(e.target.value);}} onKeyDown={function(e){if(e.key==="Enter")add();}} placeholder="Add a task..." style={{flex:1,background:C.s2,border:"1px solid "+C.b2,borderRadius:8,padding:"7px 12px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none"}}/>
       <Btn sz="sm" v="ghost" onClick={add} disabled={!newTask.trim()}>+</Btn>
     </div>
   </div>;
 }
-// ── CHART COMPONENTS ──
-// ── CHART COMPONENTS ──
+
+
 function DonutChart({segments,size=120,thick=18,label,sub}){
   const r=(size-thick)/2,cx=size/2,cy=size/2;
   const circ=2*Math.PI*r;
@@ -1075,6 +1064,7 @@ function VRForms({stock,sold}){
 }
 
 
+
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
@@ -1231,6 +1221,8 @@ function App(){
     </div>}
   </div>;
 }
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);</script>
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+
+</script>
 </body>
 </html>
