@@ -1085,7 +1085,7 @@ function sendSaleEmail(sale, car, dp){
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
-  useEffect(()=>{if(window.__done)setTimeout(window.__done,450);},[]);
+  useEffect(()=>{if(window.__done){window.__done();}},[]);
   const mp=gDM();
   function req(cb){if(ul){if(cb)cb();return;}spcb(()=>cb||null);ssp(true);}
   function pinOK(){su(true);ssp(false);localStorage.setItem("lmct_ul","1");if(pinCB){pinCB();spcb(null);}}
@@ -1238,7 +1238,7 @@ function App(){
     </div>}
   </div>;
 }
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+try{ReactDOM.createRoot(document.getElementById("root")).render(<App/>);}catch(e){if(window.__done)window.__done();document.getElementById("root").innerHTML='<div style="color:#ff4f4f;padding:40px;font-family:monospace;font-size:13px;background:#06060f;min-height:100vh"><h2>Startup Error</h2><pre>'+e.message+'</pre><pre>'+e.stack+'</pre></div>';}
 
 </script>
 </body>
