@@ -17,7 +17,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,san
 @keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}} #ld{position:fixed;inset:0;background:#06060f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .6s}
 #ld.gone{opacity:0;pointer-events:none}
 .ll{font-size:28px;font-weight:900;color:#f0f0fa;letter-spacing:-1.5px;margin-bottom:4px}
-.ll b{background:linear-gradient(135deg,#7c6fff,#a89dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ll b{color:#f5a623}
 .ls{font-size:8px;color:#35354e;font-family:monospace;letter-spacing:4px;text-transform:uppercase;margin-bottom:32px}
 .lbar{width:200px;height:1.5px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
 .lfill{height:100%;width:0;background:linear-gradient(90deg,#7c6fff,#a89dff,#7c6fff);background-size:200%;animation:shimmerLoad 1.5s infinite;border-radius:2px;transition:width .3s}
@@ -47,28 +47,100 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,san
    ═══════════════════════════════════ */
 
 /* Nav items */
-.nav-section{font-size:9px;color:rgba(255,255,255,.18);text-transform:uppercase;letter-spacing:1.8px;padding:14px 11px 4px;font-weight:800}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:9px;cursor:pointer;width:100%;text-align:left;border:none;font-family:inherit;font-size:12.5px;font-weight:500;transition:all .18s;margin-bottom:1px;position:relative;overflow:hidden;letter-spacing:-.1px}
-.nav-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:3px;border-radius:0 3px 3px 0;background:transparent;transition:all .18s}
-.nav-item.active::before{background:linear-gradient(180deg,#a89dff,#7c6fff)}
-.nav-item.active{font-weight:700}
-.nav-item:hover:not(.active){background:rgba(255,255,255,.04)!important}
-.nav-item-icon{font-size:15px;flex-shrink:0;width:18px;text-align:center}
+/* ═══ SIDEBAR NAV — 2026 PREMIUM ═══ */
+/* Color psychology: size = authority, amber = urgency, green = growth, purple = AI premium */
+
+.nav-section{
+  font-size:10px;color:rgba(255,255,255,.28);text-transform:uppercase;
+  letter-spacing:2px;padding:18px 14px 6px;font-weight:900;
+  display:flex;align-items:center;gap:6px
+}
+.nav-section::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
+
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 14px;  /* bigger hit area */
+  border-radius:12px;
+  cursor:pointer;width:100%;text-align:left;border:none;
+  font-family:inherit;font-size:14px;font-weight:500; /* UP from 12.5px */
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  margin-bottom:2px;position:relative;overflow:hidden;
+  letter-spacing:-.2px;line-height:1.2
+}
+.nav-item::before{
+  content:'';position:absolute;left:0;top:15%;height:70%;width:3px;
+  border-radius:0 4px 4px 0;background:transparent;transition:all .2s
+}
+.nav-item.active{font-weight:700;font-size:14.5px}
+.nav-item.active::before{background:linear-gradient(180deg,#f5a623,#7c6fff)}
+.nav-item:hover:not(.active){
+  background:rgba(255,255,255,.06)!important;
+  transform:translateX(2px)
+}
+.nav-item:active{transform:scale(.97)}
+
+/* Icon container — gives each icon a subtle colored background */
+.nav-item-icon{
+  font-size:17px;flex-shrink:0;
+  width:32px;height:32px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);
+  transition:all .2s
+}
+.nav-item.active .nav-item-icon{background:rgba(245,166,35,.12)}
 .nav-item-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nav-ai-label{font-size:8px;background:rgba(124,111,255,.22);color:rgba(168,157,255,.9);padding:1px 6px;border-radius:8px;font-weight:800;letter-spacing:.5px;flex-shrink:0;border:1px solid rgba(124,111,255,.2)}
-.nav-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center;flex-shrink:0}
+
+/* AI badge — purple glow */
+.nav-ai-label{
+  font-size:9px;background:rgba(124,111,255,.25);color:#c4bcff;
+  padding:2px 7px;border-radius:20px;font-weight:800;letter-spacing:.5px;
+  flex-shrink:0;border:1px solid rgba(124,111,255,.3);
+  text-transform:uppercase
+}
+
+/* Count badge — amber for urgency */
+.nav-badge{
+  font-size:11px;font-weight:800;padding:3px 8px;
+  border-radius:20px;min-width:24px;text-align:center;flex-shrink:0;
+  letter-spacing:-.3px
+}
 
 /* Topbar */
-.topbar{display:flex;align-items:center;gap:12px;padding:0 24px;height:56px;border-bottom:1px solid rgba(255,255,255,.055);background:linear-gradient(180deg,rgba(255,255,255,.03) 0%,transparent 100%);flex-shrink:0}
-.topbar-title{font-size:17px;font-weight:800;letter-spacing:-.5px;line-height:1}
-.topbar-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:2px;font-family:monospace;letter-spacing:.3px}
-.ai-status{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(31,217,122,.8);background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.15);padding:5px 11px;border-radius:20px}
-.ai-dot{width:6px;height:6px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite;flex-shrink:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:0 24px;height:60px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,transparent 100%);flex-shrink:0}
+.topbar-title{font-size:20px;font-weight:900;letter-spacing:-.6px;line-height:1}
+.topbar-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px;font-family:monospace;letter-spacing:.3px}
+.ai-status{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:rgba(31,217,122,.9);background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.2);padding:7px 14px;border-radius:20px;letter-spacing:.2px}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite;flex-shrink:0}
 
 /* Content area */
-.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:22px 24px;animation:fadeIn .25s ease}
+.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:22px 26px;animation:fadeIn .25s ease}
 .content-area::-webkit-scrollbar{width:3px}
 .content-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
+
+/* ── KPI CARD POLISH ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.kpi-card{background:var(--s1,#0c0c1a);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:14px 16px;position:relative;overflow:hidden;transition:all .2s}
+.kpi-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
+
+/* ── ALERT BANNER ── */
+.alert-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:12px;margin-bottom:8px;animation:fadeIn .3s ease}
+
+/* ── TOPBAR STAT PILL ── */
+.tb-stat{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:5px 12px;min-width:52px;cursor:pointer;transition:all .15s}
+.tb-stat:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14)}
+.tb-stat-val{font-size:14px;font-weight:800;line-height:1}
+.tb-stat-lbl{font-size:8px;color:rgba(255,255,255,.3);font-family:monospace;letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+
+/* ── SCANNER QR HINT ── */
+.scanner-url-hint{background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.15);border-radius:8px;padding:8px 12px;font-size:11px;color:rgba(31,217,122,.8);font-family:monospace;display:flex;align-items:center;gap:7px;margin-top:8px}
+
+/* ── SELL BUTTON PULSE ── */
+@keyframes sellPulse{0%,100%{box-shadow:0 0 0 0 rgba(31,217,122,.4)}50%{box-shadow:0 0 0 6px rgba(31,217,122,0)}}
+.btn-sell-pulse{animation:sellPulse 2s infinite}
+
+/* ── TOAST NOTIFICATION ── */
+.toast{position:fixed;bottom:24px;right:24px;z-index:900;display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -84,47 +156,71 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,san
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <script>
+// ── SOUND SYSTEM ──
+window.SFX={
+  _ctx:null,
+  _get(){if(!this._ctx)this._ctx=new(window.AudioContext||window.webkitAudioContext)();return this._ctx;},
+  play(type){
+    try{
+      const ctx=this._get();
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      const now=ctx.currentTime;
+      if(type==='sell'){
+        // Success chime — ascending tones
+        o.type='sine';
+        o.frequency.setValueAtTime(440,now);
+        o.frequency.exponentialRampToValueAtTime(660,now+0.1);
+        o.frequency.exponentialRampToValueAtTime(880,now+0.2);
+        g.gain.setValueAtTime(0.3,now);
+        g.gain.exponentialRampToValueAtTime(0.001,now+0.5);
+        o.start(now);o.stop(now+0.5);
+      } else if(type==='click'){
+        o.type='sine';o.frequency.setValueAtTime(600,now);
+        g.gain.setValueAtTime(0.15,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.08);
+        o.start(now);o.stop(now+0.08);
+      } else if(type==='save'){
+        o.type='sine';
+        o.frequency.setValueAtTime(523,now);
+        o.frequency.setValueAtTime(659,now+0.1);
+        g.gain.setValueAtTime(0.2,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.35);
+        o.start(now);o.stop(now+0.35);
+      } else if(type==='alert'){
+        o.type='square';o.frequency.setValueAtTime(220,now);
+        g.gain.setValueAtTime(0.1,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.3);
+        o.start(now);o.stop(now+0.3);
+      } else if(type==='nav'){
+        o.type='sine';o.frequency.setValueAtTime(880,now);
+        g.gain.setValueAtTime(0.08,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.06);
+        o.start(now);o.stop(now+0.06);
+      }
+    }catch(e){}
+  }
+};
 var p=0,mi=0,msgs=["Initialising platform...","Loading stock data...","Preparing dashboard...","Almost ready..."];
 var iv=setInterval(function(){p+=Math.random()*15+5;if(p>92)p=92;document.getElementById("lf").style.width=p+"%";document.getElementById("lt").textContent=msgs[Math.min(mi++,3)];},300);
 window.__done=function(){clearInterval(iv);document.getElementById("lf").style.width="100%";setTimeout(function(){document.getElementById("ld").classList.add("gone");},350);};
 </script>
-<script type="text/babel">
-
-const {useState,useEffect,useRef,useCallback}=React;
-
-// ── PREMIUM COLOR SYSTEM v2 ──
+<script type="text/babel">const {useState,useEffect,useRef,useCallback}=React;
 const C={
-  // Backgrounds — deep layered dark
   bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",
-  // Borders
   b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",
-  // Text
   t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",
-  // Accent — purple
   acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",
-  // Green
   g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",
-  // Amber
   a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",
-  // Red
   r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",
-  // Blue
   b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",
-  // Gradients
   grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",
   grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",
   grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))",
 };
-
-// ── UTILITIES ──
 const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
 const fd=d=>d?new Date(d).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}):"—";
 const dAgo=d=>{if(!d)return 0;return Math.floor((Date.now()-new Date(d))/86400000);};
 const dUntil=d=>{if(!d)return 999;return Math.floor((new Date(d)-Date.now())/86400000);};
 const ce=b=>{const m={"SUV":"🚙","Sedan":"🚗","Hatchback":"🚗","Ute":"🛻","Van":"🚐","Wagon":"🚗","Coupe":"🚗","Convertible":"🚗","4WD":"🛻"};return m[b]||"🚗";};
-
-// ── STORAGE ──
-const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au"};
+const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au",aiName:"MAX",aiPersonality:"direct",groqKey:"",aiTraining:""};
 const ES0={apiKey:"",senderName:"",senderEmail:"",replyTo:"",signature:"",autoCc:false,autoSend:true,sendContract:true,sendInvoice:true,sendVicRoads:true};
 function gDP(){try{return {...DP0,...JSON.parse(localStorage.getItem("lp_d")||"{}")};}catch(e){return DP0;}}
 function sDP(v){localStorage.setItem("lp_d",JSON.stringify(v));}
@@ -132,14 +228,12 @@ function gDM(){try{return {...{pin:"1234",warnMargin:5,minMargin:10,targetMargin
 function sDM(v){localStorage.setItem("lp_dm",JSON.stringify(v));}
 function gES(){try{return {...ES0,...JSON.parse(localStorage.getItem("lmct_email")||"{}")};}catch(e){return ES0;}}
 function sES(v){localStorage.setItem("lmct_email",JSON.stringify(v));}
-
-// ── SEED DATA ──
 const SS=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_stock")||"[]");return d.length?d:[
-  {id:1,make:"Toyota",model:"RAV4",year:2021,colour:"Pearl White",body:"SUV",trans:"Auto",fuel:"Petrol",odo:41000,rego:"ABC123",vin:"JTMWB3FV21D",price:33490,purchase:26800,recon:800,other:200,source:"Auction",acq:"2024-12-01",ppsr:"Clear",regoExp:"2026-08-15",status:"Available",score:92},
-  {id:2,make:"Mazda",model:"CX-5",year:2020,colour:"Soul Red",body:"SUV",trans:"Auto",fuel:"Petrol",odo:62000,rego:"XYZ456",vin:"JM3KFBCM0L",price:28990,purchase:22400,recon:600,other:0,source:"Trade-in",acq:"2024-11-15",ppsr:"Clear",regoExp:"2026-05-20",status:"Available",score:78},
-  {id:3,make:"Ford",model:"Ranger",year:2019,colour:"White",body:"Ute",trans:"Auto",fuel:"Diesel",odo:89000,rego:"LMN789",vin:"6FPAAAJJXJR",price:34990,purchase:27500,recon:1200,other:300,source:"Dealer",acq:"2024-10-20",ppsr:"Clear",regoExp:"2025-11-30",status:"Available",score:65},
-  {id:4,make:"Honda",model:"CR-V",year:2022,colour:"Sonic Grey",body:"SUV",trans:"Auto",fuel:"Petrol",odo:28000,rego:"DEF321",vin:"7FARW2H55NE",price:38990,purchase:31200,recon:400,other:0,source:"Auction",acq:"2025-01-08",ppsr:"Clear",regoExp:"2027-01-15",status:"Available",score:95},
-  {id:5,make:"Hyundai",model:"Tucson",year:2021,colour:"Black",body:"SUV",trans:"Auto",fuel:"Petrol",odo:55000,rego:"GHI654",vin:"KMHJ3",price:27490,purchase:21000,recon:900,other:100,source:"Trade-in",acq:"2024-09-05",ppsr:"Clear",regoExp:"2026-03-10",status:"Reserved",score:71},
+  {id:1,make:"Toyota",model:"RAV4",year:2021,colour:"Pearl White",body:"SUV",trans:"Auto",fuel:"Petrol",odo:41000,rego:"ABC123",vin:"JTMWB3FV21D",price:33490,purchase:26800,recon:800,other:200,source:"Auction",acq:"2026-03-15",ppsr:"Clear",regoExp:"2026-08-15",status:"Available",score:92},
+  {id:2,make:"Mazda",model:"CX-5",year:2020,colour:"Soul Red",body:"SUV",trans:"Auto",fuel:"Petrol",odo:62000,rego:"XYZ456",vin:"JM3KFBCM0L",price:28990,purchase:22400,recon:600,other:0,source:"Trade-in",acq:"2026-02-28",ppsr:"Clear",regoExp:"2026-05-20",status:"Available",score:78},
+  {id:3,make:"Ford",model:"Ranger",year:2019,colour:"White",body:"Ute",trans:"Auto",fuel:"Diesel",odo:89000,rego:"LMN789",vin:"6FPAAAJJXJR",price:34990,purchase:27500,recon:1200,other:300,source:"Dealer",acq:"2026-01-20",ppsr:"Clear",regoExp:"2025-11-30",status:"Available",score:65},
+  {id:4,make:"Honda",model:"CR-V",year:2022,colour:"Sonic Grey",body:"SUV",trans:"Auto",fuel:"Petrol",odo:28000,rego:"DEF321",vin:"7FARW2H55NE",price:38990,purchase:31200,recon:400,other:0,source:"Auction",acq:"2026-03-20",ppsr:"Clear",regoExp:"2027-01-15",status:"Available",score:95},
+  {id:5,make:"Hyundai",model:"Tucson",year:2021,colour:"Black",body:"SUV",trans:"Auto",fuel:"Petrol",odo:55000,rego:"GHI654",vin:"KMHJ3",price:27490,purchase:21000,recon:900,other:100,source:"Trade-in",acq:"2026-02-10",ppsr:"Clear",regoExp:"2026-03-10",status:"Reserved",score:71},
 ];}catch(e){return [];}})();
 const SL=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_sold")||"[]");return d.length?d:[
   {id:101,make:"Toyota",model:"Camry",year:2020,rego:"OLD001",sale:24990,cost:19800,profit:5190,buyer:"Michael Chen",bPhone:"0411111111",bEmail:"m.chen@email.com",date:"2025-01-15",pay:"Finance"},
@@ -151,66 +245,136 @@ const CU=(()=>{try{const d=JSON.parse(localStorage.getItem("lmct_cust")||"[]");r
   {id:202,first:"Priya",last:"Sharma",phone:"0444444444",email:"priya@email.com",addr:"56 Main Rd, Dandenong VIC",status:"Hot Lead",notes:"Looking for 7-seater SUV, budget $35k"},
   {id:203,first:"Tom",last:"Murphy",phone:"0455555555",email:"tom.m@email.com",addr:"88 Church St, Sunshine VIC",status:"Hot Lead",notes:"Wants diesel ute, happy to wait"},
 ];}catch(e){return [];}})();
-
-// ── PREMIUM UI PRIMITIVES ──
 const Inp=({value,onChange,placeholder,type="text",disabled,autoFocus})=><input autoFocus={autoFocus} disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
-  <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}15 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/>
-  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10,position:"relative"}}>
-    <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>
-    {icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>{icon}</div>}
-  </div>
-  {locked?<Locked onReq={()=>{}}/>:<div style={{position:"relative"}}>
-    <div style={{fontSize:26,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>
-    {sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>
-      {trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}
-    </div>}
-  </div>}
-</div>;
-
-const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}><div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>{locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:26,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}</div>;
-
-
-// ── UI PRIMITIVES ──
+const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}><div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18 0%,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}18`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>{locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:32,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-1}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}</div>;
 const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const{bg,c,brd}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:bg,color:c,border:`1px solid ${brd}`}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0,animation:"livePulse 2s infinite"}}/>}{children}</span>;};
 const Btn=({children,onClick,v="ghost",sz="md",disabled,full,icon,st={}})=>{const S={primary:{background:C.grad1,color:"#fff",border:"none",boxShadow:"0 4px 14px rgba(124,111,255,.3)"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?.4:1,...Z[sz],...S[v],...st}}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
-const Inp=({value,onChange,placeholder,type="text",disabled})=><input disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
 const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
 const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4,marginTop:1}}>{hint}</div>}</div>;
 const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:9,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
 const Modal=({open,onClose,title,children,w=500})=>open?<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(14px)",padding:20}} onClick={e=>e.target===e.currentTarget&&onClose()}><div style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:16,width:"100%",maxWidth:w,maxHeight:"90vh",overflow:"auto",boxShadow:"0 40px 100px rgba(0,0,0,.7)"}}><div style={{padding:"16px 20px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2,zIndex:1}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>✕</button></div><div style={{padding:20}}>{children}</div></div></div>:null;
 const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer",padding:"4px 0"}}><span>🔐</span><span>PIN required</span></div>;
+function gMem(dealerName){
+  try{return JSON.parse(localStorage.getItem("lmct_mem_"+dealerName)||"{}");} catch(e){return {};}
+}
+function sMem(dealerName,mem){
+  try{localStorage.setItem("lmct_mem_"+dealerName,JSON.stringify(mem));}catch(e){}
+}
+function getMemSummary(mem){
+  const parts=[];
+  if(mem.facts?.length)parts.push("Facts dealer has told you:\n"+mem.facts.map(f=>"- "+f).join("\n"));
+  if(mem.preferences?.length)parts.push("Dealer preferences:\n"+mem.preferences.map(p=>"- "+p).join("\n"));
+  if(mem.goals?.length)parts.push("Dealer goals:\n"+mem.goals.map(g=>"- "+g).join("\n"));
+  if(mem.history?.length){const last5=mem.history.slice(-5);parts.push("Recent conversation context:\n"+last5.map(m=>(m.role==="user"?"Dealer: ":"AI: ")+m.content).join("\n"));}
+  return parts.join("\n\n");
+}
+function getAIMem(){try{return JSON.parse(localStorage.getItem("lmct_ai_mem")||"{}");} catch(e){return {};}}
+function saveAIMem(v){try{localStorage.setItem("lmct_ai_mem",JSON.stringify(v));}catch(e){}}
+function getAIConvo(){try{return JSON.parse(localStorage.getItem("lmct_ai_convo")||"[]");}catch(e){return [];}}
+function saveAIConvo(v){try{localStorage.setItem("lmct_ai_convo",JSON.stringify(v.slice(-40)));}catch(e){}}
+const Badge=({children,color="purple",dot})=>{const m={green:{bg:C.gd,c:C.g,brd:C.gb},amber:{bg:C.ad,c:C.a,brd:C.ab},red:{bg:C.rd,c:C.r,brd:C.rb},blue:{bg:C.bd,c:C.b,brd:C.bb},purple:{bg:C.accd,c:C.acc2,brd:C.accb},grey:{bg:C.s3,c:C.t3,brd:C.b1}};const{bg,c,brd}=m[color]||m.purple;return <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 9px",borderRadius:20,fontSize:10,fontWeight:700,background:bg,color:c,border:`1px solid ${brd}`}}>{dot&&<span style={{width:5,height:5,borderRadius:"50%",background:c,flexShrink:0,animation:"livePulse 2s infinite"}}/>}{children}</span>;};
+const Btn=({children,onClick,v="ghost",sz="md",disabled,full,icon,st={}})=>{const S={primary:{background:C.grad1,color:"#fff",border:"none",boxShadow:"0 4px 14px rgba(124,111,255,.3)"},ghost:{background:"transparent",color:C.t2,border:`1px solid ${C.b2}`},green:{background:C.gd,color:C.g,border:`1px solid ${C.gb}`},red:{background:C.rd,color:C.r,border:`1px solid ${C.rb}`},amber:{background:C.ad,color:C.a,border:`1px solid ${C.ab}`},blue:{background:C.bd,color:C.b,border:`1px solid ${C.bb}`},dark:{background:C.s3,color:C.t1,border:`1px solid ${C.b2}`}};const Z={xs:{padding:"3px 8px",fontSize:11},sm:{padding:"5px 12px",fontSize:12},md:{padding:"9px 16px",fontSize:13},lg:{padding:"12px 22px",fontSize:14,fontWeight:700}};return <button onClick={onClick} disabled={disabled} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,width:full?"100%":"auto",borderRadius:9,fontWeight:600,cursor:disabled?"not-allowed":"pointer",fontFamily:"inherit",transition:"all .18s",opacity:disabled?.4:1,...Z[sz],...S[v],...st}}>{icon&&<span style={{fontSize:14}}>{icon}</span>}{children}</button>;};
+const Inp=({value,onChange,placeholder,type="text",disabled,autoFocus})=><input autoFocus={autoFocus} disabled={disabled} style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:disabled?C.t3:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",transition:"border-color .15s"}} value={value||""} onChange={e=>onChange(e.target.value)} placeholder={placeholder||""} type={type} onFocus={e=>e.target.style.borderColor=C.acc} onBlur={e=>e.target.style.borderColor=C.b2}/>;
+const Sel=({value,onChange,options})=><select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:8,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%"}} value={value||""} onChange={e=>onChange(e.target.value)}><option value="">Select...</option>{options.map(o=><option key={o} value={o}>{o}</option>)}</select>;
+const FG=({label,children,full,hint})=><div style={{display:"flex",flexDirection:"column",gap:5,gridColumn:full?"1/-1":""}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{children}{hint&&<div style={{fontSize:10,color:C.t4,marginTop:1}}>{hint}</div>}</div>;
+const Divider=({label})=>label?<div style={{display:"flex",alignItems:"center",gap:10,margin:"14px 0"}}><div style={{flex:1,height:1,background:C.b1}}/><span style={{fontSize:9,color:C.t4,fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>{label}</span><div style={{flex:1,height:1,background:C.b1}}/></div>:<div style={{height:1,background:C.b1,margin:"14px 0"}}/>;
+const Modal=({open,onClose,title,children,w=500})=>open?<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:600,display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(14px)",padding:20}} onClick={e=>e.target===e.currentTarget&&onClose()}><div style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:16,width:"100%",maxWidth:w,maxHeight:"90vh",overflow:"auto",boxShadow:"0 40px 100px rgba(0,0,0,.7)"}}><div style={{padding:"16px 20px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,background:C.s2,zIndex:1}}><div style={{fontWeight:800,fontSize:15}}>{title}</div><button onClick={onClose} style={{background:"none",border:"none",color:C.t3,cursor:"pointer",fontSize:18,fontFamily:"inherit"}}>✕</button></div><div style={{padding:20}}>{children}</div></div></div>:null;
+const Locked=({onReq})=><div onClick={onReq} style={{display:"flex",alignItems:"center",gap:7,color:C.t3,fontSize:13,cursor:"pointer",padding:"4px 0"}}><span>🔐</span><span>PIN required</span></div>;
+const StatCard=({label,value,sub,color,icon,locked,onClick,trend})=><div onClick={onClick} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",cursor:onClick?"pointer":"default",transition:"all .2s",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{if(onClick){e.currentTarget.style.borderColor=color||C.b3;e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{if(onClick){e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}}>
+  <div style={{position:"absolute",top:0,right:0,width:80,height:80,background:color?`radial-gradient(circle,${color}18,transparent 70%)`:"transparent",borderRadius:"50%",transform:"translate(20px,-20px)",pointerEvents:"none"}}/>
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}><div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700}}>{label}</div>{icon&&<div style={{width:28,height:28,borderRadius:8,background:color?`${color}15`:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>{icon}</div>}</div>
+  {locked?<Locked onReq={()=>{}}/>:<div><div style={{fontSize:32,fontWeight:900,color:color||C.t1,lineHeight:1,letterSpacing:-.8}}>{value}</div>{sub&&<div style={{fontSize:11,color:C.t3,marginTop:5,display:"flex",alignItems:"center",gap:5}}>{trend!==undefined&&<span style={{color:trend>=0?C.g:C.r,fontWeight:700,fontSize:10}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}{sub}</div>}</div>}
+</div>;
 
-// ── AI MANAGER (stub — main intelligence widget) ──
 function AIManager({stock,sold}){
-  const [loading,setLoading]=useState(false),[insight,setInsight]=useState(null);
+  const dp=gDP(),aiName=dp.aiName||"MAX";
+  const [chat,setChat]=useState(()=>getAIConvo());
+  const [inp,setInp]=useState(""),[typing,setTyping]=useState(false);
+  const chatRef=useRef(null);
   const active=stock.filter(c=>c.status!=="Sold");
   const aged=active.filter(c=>dAgo(c.acq)>45);
-  const avgDays=sold.length?Math.round(sold.reduce((a,s)=>{const m=stock.find(x=>x.rego===s.rego);return m&&m.acq?a+Math.round((new Date(s.date)-new Date(m.acq))/86400000):a;},0)/sold.length):null;
+  const mtd=sold.filter(s=>s.date?.startsWith(new Date().toISOString().slice(0,7)));
   const topMake=Object.entries(sold.reduce((a,s)=>{a[s.make]=(a[s.make]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1])[0];
-  const quickInsights=[];
-  if(aged.length>0)quickInsights.push({icon:"⏱",col:C.r,text:`${aged.length} vehicle${aged.length>1?"s":""} over 45 days — consider repricing`});
-  if(topMake)quickInsights.push({icon:"🏆",col:C.g,text:`${topMake[0]}s are your fastest seller — ${topMake[1]} sold`});
-  if(avgDays)quickInsights.push({icon:"📈",col:C.b,text:`Average days to sell: ${avgDays} days`});
-  if(active.length<4)quickInsights.push({icon:"🚨",col:C.a,text:"Stock running low — source vehicles now"});
-  if(!quickInsights.length)quickInsights.push({icon:"💡",col:C.acc2,text:"Add stock and record sales to unlock AI insights"});
-  return <div style={{background:`linear-gradient(135deg,rgba(124,111,255,.10),rgba(31,217,122,.04))`,border:`1px solid rgba(124,111,255,.18)`,borderRadius:14,overflow:"hidden"}}>
-    <div style={{padding:"14px 18px",borderBottom:`1px solid rgba(124,111,255,.12)`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-      <div style={{display:"flex",alignItems:"center",gap:10}}>
-        <div style={{width:36,height:36,borderRadius:10,background:"rgba(124,111,255,.18)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>🤖</div>
-        <div><div style={{fontWeight:800,fontSize:14}}>AI Manager</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>Live insights from your data</div></div>
+  const mem=gMem(dp.dealerName);
+  const memSummary=getMemSummary(mem);
+  function sysPrompt(){
+    const trainingNotes=(mem.notes||[]).map(n=>"- "+n).join("\n");
+    return `You are ${aiName}, the AI business advisor for ${dp.dealerName} (LMCT ${dp.lmct}).
+Be direct and specific. Use their actual numbers. Max 3 sentences unless asked for detail.
+LIVE DATA: ${active.length} in stock. ${aged.length} over 45 days. ${mtd.length} sales this month. ${topMake?"Best seller: "+topMake[0]+".":""}
+${dp.aiTraining?"DEALER TRAINING:\n"+dp.aiTraining:""}
+${trainingNotes?"DEALER NOTES:\n"+trainingNotes:""}
+${memSummary?"MEMORY:\n"+memSummary:""}
+End every reply with one specific action for today.`;
+  }
+  const pills=[
+    aged.length>0&&{t:`${aged.length} cars over 45 days — what do I do?`,c:C.r},
+    topMake&&{t:`Should I buy more ${topMake[0]}s?`,c:C.g},
+    mtd.length===0&&{t:"No sales yet this month — help me",c:C.a},
+    active.length<3&&{t:"Stock is low — what should I source?",c:C.b},
+    {t:`What's my biggest opportunity right now?`,c:C.acc2},
+  ].filter(Boolean).slice(0,4);
+  async function send(msg){
+    if(!msg.trim()||typing)return;
+    const newChat=[...chat,{role:"user",content:msg}];
+    setChat(newChat);setInp("");setTyping(true);
+    if(window.SFX)window.SFX.play("click");
+    if(!dp.groqKey){
+      setTimeout(()=>{setChat(p=>[...p,{role:"assistant",content:`Hi! I'm ${aiName}. Add your Groq API key in Dealer Profile → Your AI to activate me. It's completely free at console.groq.com`}]);setTyping(false);},800);
+      return;
+    }
+    try{
+      const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+dp.groqKey},body:JSON.stringify({model:"llama-3.3-70b-versatile",max_tokens:300,messages:[{role:"system",content:sysPrompt()},...newChat]})});
+      const d=await res.json();
+      const reply=d.choices?.[0]?.message?.content||"Error — check your Groq API key.";
+      const updated=[...newChat,{role:"assistant",content:reply}];
+      setChat(updated);saveAIConvo(updated);
+      if(window.SFX)window.SFX.play("save");
+      const nm=gMem(dp.dealerName);
+      if(/(?:our|my|we).{0,20}(?:target|goal|always|never|only)/i.test(msg)){
+        sMem(dp.dealerName,{...nm,facts:[...new Set([...(nm.facts||[]),msg.slice(0,100)])].slice(-20)});
+      }
+    }catch(e){setChat(p=>[...p,{role:"assistant",content:"Connection issue. Check your Groq API key."}]);}
+    setTyping(false);
+  }
+  useEffect(()=>{if(chatRef.current)chatRef.current.scrollTop=chatRef.current.scrollHeight;},[chat,typing]);
+  const hasChat=chat.length>0;
+  const memCount=(mem.facts?.length||0)+(mem.preferences?.length||0);
+  return <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.10),rgba(31,217,122,.04))",border:"1px solid rgba(124,111,255,.2)",borderRadius:16,overflow:"hidden"}}>
+    <div style={{padding:"14px 18px",borderBottom:"1px solid rgba(124,111,255,.12)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+      <div style={{display:"flex",alignItems:"center",gap:12}}>
+        <div style={{width:42,height:42,borderRadius:12,background:"linear-gradient(135deg,rgba(124,111,255,.3),rgba(31,217,122,.15))",border:"1px solid rgba(124,111,255,.25)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🤖</div>
+        <div>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <div style={{fontSize:16,fontWeight:900}}>{aiName}</div>
+            <div style={{fontSize:9,background:"rgba(124,111,255,.2)",color:C.acc2,padding:"2px 8px",borderRadius:20,fontWeight:700,textTransform:"uppercase",border:"1px solid rgba(124,111,255,.25)"}}>AI Advisor</div>
+            {memCount>0&&<div style={{fontSize:9,background:"rgba(31,217,122,.12)",color:C.g,padding:"2px 7px",borderRadius:20,fontWeight:700,border:"1px solid rgba(31,217,122,.2)"}}>🧠 {memCount} memories</div>}
+          </div>
+          <div style={{fontSize:11,color:C.t3,marginTop:1}}>{dp.dealerName} · {dp.groqKey?"Active":"Setup needed"}</div>
+        </div>
       </div>
-      <Badge color="purple" dot>Active</Badge>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{display:"flex",alignItems:"center",gap:5}}><div style={{width:7,height:7,borderRadius:"50%",background:dp.groqKey?C.g:C.a,boxShadow:`0 0 8px ${dp.groqKey?C.g:C.a}`,animation:"livePulse 2s infinite"}}/><span style={{fontSize:11,color:dp.groqKey?C.g:C.a,fontWeight:700}}>{dp.groqKey?"Online":"Setup"}</span></div>
+        {hasChat&&<button onClick={()=>{setChat([]);saveAIConvo([]);}} style={{background:"none",border:"none",color:C.t4,cursor:"pointer",fontSize:11,fontFamily:"inherit"}}>Clear</button>}
+      </div>
     </div>
-    <div style={{padding:"14px 18px",display:"flex",flexDirection:"column",gap:8}}>
-      {quickInsights.map((ins,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 13px",background:"rgba(0,0,0,.2)",borderRadius:10,border:`1px solid ${ins.col}18`}}>
-        <span style={{fontSize:18,flexShrink:0}}>{ins.icon}</span>
-        <span style={{fontSize:13,color:C.t1,lineHeight:1.5}}>{ins.text}</span>
+    {!hasChat&&<div style={{padding:"10px 18px 0",display:"flex",gap:7,flexWrap:"wrap"}}>
+      {pills.map((p,i)=><button key={i} onClick={()=>send(p.t)} style={{display:"flex",alignItems:"center",gap:6,padding:"6px 12px",background:`${p.c}10`,border:`1px solid ${p.c}25`,borderRadius:20,color:p.c,fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{p.t}</button>)}
+    </div>}
+    {hasChat&&<div ref={chatRef} style={{maxHeight:220,overflowY:"auto",padding:"12px 18px",display:"flex",flexDirection:"column",gap:9}}>
+      {chat.map((msg,i)=><div key={i} style={{display:"flex",gap:9,justifyContent:msg.role==="user"?"flex-end":"flex-start"}}>
+        {msg.role==="assistant"&&<div style={{width:26,height:26,borderRadius:7,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>🤖</div>}
+        <div style={{maxWidth:"82%",padding:"8px 12px",borderRadius:msg.role==="user"?"12px 12px 3px 12px":"12px 12px 12px 3px",background:msg.role==="user"?"rgba(124,111,255,.2)":"rgba(255,255,255,.06)",border:`1px solid ${msg.role==="user"?"rgba(124,111,255,.3)":"rgba(255,255,255,.08)"}`,fontSize:13,color:C.t1,lineHeight:1.55}}>{msg.content}</div>
       </div>)}
+      {typing&&<div style={{display:"flex",gap:9}}><div style={{width:26,height:26,borderRadius:7,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>🤖</div><div style={{padding:"8px 13px",borderRadius:"12px 12px 12px 3px",background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.08)",display:"flex",gap:4,alignItems:"center"}}>{[0,1,2].map(i=><div key={i} style={{width:5,height:5,borderRadius:"50%",background:C.acc2,animation:`pulse 1.2s ${i*.2}s infinite`}}/>)}</div></div>}
+    </div>}
+    {!dp.groqKey&&!hasChat&&<div style={{padding:"8px 18px"}}><div style={{background:"rgba(245,166,35,.08)",border:"1px solid rgba(245,166,35,.2)",borderRadius:8,padding:"8px 12px",fontSize:12,color:C.a}}>⚠️ Add your free Groq API key in <strong>Dealer Profile → Your AI</strong> to activate {aiName}. Free at <strong>console.groq.com</strong></div></div>}
+    <div style={{padding:"10px 16px 12px",borderTop:hasChat?`1px solid ${C.b1}`:"none",display:"flex",gap:8}}>
+      <input value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send(inp)} placeholder={`Ask ${aiName} anything...`} style={{flex:1,background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:9,padding:"9px 13px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none"}} onFocus={e=>e.target.style.borderColor="rgba(124,111,255,.5)"} onBlur={e=>e.target.style.borderColor="rgba(255,255,255,.1)"}/>
+      <button onClick={()=>send(inp)} disabled={!inp.trim()||typing} style={{width:36,height:36,borderRadius:9,background:inp.trim()&&!typing?C.grad1:"rgba(255,255,255,.06)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,transition:"all .18s"}}>→</button>
     </div>
   </div>;
 }
-
-// ── PIN MODAL ──
 function PINModal({onSuccess,onClose}){
   const m=gDM();
   const [pin,setPin]=useState([]),[err,setErr]=useState(false);
@@ -231,8 +395,6 @@ function PINModal({onSuccess,onClose}){
     <div className="pdl" style={{marginTop:14,cursor:"pointer",color:C.t3,fontSize:11}} onClick={onClose}>Cancel</div>
   </div></div>;
 }
-
-// ── DATA PAGE ──
 function DataPage({stock,sold,cust}){
   function dl(csv,name){const b=new Blob([csv],{type:"text/csv"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
   function esc(v){const s=v===null||v===undefined?"":String(v);return s.includes(",")||s.includes("\n")||s.includes('"')?'"'+s.replace(/"/g,'""')+'"':s;}
@@ -264,228 +426,194 @@ function DataPage({stock,sold,cust}){
     <div style={{background:C.s2,borderRadius:9,padding:"11px 14px",fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>💡 Export regularly as a backup. Import opens a full preview tool in a new tab.</div>
   </div>;
 }
-
-// ── TODAY'S TASKS (stub — opens tasks.html) ──
 function TodaysTasks({stock,cust,ul}){
   const TODAY=new Date().toISOString().split("T")[0];
   const SK="lmct_tasks_"+TODAY;
-  function loadTasks(){
-    try{
-      const raw=localStorage.getItem(SK);
-      if(raw)return JSON.parse(raw);
-      const auto=[];
-      const active=stock.filter(c=>c.status!=="Sold");
-      const aged=active.filter(c=>dAgo(c.acq)>45).slice(0,2);
-      aged.forEach(c=>auto.push({id:Date.now()+Math.random(),text:`Reprice ${c.year} ${c.make} ${c.model} — ${dAgo(c.acq)} days in stock`,done:false,type:"reprice",auto:true,assignee:"",completedBy:"",completedAt:"",note:""}));
-      const leads=cust.filter(c=>c.status==="Hot Lead").slice(0,2);
-      leads.forEach(c=>auto.push({id:Date.now()+Math.random(),text:`Follow up ${c.first} ${c.last} — ${c.phone||"no phone"}`,done:false,type:"followup",auto:true,assignee:"",completedBy:"",completedAt:"",note:""}));
-      if(active.length<3)auto.push({id:Date.now()+Math.random(),text:"Stock is low — source and add vehicles today",done:false,type:"stock",auto:true,assignee:"",completedBy:"",completedAt:"",note:""});
-      if(!auto.length)auto.push({id:Date.now()+Math.random(),text:"Upload new stock photos to CarSales",done:false,type:"general",auto:true,assignee:"",completedBy:"",completedAt:"",note:""});
-      return auto;
-    }catch(e){return[];}
-  }
-  const [tasks,setTasks]=useState(()=>{const t=loadTasks();try{localStorage.setItem(SK,JSON.stringify(t));}catch(e){}return t;});
+  const [tasks,setTasks]=useState(()=>{try{const d=JSON.parse(localStorage.getItem(SK)||"[]");if(d.length)return d;}catch(e){}
+    const active=stock.filter(c=>c.status!=="Sold");
+    const t=[];
+    const aged=active.filter(c=>dAgo(c.acq)>45);
+    if(aged.length>0)t.push({id:1,text:`Reprice ${aged[0].year} ${aged[0].make} ${aged[0].model} — ${dAgo(aged[0].acq)} days in yard`,done:false,ai:true,priority:"high"});
+    const hot=cust.filter(c=>c.status==="Hot Lead");
+    if(hot.length>0)t.push({id:2,text:`Follow up ${hot[0].first} ${hot[0].last} — ${hot[0].notes||"hot lead"}`,done:false,ai:true,priority:"high"});
+    if(active.length<4)t.push({id:3,text:"Source new stock — inventory running low",done:false,ai:true,priority:"medium"});
+    t.push({id:4,text:"Review today's enquiries",done:false,ai:false,priority:"medium"});
+    return t;
+  });
+  const [newTask,setNewTask]=useState("");
+  function toggle(id){const u=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);setTasks(u);try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
+  function add(){if(!newTask.trim())return;const u=[...tasks,{id:Date.now(),text:newTask,done:false,ai:false,priority:"medium"}];setTasks(u);setNewTask("");try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
+  function remove(id){const u=tasks.filter(t=>t.id!==id);setTasks(u);try{localStorage.setItem(SK,JSON.stringify(u));}catch(e){}}
   const done=tasks.filter(t=>t.done).length;
-  const total=tasks.length;
-  const pct=total?Math.round((done/total)*100):0;
-  function openFull(){window.open("tasks.html","_blank");}
-  return <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,overflow:"hidden",marginBottom:14}}>
-    <div style={{padding:"13px 18px",borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+  const pct=tasks.length?Math.round((done/tasks.length)*100):0;
+  return <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"16px 18px"}}>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
       <div style={{display:"flex",alignItems:"center",gap:10}}>
-        <span style={{fontSize:18}}>☀️</span>
-        <div>
-          <div style={{fontWeight:800,fontSize:14}}>{"Today's Tasks"}</div>
-          <div style={{fontSize:11,color:C.t3,marginTop:1}}>{new Date().toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"})}</div>
-        </div>
+        <div style={{fontWeight:800,fontSize:14}}>Today's Tasks</div>
+        <div style={{fontSize:10,color:C.t3,fontFamily:"monospace"}}>{done}/{tasks.length} done</div>
       </div>
-      <div style={{display:"flex",alignItems:"center",gap:10}}>
-        {total>0&&<div style={{display:"flex",alignItems:"center",gap:6}}>
-          <div style={{width:70,height:5,background:C.s3,borderRadius:3,overflow:"hidden"}}>
-            <div style={{width:pct+"%",height:"100%",background:pct===100?C.g:C.acc,borderRadius:3,transition:"width .4s"}}/>
-          </div>
-          <span style={{fontSize:11,fontWeight:700,color:pct===100?C.g:C.t3}}>{done}/{total}</span>
-        </div>}
-        <button onClick={openFull} style={{padding:"5px 13px",background:C.accd,border:`1px solid rgba(124,111,255,.25)`,borderRadius:7,color:C.acc2,fontWeight:600,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Open Task Board →</button>
+      <div style={{width:80,height:5,background:C.s3,borderRadius:3,overflow:"hidden"}}>
+        <div style={{width:pct+"%",height:"100%",background:pct===100?C.g:C.a,borderRadius:3,transition:"width .4s ease"}}/>
       </div>
     </div>
-    {pct===100&&total>0&&<div style={{padding:"9px 18px",background:"rgba(31,217,122,.06)",borderBottom:`1px solid ${C.gb}`,fontSize:12,color:C.g,fontWeight:600}}>🎉 All {total} tasks done today!</div>}
-    <div style={{padding:"6px 0"}}>
-      {tasks.slice(0,5).map(t=><div key={t.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 16px",borderBottom:`1px solid ${C.b1}`,opacity:t.done?.5:1}}>
-        <div style={{width:16,height:16,borderRadius:4,border:`2px solid ${t.done?C.g:C.b2}`,background:t.done?C.g:"transparent",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
-          {t.done&&<svg width="8" height="6" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#080810" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-        </div>
-        <span style={{fontSize:13,flex:1,color:t.done?C.t4:C.t1,textDecoration:t.done?"line-through":"none",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{t.text}</span>
-        {t.assignee&&<span style={{fontSize:10,color:C.t3,flexShrink:0}}>👤 {t.assignee}</span>}
-        {t.done&&t.completedBy&&<span style={{fontSize:10,color:C.g,flexShrink:0}}>✅ {t.completedBy}</span>}
-      </div>)}
-      {tasks.length>5&&<div style={{padding:"8px 16px",fontSize:11,color:C.t3}}>+{tasks.length-5} more tasks — open task board to see all</div>}
-      {tasks.length===0&&<div style={{padding:"16px 18px",textAlign:"center",color:C.t3,fontSize:12}}>No tasks today. Open Task Board to add and assign tasks.</div>}
-    </div>
-    <div style={{padding:"10px 16px",borderTop:`1px solid ${C.b1}`,display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
-      <span style={{fontSize:11,color:C.t4,alignSelf:"center"}}>Quick:</span>
-      {[["📞 Follow up lead","followup"],["🚗 Upload stock","stock"],["💰 Reprice vehicle","reprice"]].map(([label,type])=>{
-        const TODAY2=new Date().toISOString().split("T")[0];
-        const SK2="lmct_tasks_"+TODAY2;
-        return <button key={label} onClick={()=>{
-          const cur=JSON.parse(localStorage.getItem(SK2)||"[]");
-          const updated=[...cur,{id:Date.now(),text:label.substring(3),done:false,type,auto:false,assignee:"",completedBy:"",completedAt:"",note:""}];
-          localStorage.setItem(SK2,JSON.stringify(updated));
-          setTasks(updated);
-        }} style={{padding:"3px 9px",background:C.s2,border:`1px solid ${C.b1}`,borderRadius:20,color:C.t3,fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>{label}</button>;
-      })}
-      <button onClick={openFull} style={{marginLeft:"auto",padding:"3px 9px",background:"transparent",border:`1px solid ${C.b1}`,borderRadius:20,color:C.t3,fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>Full Board ↗</button>
+    {tasks.map(t=><div key={t.id} style={{display:"flex",alignItems:"flex-start",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`,opacity:t.done?.5:1,transition:"opacity .2s"}}>
+      <div onClick={()=>toggle(t.id)} style={{width:18,height:18,borderRadius:5,border:`2px solid ${t.done?C.g:t.priority==="high"?C.r:C.b2}`,background:t.done?C.g:"transparent",flexShrink:0,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",marginTop:1,transition:"all .18s"}}>
+        {t.done&&<span style={{color:"#060610",fontSize:10,fontWeight:900}}>✓</span>}
+      </div>
+      <div style={{flex:1}}>
+        <div style={{fontSize:12,color:t.done?C.t4:C.t1,textDecoration:t.done?"line-through":"none",lineHeight:1.4}}>{t.text}</div>
+        {t.ai&&!t.done&&<div style={{fontSize:9,color:C.acc2,marginTop:2,fontFamily:"monospace"}}>AI generated</div>}
+      </div>
+      <div onClick={()=>remove(t.id)} style={{color:C.t4,cursor:"pointer",fontSize:12,padding:"0 3px",flexShrink:0}}>✕</div>
+    </div>)}
+    <div style={{display:"flex",gap:7,marginTop:10}}>
+      <input value={newTask} onChange={e=>setNewTask(e.target.value)} onKeyDown={e=>e.key==="Enter"&&add()} placeholder="Add a task..." style={{flex:1,background:C.s2,border:`1px solid ${C.b2}`,borderRadius:8,padding:"7px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none"}}/>
+      <Btn sz="sm" v="ghost" onClick={add} disabled={!newTask.trim()}>+</Btn>
     </div>
   </div>;
 }
+// ── CHART COMPONENTS ──
+// ── CHART COMPONENTS ──
+function DonutChart({segments,size=120,thick=18,label,sub}){
+  const r=(size-thick)/2,cx=size/2,cy=size/2;
+  const circ=2*Math.PI*r;
+  const total=segments.reduce((a,s)=>a+s.v,0)||1;
+  let offset=0;
+  const slices=segments.map(s=>{const pct=s.v/total;const dash=pct*circ;const gap=circ-dash;const sl={...s,dash,gap,offset};offset+=dash;return sl;});
+  return <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform:"rotate(-90deg)"}}>
+    <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(255,255,255,.05)" strokeWidth={thick}/>
+    {slices.map((s,i)=><circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke={s.color} strokeWidth={thick} strokeDasharray={`${s.dash} ${s.gap}`} strokeDashoffset={-s.offset} strokeLinecap="round"/>)}
+    <text x={cx} y={cy-6} textAnchor="middle" fill="white" fontSize={size/6} fontWeight="900" style={{transform:"rotate(90deg)",transformOrigin:`${cx}px ${cy}px`}}>{label}</text>
+    <text x={cx} y={cy+10} textAnchor="middle" fill="rgba(255,255,255,.4)" fontSize={size/10} style={{transform:"rotate(90deg)",transformOrigin:`${cx}px ${cy}px`}}>{sub}</text>
+  </svg>;
+}
 
-// ── DASHBOARD ──
+function BarChart({data,h=80}){
+  if(!data||!data.length)return <div style={{height:h,display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,.2)",fontSize:12}}>No data yet</div>;
+  const max=Math.max(...data.map(d=>d.v),1);
+  const w=100/data.length;
+  return <svg width="100%" height={h} viewBox={`0 0 100 ${h}`} preserveAspectRatio="none">
+    {data.map((d,i)=>{const barH=Math.max((d.v/max)*(h-14),1);const x=i*w+w*.15;const bw=w*.7;const y=h-barH-12;return <g key={i}>
+      <rect x={x} y={h-12} width={bw} height={barH} rx={1.5} fill={d.color||"rgba(124,111,255,.6)"}/>
+      <text x={x+bw/2} y={h-2} textAnchor="middle" fill="rgba(255,255,255,.3)" fontSize={6}>{d.label}</text>
+      {d.v>0&&<text x={x+bw/2} y={y-2} textAnchor="middle" fill={d.color||"rgba(255,255,255,.6)"} fontSize={6} fontWeight="700">{d.v}</text>}
+    </g>;})}
+  </svg>;
+}
+
+function Spark({data,color,h=36,w=100}){
+  if(!data||data.length<2)return null;
+  const max=Math.max(...data),min=Math.min(...data),range=max-min||1;
+  const pts=data.map((v,i)=>`${(i/(data.length-1))*w},${h-((v-min)/range)*(h-4)-2}`).join(" ");
+  const area=`M ${pts.split(" ")[0]} L ${pts} L ${w},${h} L 0,${h} Z`;
+  return <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+    <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity=".25"/><stop offset="100%" stopColor={color} stopOpacity="0"/></linearGradient></defs>
+    <path d={area} fill="url(#sg)"/>
+    <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>;
+}
+
+
 function Dashboard({stock,sold,cust,setPage,ul,onReq}){
   const active=stock.filter(c=>c.status!=="Sold");
   const reserved=active.filter(c=>c.status==="Reserved");
   const thisMonth=new Date().toISOString().slice(0,7);
+  const lastMonth=new Date(new Date().setMonth(new Date().getMonth()-1)).toISOString().slice(0,7);
   const mtdSales=sold.filter(s=>s.date&&s.date.startsWith(thisMonth));
+  const lastSales=sold.filter(s=>s.date&&s.date.startsWith(lastMonth));
   const mtdRev=mtdSales.reduce((a,s)=>a+s.sale,0);
-  const mtdProfit=mtdSales.reduce((a,s)=>a+(s.profit||0),0);
-  const totalRev=sold.reduce((a,s)=>a+s.sale,0);
-  const sv=active.reduce((a,c)=>a+c.price,0);
-  const cost=active.reduce((a,c)=>a+(c.purchase||0)+(c.recon||0)+(c.other||0),0);
+  const lastRev=lastSales.reduce((a,s)=>a+s.sale,0);
   const hotLeads=cust.filter(c=>c.status==="Hot Lead");
   const aged60=active.filter(c=>dAgo(c.acq)>60);
   const aged30=active.filter(c=>dAgo(c.acq)>30&&dAgo(c.acq)<=60);
+  const fresh=active.filter(c=>dAgo(c.acq)<=30);
   const alerts=active.filter(c=>c.regoExp&&dUntil(c.regoExp)<30);
   const avgScore=active.length?Math.round(active.reduce((a,c)=>a+(c.score||70),0)/active.length):0;
+  const revTrend=lastRev>0?Math.round(((mtdRev-lastRev)/lastRev)*100):0;
+  const bodyTypes=["SUV","Sedan","Ute","Hatchback","Wagon","Van"].map((b,idx)=>({label:b.slice(0,4),v:active.filter(c=>c.body===b).length,color:[C.acc,C.g,C.a,C.b,C.acc2,C.r][idx]})).filter(d=>d.v>0);
+  const stockDonut=[{v:fresh.length,color:C.g},{v:aged30.length,color:C.a},{v:aged60.length,color:C.r},{v:reserved.length,color:C.b}].filter(s=>s.v>0);
+  const salesTrend=Array.from({length:6},(_,idx)=>{const d=new Date();d.setMonth(d.getMonth()-5+idx);const key=d.toISOString().slice(0,7);const mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];return {label:mo,v:sold.filter(s=>s.date&&s.date.startsWith(key)).length,color:idx===5?C.g:C.acc};});
 
-  // Inventory health 0-100
-  const healthScore=active.length?Math.round(
-    (active.filter(c=>dAgo(c.acq)<=30).length/active.length)*100
-  ):100;
-
-  return <div style={{display:"flex",flexDirection:"column",gap:14}}>
-
-    {/* ── REGO ALERTS ── */}
+  return <div style={{display:"flex",flexDirection:"column",gap:12}}>
     {alerts.length>0&&<div style={{display:"flex",flexDirection:"column",gap:5}}>
-      {alerts.slice(0,2).map(c=>{const d=dUntil(c.regoExp);return <div key={c.id} style={{background:d<=0?C.rd:"rgba(245,166,35,.06)",border:`1px solid ${d<=0?C.rb:C.ab}`,borderRadius:10,padding:"9px 14px",display:"flex",alignItems:"center",gap:9,fontSize:12}}>
-        <span>{d<=0?"🚨":"⏰"}</span>
-        <span style={{flex:1,color:C.t1}}><strong>{c.year} {c.make} {c.model}</strong> ({c.rego}) — {d<=0?"rego EXPIRED":`rego expires in ${d} days`}</span>
+      {alerts.slice(0,2).map(c=>{const d=dUntil(c.regoExp);return <div key={c.id} style={{background:d<=0?C.rd:"rgba(245,166,35,.06)",border:"1px solid "+(d<=0?C.rb:C.ab),borderRadius:10,padding:"9px 14px",display:"flex",alignItems:"center",gap:9,fontSize:13}}>
+        <span style={{fontSize:16}}>{d<=0?"🚨":"⏰"}</span>
+        <span style={{flex:1}}><strong>{c.year} {c.make} {c.model}</strong> ({c.rego}) — {d<=0?"REGO EXPIRED":"rego expires in "+d+" days"}</span>
         <Btn sz="xs" v="amber" onClick={()=>setPage("vr")}>Lodge Form</Btn>
       </div>;})}
     </div>}
 
-    {/* ── KPI ROW ── */}
     <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10}}>
-      <StatCard label="In Stock" value={active.length} sub={`${reserved.length} reserved`} color={C.b} icon="🚗" onClick={()=>setPage("stock")}/>
-      <StatCard label="MTD Revenue" value={fm(mtdRev)} sub={`${mtdSales.length} sales this month`} color={C.g} icon="💰"/>
-      <StatCard label="Hot Leads" value={hotLeads.length} sub={`${cust.length} total customers`} color={C.a} icon="🔥" onClick={()=>setPage("cust")}/>
-      <StatCard label="Avg AI Score" value={avgScore} sub="portfolio quality" color={avgScore>=80?C.g:avgScore>=60?C.a:C.r} icon="🧠"/>
-    </div>
-
-    {/* ── MANAGER ROW ── */}
-    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
-      {[
-        ["MTD Gross Profit",mtdProfit,C.g,"This month's earnings"],
-        ["Total Revenue",totalRev,C.acc2,`${sold.length} all-time sales`],
-        ["Potential Margin",sv-cost,C.a,"If all stock sold today"],
-      ].map(([label,val,col,sub])=><div key={label} style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",top:-20,right:-20,width:80,height:80,background:`radial-gradient(circle,${col}15,transparent 70%)`,pointerEvents:"none"}}/>
-        <div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.8,fontWeight:700,marginBottom:6}}>{label}</div>
-        <div style={{fontSize:10,color:C.t4,marginBottom:8}}>{sub}</div>
-        {ul?<div style={{fontSize:24,fontWeight:900,color:col,letterSpacing:-.8}}>{fm(val)}</div>:<Locked onReq={onReq}/>}
+      {[{label:"In Stock",value:active.length,sub:avail+" available",color:C.b,icon:"🚗",pg:"stock"},{label:"MTD Revenue",value:fm(mtdRev),sub:mtdSales.length+" sales"+(revTrend!==0?" · "+(revTrend>0?"▲":"▼")+Math.abs(revTrend)+"%":""),color:C.g,icon:"💰",pg:"sold"},{label:"Hot Leads",value:hotLeads.length,sub:cust.length+" total customers",color:C.a,icon:"🔥",pg:"cust"},{label:"AI Portfolio",value:avgScore,sub:"avg quality score",color:avgScore>=80?C.g:avgScore>=60?C.a:C.r,icon:"🧠",pg:"stock"}].map(({label,value,sub,color,icon,pg})=><div key={label} onClick={()=>setPage(pg)} style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"16px 18px",cursor:"pointer",position:"relative",overflow:"hidden",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=color;e.currentTarget.style.transform="translateY(-3px)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}>
+        <div style={{position:"absolute",top:-20,right:-20,width:80,height:80,background:"radial-gradient(circle,"+color+"18,transparent 70%)",pointerEvents:"none"}}/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}><div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.9,fontWeight:700}}>{label}</div><div style={{width:30,height:30,borderRadius:8,background:color+"15",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}>{icon}</div></div>
+        <div style={{fontSize:32,fontWeight:900,color:color,letterSpacing:-1,lineHeight:1,marginBottom:6}}>{value}</div>
+        <div style={{fontSize:11,color:C.t3}}>{sub}</div>
       </div>)}
     </div>
 
-    {/* ── AGED STOCK ALERT ── */}
-    {(aged60.length>0||aged30.length>0)&&<div style={{background:C.s1,border:`1px solid ${aged60.length>0?C.rb:C.ab}`,borderRadius:13,padding:"14px 18px"}}>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
-        <div style={{display:"flex",alignItems:"center",gap:9}}>
-          <div style={{width:32,height:32,borderRadius:9,background:aged60.length>0?C.rd:C.ad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⏱</div>
-          <div><div style={{fontWeight:700,fontSize:13}}>Stock Ageing Alert</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>These vehicles are tying up your cash</div></div>
+    <div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr 1fr",gap:10}}>
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"18px 20px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+          <div><div style={{fontSize:14,fontWeight:800,marginBottom:2}}>Inventory Health</div><div style={{fontSize:11,color:C.t3}}>{active.length} vehicles · live status</div></div>
+          <Btn sz="xs" v="ghost" onClick={()=>setPage("stock")}>View →</Btn>
         </div>
-        <Btn sz="sm" v="amber" onClick={()=>setPage("strategy")}>Run Strategy →</Btn>
+        <div style={{display:"flex",alignItems:"center",gap:18}}>
+          <DonutChart segments={stockDonut} size={110} thick={16} label={active.length} sub="total"/>
+          <div style={{display:"flex",flexDirection:"column",gap:7,flex:1}}>
+            {[[C.g,"Fresh (0-30d)",fresh.length],[C.a,"Watch (31-60d)",aged30.length],[C.r,"Aged (60d+)",aged60.length],[C.b,"Reserved",reserved.length]].map(([col,lbl,cnt])=>cnt>0&&<div key={lbl} style={{display:"flex",alignItems:"center",gap:7}}><div style={{width:8,height:8,borderRadius:2,background:col,flexShrink:0}}/><span style={{fontSize:11,color:C.t2,flex:1}}>{lbl}</span><span style={{fontSize:12,fontWeight:800,color:col}}>{cnt}</span></div>)}
+          </div>
+        </div>
+      </div>
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"18px 20px"}}>
+        <div style={{marginBottom:12}}><div style={{fontSize:14,fontWeight:800,marginBottom:2}}>By Body Type</div><div style={{fontSize:11,color:C.t3}}>Current stock mix</div></div>
+        {bodyTypes.length>0?<BarChart data={bodyTypes} h={90}/>:<div style={{height:90,display:"flex",alignItems:"center",justifyContent:"center",color:C.t4,fontSize:12}}>Add stock to see</div>}
+      </div>
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"18px 20px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><div><div style={{fontSize:14,fontWeight:800,marginBottom:2}}>Sales Trend</div><div style={{fontSize:11,color:C.t3}}>Last 6 months</div></div><div style={{fontSize:20,fontWeight:900,color:C.g}}>{sold.length}</div></div>
+        {sold.length>0?<BarChart data={salesTrend} h={90}/>:<div style={{height:90,display:"flex",alignItems:"center",justifyContent:"center",color:C.t4,fontSize:12}}>No sales yet</div>}
+      </div>
+    </div>
+
+    {(aged60.length>0||aged30.length>0)&&<div style={{background:C.s1,border:"1px solid "+(aged60.length>0?C.rb:C.ab),borderRadius:14,padding:"14px 18px"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
+        <div style={{display:"flex",alignItems:"center",gap:10}}><div style={{width:34,height:34,borderRadius:10,background:aged60.length>0?C.rd:C.ad,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>⏱</div><div><div style={{fontWeight:800,fontSize:14}}>Stock Ageing Alert</div><div style={{fontSize:12,color:C.t3}}>These vehicles are tying up your cash</div></div></div>
+        <Btn sz="sm" v="amber" onClick={()=>setPage("strategy")}>🧠 Run Strategy →</Btn>
       </div>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-        {aged60.length>0&&<div style={{background:C.rd,border:`1px solid ${C.rb}`,borderRadius:9,padding:"10px 13px"}}>
-          <div style={{fontSize:10,color:C.r,fontWeight:700,marginBottom:6}}>🚨 60+ DAYS · {aged60.length} vehicle{aged60.length>1?"s":""}</div>
-          {aged60.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:11,color:C.t2,marginBottom:2}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.r,fontWeight:700}}>{dAgo(c.acq)}d</span></div>)}
-        </div>}
-        {aged30.length>0&&<div style={{background:C.ad,border:`1px solid ${C.ab}`,borderRadius:9,padding:"10px 13px"}}>
-          <div style={{fontSize:10,color:C.a,fontWeight:700,marginBottom:6}}>⚠️ 30–60 DAYS · {aged30.length} vehicle{aged30.length>1?"s":""}</div>
-          {aged30.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:11,color:C.t2,marginBottom:2}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.a,fontWeight:700}}>{dAgo(c.acq)}d</span></div>)}
-        </div>}
+        {aged60.length>0&&<div style={{background:C.rd,border:"1px solid "+C.rb,borderRadius:10,padding:"11px 14px"}}><div style={{fontSize:11,color:C.r,fontWeight:800,marginBottom:7}}>🚨 60+ DAYS · {aged60.length} vehicle{aged60.length>1?"s":""}</div>{aged60.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:12,color:C.t2,marginBottom:3}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.r,fontWeight:800}}>{dAgo(c.acq)}d</span></div>)}</div>}
+        {aged30.length>0&&<div style={{background:C.ad,border:"1px solid "+C.ab,borderRadius:10,padding:"11px 14px"}}><div style={{fontSize:11,color:C.a,fontWeight:800,marginBottom:7}}>⚠️ 30-60 DAYS · {aged30.length} vehicle{aged30.length>1?"s":""}</div>{aged30.slice(0,3).map(c=><div key={c.id} style={{display:"flex",justifyContent:"space-between",fontSize:12,color:C.t2,marginBottom:3}}><span>{c.year} {c.make} {c.model}</span><span style={{color:C.a,fontWeight:800}}>{dAgo(c.acq)}d</span></div>)}</div>}
       </div>
     </div>}
 
-    {/* ── BOTTOM GRID: Stock + Sales + Quick Actions ── */}
     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
-
-      {/* Recent Stock */}
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-          <div style={{fontWeight:700,fontSize:13}}>Recent Stock</div>
-          <Btn sz="xs" v="ghost" onClick={()=>setPage("stock")}>View all →</Btn>
-        </div>
-        {active.length===0?<div style={{textAlign:"center",color:C.t3,fontSize:12,padding:"20px 0"}}>No stock — add your first vehicle</div>:
-        active.slice(0,4).map(c=>{
-          const mg=c.price-(c.purchase||0)-(c.recon||0)-(c.other||0);
-          const age=dAgo(c.acq);
-          const ageColor=age>60?C.r:age>30?C.a:C.g;
-          return <div key={c.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
-            <div style={{width:34,height:34,borderRadius:9,background:age>60?C.rd:C.s3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>{ce(c.body)}</div>
-            <div style={{flex:1,minWidth:0}}>
-              <div style={{fontSize:12,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.year} {c.make} {c.model}</div>
-              <div style={{fontSize:10,color:ageColor,marginTop:1}}>{age}d · {c.rego}</div>
-            </div>
-            <div style={{textAlign:"right",flexShrink:0}}>
-              <div style={{fontSize:12,fontWeight:700,color:C.g}}>{fm(c.price)}</div>
-              {ul&&<div style={{fontSize:9,color:mg>0?C.g:C.r}}>{fm(mg)}</div>}
-            </div>
-          </div>;
-        })}
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"16px 18px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><div style={{fontWeight:800,fontSize:14}}>Recent Stock</div><Btn sz="xs" v="ghost" onClick={()=>setPage("stock")}>View all →</Btn></div>
+        {active.length===0?<div style={{textAlign:"center",color:C.t4,padding:"20px 0",fontSize:13}}>No stock yet</div>:active.slice(0,4).map(c=>{const age=dAgo(c.acq);return <div key={c.id} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:"1px solid "+C.b1}}>
+          <div style={{width:36,height:36,borderRadius:10,background:age>60?C.rd:C.bd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{ce(c.body)}</div>
+          <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:700,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.year} {c.make} {c.model}</div><div style={{fontSize:11,color:age>60?C.r:age>30?C.a:C.g,marginTop:1}}>{age}d · {c.rego}</div></div>
+          <div style={{fontSize:13,fontWeight:800,color:C.g,flexShrink:0}}>{fm(c.price)}</div>
+        </div>;})}
       </div>
-
-      {/* Recent Sales */}
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-          <div style={{fontWeight:700,fontSize:13}}>Recent Sales</div>
-          <Btn sz="xs" v="ghost" onClick={()=>setPage("sold")}>View all →</Btn>
-        </div>
-        {sold.length===0?<div style={{textAlign:"center",color:C.t3,fontSize:12,padding:"20px 0"}}>No sales yet</div>:
-        [...sold].reverse().slice(0,4).map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:`1px solid ${C.b1}`}}>
-          <div style={{width:34,height:34,borderRadius:9,background:C.gd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>✅</div>
-          <div style={{flex:1,minWidth:0}}>
-            <div style={{fontSize:12,fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.year} {s.make} {s.model}</div>
-            <div style={{fontSize:10,color:C.t3,marginTop:1}}>{s.buyer} · {fd(s.date)}</div>
-          </div>
-          <div style={{textAlign:"right",flexShrink:0}}>
-            <div style={{fontSize:12,fontWeight:700,color:C.g}}>{fm(s.sale)}</div>
-            {ul&&<div style={{fontSize:9,color:(s.profit||0)>0?C.g:C.r}}>+{fm(s.profit||0)}</div>}
-          </div>
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"16px 18px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}><div style={{fontWeight:800,fontSize:14}}>Recent Sales</div><Btn sz="xs" v="ghost" onClick={()=>setPage("sold")}>View all →</Btn></div>
+        {sold.length===0?<div style={{textAlign:"center",color:C.t4,padding:"20px 0",fontSize:13}}>No sales yet</div>:[...sold].reverse().slice(0,4).map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:"1px solid "+C.b1}}>
+          <div style={{width:36,height:36,borderRadius:10,background:C.gd,border:"1px solid "+C.gb,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>✅</div>
+          <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:700,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.year} {s.make} {s.model}</div><div style={{fontSize:11,color:C.t3,marginTop:1}}>{s.buyer} · {fd(s.date)}</div></div>
+          <div style={{fontSize:13,fontWeight:800,color:C.g,flexShrink:0}}>{fm(s.sale)}</div>
         </div>)}
       </div>
-
-      {/* Quick Actions */}
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px"}}>
-        <div style={{fontWeight:700,fontSize:13,marginBottom:12}}>Quick Actions</div>
-        <div style={{display:"flex",flexDirection:"column",gap:6}}>
-          {[
-            ["🚗","Add Vehicle","add",C.b],
-            ["✍️","Smart Listing","listing",C.acc2],
-            ["🧠","Strategy Engine","strategy",C.acc],
-            ["📊","Market Intel","intel",C.acc],
-            ["📋","Compliance Forms","vr",C.a],
-            ["📂","Import / Export","data",C.g],
-          ].map(([ic,lb,pg,col])=><div key={pg} onClick={()=>setPage(pg)} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 10px",borderRadius:9,cursor:"pointer",background:C.s2,border:`1px solid ${C.b1}`,transition:"all .18s"}}
-            onMouseEnter={e=>{e.currentTarget.style.borderColor=col;e.currentTarget.style.background=C.s3;}}
-            onMouseLeave={e=>{e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.background=C.s2;}}>
-            <div style={{width:28,height:28,borderRadius:7,background:`${col}15`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,flexShrink:0}}>{ic}</div>
-            <span style={{fontSize:12,fontWeight:600,color:C.t1,flex:1}}>{lb}</span>
-            <span style={{color:C.t4,fontSize:11}}>→</span>
+      <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"16px 18px"}}>
+        <div style={{fontWeight:800,fontSize:14,marginBottom:12}}>Quick Actions</div>
+        <div style={{display:"flex",flexDirection:"column",gap:7}}>
+          {[["🚗","Add Vehicle","add",C.b],["🤖","Ask "+(gDP().aiName||"AI"),"ai",C.acc],["✍️","Smart Listing","listing",C.acc2],["🧠","Strategy Engine","strategy",C.a],["📋","Compliance Forms","vr",C.g]].map(([ic,lb,pg,col])=><div key={pg} onClick={()=>{if(window.SFX)window.SFX.play("nav");setPage(pg);}} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 12px",borderRadius:10,cursor:"pointer",background:C.s2,border:"1px solid "+C.b1,transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=col;e.currentTarget.style.transform="translateX(3px)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.b1;e.currentTarget.style.transform="";}}>
+            <div style={{width:30,height:30,borderRadius:8,background:col+"15",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,flexShrink:0}}>{ic}</div>
+            <span style={{fontSize:13,fontWeight:600,color:C.t1,flex:1}}>{lb}</span>
+            <span style={{color:col,fontSize:14,fontWeight:700}}>→</span>
           </div>)}
         </div>
       </div>
     </div>
-
-    {/* ── AI MANAGER ── */}
-    <AIManager stock={stock} sold={sold}/>
     <TodaysTasks stock={stock} cust={cust} setPage={setPage} ul={ul}/>
   </div>;
 }
@@ -556,7 +684,7 @@ function Stock({stock,setStock,onSell,setPage,ul,onReq}){
                 <div style={{fontSize:18,fontWeight:900,color:C.g,letterSpacing:-.5}}>{fm(c.price)}</div>
                 {ul?<div style={{fontSize:10,color:mg>0?C.g:C.r,marginTop:1}}>{fm(mg)} margin</div>:<div style={{fontSize:10,color:C.t4}}>🔒 margin</div>}
               </div>
-              <Btn sz="xs" v="primary" onClick={e=>{e.stopPropagation();onSell(c);}}>Sell</Btn>
+              <button onClick={e=>{e.stopPropagation();if(window.SFX)window.SFX.play("click");onSell(c);}} style={{padding:"5px 12px",background:"linear-gradient(135deg,#1fd97a,#17b865)",border:"none",borderRadius:7,color:"#060610",fontWeight:800,fontSize:11,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 3px 10px rgba(31,217,122,.35)"}}>💰 Sell</button>
             </div>
           </div>
         </div>;
@@ -564,7 +692,6 @@ function Stock({stock,setStock,onSell,setPage,ul,onReq}){
     </div>}
   </div>;
 }
-
 function StockDetail({car:c,onSell,onDelete,onStatus,ul,onReq}){
   const mg=c.price-c.purchase-c.recon-c.other,pct=c.price>0?((mg/c.price)*100).toFixed(1):0;
   return <div>
@@ -600,173 +727,67 @@ function StockDetail({car:c,onSell,onDelete,onStatus,ul,onReq}){
       <div style={{display:"flex",gap:8}}>
         <Btn v="ghost" onClick={()=>{try{localStorage.setItem("lmct_listing_car",JSON.stringify(c));const w=window.open("listing.html","_blank");if(!w)alert("Allow popups to open listing generator.");}catch(e){alert("Error: "+e.message);}}}>✍️ Generate Listing</Btn>
         <Btn v="red" onClick={onDelete}>🗑 Remove</Btn>
-        <Btn v="green" onClick={onSell}>💰 Sell</Btn>
+        <Btn v="green" onClick={()=>{if(window.SFX)window.SFX.play("click");onSell();}}>💰 Sell This Vehicle</Btn>
       </div>
     </div>
   </div>;
 }
-// ── ADD CAR ──
 function AddCar({setStock,setPage}){
-  const blank={make:"",model:"",year:"",colour:"",body:"",trans:"",fuel:"",odo:"",engine:"",drive:"",rego:"",vin:"",purchase:"",price:"",recon:"",other:"",source:"",acq:new Date().toISOString().split("T")[0],ppsr:"Clear",regoExp:"",seller:"",sellerAddr:"",notes:""};
-  const [f,sf]=useState(blank);
-  const [regoQ,setRegoQ]=useState("");
-  const [regoLoading,setRegoLoading]=useState(false);
-  const [regoFound,setRegoFound]=useState(null); // null | "found" | "nf"
-  const [aiScore2,setAiScore2]=useState(null);
-
-  const set=k=>v=>{
-    sf(p=>{
-      const next={...p,[k]:v};
-      const s=aiScore(next.make,next.model,parseInt(next.year),parseInt(next.odo)||50000);
-      setAiScore2(s);
-      if(!next.price&&next.make&&next.year){next.price=String(suggestP(next.make,next.model,parseInt(next.year),parseInt(next.odo)||50000));}
-      return next;
-    });
-  };
-
-  // AutoGrab-style rego lookup (simulated — replace with real API key)
-  function lookupRego(){
-    const plate=regoQ.trim().toUpperCase();
-    if(!plate){alert("Enter a plate number.");return;}
-    setRegoLoading(true);setRegoFound(null);
-    // Simulate API — in production swap for AutoGrab: https://api.autograb.com.au
-    const DB={
-      "ABC123":{make:"Toyota",model:"Camry",year:2019,colour:"Silver",body:"Sedan",trans:"Automatic",fuel:"Petrol",engine:"2.5L 4-cyl",drive:"FWD",vin:"JTNBE46KX73065432",regoExp:"2026-08-01"},
-      "XYZ123":{make:"Toyota",model:"Camry",year:2019,colour:"Silver",body:"Sedan",trans:"Automatic",fuel:"Petrol",engine:"2.5L 4-cyl",drive:"FWD",vin:"JTNBE46KX73065432",regoExp:"2026-08-01"},
-      "ABC456":{make:"Mazda",model:"CX-5",year:2020,colour:"Red",body:"SUV",trans:"Automatic",fuel:"Petrol",engine:"2.5L 4-cyl",drive:"AWD",vin:"JM3KFBCM0L0123456",regoExp:"2026-10-15"},
-      "LMN789":{make:"Ford",model:"Ranger",year:2018,colour:"White",body:"Ute",trans:"Automatic",fuel:"Diesel",engine:"3.2L Turbo",drive:"4WD",vin:"6FPAAAJJXJR000120",regoExp:"2025-06-20"},
-      "DEF321":{make:"Honda",model:"CR-V",year:2021,colour:"Blue",body:"SUV",trans:"CVT",fuel:"Petrol",engine:"1.5T",drive:"AWD",vin:"7FARW2H55ME000890",regoExp:"2026-01-20"},
-    };
-    setTimeout(()=>{
-      setRegoLoading(false);
-      const data=DB[plate];
-      if(data){
-        const score=aiScore(data.make,data.model,data.year,50000);
-        const sugPrice=suggestP(data.make,data.model,data.year,50000);
-        sf(prev=>({...prev,...data,rego:plate,price:prev.price||String(sugPrice)}));
-        setAiScore2(score);
-        setRegoFound("found");
-      } else {
-        // Any unknown plate — generate plausible vehicle
-        const makes=[{make:"Toyota",model:"Corolla",year:2018,colour:"White",body:"Sedan",trans:"Automatic",fuel:"Petrol",engine:"2.0L",drive:"FWD"},{make:"Hyundai",model:"i30",year:2019,colour:"Grey",body:"Hatchback",trans:"Automatic",fuel:"Petrol",engine:"2.0L",drive:"FWD"},{make:"Mitsubishi",model:"ASX",year:2020,colour:"Silver",body:"SUV",trans:"CVT",fuel:"Petrol",engine:"2.0L",drive:"FWD"}];
-        const v=makes[plate.charCodeAt(0)%makes.length];
-        const d={...v,vin:"JN1"+plate+Date.now().toString().slice(-6),regoExp:"2026-"+String(Math.floor(Math.random()*12)+1).padStart(2,"0")+"-01"};
-        const score=aiScore(d.make,d.model,d.year,50000);
-        sf(prev=>({...prev,...d,rego:plate,price:prev.price||String(suggestP(d.make,d.model,d.year,50000))}));
-        setAiScore2(score);
-        setRegoFound("found");
-      }
-    },1100);
+  const MAKES=["Toyota","Mazda","Ford","Hyundai","Honda","Kia","Mitsubishi","Subaru","Nissan","Volkswagen","BMW","Mercedes-Benz","Audi","Holden","Isuzu","LDV","GWM","BYD","Tesla","Other"];
+  const BODIES=["SUV","Sedan","Hatchback","Ute","Wagon","Van","Coupe","Convertible","4WD"];
+  const [f,setF]=useState({make:"",model:"",year:new Date().getFullYear(),colour:"",body:"SUV",trans:"Automatic",fuel:"Petrol",odo:"",rego:"",vin:"",price:"",purchase:"",recon:"",other:"",source:"Auction",acq:new Date().toISOString().split("T")[0],ppsr:"Clear",regoExp:"",notes:"",score:75,status:"Available"});
+  const [saving,setSaving]=useState(false);
+  const up=k=>v=>setF(p=>({...p,[k]:v}));
+  async function lookupRego(){
+    if(!f.rego||f.rego.length<5)return;
+    setSaving(true);
+    try{
+      const dp2=gDP();const res=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+(dp2.groqKey||"")},body:JSON.stringify({model:"llama-3.3-70b-versatile",max_tokens:300,messages:[{role:"system",content:"Return only valid JSON."},{role:"user",content:`Australian vehicle rego lookup for plate "${f.rego}" VIC. Return JSON: {"make":"Toyota","model":"Camry","year":2020,"colour":"Silver","body":"Sedan","trans":"Auto","fuel":"Petrol","odo":52000,"regoExp":"2026-06-30","vin":"DEMO"}`}]})});
+      const d=await res.json();
+      const v=JSON.parse((d.choices?.[0]?.message?.content||d.content?.[0]?.text||"{}").replace(/\`\`\`json|\`\`\`/g,"").trim());
+      if(v.make)setF(p=>({...p,make:v.make||p.make,model:v.model||p.model,year:v.year||p.year,colour:v.colour||p.colour,body:v.body||p.body,trans:v.trans||p.trans,fuel:v.fuel||p.fuel,odo:v.odo?String(v.odo):p.odo,regoExp:v.regoExp||p.regoExp,vin:v.vin||p.vin}));
+    }catch(e){}
+    setSaving(false);
   }
-
-  const pur=parseFloat(f.purchase)||0,pri=parseFloat(f.price)||0,rec=parseFloat(f.recon)||0,oth=parseFloat(f.other)||0,tot=pur+rec+oth,mg=pri-tot;
-
   function save(){
-    if(!f.make||!f.model||!f.year){alert("Make, Model and Year required.");return;}
-    setStock(p=>[...p,{...f,id:Date.now(),year:parseInt(f.year),odo:parseInt(f.odo)||0,purchase:pur,price:pri,recon:rec,other:oth,status:"Available",score:aiScore(f.make,f.model,parseInt(f.year),parseInt(f.odo)||50000)}]);
+    if(!f.make||!f.model||!f.price)return alert("Make, model and price are required.");
+    setSaving(true);
+    const v={...f,id:Date.now(),year:parseInt(f.year)||new Date().getFullYear(),odo:parseInt(f.odo)||0,price:parseFloat(f.price)||0,purchase:parseFloat(f.purchase)||0,recon:parseFloat(f.recon)||0,other:parseFloat(f.other)||0,score:parseInt(f.score)||75};
+    try{const s=JSON.parse(localStorage.getItem("lmct_stock")||"[]");s.push(v);localStorage.setItem("lmct_stock",JSON.stringify(s));}catch(e){}
+    setStock(p=>[...p,v]);
+    if(window.SFX)window.SFX.play("save");
     setPage("stock");
   }
-
-  return <div style={{maxWidth:760}}>
-
-    { }
-    <div style={{background:C.s1,border:`1px solid ${regoFound==="found"?C.gb:C.b1}`,borderRadius:12,padding:18,marginBottom:16}}>
-      <div style={{fontWeight:700,fontSize:14,marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
-        🔍 <span>Rego Lookup</span>
-        <span style={{fontSize:11,color:C.t3,fontWeight:400}}>— Enter plate to auto-fill all vehicle details</span>
-      </div>
-      <div style={{display:"flex",gap:10,alignItems:"flex-end"}}>
-        { }
-        <div style={{background:"#002a6e",borderRadius:10,padding:"10px 16px 8px",display:"inline-flex",flexDirection:"column",alignItems:"center",boxShadow:"0 8px 24px rgba(0,30,140,.35)",flexShrink:0}}>
-          <div style={{display:"flex",alignItems:"center",gap:8}}>
-            <div style={{width:8,height:8,background:"#FFCD00",borderRadius:"50%"}}/>
-            <input
-              style={{background:"transparent",border:"none",outline:"none",color:"#FFCD00",fontSize:22,fontWeight:900,fontFamily:"monospace",textTransform:"uppercase",letterSpacing:5,width:140,textAlign:"center"}}
-              placeholder="ABC 123"
-              value={regoQ}
-              onChange={e=>setRegoQ(e.target.value.toUpperCase())}
-              onKeyDown={e=>e.key==="Enter"&&lookupRego()}
-              maxLength={7}
-            />
-          </div>
-          <div style={{fontSize:8,color:"#FFCD00",fontWeight:800,letterSpacing:4,marginTop:3,opacity:.7}}>VICTORIA</div>
-        </div>
-        <div style={{flex:1}}>
-          <Btn v="primary" onClick={lookupRego} disabled={regoLoading} full>
-            {regoLoading?"Looking up...":"🔍 Lookup Rego"}
-          </Btn>
-          {regoFound==="found"&&<div style={{marginTop:7,fontSize:12,color:C.g,fontWeight:600}}>
-            ✅ Vehicle found — details filled below. Review and adjust if needed.
-          </div>}
-        </div>
-      </div>
-    </div>
-
-    { }
-    {aiScore2&&<div style={{background:C.accd,border:`1px solid rgba(124,111,255,.2)`,borderRadius:12,padding:"12px 16px",marginBottom:14,display:"flex",alignItems:"center",gap:14}}>
-      <div style={{fontSize:36,fontWeight:900,color:sc(aiScore2),letterSpacing:-1,lineHeight:1}}>{aiScore2}</div>
-      <div>
-        <div style={{fontSize:13,fontWeight:700,color:sc(aiScore2),marginBottom:5}}>{aiScore2>=85?"🔥 High demand — list ASAP":aiScore2>=65?"⚡ Good seller":"🐌 Slower mover — price carefully"}</div>
-        <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
-          <Badge color="blue">Est. {aiScore2>=85?"2–3wk":aiScore2>=65?"3–5wk":"5–8wk+"}</Badge>
-          <Badge color={aiScore2>=85?"green":aiScore2>=65?"amber":"red"}>AI Score {aiScore2}/100</Badge>
-          {f.price&&<Badge color="purple">Suggested {fm(parseFloat(f.price))}</Badge>}
-        </div>
-      </div>
-    </div>}
-
-    { }
-    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:20}}>
-
-      <Divider label="Vehicle Details"/>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:11,marginBottom:14}}>
-        <FG label="Rego Plate"><Inp value={f.rego} onChange={v=>set("rego")(v.toUpperCase())} placeholder="ABC 123"/></FG>
-        <FG label="Make"><Inp value={f.make} onChange={set("make")} placeholder="Toyota"/></FG>
-        <FG label="Model"><Inp value={f.model} onChange={set("model")} placeholder="Camry"/></FG>
-        <FG label="Year"><Inp value={f.year} onChange={set("year")} type="number" placeholder="2020"/></FG>
-        <FG label="Colour"><Inp value={f.colour} onChange={set("colour")} placeholder="Silver"/></FG>
-        <FG label="VIN"><Inp value={f.vin} onChange={set("vin")} placeholder="JTNBE46K..."/></FG>
-        <FG label="Body"><Sel value={f.body} onChange={set("body")} options={["Sedan","Hatchback","SUV","Ute","Van","Wagon","Coupe","Convertible"]}/></FG>
-        <FG label="Transmission"><Sel value={f.trans} onChange={set("trans")} options={["Automatic","Manual","CVT"]}/></FG>
-        <FG label="Fuel"><Sel value={f.fuel} onChange={set("fuel")} options={["Petrol","Diesel","Hybrid","Electric"]}/></FG>
-        <FG label="Drive"><Sel value={f.drive} onChange={set("drive")} options={["FWD","RWD","AWD","4WD"]}/></FG>
-        <FG label="Odometer (km)"><Inp value={f.odo} onChange={set("odo")} type="number" placeholder="45000"/></FG>
-        <FG label="Engine"><Inp value={f.engine} onChange={set("engine")} placeholder="2.5L 4-cyl"/></FG>
-        <FG label="Rego Expiry"><Inp value={f.regoExp} onChange={set("regoExp")} type="date"/></FG>
-        <FG label="PPSR Status"><Sel value={f.ppsr} onChange={set("ppsr")} options={["Clear","Encumbered - Resolved","Not Checked"]}/></FG>
-        <div/>
-        <FG label="Notes" full><textarea style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"9px 11px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",resize:"vertical",minHeight:65,lineHeight:1.5}} value={f.notes} onChange={e=>set("notes")(e.target.value)} placeholder="CarPlay, reverse cam, sunroof, tow bar..."/></FG>
-      </div>
-
-      <Divider label="Acquisition & Seller"/>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:11,marginBottom:14}}>
-        <FG label="Acquired From"><Sel value={f.source} onChange={set("source")} options={["Private Seller","Auction","Trade-In","Wholesale","Dealer Transfer"]}/></FG>
-        <FG label="Date Acquired"><Inp value={f.acq} onChange={set("acq")} type="date"/></FG>
-        <div/>
-        <FG label="Seller Name" full><Inp value={f.seller} onChange={set("seller")} placeholder="Full legal name"/></FG>
-        <FG label="Seller Address" full><Inp value={f.sellerAddr} onChange={set("sellerAddr")} placeholder="123 Smith St, Melbourne VIC 3000"/></FG>
-      </div>
-
-      <Divider label="Pricing (Manager Only)"/>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:11,marginBottom:14}}>
-        <FG label="Purchase Price ($)" hint="What you paid"><Inp value={f.purchase} onChange={set("purchase")} type="number" placeholder="18000"/></FG>
-        <FG label="Asking / List Price ($)"><Inp value={f.price} onChange={set("price")} type="number" placeholder="22990"/></FG>
-        <FG label="Reconditioning ($)"><Inp value={f.recon} onChange={set("recon")} type="number" placeholder="500"/></FG>
-        <FG label="Other Costs ($)"><Inp value={f.other} onChange={set("other")} type="number" placeholder="0"/></FG>
-      </div>
-      {(pur>0||pri>0)&&<div style={{background:C.s2,borderRadius:10,padding:14,marginBottom:14,display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14}}>
-        {[["Total Cost",fm(tot),C.a],["Gross Margin",fm(mg),mg>0?C.g:C.r],["Margin %",pri>0?((mg/pri)*100).toFixed(1)+"%":"—",mg>0?C.g:C.r]].map(([l,v,col])=><div key={l}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:5}}>{l}</div><div style={{fontSize:22,fontWeight:900,color:col}}>{v}</div></div>)}
-      </div>}
-
-      <Divider/>
-      <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-        <Btn onClick={()=>setPage("stock")}>Cancel</Btn>
-        <Btn v="primary" onClick={save}>Add to Stock</Btn>
-      </div>
+  const card=(title,children)=><div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:13,padding:"16px 18px",marginBottom:10}}><div style={{fontWeight:800,fontSize:14,marginBottom:12,color:C.acc2}}>{title}</div>{children}</div>;
+  const G=(label,input,full)=><div style={{gridColumn:full?"1/-1":"",display:"flex",flexDirection:"column",gap:5}}><label style={{fontSize:10,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7}}>{label}</label>{input}</div>;
+  const I=(k,placeholder,type="text")=><Inp value={f[k]} onChange={up(k)} placeholder={placeholder} type={type}/>;
+  const S=(k,opts)=><Sel value={f[k]} onChange={up(k)} options={opts}/>;
+  return <div style={{maxWidth:620}}>
+    {card("🔍 Rego Lookup — Auto-fill",<div style={{display:"flex",gap:8,alignItems:"flex-end"}}>
+      <div style={{flex:1}}>{G("Rego Plate",I("rego","ABC 123"))}</div>
+      <Btn v="primary" onClick={lookupRego} disabled={saving||f.rego.length<5}>{saving?"Looking up...":"🔍 Auto-fill from Plate"}</Btn>
+    </div>)}
+    {card("🚗 Vehicle Details",<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+      {G("Make",S("make",MAKES))}{G("Model",I("model","Camry"))}{G("Year",I("year","2021","number"))}{G("Badge/Variant",I("badge","SL Hybrid"))}
+      {G("Colour",I("colour","White"))}{G("Body Type",S("body",BODIES))}{G("Transmission",S("trans",["Automatic","Manual","CVT"]))}{G("Fuel Type",S("fuel",["Petrol","Diesel","Hybrid","Electric","PHEV"]))}
+      {G("Odometer (km)",I("odo","52000","number"))}{G("VIN",I("vin",""))}
+    </div>)}
+    {card("💰 Pricing",<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+      {G("Sale Price ($)",I("price","33490","number"))}{G("Purchase Cost ($)",I("purchase","26800","number"))}
+      {G("Recon Cost ($)",I("recon","800","number"))}{G("Other Costs ($)",I("other","200","number"))}
+    </div>)}
+    {card("📋 Compliance & Source",<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+      {G("Rego Plate",I("rego","ABC 123"))}{G("Rego Expiry",I("regoExp","","date"))}
+      {G("Source",S("source",["Auction","Trade-in","Dealer","Private","Other"]))}{G("Date Acquired",I("acq","","date"))}
+      {G("PPSR Status",S("ppsr",["Clear","Check","Encumbered"]))}{G("Status",S("status",["Available","Reserved","On Hold"]))}
+      {G("AI Score (0-100)",I("score","75","number"))}{G("Notes",I("notes",""),true)}
+    </div>)}
+    <div style={{display:"flex",gap:9}}>
+      <Btn v="primary" full sz="lg" onClick={save} disabled={saving}>💾 Add to Stock</Btn>
+      <Btn v="ghost" sz="lg" onClick={()=>setPage("stock")}>Cancel</Btn>
     </div>
   </div>;
 }
-// ── SELL MODAL ──
 function SellModal({car,onConfirm,onClose}){
   const [f,sf]=useState({buyer:"",phone:"",email:"",addr:"",licence:"",price:String(car.price),date:new Date().toISOString().split("T")[0],pay:"Cash",finance:"",notes:""});
   const set=k=>v=>sf(p=>({...p,[k]:v}));
@@ -794,37 +815,37 @@ function SellModal({car,onConfirm,onClose}){
     <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}><Btn onClick={onClose}>Cancel</Btn><Btn v="green" onClick={confirm}>Confirm Sale</Btn></div>
   </div>;
 }
-// ── SOLD ──
 function Sold({sold,ul,onReq}){
-  const [q,sq]=useState("");const rev=sold.reduce((a,s)=>a+s.sale,0),profit=sold.reduce((a,s)=>a+s.profit,0);
-  const items=sold.filter(s=>!q||`${s.make} ${s.model} ${s.buyer} ${s.rego}`.toLowerCase().includes(q.toLowerCase()));
+  const [q,setQ]=useState("");
+  const items=sold.filter(s=>!q||`${s.make} ${s.model} ${s.buyer||""}`.toLowerCase().includes(q.toLowerCase()));
+  const total=sold.reduce((a,s)=>a+s.sale,0);
+  const profit=sold.reduce((a,s)=>a+(s.profit||0),0);
   return <div>
-    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10,marginBottom:14}}>
-      <StatCard label="Total Sold" value={sold.length} color={C.g} icon="✅"/>
-      <StatCard label="Revenue" value={fm(rev)} color={C.g} icon="💰"/>
-      <StatCard label="Gross Profit" value={ul?fm(profit):"—"} color={C.a} icon="📊" locked={!ul} onClick={!ul?onReq:undefined}/>
-      <StatCard label="Avg Profit" value={ul&&sold.length?fm(profit/sold.length):"—"} icon="📈" locked={!ul} onClick={!ul?onReq:undefined}/>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,marginBottom:14}}>
+      <StatCard label="Total Sales" value={sold.length} color={C.g} icon="✅"/>
+      <StatCard label="Total Revenue" value={fm(total)} color={C.g} icon="💰"/>
+      <StatCard label="Total Profit" value={fm(profit)} color={C.acc2} icon="📈" locked={!ul} onClick={ul?null:onReq}/>
     </div>
-    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,overflow:"hidden"}}>
-      <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.b1}`,display:"flex",gap:10,alignItems:"center"}}>
-        <span style={{fontWeight:700,flex:1}}>Sales History</span>
-        <div style={{display:"flex",alignItems:"center",gap:7,background:C.s2,border:`1px solid ${C.b1}`,borderRadius:7,padding:"5px 11px"}}><span style={{color:C.t3,fontSize:12}}>🔍</span><input style={{background:"none",border:"none",outline:"none",color:C.t1,fontSize:12,width:150}} placeholder="Search..." value={q} onChange={e=>sq(e.target.value)}/></div>
+    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"16px 18px"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <div style={{fontWeight:800,fontSize:15}}>All Sales</div>
+        <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search..." style={{background:C.s2,border:`1px solid ${C.b2}`,borderRadius:8,padding:"6px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none",width:160}}/>
       </div>
-      <table style={{width:"100%",borderCollapse:"collapse"}}>
-        <thead><tr>{["Vehicle","Buyer","Sale Price","Profit","Date","Payment"].map(h=><th key={h} style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,fontWeight:600,padding:"9px 12px",textAlign:"left",borderBottom:`1px solid ${C.b1}`,background:C.s2}}>{h}</th>)}</tr></thead>
-        <tbody>{[...items].reverse().map(s=><tr key={s.id}>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><div style={{fontWeight:600,fontSize:13}}>{s.year} {s.make} {s.model}</div><div style={{fontSize:11,color:C.t3}}>{s.rego}</div></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><div style={{fontSize:13}}>{s.buyer}</div><div style={{fontSize:11,color:C.t3}}>{s.bPhone}</div></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontWeight:800,color:C.g,fontSize:14}}>{fm(s.sale)}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}>{ul?<span style={{fontSize:12,fontWeight:700,padding:"2px 8px",borderRadius:5,background:s.profit>0?C.gd:C.rd,color:s.profit>0?C.g:C.r}}>{fm(s.profit)}</span>:<Locked onReq={onReq}/>}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,color:C.t3,fontSize:12}}>{fd(s.date)}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><Badge color="blue">{s.pay}</Badge></td>
-        </tr>)}</tbody>
-      </table>
+      {items.length===0?<div style={{textAlign:"center",color:C.t4,padding:"30px 0",fontSize:13}}>No sales yet</div>:
+      items.slice().reverse().map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:11,padding:"10px 0",borderBottom:`1px solid ${C.b1}`}}>
+        <div style={{width:38,height:38,borderRadius:10,background:C.gd,border:`1px solid ${C.gb}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>✅</div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:13,fontWeight:700}}>{s.year} {s.make} {s.model}</div>
+          <div style={{fontSize:11,color:C.t3,marginTop:1}}>{s.buyer} · {fd(s.date)} · {s.pay||"Cash"}</div>
+        </div>
+        <div style={{textAlign:"right",flexShrink:0}}>
+          <div style={{fontSize:14,fontWeight:800,color:C.g}}>{fm(s.sale)}</div>
+          {ul&&<div style={{fontSize:10,color:C.acc2}}>{fm(s.profit||0)} profit</div>}
+        </div>
+      </div>)}
     </div>
   </div>;
 }
-// ── CUSTOMERS ──
 function Customers({cust,setCust,sold}){
   const [q,sq]=useState(""),[showAdd,sa]=useState(false),[det,sd]=useState(null);
   const blank={first:"",last:"",phone:"",email:"",addr:"",src:"Walk-in",status:"Enquiry",notes:""};
@@ -876,455 +897,73 @@ function Customers({cust,setCust,sold}){
     </div>}</Modal>
   </div>;
 }
-// ── AI PHOTO SCANNER ──
 function RegoSearch({setStock,setPage}){
-  const [mode,setMode]=useState("photo"); // "photo" | "plate"
-  const [img,setImg]=useState(null);
-  const [imgB64,setImgB64]=useState(null);
-  const [loading,setLoading]=useState(false);
-  const [result,setResult]=useState(null);
-  const [err,setErr]=useState(null);
-  const [confirmed,setConfirmed]=useState(false);
-  const [pl,setPl]=useState("");
-  const fileRef=React.useRef();
-
-  function onFile(e){
-    const file=e.target.files&&e.target.files[0];
-    if(!file)return;
-    const url=URL.createObjectURL(file);
-    setImg(url);
-    setResult(null);setErr(null);setConfirmed(false);
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      const b64=ev.target.result.split(",")[1];
-      setImgB64(b64);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  async function scanPhoto(){
-    if(!imgB64){setErr("No image loaded.");return;}
-    setLoading(true);setErr(null);setResult(null);setConfirmed(false);
-    const prompt=`You are an expert Australian automotive identifier. Analyse this vehicle photo carefully.
-
-The photo may show:
-1. A rear/front/side view of a vehicle — identify the make, model, year, colour, body type
-2. A Victorian number plate — read the plate alphanumeric characters exactly
-
-Return ONLY raw JSON, no markdown:
-{
-  "plate": "<plate text if visible, e.g. ABC123, or null if not visible>",
-  "make": "<manufacturer, e.g. Toyota>",
-  "model": "<model name, e.g. Camry>",
-  "year": <estimated year as number, e.g. 2019>,
-  "yearRange": "<e.g. 2018-2020 if uncertain>",
-  "colour": "<primary colour>",
-  "body": "<Sedan|Hatchback|SUV|Ute|Van|Wagon|Coupe|Convertible>",
-  "trans": "<Automatic|Manual|Unknown>",
-  "fuel": "<Petrol|Diesel|Hybrid|Electric|Unknown>",
-  "engine": "<e.g. 2.5L 4-cyl or Unknown>",
-  "confidence": <0-100, how confident you are>,
-  "notes": "<any important observations, e.g. facelift model, sport variant, damaged panels>"
+  return <div style={{maxWidth:460,textAlign:"center",padding:"40px 20px"}}><div style={{fontSize:36,marginBottom:14}}>📸</div><div style={{fontSize:18,fontWeight:800,marginBottom:8}}>AI Photo Scanner</div><div style={{fontSize:13,color:C.t3,marginBottom:20,lineHeight:1.7}}>Use the Auction Scanner for live plate reading, full vehicle lookup and market pricing in 15 seconds.</div><Btn v="primary" full onClick={()=>setPage("scanner")}>🎯 Open Auction Scanner</Btn></div>;
 }
-
-If you cannot identify the vehicle at all, return: {"error": "Cannot identify vehicle from this image"}`;
-
-    try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
-          max_tokens:500,
-          messages:[{role:"user",content:[
-            {type:"image",source:{type:"base64",media_type:"image/jpeg",data:imgB64}},
-            {type:"text",text:prompt}
-          ]}]
-        })
-      });
-      const data=await res.json();
-      const text=data.content?.find(b=>b.type==="text")?.text||"";
-      const clean=text.replace(/```json|```/g,"").trim();
-      const parsed=JSON.parse(clean);
-      if(parsed.error){setErr(parsed.error);}
-      else{setResult(parsed);}
-    }catch(e){
-      setErr("Could not identify vehicle. Try a clearer photo showing the rear or number plate.")
-    }
-    setLoading(false);
-  }
-
-  function buildCSLink(r){
-    const make=encodeURIComponent(r.make||"");
-    const model=encodeURIComponent(r.model||"");
-    const yr=r.year||"";
-    return `https://www.carsales.com.au/cars/results/?q=(And.(C.Make.${make}._.Model.${model}.).)&year-from=${yr>3?yr-2:""}&year-to=${yr+1}&__T=1`;
-  }
-
-  function importToStock(){
-    if(!result)return;
-    const score=aiScore(result.make,result.model,result.year,50000);
-    const price=suggestP(result.make,result.model,result.year,50000);
-    setStock(p=>[...p,{
-      id:Date.now(),make:result.make||"",model:result.model||"",year:result.year||new Date().getFullYear(),
-      colour:result.colour||"",body:result.body||"",trans:result.trans||"",fuel:result.fuel||"",
-      odo:0,engine:result.engine||"",drive:"",rego:result.plate||"",vin:"",
-      purchase:0,price,recon:0,other:0,source:"",
-      acq:new Date().toISOString().split("T")[0],
-      ppsr:"",regoExp:"",seller:"",sellerAddr:"",notes:result.notes||"",
-      status:"Available",score
-    }]);
-    setPage("stock");
-  }
-
-  function reset(){setImg(null);setImgB64(null);setResult(null);setErr(null);setConfirmed(false);}
-
-  const confPct=result?result.confidence:0;
-  const confCol=confPct>=80?C.g:confPct>=60?C.a:C.r;
-
-  return <div style={{maxWidth:600,margin:"0 auto"}}>
-
-    { }
-    <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.08))",border:`1px solid rgba(124,111,255,.2)`,borderRadius:14,padding:"18px 20px",marginBottom:18,textAlign:"center"}}>
-      <div style={{fontSize:32,marginBottom:8}}>📸</div>
-      <div style={{fontSize:18,fontWeight:800,marginBottom:4}}>AI Vehicle Scanner</div>
-      <div style={{fontSize:13,color:C.t3,lineHeight:1.6}}>Take or upload a photo of any vehicle — rear, front, or number plate.<br/>AI identifies the car and finds it on CarSales automatically.</div>
-    </div>
-
-    { }
-    {!img&&<div>
-      <input ref={fileRef} type="file" accept="image/*" capture="environment" style={{display:"none"}} onChange={onFile}/>
-      <div onClick={()=>fileRef.current&&fileRef.current.click()} style={{border:`2px dashed ${C.b3}`,borderRadius:14,padding:"40px 20px",textAlign:"center",cursor:"pointer",background:C.s1,transition:"all .2s"}}
-        onMouseEnter={e=>e.currentTarget.style.borderColor=C.acc}
-        onMouseLeave={e=>e.currentTarget.style.borderColor=C.b3}>
-        <div style={{fontSize:48,marginBottom:12}}>📷</div>
-        <div style={{fontSize:15,fontWeight:700,marginBottom:6}}>Tap to take photo or upload</div>
-        <div style={{fontSize:12,color:C.t3,marginBottom:16}}>Works on phone camera · Supports rear/front/side views · Number plate scan</div>
-        <div style={{display:"inline-flex",gap:10,flexWrap:"wrap",justifyContent:"center"}}>
-          <span style={{background:C.accd,color:C.acc2,padding:"4px 10px",borderRadius:20,fontSize:11,fontWeight:600}}>📱 Phone Camera</span>
-          <span style={{background:C.gd,color:C.g,padding:"4px 10px",borderRadius:20,fontSize:11,fontWeight:600}}>🖼 Upload Photo</span>
-          <span style={{background:C.bd,color:C.b,padding:"4px 10px",borderRadius:20,fontSize:11,fontWeight:600}}>🔍 Plate Recognition</span>
-        </div>
-      </div>
-    </div>}
-
-    { }
-    {img&&<div style={{marginBottom:14}}>
-      <div style={{position:"relative",borderRadius:12,overflow:"hidden",background:C.s2,marginBottom:10}}>
-        <img src={img} style={{width:"100%",maxHeight:300,objectFit:"contain",display:"block"}}/>
-        {!result&&!loading&&<button onClick={reset} style={{position:"absolute",top:10,right:10,background:"rgba(0,0,0,.6)",border:"none",color:"white",width:30,height:30,borderRadius:"50%",cursor:"pointer",fontSize:16}}>✕</button>}
-      </div>
-      {!result&&!loading&&<div style={{display:"flex",gap:9}}>
-        <Btn v="primary" full onClick={scanPhoto}>🤖 Scan with AI</Btn>
-        <Btn onClick={reset}>Retake</Btn>
-      </div>}
-    </div>}
-
-    { }
-    {loading&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:24,textAlign:"center"}}>
-      <div style={{width:36,height:36,border:`3px solid ${C.accd}`,borderTopColor:C.acc,borderRadius:"50%",margin:"0 auto 14px",animation:"spin .8s linear infinite"}}/>
-      <div style={{fontSize:14,fontWeight:600,marginBottom:4}}>AI is analysing the photo...</div>
-      <div style={{fontSize:12,color:C.t3}}>Identifying make, model, year, colour and plate</div>
-      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-    </div>}
-
-    { }
-    {err&&<div style={{background:C.rd,border:`1px solid ${C.rb}`,borderRadius:10,padding:"14px 16px",color:C.r,fontSize:13,marginBottom:12}}>
-      ⚠️ {err}
-      <div style={{marginTop:10}}><Btn onClick={reset} v="ghost">Try Again</Btn></div>
-    </div>}
-
-    { }
-    {result&&!confirmed&&<div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:14,overflow:"hidden"}}>
-      <div style={{background:"rgba(124,111,255,.1)",padding:"14px 18px",borderBottom:`1px solid ${C.b1}`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <div style={{fontWeight:700,fontSize:15}}>Is this the vehicle?</div>
-        <div style={{display:"flex",alignItems:"center",gap:6}}>
-          <div style={{width:8,height:8,borderRadius:"50%",background:confCol}}/>
-          <span style={{fontSize:11,color:confCol,fontWeight:700}}>{confPct}% confident</span>
-        </div>
-      </div>
-      <div style={{padding:"18px"}}>
-        { }
-        <div style={{background:C.s2,borderRadius:12,padding:"20px",textAlign:"center",marginBottom:16}}>
-          <div style={{fontSize:56,marginBottom:8}}>{ce(result.body)}</div>
-          <div style={{fontSize:24,fontWeight:900,letterSpacing:-.5,marginBottom:4}}>{result.year} {result.make} {result.model}</div>
-          <div style={{fontSize:14,color:C.t3,marginBottom:10}}>{result.colour} {result.body} · {result.fuel} · {result.trans}</div>
-          {result.plate&&<div style={{display:"inline-flex",alignItems:"center",gap:8,background:"#002a6e",borderRadius:8,padding:"8px 16px"}}>
-            <div style={{width:8,height:8,background:"#FFCD00",borderRadius:"50%"}}/>
-            <span style={{color:"#FFCD00",fontSize:18,fontWeight:900,fontFamily:"monospace",letterSpacing:4}}>{result.plate}</span>
-            <div style={{fontSize:8,color:"#FFCD00",opacity:.7,letterSpacing:2}}>VIC</div>
-          </div>}
-        </div>
-
-        { }
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:12}}>
-          {[["Year",result.yearRange||result.year],["Engine",result.engine],["Fuel",result.fuel],["Transmission",result.trans],["Body",result.body],["Colour",result.colour]].map(([l,v])=>
-            <div key={l} style={{background:C.s2,borderRadius:8,padding:"8px 10px"}}>
-              <div style={{fontSize:9,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:3}}>{l}</div>
-              <div style={{fontSize:12,fontWeight:600}}>{v||"—"}</div>
-            </div>
-          )}
-        </div>
-
-        {result.notes&&<div style={{background:C.s2,borderRadius:8,padding:"10px 12px",marginBottom:12,fontSize:12,color:C.t2,lineHeight:1.55}}>
-          💡 {result.notes}
-        </div>}
-
-        { }
-        <div style={{display:"flex",gap:9}}>
-          <Btn v="green" full onClick={()=>setConfirmed(true)}>✅ Yes, this is the car</Btn>
-          <Btn v="red" onClick={reset}>❌ No, retake</Btn>
-        </div>
-      </div>
-    </div>}
-
-    { }
-    {result&&confirmed&&<div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:14,overflow:"hidden"}}>
-      <div style={{background:"rgba(31,217,122,.1)",padding:"14px 18px",borderBottom:`1px solid ${C.gb}`,display:"flex",alignItems:"center",gap:10}}>
-        <span style={{fontSize:20}}>✅</span>
-        <div><div style={{fontWeight:700}}>{result.year} {result.make} {result.model} confirmed</div><div style={{fontSize:11,color:C.t3}}>What would you like to do?</div></div>
-      </div>
-      <div style={{padding:18,display:"flex",flexDirection:"column",gap:10}}>
-
-        { }
-        <div style={{background:"rgba(255,102,0,.06)",border:"1px solid rgba(255,102,0,.2)",borderRadius:12,padding:"14px 16px"}}>
-          <div style={{fontWeight:700,fontSize:14,color:"#ff6600",marginBottom:4}}>🔍 CarSales Market Search</div>
-          <div style={{fontSize:12,color:C.t3,marginBottom:12}}>AI has built the exact search URL for this vehicle — opens CarSales pre-filtered to {result.year} {result.make} {result.model}</div>
-          <div style={{background:C.s2,borderRadius:8,padding:"8px 12px",fontFamily:"monospace",fontSize:11,color:C.t3,marginBottom:10,wordBreak:"break-all"}}>
-            carsales.com.au → {result.make} {result.model} {result.year-2}–{result.year+1}
-          </div>
-          <button onClick={()=>window.open(buildCSLink(result),"_blank")} style={{width:"100%",padding:"11px",background:"#ff6600",border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:14,cursor:"pointer",fontFamily:"inherit"}}>
-            Open CarSales Search →
-          </button>
-        </div>
-
-        { }
-        <button onClick={()=>window.open(`https://www.facebook.com/marketplace/search/?query=${encodeURIComponent(result.year+" "+result.make+" "+result.model)}&exact=false`,"_blank")} style={{padding:"10px",background:C.accd,border:`1px solid ${C.b2}`,borderRadius:8,color:C.acc2,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"inherit",textAlign:"left"}}>
-          📘 Search Facebook Marketplace — {result.year} {result.make} {result.model}
-        </button>
-
-        { }
-        <button onClick={()=>window.open(`https://www.gumtree.com.au/s-cars-vans-utes/vic/${encodeURIComponent((result.make+" "+result.model).toLowerCase().replace(/ /g,"-"))}/k0c18320l3008858`,"_blank")} style={{padding:"10px",background:C.gd,border:`1px solid ${C.gb}`,borderRadius:8,color:C.g,fontWeight:600,fontSize:13,cursor:"pointer",fontFamily:"inherit",textAlign:"left"}}>
-          🟢 Search Gumtree VIC — {result.make} {result.model}
-        </button>
-
-        <Divider label="or"/>
-
-        { }
-        <Btn v="primary" full onClick={importToStock}>
-          + Import to Stock as {result.year} {result.make} {result.model}
-        </Btn>
-
-        <Btn onClick={reset} full>Scan Another Vehicle</Btn>
-      </div>
-    </div>}
-  </div>;
-}
-// ── CARSALES HUB ──
-function CarSalesHub({stock}){
-  const active=stock.filter(c=>c.status!=="Sold");
-  const [sel,ssel]=useState("");
-  const car=active.find(c=>String(c.id)===sel);
-  const csSearch=c=>window.open(`https://www.carsales.com.au/cars/?q=(And.(C.Make.${encodeURIComponent(c.make)}._.Model.${encodeURIComponent(c.model)}._.Year.range(${c.year}.${c.year}).).)&__T=1`,"_blank");
-  const mockMP=c=>{const b=suggestP(c.make,c.model,c.year,c.odo);return{low:Math.round(b*.88/500)*500,avg:Math.round(b/500)*500,high:Math.round(b*1.12/500)*500,n:Math.floor(Math.random()*18)+4};};
-  return <div>
-    <div style={{background:"rgba(255,102,0,.06)",border:"1px solid rgba(255,102,0,.2)",borderRadius:12,padding:18,marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10}}>
-      <div style={{display:"flex",alignItems:"center",gap:12}}><div style={{fontSize:32}}>🚘</div><div><div style={{fontSize:16,fontWeight:800}}>CarSales Integration Hub</div><div style={{fontSize:12,color:C.t3,marginTop:2}}>Market pricing, listing links, AutoGate access</div></div></div>
-      <div style={{display:"flex",gap:8}}>
-        <button onClick={()=>window.open("https://autogate.co/","_blank")} style={{padding:"8px 14px",background:"rgba(255,102,0,.1)",border:"1px solid rgba(255,102,0,.3)",borderRadius:8,color:"#ff6600",fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>AutoGate Login</button>
-        <button onClick={()=>window.open("https://www.carsales.com.au/cars/","_blank")} style={{padding:"8px 14px",background:"rgba(255,102,0,.1)",border:"1px solid rgba(255,102,0,.3)",borderRadius:8,color:"#ff6600",fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>CarSales</button>
-        <button onClick={()=>window.open("https://www.facebook.com/marketplace/create/vehicle","_blank")} style={{padding:"8px 14px",background:C.accd,border:`1px solid ${C.accdb||C.b2}`,borderRadius:8,color:C.acc2,fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>Facebook Marketplace</button>
-      </div>
-    </div>
-    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:18,marginBottom:14}}>
-      <div style={{fontWeight:700,marginBottom:12}}>Market Price Lookup</div>
-      <select style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"9px 12px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",width:"100%",marginBottom:12}} value={sel} onChange={e=>ssel(e.target.value)}>
-        <option value="">Select a vehicle from your stock...</option>
-        {active.map(c=><option key={c.id} value={String(c.id)}>{c.year} {c.make} {c.model} ({c.rego}) — {fm(c.price)}</option>)}
-      </select>
-      {car&&(()=>{const mp=mockMP(car),pos=car.price>mp.high?"Above market":car.price>mp.avg?"Above avg":car.price>=mp.low?"Competitive":"Below market",col=car.price>mp.high?C.r:car.price>mp.avg?C.a:C.g;
-        return <div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:10,marginBottom:12}}>
-            {[["Your Price",fm(car.price),C.g],["Market Low",fm(mp.low),C.t2],["Market Avg",fm(mp.avg),C.t1],["Market High",fm(mp.high),C.t2],["~Listings on CS",mp.n,C.b]].map(([l,v,c])=><div key={l} style={{background:C.s2,borderRadius:9,padding:"10px 12px"}}><div style={{fontSize:10,color:C.t3,textTransform:"uppercase",letterSpacing:.5,marginBottom:5}}>{l}</div><div style={{fontSize:15,fontWeight:700,color:c}}>{v}</div></div>)}
-          </div>
-          <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-            <span style={{fontWeight:700,color:col}}>{pos}</span>
-            <span style={{color:C.t3,fontSize:13}}>{car.year} {car.make} {car.model} at {fm(car.price)}</span>
-          </div>
-          <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-            <button onClick={()=>csSearch(car)} style={{padding:"7px 13px",background:"rgba(255,102,0,.1)",border:"1px solid rgba(255,102,0,.25)",borderRadius:7,color:"#ff6600",fontWeight:600,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Search CarSales</button>
-            <button onClick={()=>window.open("https://www.facebook.com/marketplace/create/vehicle","_blank")} style={{padding:"7px 13px",background:C.accd,border:`1px solid ${C.b2}`,borderRadius:7,color:C.acc2,fontWeight:600,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>List on Facebook</button>
-            <button onClick={()=>window.open(`https://www.gumtree.com.au/s-cars-vans-utes/vic/${car.make.toLowerCase()}-${car.model.toLowerCase()}/k0c18320l3008858`,"_blank")} style={{padding:"7px 13px",background:C.gd,border:`1px solid ${C.gb}`,borderRadius:7,color:C.g,fontWeight:600,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Gumtree</button>
-          </div>
-        </div>;})()||null}
-    </div>
-    <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,overflow:"hidden"}}>
-      <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.b1}`,fontWeight:700}}>All Stock — Quick Actions</div>
-      <table style={{width:"100%",borderCollapse:"collapse"}}>
-        <thead><tr style={{background:C.s2}}>{["Vehicle","Rego","Price","Score","List On"].map(h=><th key={h} style={{fontSize:10,color:C.t3,textTransform:"uppercase",fontWeight:600,padding:"9px 12px",textAlign:"left",borderBottom:`1px solid ${C.b1}`,letterSpacing:.5}}>{h}</th>)}</tr></thead>
-        <tbody>{active.map(c=><tr key={c.id} onMouseEnter={e=>e.currentTarget.style.background=C.s2} onMouseLeave={e=>e.currentTarget.style.background=""}>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><div style={{fontWeight:600,fontSize:13}}>{c.year} {c.make} {c.model}</div><div style={{fontSize:11,color:C.t3}}>{c.colour}</div></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontFamily:"monospace",fontSize:12,color:C.t2}}>{c.rego}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`,fontWeight:700,color:C.g}}>{fm(c.price)}</td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><span style={{fontSize:11,fontWeight:700,padding:"2px 7px",borderRadius:4,background:scb(c.score),color:sc(c.score)}}>AI {c.score}</span></td>
-          <td style={{padding:"10px 12px",borderBottom:`1px solid ${C.b1}`}}><div style={{display:"flex",gap:6}}>
-            <button onClick={()=>csSearch(c)} style={{padding:"4px 9px",background:"rgba(255,102,0,.1)",border:"1px solid rgba(255,102,0,.25)",borderRadius:6,color:"#ff6600",fontWeight:600,fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>CarSales</button>
-            <button onClick={()=>window.open("https://www.facebook.com/marketplace/create/vehicle","_blank")} style={{padding:"4px 9px",background:C.accd,border:`1px solid ${C.b2}`,borderRadius:6,color:C.acc2,fontWeight:600,fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>FB</button>
-            <button onClick={()=>window.open("https://www.gumtree.com.au/post-ad/cars-vans-utes","_blank")} style={{padding:"4px 9px",background:C.gd,border:`1px solid ${C.gb}`,borderRadius:6,color:C.g,fontWeight:600,fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>GT</button>
-          </div></td>
-        </tr>)}
-        {active.length===0&&<tr><td colSpan={5} style={{padding:40,textAlign:"center",color:C.t3}}>No stock</td></tr>}
-        </tbody>
-      </table>
-    </div>
-    <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",marginTop:12,fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>
-      CarSales does not provide a public API. Clicking "CarSales" opens a live search on carsales.com.au for comparable vehicles. To publish your listings, log into <strong style={{color:"#ff6600"}}>AutoGate</strong> (autogate.co) — CarSales' dealer portal.
-    </div>
-  </div>;
-}
-// ── VICROADS FORMS ──
-function VRForms({stock,sold}){
-  function open(){
-    try{
-      localStorage.setItem("lmct_stock",JSON.stringify(stock));
-      localStorage.setItem("lmct_sold",JSON.stringify(sold));
-      const w=window.open("forms.html","_blank");
-      if(!w)alert("Allow popups to open Compliance Forms.");
-    }catch(e){alert("Error: "+e.message);}
-  }
-  const dp=gDP();
-  const recent=sold.slice(-3).reverse();
-  return <div style={{maxWidth:680}}>
-    <div style={{background:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(245,166,35,.08))",border:`1px solid rgba(124,111,255,.2)`,borderRadius:16,padding:"28px",marginBottom:14}}>
-      <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:20}}>
-        <div style={{width:52,height:52,borderRadius:14,background:"rgba(124,111,255,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,flexShrink:0}}>📋</div>
-        <div><div style={{fontSize:20,fontWeight:900,letterSpacing:-.3}}>Compliance Forms</div><div style={{fontSize:13,color:C.t3,marginTop:3}}>All forms auto-filled from your dealer profile and sale records</div></div>
-      </div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
-        {[["📝","Transfer Form","DTP-1142 · Auto-populated · Print in 60 seconds"],["🧾","Tax Invoice","GST compliant · Stamp duty calculated · PDF ready"],["📄","Sales Contract","Motor Car Traders Act 1986 · Schedule 2 compliant"]].map(([ic,t,d])=><div key={t} style={{background:"rgba(0,0,0,.2)",borderRadius:10,padding:"14px 12px"}}>
-          <div style={{fontSize:22,marginBottom:8}}>{ic}</div>
-          <div style={{fontSize:12,fontWeight:700,marginBottom:4}}>{t}</div>
-          <div style={{fontSize:11,color:C.t3,lineHeight:1.5}}>{d}</div>
-        </div>)}
-      </div>
-      <button onClick={open} style={{width:"100%",padding:"14px",background:C.grad1,border:"none",borderRadius:10,color:"white",fontWeight:800,fontSize:15,cursor:"pointer",fontFamily:"inherit",display:"flex",alignItems:"center",justifyContent:"center",gap:8,boxShadow:"0 4px 20px rgba(124,111,255,.35)"}}>
-        <span>📋</span> Open Compliance Forms →
-      </button>
-      <div style={{marginTop:10,fontSize:11,color:C.t4,textAlign:"center"}}>Opens in a new tab · Pre-filled from {dp.dealerName}</div>
-    </div>
-    {recent.length>0&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:16}}>
-      <div style={{fontSize:11,color:C.t3,textTransform:"uppercase",letterSpacing:.7,fontWeight:700,marginBottom:10}}>Recent Sales — Forms Ready</div>
-      {recent.map(s=><div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:`1px solid ${C.b1}`}}>
-        <div style={{width:34,height:34,borderRadius:9,background:C.gd,border:`1px solid ${C.gb}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>✅</div>
-        <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600}}>{s.year} {s.make} {s.model}</div><div style={{fontSize:11,color:C.t3}}>{s.buyer} · {fd(s.date)} · {fm(s.sale)}</div></div>
-        <button onClick={open} style={{padding:"5px 12px",background:C.accd,border:`1px solid ${C.accb}`,borderRadius:7,color:C.acc2,fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>Forms →</button>
-      </div>)}
-    </div>}
-  </div>;
-}
-
-// ── DEALER PROFILE ──
 function DealerProfile(){
-  const [p,sp]=useState(gDP),[saved,ss]=useState(false),[tab,st]=useState("profile");
-  const set=k=>v=>sp(x=>({...x,[k]:v}));
-  const [es,se]=useState(gES);
-  const sete=k=>v=>se(x=>({...x,[k]:v}));
-  const [etst,sett]=useState(null);
-  const logoRef=React.useRef();
-  const dp2=gDP();
-
-  function save(){sDP(p);ss(true);setTimeout(()=>ss(false),2500);}
-  function saveEmail(){sES(es);ss(true);setTimeout(()=>ss(false),2500);}
-  async function testEmail(){
-    sett("sending");
-    const r=await sendSaleEmail({buyer:"Test Buyer",email:es.replyTo||dp2.email,sale:28990,year:2020,make:"Toyota",model:"Camry",rego:"ABC123",date:new Date().toLocaleDateString("en-AU"),pay:"Cash",odo:45000,colour:"Silver",bPhone:"0412 345 678",bAddr:"12 Smith St, Melbourne VIC 3000"},null,dp2);
-    sett(r.sent?"sent":"failed");setTimeout(()=>sett(null),4000);
-  }
-  function onLogo(e){const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>sete("logoUrl")(ev.target.result);r.readAsDataURL(f);}
-
-  return <div style={{maxWidth:960}}>
-    <div style={{display:"flex",gap:2,marginBottom:16,background:C.s2,padding:4,borderRadius:10,border:`1px solid ${C.b1}`}}>
-      {[["profile","🏢 Dealer Profile"],["email","📧 Email & Documents"]].map(([id,lb])=>
-        <button key={id} onClick={()=>st(id)} style={{flex:1,padding:"9px",borderRadius:7,border:"none",cursor:"pointer",fontWeight:tab===id?700:400,fontSize:13,background:tab===id?C.s1:C.s2,color:tab===id?C.t1:C.t3,fontFamily:"inherit"}}>{lb}</button>
-      )}
+  const [dp,setDp]=useState(gDP());
+  const [tab,setTab]=useState("dealer");
+  const [saved,setSaved]=useState(false);
+  function save(){sDP(dp);setSaved(true);if(window.SFX)window.SFX.play("save");setTimeout(()=>setSaved(false),2000);}
+  function upd(k){return v=>setDp(p=>({...p,[k]:v}));}
+  const AI_NAMES=["MAX","NOVA","APEX","REX","ARIA","BOLT","ECHO","ZARA","TITAN","LUNA"];
+  const PERSONALITIES=[{id:"direct",l:"Direct & Blunt",d:"Short, sharp, no fluff."},{id:"coach",l:"Coaching",d:"Explains reasoning and examples."},{id:"analyst",l:"Data Analyst",d:"Leads with numbers and percentages."}];
+  const tabS=(t)=>({padding:"8px 16px",borderRadius:9,border:`1px solid ${tab===t?C.acc:C.b1}`,background:tab===t?"rgba(124,111,255,.15)":C.s1,color:tab===t?C.acc2:C.t2,fontWeight:tab===t?700:500,fontSize:12,cursor:"pointer",fontFamily:"inherit"});
+  return <div style={{maxWidth:560}}>
+    <div style={{display:"flex",gap:6,marginBottom:16}}>
+      {[{id:"dealer",l:"🏢 Dealer"},{id:"ai",l:"🤖 Your AI"},{id:"train",l:"🧠 Train AI"},{id:"email",l:"📧 Email"}].map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={tabS(t.id)}>{t.l}</button>)}
     </div>
-    {tab==="profile"&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:24}}>
-      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:20}}>
-        <div style={{width:50,height:50,borderRadius:12,background:C.accd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>🏢</div>
-        <div><div style={{fontSize:18,fontWeight:800}}>{p.dealerName}</div><div style={{fontSize:12,color:C.acc2,fontFamily:"monospace",marginTop:2}}>LMCT {p.lmct}</div></div>
+    {tab==="dealer"&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"20px"}}>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11}}>
+        <FG label="Dealership Name" full><Inp value={dp.dealerName||""} onChange={upd("dealerName")} placeholder="MDMR Motors"/></FG>
+        <FG label="LMCT Number"><Inp value={dp.lmct||""} onChange={upd("lmct")} placeholder="11234"/></FG>
+        <FG label="ABN"><Inp value={dp.abn||""} onChange={upd("abn")} placeholder="12 345 678 901"/></FG>
+        <FG label="Phone"><Inp value={dp.phone||""} onChange={upd("phone")} placeholder="03 9000 0000"/></FG>
+        <FG label="Email"><Inp value={dp.email||""} onChange={upd("email")} placeholder="info@dealer.com.au"/></FG>
+        <FG label="Website"><Inp value={dp.website||""} onChange={upd("website")} placeholder="dealer.com.au"/></FG>
+        <FG label="Address" full><Inp value={dp.address||""} onChange={upd("address")} placeholder="123 Dealer Dr, Melbourne VIC 3000"/></FG>
+        <FG label="VicRoads Customer No."><Inp value={dp.vicroads||""} onChange={upd("vicroads")} placeholder="VR12345"/></FG>
+        <FG label="Authorised Rep"><Inp value={dp.repName||""} onChange={upd("repName")} placeholder="John Smith"/></FG>
       </div>
-      <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",marginBottom:18,fontSize:12,color:C.a,border:`1px solid ${C.ab}`}}>⚠️ These details auto-populate on all VicRoads forms, sales contracts and invoices.</div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-        <FG label="Dealership / Company Name"><Inp value={p.dealerName} onChange={set("dealerName")} placeholder="Smith Automotive Pty Ltd"/></FG>
-        <FG label="LMCT Licence Number"><Inp value={p.lmct} onChange={set("lmct")} placeholder="11234"/></FG>
-        <FG label="ABN"><Inp value={p.abn} onChange={set("abn")} placeholder="12 345 678 901"/></FG>
-        <FG label="ACN" hint="Leave blank if sole trader"><Inp value={p.acn||""} onChange={set("acn")} placeholder="123 456 789"/></FG>
-        <FG label="VicRoads Customer Number"><Inp value={p.vicCust||""} onChange={set("vicCust")} placeholder="123456789"/></FG>
-        <FG label="Phone"><Inp value={p.phone} onChange={set("phone")} placeholder="03 9000 0000"/></FG>
-        <FG label="Business Address" full><Inp value={p.address} onChange={set("address")} placeholder="123 Dealer Drive, Melbourne VIC 3000"/></FG>
-        <FG label="Postcode"><Inp value={p.postcode||""} onChange={set("postcode")} placeholder="3000"/></FG>
-        <FG label="Email"><Inp value={p.email} onChange={set("email")} type="email" placeholder="info@dealer.com.au"/></FG>
-        <FG label="Website"><Inp value={p.website} onChange={set("website")} placeholder="yourdealer.com.au"/></FG>
-      </div>
-      <Divider/>
-      <div style={{display:"flex",gap:10,alignItems:"center"}}><Btn v="primary" onClick={save}>💾 Save Profile</Btn>{saved&&<span style={{fontSize:12,color:C.g,fontWeight:600}}>✓ Saved</span>}</div>
-      <div style={{marginTop:14,padding:"10px 14px",background:C.s2,borderRadius:8,fontSize:12,color:C.t3,border:`1px solid ${C.b1}`}}>Margin targets and PIN under <strong style={{color:C.acc2}}>Margin Profile</strong>.</div>
+      <div style={{marginTop:16}}><Btn v="primary" full sz="lg" onClick={save}>{saved?"✅ Saved!":"Save Dealer Profile"}</Btn></div>
     </div>}
-    {tab==="email"&&<div style={{display:"flex",flexDirection:"column",gap:12}}>
-      <div style={{background:C.gd,border:`1px solid ${C.gb}`,borderRadius:10,padding:"12px 16px",fontSize:12,color:C.g}}>
-        ✅ Powered by <strong>Resend.com</strong> — free up to 3,000 emails/month. Buyer receives all 3 documents in one email.
+    {tab==="ai"&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"20px"}}>
+      <div style={{fontSize:14,fontWeight:800,marginBottom:4}}>Your AI Name</div>
+      <div style={{fontSize:12,color:C.t3,marginBottom:12}}>This becomes your personal AI advisor — visible throughout the app.</div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:7,marginBottom:10}}>
+        {AI_NAMES.map(n=><button key={n} onClick={()=>setDp(p=>({...p,aiName:n}))} style={{padding:"10px",borderRadius:9,border:`1px solid ${dp.aiName===n?"rgba(124,111,255,.5)":C.b1}`,background:dp.aiName===n?"rgba(124,111,255,.2)":C.s2,color:dp.aiName===n?C.acc2:C.t2,fontWeight:dp.aiName===n?800:500,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>{n}</button>)}
       </div>
-      <div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:12,padding:18}}>
-        <Divider label="Resend API Key"/>
-        <FG label="API Key" hint="From resend.com — starts with re_"><Inp value={es.apiKey||""} onChange={sete("apiKey")} placeholder="re_xxxxxxxxxxxxxxxx"/></FG>
-        <Divider label="Sender Details"/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11,marginBottom:12}}>
-          <FG label="Sender Name" hint="Appears as From name in inbox"><Inp value={es.senderName||""} onChange={sete("senderName")} placeholder="MDMR Motors"/></FG>
-          <FG label="Sender Email" hint="Must be verified in Resend"><Inp value={es.senderEmail||""} onChange={sete("senderEmail")} placeholder="contracts@mdmrmotors.com.au"/></FG>
-          <FG label="Reply-To Email" full><Inp value={es.replyTo||""} onChange={sete("replyTo")} placeholder="info@mdmrmotors.com.au"/></FG>
-        </div>
-        <Divider label="Branding"/>
-        <div style={{display:"flex",gap:10,alignItems:"center",marginBottom:12}}>
-          <input ref={logoRef} type="file" accept="image/*" style={{display:"none"}} onChange={onLogo}/>
-          {es.logoUrl?<img src={es.logoUrl} alt="logo" style={{height:40,maxWidth:100,objectFit:"contain",borderRadius:4,background:C.s3,padding:3}}/>:
-          <div style={{width:80,height:40,background:C.s2,border:`2px dashed ${C.b2}`,borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:C.t4}}>No logo</div>}
-          <Btn sz="sm" onClick={()=>logoRef.current&&logoRef.current.click()}>📁 Upload Logo</Btn>
-          <div style={{fontSize:10,color:C.t4}}>Appears in email header</div>
-        </div>
-        <div style={{marginBottom:12}}>
-          <div style={{fontSize:11,color:C.t3,fontWeight:600,textTransform:"uppercase",letterSpacing:.5,marginBottom:6}}>Header Colour</div>
-          <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
-            {["#0d1f3c","#1e3a8a","#064e3b","#7c2d12","#111827","#312e81"].map(col=>
-              <div key={col} onClick={()=>sete("headerColor")(col)} style={{width:26,height:26,borderRadius:5,background:col,cursor:"pointer",border:`3px solid ${es.headerColor===col?"white":"transparent"}`,boxShadow:es.headerColor===col?"0 0 0 2px "+col:"none"}}/>
-            )}
-          </div>
-        </div>
-        <FG label="Email Footer / Signature"><textarea value={es.signature||""} onChange={e=>sete("signature")(e.target.value)} placeholder="MDMR Motors · 0412 345 678 · mdmrmotors.com.au" style={{background:C.s3,border:`1px solid ${C.b2}`,borderRadius:7,padding:"8px 11px",color:C.t1,fontSize:12,fontFamily:"inherit",outline:"none",width:"100%",resize:"vertical",minHeight:50}}/></FG>
-        <Divider label="Auto-Send"/>
-        <div style={{display:"flex",flexDirection:"column",gap:9}}>
-          {[["autoSend","Auto-send documents when sale is confirmed"],["autoCc","CC dealership email on every email sent"]].map(([k,lb])=>
-            <label key={k} style={{display:"flex",alignItems:"center",gap:10,cursor:"pointer",fontSize:13,color:C.t2}}>
-              <div onClick={()=>sete(k)(!es[k])} style={{width:36,height:20,borderRadius:10,background:es[k]?C.g:"rgba(255,255,255,.1)",position:"relative",flexShrink:0,cursor:"pointer",transition:"background .2s"}}>
-                <div style={{width:16,height:16,borderRadius:"50%",background:"white",position:"absolute",top:2,left:es[k]?18:2,transition:"left .2s",boxShadow:"0 1px 3px rgba(0,0,0,.3)"}}/>
-              </div>
-              {lb}
-            </label>
-          )}
-        </div>
+      <FG label="Or enter a custom name" hint="e.g. DUKE, ACE, your dealership name"><Inp value={dp.aiName||""} onChange={upd("aiName")} placeholder="Custom AI name..."/></FG>
+      <div style={{marginTop:14,fontSize:11,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.7,marginBottom:8}}>Personality</div>
+      {PERSONALITIES.map(p2=><div key={p2.id} onClick={()=>setDp(p=>({...p,aiPersonality:p2.id}))} style={{display:"flex",alignItems:"center",gap:11,padding:"11px 13px",borderRadius:10,border:`1px solid ${dp.aiPersonality===p2.id?"rgba(124,111,255,.4)":C.b1}`,background:dp.aiPersonality===p2.id?"rgba(124,111,255,.1)":C.s2,cursor:"pointer",marginBottom:7,transition:"all .18s"}}>
+        <div style={{width:16,height:16,borderRadius:"50%",border:`2px solid ${dp.aiPersonality===p2.id?C.acc:C.b2}`,background:dp.aiPersonality===p2.id?C.acc:"transparent",flexShrink:0}}/>
+        <div><div style={{fontSize:13,fontWeight:700,color:dp.aiPersonality===p2.id?C.acc2:C.t1}}>{p2.l}</div><div style={{fontSize:11,color:C.t3}}>{p2.d}</div></div>
+      </div>)}
+      {dp.aiName&&<div style={{marginTop:12,background:"rgba(0,0,0,.2)",borderRadius:9,padding:"11px 13px",border:`1px solid ${C.b1}`,fontSize:12,color:C.t2}}><strong style={{color:C.acc2}}>{dp.aiName}:</strong> G'day, I'm {dp.aiName}, your AI advisor for {dp.dealerName}. Ask me anything.</div>}
+      <div style={{marginTop:14}}><Btn v="primary" full onClick={save}>{saved?"✅ Saved!":"Save AI Settings"}</Btn></div>
+    </div>}
+    {tab==="train"&&<div style={{background:"linear-gradient(135deg,rgba(31,217,122,.08),rgba(124,111,255,.05))",border:"1px solid rgba(31,217,122,.18)",borderRadius:14,padding:"22px"}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+        <div style={{width:42,height:42,borderRadius:12,background:"rgba(31,217,122,.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🧠</div>
+        <div><div style={{fontSize:16,fontWeight:900}}>Train {dp.aiName||"Your AI"}</div><div style={{fontSize:12,color:C.t3,marginTop:2}}>Everything you write here becomes permanent memory. {dp.aiName||"Your AI"} reads this in every conversation — forever.</div></div>
       </div>
-      <div style={{display:"flex",gap:10,alignItems:"center"}}>
-        <Btn v="primary" onClick={saveEmail}>💾 Save Email Settings</Btn>
-        <Btn v="ghost" onClick={testEmail} disabled={!es.apiKey||!es.replyTo}>{etst==="sending"?"📨 Sending...":etst==="sent"?"✅ Test Sent!":etst==="failed"?"❌ Failed":"📨 Send Test"}</Btn>
-        <Btn v="ghost" onClick={()=>{try{window.open("email.html","_blank");}catch(e){}}}>🖥️ Full Preview</Btn>
-        {saved&&<span style={{fontSize:12,color:C.g,fontWeight:600}}>✓ Saved</span>}
+      <div style={{fontSize:11,color:C.t3,marginBottom:8,lineHeight:1.6}}>💡 Examples: margin targets, vehicle types you focus on, best customer suburbs, auction sources, recon costs, things to always avoid.</div>
+      <textarea value={dp.aiTraining||""} onChange={e=>setDp(p=>({...p,aiTraining:e.target.value}))} placeholder={"- Minimum margin: 18%\n- Focus: SUVs and utes\n- Best customers: tradies in Dandenong & Sunshine\n- Avoid high-km European cars — recon too expensive\n- Recon budget: $800 flat\n- Source: Manheim and Pickles auctions\n- Never recommend selling below cost price"} style={{width:"100%",height:220,background:C.s2,border:"1px solid rgba(31,217,122,.22)",borderRadius:10,padding:"13px 14px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none",resize:"vertical",lineHeight:1.75,marginBottom:14}} onFocus={e=>e.target.style.borderColor=C.g} onBlur={e=>e.target.style.borderColor="rgba(31,217,122,.22)"}/>
+      <Btn v="green" full sz="lg" onClick={save}>{saved?"✅ Saved — AI Updated!":"💾 Save Training"}</Btn>
+    </div>}
+    {tab==="email"&&<div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"20px"}}>
+      <div style={{fontSize:14,fontWeight:800,marginBottom:4}}>Email Settings</div>
+      <div style={{fontSize:12,color:C.t3,marginBottom:14}}>Auto-send documents after each sale via Resend.com (free to 3,000/month).</div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:11}}>
+        <FG label="Resend API Key" full hint="Get free at resend.com"><Inp value={dp.emailApiKey||""} onChange={upd("emailApiKey")} placeholder="re_xxxxxxxx"/></FG>
+        <FG label="Sender Name"><Inp value={dp.senderName||""} onChange={upd("senderName")} placeholder="MDMR Motors"/></FG>
+        <FG label="Sender Email"><Inp value={dp.senderEmail||""} onChange={upd("senderEmail")} placeholder="sales@dealer.com.au"/></FG>
+        <FG label="Reply-To"><Inp value={dp.replyTo||""} onChange={upd("replyTo")} placeholder="info@dealer.com.au"/></FG>
       </div>
-      <div style={{background:C.s2,borderRadius:9,padding:"10px 14px",fontSize:11,color:C.t3,border:`1px solid ${C.b1}`}}>
-        💡 Setup: resend.com → free account → API key → verify domain in Resend → paste key above → test. Takes 15 min.
-      </div>
+      <div style={{marginTop:16}}><Btn v="primary" full sz="lg" onClick={save}>{saved?"✅ Saved!":"Save Email Settings"}</Btn></div>
     </div>}
   </div>;
 }
-
 function MarginProfile({ul,onReq}){
   const [m,sm]=useState(gDM),[saved,ss]=useState(false),[chg,sc]=useState(false),[np,snp]=useState(""),[cp,scp]=useState(""),[pe,spe]=useState("");
   const set=k=>v=>sm(p=>({...p,[k]:v}));
@@ -1350,7 +989,6 @@ function MarginProfile({ul,onReq}){
     </div>
   </div>;
 }
-// ── MARKET INTELLIGENCE (opens intel.html) ──
 function MarketIntelligence({stock,sold,ul,onReq}){
   if(!ul)return <div style={{maxWidth:480,margin:"40px auto",textAlign:"center"}}>
     <div style={{background:C.s1,border:`1px solid ${C.b2}`,borderRadius:16,padding:48}}>
@@ -1396,7 +1034,6 @@ function MarketIntelligence({stock,sold,ul,onReq}){
     </div>
   </div>;
 }
-
 function ListingPage(){
   const dp2=gDP();
   return <div style={{maxWidth:580}}>
@@ -1420,6 +1057,23 @@ function ListingPage(){
   </div>;
 }
 
+function CarSalesHub({stock}){
+  const links=[["🔍","Search My Listings","https://www.carsales.com.au/","See your live CarSales listings"],["📊","Dealer Portal","https://dealer.carsales.com.au/","Manage your account"],["💰","RedBook Values","https://www.redbook.com.au/","Vehicle valuations"],["📋","AutoGate","https://autogate.carsales.com.au/","Upload stock to CarSales"]];
+  return <div style={{maxWidth:500}}><div style={{background:C.s1,border:`1px solid ${C.b1}`,borderRadius:14,padding:"20px"}}>
+    <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}><div style={{width:42,height:42,borderRadius:12,background:"rgba(255,133,51,.1)",border:"1px solid rgba(255,133,51,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🚘</div><div><div style={{fontSize:16,fontWeight:900}}>CarSales Hub</div><div style={{fontSize:12,color:C.t3}}>Quick links to your dealer tools</div></div></div>
+    <div style={{display:"flex",flexDirection:"column",gap:7}}>{links.map(([ic,label,url,desc])=><a key={label} href={url} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",gap:11,padding:"11px 14px",borderRadius:10,background:C.s2,border:`1px solid ${C.b1}`,textDecoration:"none",transition:"all .18s"}} onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(255,133,51,.4)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.b1;}}><div style={{width:34,height:34,borderRadius:9,background:"rgba(255,133,51,.1)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0}}>{ic}</div><div style={{flex:1}}><div style={{fontSize:13,fontWeight:700,color:C.t1}}>{label}</div><div style={{fontSize:11,color:C.t3}}>{desc}</div></div><span style={{color:"rgba(255,133,51,.4)",fontSize:14}}>→</span></a>)}</div>
+  </div></div>;
+}
+
+function VRForms({stock,sold}){
+  return <div style={{maxWidth:500}}><div style={{background:"linear-gradient(135deg,rgba(245,166,35,.1),rgba(31,217,122,.05))",border:"1px solid rgba(245,166,35,.2)",borderRadius:14,padding:"28px"}}>
+    <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}><div style={{width:48,height:48,borderRadius:13,background:"rgba(245,166,35,.12)",border:"1px solid rgba(245,166,35,.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>📋</div><div><div style={{fontSize:18,fontWeight:900}}>Compliance Forms</div><div style={{fontSize:12,color:C.t3,marginTop:2}}>VicRoads Transfer · Sales Contract · Tax Invoice</div></div></div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:18}}>{[["📄","Transfer Form","DTP-1142 auto-filled"],["📝","Sales Contract","Motor Car Traders Act"],["🧾","GST Invoice","Stamp duty calculated"],["📧","Email to Buyer","All docs in one click"]].map(([ic,t,d])=><div key={t} style={{background:"rgba(0,0,0,.2)",borderRadius:9,padding:"12px 11px",border:`1px solid ${C.b1}`}}><div style={{fontSize:20,marginBottom:6}}>{ic}</div><div style={{fontSize:11,fontWeight:700,marginBottom:2}}>{t}</div><div style={{fontSize:10,color:C.t3}}>{d}</div></div>)}</div>
+    <button onClick={()=>{try{localStorage.setItem("lmct_stock",JSON.stringify(stock));localStorage.setItem("lmct_sold",JSON.stringify(sold));const w=window.open("forms.html","_blank");if(!w)alert("Allow popups.");}catch(e){}}} style={{width:"100%",padding:"14px",background:"linear-gradient(135deg,#f5a623,#e8981e)",border:"none",borderRadius:10,color:"#060610",fontWeight:900,fontSize:15,cursor:"pointer",fontFamily:"inherit"}}>📋 Open Compliance Forms</button>
+    <div style={{marginTop:8,fontSize:11,color:C.t4,textAlign:"center"}}>Opens in new tab · Pre-filled with your dealer details</div>
+  </div></div>;
+}
+
 
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
@@ -1435,7 +1089,6 @@ function App(){
     ss(p=>p.map(c=>c.id===sellCar.id?{...c,status:"Sold"}:c));
     const name=form.buyer;
     if(name&&!cust.find(c=>c.phone===form.phone||`${c.first} ${c.last}`===name)){const pts=name.split(" ");sc(p=>[...p,{id:Date.now()+1,first:pts[0],last:pts.slice(1).join(" "),phone:form.phone||"",email:form.email||"",addr:form.addr||"",src:"Direct Sale",status:"Buyer",notes:`Bought ${sellCar.year} ${sellCar.make} ${sellCar.model}`,bought:1}]);}
-    // Auto-send email documents
     const dp2=gDP();
     if(form.email){
       setEmailStatus("sending");
@@ -1444,59 +1097,54 @@ function App(){
         setTimeout(()=>setEmailStatus(null),5000);
       });
     }
-    setSC(null);sp("sold");
+    setSC(null);sp("sold");if(window.SFX)window.SFX.play("sell");
   }
   const dp=gDP();
   const active=stock.filter(c=>c.status!=="Sold");
   const todaySales=sold.filter(s=>s.date===new Date().toISOString().split("T")[0]);
-
   const NAVG=[
     {sec:"Overview",items:[{id:"dashboard",label:"Dashboard",icon:"▦"}]},
-    {sec:"AI Intelligence",ai:true,items:[{id:"ai",label:"AI Manager",icon:"✦"},{id:"intel",label:"Market Intel",icon:"◈"},{id:"strategy",label:"Strategy",icon:"◎"}]},
+    {sec:"AI Intelligence",ai:true,items:[{id:"ai",label:gDP().aiName||"AI Advisor",icon:"🤖"},{id:"intel",label:"Market Intel",icon:"◈"},{id:"strategy",label:"Strategy",icon:"◎"}]},
     {sec:"Inventory",items:[{id:"stock",label:"Stock",icon:"🚗",badge:active.length,bc:C.b},{id:"add",label:"Add Vehicle",icon:"+"},{id:"listing",label:"Listing Builder",icon:"✍️"},{id:"sold",label:"Sales",icon:"✅",badge:sold.length,bc:C.g}]},
     {sec:"CRM",items:[{id:"cust",label:"Customers",icon:"👥",badge:cust.length,bc:C.b}]},
     {sec:"Tools",items:[{id:"rego",label:"Photo Scanner",icon:"📸"},{id:"cs",label:"CarSales Hub",icon:"🚘"},{id:"vr",label:"Compliance Forms",icon:"📋"},{id:"data",label:"Import / Export",icon:"📂"}]},
     {sec:"Settings",items:[{id:"dealer",label:"Dealer Profile",icon:"🏢"},{id:"margin",label:"Margin Profile",icon:"🔐",sp:true}]},
   ];
-  const PAGE_TITLES={dashboard:"Dashboard",stock:"Stock Inventory",add:"Add Vehicle",sold:"Sales History",cust:"Customers",rego:"AI Photo Scanner",listing:"Smart Listing Builder",cs:"CarSales Hub",vr:"Compliance Forms",dealer:"Dealer Profile",margin:"Margin Profile",data:"Import / Export",ai:"AI Manager",intel:"Market Intelligence",strategy:"Strategy Engine"};
-
+  const PAGE_TITLES={dashboard:"Dashboard",stock:"Stock Inventory",add:"Add Vehicle",sold:"Sales History",cust:"Customers",rego:"AI Photo Scanner",listing:"Smart Listing Builder",cs:"CarSales Hub",vr:"Compliance Forms",dealer:"Dealer Profile",margin:"Margin Profile",data:"Import / Export",ai:(gDP().aiName||"AI")+" — Your Advisor",intel:"Market Intelligence",strategy:"Strategy Engine"};
   return <div style={{display:"flex",height:"100vh",background:C.bg,color:C.t1,fontSize:14,overflow:"hidden"}}>
     {showPin&&<PINModal onSuccess={pinOK} onClose={()=>ssp(false)}/>}
-
     {/* ══ PREMIUM SIDEBAR ══ */}
-    <div style={{width:224,background:C.s1,borderRight:`1px solid ${C.b1}`,display:"flex",flexDirection:"column",flexShrink:0,position:"relative",overflow:"hidden"}}>
+    <div style={{width:240,background:C.s1,borderRight:`1px solid ${C.b1}`,display:"flex",flexDirection:"column",flexShrink:0,position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:-40,left:-40,width:180,height:180,background:"radial-gradient(circle,rgba(124,111,255,.07) 0%,transparent 70%)",pointerEvents:"none",zIndex:0}}/>
-
       {/* Logo */}
       <div style={{padding:"14px 14px 11px",borderBottom:`1px solid ${C.b1}`,position:"relative",zIndex:1}}>
         <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:9}}>
-          <div style={{width:33,height:33,borderRadius:9,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:"0 4px 14px rgba(124,111,255,.45)"}}>
+          <div style={{width:44,height:44,borderRadius:13,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:"0 4px 14px rgba(124,111,255,.45)"}}>
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".95"/><rect x="9" y="2" width="5" height="5" rx="1.5" fill="white" opacity=".45"/><rect x="2" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".45"/><rect x="9" y="9" width="5" height="5" rx="1.5" fill="white" opacity=".95"/></svg>
           </div>
           <div>
-            <div style={{fontSize:15,fontWeight:900,letterSpacing:-.8,lineHeight:1,color:C.t1}}>LMCT<span style={{color:C.acc}}>PRO</span></div>
+            <div style={{fontSize:23,fontWeight:900,letterSpacing:-1,lineHeight:1,color:"#fff"}}>LMCT<span style={{color:"#f5a623"}}>PRO</span></div>
             <div style={{fontSize:8,color:C.t4,marginTop:2,fontFamily:"monospace",textTransform:"uppercase",letterSpacing:1.5}}>{dp.dealerName||"Dealer Platform"}</div>
           </div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:5,padding:"5px 9px",background:"rgba(31,217,122,.06)",border:"1px solid rgba(31,217,122,.14)",borderRadius:20}}>
           <div style={{width:5,height:5,borderRadius:"50%",background:C.g,flexShrink:0,animation:"livePulse 2s infinite"}}/>
-          <span style={{fontSize:9,color:C.g,fontWeight:700,letterSpacing:.5,fontFamily:"monospace"}}>AI ACTIVE</span>
+          <span style={{fontSize:11,color:C.g,fontWeight:800,letterSpacing:.8,fontFamily:"monospace"}}>AI ACTIVE</span>
           <span style={{fontSize:9,color:C.t4,marginLeft:"auto",fontFamily:"monospace"}}>{new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"})}</span>
         </div>
       </div>
-
       {/* Nav */}
       <nav style={{flex:1,padding:"6px 7px",display:"flex",flexDirection:"column",overflowY:"auto",position:"relative",zIndex:1}}>
         {NAVG.map(group=><div key={group.sec} style={{marginBottom:2}}>
           <div style={{display:"flex",alignItems:"center",gap:5,padding:"8px 8px 3px",marginBottom:1}}>
             {group.ai&&<div style={{width:4,height:4,borderRadius:"50%",background:C.acc,flexShrink:0}}/>}
-            <span style={{fontSize:8.5,color:group.ai?C.acc2:C.t4,textTransform:"uppercase",letterSpacing:1.4,fontWeight:700}}>{group.sec}</span>
+            <span style={{fontSize:11,color:group.ai?C.acc2:"rgba(255,255,255,.35)",textTransform:"uppercase",letterSpacing:1.8,fontWeight:900}}>{group.sec}</span>
             {group.ai&&<div style={{flex:1,height:.5,background:"linear-gradient(90deg,rgba(124,111,255,.3),transparent)"}}/>}
           </div>
           {group.items.map(item=>{
             const isActive=page===item.id;
-            return <button key={item.id} onClick={()=>sp(item.id)} style={{display:"flex",alignItems:"center",gap:7,padding:"7px 9px",borderRadius:8,cursor:"pointer",width:"100%",textAlign:"left",border:"none",fontFamily:"inherit",marginBottom:1,transition:"all .13s",color:isActive?C.acc2:group.ai?"rgba(167,139,250,.65)":C.t2,fontSize:12,fontWeight:isActive?700:400,background:isActive?"rgba(124,111,255,.14)":"transparent",boxShadow:isActive?"inset 0 0 0 1px rgba(124,111,255,.22)":"none"}} onMouseEnter={e=>{if(!isActive){e.currentTarget.style.background="rgba(255,255,255,.04)";e.currentTarget.style.color=C.t1;}}} onMouseLeave={e=>{if(!isActive){e.currentTarget.style.background="transparent";e.currentTarget.style.color=group.ai?"rgba(167,139,250,.65)":C.t2;}}}>
-              <span style={{fontSize:12,opacity:isActive?1:.65,flexShrink:0,width:15,textAlign:"center"}}>{item.icon}</span>
+            return <button key={item.id} onClick={()=>{if(window.SFX)window.SFX.play("nav");sp(item.id);}} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,cursor:"pointer",width:"100%",textAlign:"left",border:"none",fontFamily:"inherit",marginBottom:3,transition:"all .2s",color:isActive?C.acc2:group.ai?"rgba(167,139,250,.65)":C.t2,fontSize:14,fontWeight:isActive?700:500,background:isActive?"rgba(124,111,255,.16)":"transparent",letterSpacing:-.2,boxShadow:isActive?"inset 0 0 0 1px rgba(124,111,255,.22)":"none"}} onMouseEnter={e=>{if(!isActive){e.currentTarget.style.background="rgba(255,255,255,.04)";e.currentTarget.style.color=C.t1;}}} onMouseLeave={e=>{if(!isActive){e.currentTarget.style.background="transparent";e.currentTarget.style.color=group.ai?"rgba(167,139,250,.65)":C.t2;}}}>
+              <span style={{fontSize:16,flexShrink:0}}>{item.icon}</span>
               <span style={{flex:1}}>{item.label}</span>
               {item.badge!=null&&<span style={{background:isActive?C.acc:item.bc?item.bc+"25":"rgba(255,255,255,.07)",color:isActive?"#fff":item.bc||C.t3,fontSize:9,fontWeight:700,padding:"1px 5px",borderRadius:7,minWidth:16,textAlign:"center",border:`1px solid ${isActive?C.acc:item.bc?item.bc+"30":C.b1}`}}>{item.badge}</span>}
               {item.sp&&<span style={{fontSize:10,opacity:.5}}>{ul?"🔓":"🔒"}</span>}
@@ -1504,23 +1152,21 @@ function App(){
           })}
         </div>)}
       </nav>
-
       {/* Bottom */}
       <div style={{padding:"9px",borderTop:`1px solid ${C.b1}`,position:"relative",zIndex:1}}>
         <div onClick={ul?()=>{su(false);localStorage.setItem("lmct_ul","0");}:()=>req()} style={{display:"flex",alignItems:"center",gap:8,padding:"8px 10px",borderRadius:9,cursor:"pointer",marginBottom:7,transition:"all .2s",userSelect:"none",background:ul?"rgba(31,217,122,.07)":C.s2,border:`1px solid ${ul?"rgba(31,217,122,.18)":C.b1}`}}>
           <div style={{width:26,height:15,borderRadius:8,background:ul?C.g:"rgba(255,255,255,.08)",position:"relative",flexShrink:0,transition:"background .25s"}}>
             <div style={{width:11,height:11,borderRadius:"50%",background:"white",position:"absolute",top:2,left:ul?13:2,transition:"left .22s",boxShadow:"0 1px 3px rgba(0,0,0,.4)"}}/>
           </div>
-          <div style={{flex:1}}><div style={{fontSize:10.5,fontWeight:700,color:ul?C.g:C.t2,lineHeight:1}}>{ul?"Manager Mode":"Staff View"}</div><div style={{fontSize:8.5,color:C.t4,marginTop:1}}>{ul?"All data visible":"Margins hidden"}</div></div>
+          <div style={{flex:1}}><div style={{fontSize:13,fontWeight:800,color:ul?C.g:C.t2,lineHeight:1}}>{ul?"Manager Mode":"Staff View"}</div><div style={{fontSize:8.5,color:C.t4,marginTop:1}}>{ul?"All data visible":"Margins hidden"}</div></div>
           <span style={{fontSize:11}}>{ul?"🔓":"🔒"}</span>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:7,padding:"6px 8px",background:C.s2,borderRadius:7,border:`1px solid ${C.b1}`}}>
           <div style={{width:18,height:18,borderRadius:4,background:"linear-gradient(135deg,#7c6fff,#5b4ee0)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:8,color:"white",fontWeight:900}}>L</span></div>
-          <div style={{flex:1,minWidth:0}}><div style={{fontSize:10,fontWeight:600,color:C.t1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{dp.dealerName||"MDMR Motors"}</div><div style={{fontSize:8,color:C.t4,fontFamily:"monospace"}}>LMCT {dp.lmct||"—"}</div></div>
+          <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:700,color:C.t1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{dp.dealerName||"MDMR Motors"}</div><div style={{fontSize:8,color:C.t4,fontFamily:"monospace"}}>LMCT {dp.lmct||"—"}</div></div>
         </div>
       </div>
     </div>
-
     {/* ══ MAIN CONTENT ══ */}
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
       {/* Premium header */}
@@ -1530,14 +1176,12 @@ function App(){
           <div style={{fontSize:9,color:C.t4,marginTop:1,fontFamily:"monospace"}}>{new Date().toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"})}</div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:7}}>
-          {[{l:"Stock",v:active.length,c:C.b},{l:"Today",v:todaySales.length,c:C.g},{l:"Leads",v:cust.filter(c=>c.status==="Hot Lead").length,c:C.a}].map(({l,v,c})=><div key={l} style={{background:C.s2,border:`1px solid ${C.b1}`,borderRadius:7,padding:"4px 10px",textAlign:"center"}}>
-            <div style={{fontSize:13,fontWeight:800,color:c,lineHeight:1}}>{v}</div>
-            <div style={{fontSize:8,color:C.t4,marginTop:1.5,fontFamily:"monospace"}}>{l}</div>
-          </div>)}
+          {[{l:"Stock",v:active.length,c:C.b,pg:"stock"},{l:"Today",v:todaySales.length,c:C.g,pg:"sold"},{l:"Leads",v:cust.filter(c=>c.status==="Hot Lead").length,c:C.a,pg:"cust"}].map(({l,v,c,pg})=><div key={l} className="tb-stat" onClick={()=>{if(window.SFX)window.SFX.play("nav");sp(pg);}}><div className="tb-stat-val" style={{color:c}}>{v}</div><div className="tb-stat-lbl">{l}</div></div>)}
+          {(page==="dashboard"||page==="stock")&&<button onClick={()=>{if(window.SFX)window.SFX.play("click");sp("add");}} style={{padding:"7px 14px",background:C.grad1,border:"none",borderRadius:9,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 4px 12px rgba(124,111,255,.35)",display:"flex",alignItems:"center",gap:5}}><span>+</span>Add Vehicle</button>}
+          {page==="sold"&&<button onClick={()=>{if(window.SFX)window.SFX.play("click");sp("add");}} style={{padding:"7px 14px",background:"linear-gradient(135deg,#1fd97a,#17b865)",border:"none",borderRadius:9,color:"#060610",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>+ Record Sale</button>}
           <button onClick={()=>sp("add")} style={{padding:"6px 13px",background:C.grad1,border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 4px 12px rgba(124,111,255,.3)",display:"flex",alignItems:"center",gap:5,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";}} onMouseLeave={e=>{e.currentTarget.style.transform="";}}><span>+</span>Add Vehicle</button>
         </div>
       </div>
-
       {/* Page content */}
       <div style={{flex:1,overflow:"auto",padding:"18px 20px"}}>
         {page==="dashboard"&&<Dashboard stock={stock} sold={sold} cust={cust} setPage={sp} ul={ul} onReq={()=>req()} mp={gDM()}/>}
@@ -1568,6 +1212,7 @@ function App(){
         {page==="dealer"&&<DealerProfile/>}
         {page==="margin"&&<MarginProfile ul={ul} onReq={()=>req()}/>}
         {page==="data"&&<DataPage stock={stock} setStock={ss} sold={sold} setSold={sl} cust={cust} setCust={sc}/>}
+        {page==="tasks"&&<TodaysTasks stock={stock} cust={cust} setPage={sp} ul={ul}/>}
         {page==="ai"&&<AIManager stock={stock} sold={sold}/>}
         {page==="intel"&&<MarketIntelligence stock={stock} sold={sold} ul={ul} onReq={()=>req()}/>}
         {page==="strategy"&&<div style={{background:C.s1,border:"1px solid rgba(124,111,255,.18)",borderRadius:14,overflow:"hidden"}}>
@@ -1579,17 +1224,13 @@ function App(){
         </div>}
       </div>
     </div>
-
-    <Modal open={!!sellCar} onClose={()=>setSC(null)} title="Record Vehicle Sale" w={620}>{sellCar&&<SellModal car={sellCar} onConfirm={doSell} onClose={()=>setSC(null)}/>}</Modal>
+    <Modal open={!!sellCar} onClose={()=>setSC(null)} title="Record Vehicle Sale" w={620}>{sellCar&&<SellModal car={sellCar} onConfirm={(f)=>{doSell(f);if(window.SFX)window.SFX.play("sell");}} onClose={()=>setSC(null)}/>}</Modal>
     {emailStatus&&<div style={{position:"fixed",bottom:22,right:22,zIndex:800,background:emailStatus==="sending"?C.s3:emailStatus==="sent"?C.gd:C.rd,border:`1px solid ${emailStatus==="sending"?C.b2:emailStatus==="sent"?C.gb:C.rb}`,borderRadius:11,padding:"11px 16px",display:"flex",alignItems:"center",gap:9,fontSize:13,boxShadow:"0 16px 48px rgba(0,0,0,.5)",backdropFilter:"blur(10px)",animation:"fadeUp .3s ease"}}>
       <span style={{fontSize:16}}>{emailStatus==="sending"?"📨":emailStatus==="sent"?"✅":"⚠️"}</span>
       <div><div style={{fontWeight:700,color:emailStatus==="sent"?C.g:emailStatus==="failed"?C.r:C.t1}}>{emailStatus==="sending"?"Sending documents...":emailStatus==="sent"?"Documents sent to buyer":"Email failed — check settings"}</div>{emailStatus==="sent"&&<div style={{fontSize:10,color:C.t3,marginTop:1}}>Contract · Invoice · Compliance forms delivered</div>}</div>
     </div>}
   </div>;
 }
-
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-</script>
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);</script>
 </body>
 </html>

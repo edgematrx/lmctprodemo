@@ -1,4 +1,1 @@
-{
-  "cleanUrls": true,
-  "trailingSlash": false
-}
+{"rewrites":[{"source":"/app","destination":"/app.html"},{"source":"/scanner","destination":"/scanner.html"},{"source":"/listing","destination":"/listing.html"},{"source":"/forms","destination":"/forms.html"},{"source":"/tasks","destination":"/tasks.html"},{"source":"/intel","destination":"/intel.html"},{"source":"/strategy","destination":"/strategy.html"},{"source":"/data","destination":"/data.html"},{"source":"/email","destination":"/email.html"}]}
