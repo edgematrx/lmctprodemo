@@ -1065,6 +1065,23 @@ function VRForms({stock,sold}){
 
 
 
+function sendSaleEmail(sale, car, dp){
+  return new Promise(function(resolve){
+    var es=gES();
+    if(!es.apiKey){resolve({sent:false});return;}
+    fetch("https://api.resend.com/emails",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+es.apiKey},
+      body:JSON.stringify({
+        from:es.senderEmail||dp.email||"sales@lmctpro.com.au",
+        to:[sale.bEmail||sale.email||""],
+        subject:"Your purchase confirmation — "+car.year+" "+car.make+" "+car.model,
+        html:"<p>Dear "+sale.buyer+",</p><p>Thank you for your purchase of the "+car.year+" "+car.make+" "+car.model+".</p><p>Sale price: $"+sale.sale+"</p><p>"+dp.dealerName+"</p>"
+      })
+    }).then(function(r){resolve({sent:r.ok});}).catch(function(){resolve({sent:false});});
+  });
+}
+
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
