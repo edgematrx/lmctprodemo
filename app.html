@@ -504,6 +504,7 @@ function Spark({data,color,h=36,w=100}){
 
 function Dashboard({stock,sold,cust,setPage,ul,onReq}){
   const active=stock.filter(c=>c.status!=="Sold");
+  const avail=active.filter(c=>c.status==="Available").length;
   const reserved=active.filter(c=>c.status==="Reserved");
   const thisMonth=new Date().toISOString().slice(0,7);
   const lastMonth=new Date(new Date().setMonth(new Date().getMonth()-1)).toISOString().slice(0,7);
@@ -617,6 +618,7 @@ function Stock({stock,setStock,onSell,setPage,ul,onReq}){
   else if(srt==="score")items=[...items].sort((a,b)=>(b.score||0)-(a.score||0));
   else items=[...items].sort((a,b)=>b.id-a.id);
   const aged=items.filter(c=>dAgo(c.acq)>30).length;
+  const reserved=items.filter(c=>c.status==="Reserved").length;
   return <div>
     {det&&<StockDetail car={det} onSell={c=>{onSell(c);setDet(null);}} onDelete={id=>{setStock(p=>p.filter(x=>x.id!==id));setDet(null);}} onStatus={(id,st)=>{setStock(p=>p.map(x=>x.id===id?{...x,status:st}:x));setDet(p2=>p2&&p2.id===id?{...p2,status:st}:p2);}} ul={ul} onReq={onReq}/>}
     <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap",alignItems:"center"}}>
