@@ -202,6 +202,16 @@ var iv=setInterval(function(){p+=Math.random()*15+5;if(p>92)p=92;document.getEle
 window.__done=function(){clearInterval(iv);document.getElementById("lf").style.width="100%";setTimeout(function(){document.getElementById("ld").classList.add("gone");},350);};
 </script>
 <script type="text/babel">
+window.onerror = function(msg, src, line, col, err) {
+  if(window.__done) window.__done();
+  document.getElementById("root").innerHTML = '<div style="color:#ff4f4f;background:#06060f;padding:30px;font-family:monospace;font-size:12px;min-height:100vh"><h2 style="color:#ff4f4f">CRASH: '+msg+'</h2><p>Line: '+line+'</p><pre style="color:#f5a623;white-space:pre-wrap">'+(err?err.stack:'')+'</pre></div>';
+  return true;
+};
+window.onunhandledrejection = function(e) {
+  if(window.__done) window.__done();
+  document.getElementById("root").innerHTML = '<div style="color:#ff4f4f;background:#06060f;padding:30px;font-family:monospace;font-size:12px;min-height:100vh"><h2 style="color:#ff4f4f">PROMISE ERROR</h2><pre style="color:#f5a623;white-space:pre-wrap">'+(e.reason?e.reason.stack||e.reason:'unknown')+'</pre></div>';
+};
+
 const {useState,useEffect,useRef}=React;
 const C={bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))"};
 const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
@@ -267,18 +277,7 @@ function AIManager({stock,sold}){
   const topMake=makeArr.length?makeArr[0]:null;
   const memSum=getMemSummary(mem);
 
-  function sysPrompt(){
-    return "You are "+aiName+", AI advisor for "+dp.dealerName+". Be direct. Max 3 sentences."
-      +"
-LIVE DATA: "+active.length+" in stock. "+aged.length+" aged 45+ days. "+mtd.length+" sales this month."+(topMake?" Top seller: "+topMake[0]+".":"")
-      +(dp.aiTraining?"
-DEALER RULES:
-"+dp.aiTraining:"")
-      +(memSum?"
-MEMORY: "+memSum:"")
-      +"
-End with one action for today.";
-  }
+  function sysPrompt(){var s="You are "+aiName+", AI advisor for "+dp.dealerName+". Be direct. Max 3 sentences. LIVE DATA: "+active.length+" in stock. "+aged.length+" aged 45+ days. "+mtd.length+" sales this month."+(topMake?" Top seller: "+topMake[0]+".":"")+(dp.aiTraining?" DEALER RULES: "+dp.aiTraining:"")+(memSum?" MEMORY: "+memSum:"")+" End with one action for today.";return s;}
 
   const pills=[
     aged.length>0?{t:aged.length+" cars aged 45+ days — what should I do?",c:C.r}:null,
@@ -1082,10 +1081,28 @@ function sendSaleEmail(sale, car, dp){
   });
 }
 
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = {error: null}; }
+  componentDidCatch(error, info) {
+    if(window.__done) window.__done();
+    this.setState({error: error.message + "\n\n" + error.stack + "\n\n" + JSON.stringify(info)});
+  }
+  static getDerivedStateFromError(error) { return {error: error.message + "\n" + error.stack}; }
+  render() {
+    if(this.state.error) {
+      return <div style={{color:"#ff4f4f",background:"#06060f",padding:30,fontFamily:"monospace",fontSize:12,minHeight:"100vh"}}>
+        <h2 style={{color:"#ff4f4f"}}>REACT RENDER ERROR</h2>
+        <pre style={{color:"#f5a623",whiteSpace:"pre-wrap"}}>{this.state.error}</pre>
+      </div>;
+    }
+    return this.props.children;
+  }
+}
+
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
-  useEffect(()=>{if(window.__done){window.__done();}},[]);
+  useEffect(()=>{if(window.__done)window.__done();},[]);
   const mp=gDM();
   function req(cb){if(ul){if(cb)cb();return;}spcb(()=>cb||null);ssp(true);}
   function pinOK(){su(true);ssp(false);localStorage.setItem("lmct_ul","1");if(pinCB){pinCB();spcb(null);}}
@@ -1238,7 +1255,8 @@ function App(){
     </div>}
   </div>;
 }
-try{ReactDOM.createRoot(document.getElementById("root")).render(<App/>);}catch(e){if(window.__done)window.__done();document.getElementById("root").innerHTML='<div style="color:#ff4f4f;padding:40px;font-family:monospace;font-size:13px;background:#06060f;min-height:100vh"><h2>Startup Error</h2><pre>'+e.message+'</pre><pre>'+e.stack+'</pre></div>';}
+if(window.__done)window.__done();
+ReactDOM.createRoot(document.getElementById("root")).render(<ErrorBoundary><App/></ErrorBoundary>);
 
 </script>
 </body>
