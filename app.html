@@ -7,140 +7,119 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body,#root{height:100%;overflow:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;background:#06060f;color:#f0f0fa;-webkit-font-smoothing:antialiased} @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;background:#0a0a12;color:#f1f0ff;-webkit-font-smoothing:antialiased}
+
+/* ── ANIMATIONS ── */
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(31,217,122,.4)}50%{opacity:.8;box-shadow:0 0 0 5px rgba(31,217,122,0)}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(124,111,255,.15)}50%{box-shadow:0 0 40px rgba(124,111,255,.3)}}
-@keyframes countUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}} #ld{position:fixed;inset:0;background:#06060f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .6s}
-#ld.gone{opacity:0;pointer-events:none}
-.ll{font-size:28px;font-weight:900;color:#f0f0fa;letter-spacing:-1.5px;margin-bottom:4px}
-.ll b{color:#f5a623}
-.ls{font-size:8px;color:#35354e;font-family:monospace;letter-spacing:4px;text-transform:uppercase;margin-bottom:32px}
-.lbar{width:200px;height:1.5px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
-.lfill{height:100%;width:0;background:linear-gradient(90deg,#7c6fff,#a89dff,#7c6fff);background-size:200%;animation:shimmerLoad 1.5s infinite;border-radius:2px;transition:width .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{opacity:.8;box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(139,92,246,.15)}50%{box-shadow:0 0 50px rgba(139,92,246,.35)}}
 @keyframes shimmerLoad{0%{background-position:0%}100%{background-position:200%}}
-.ltxt{font-size:10px;color:#35354e;margin-top:12px;font-family:monospace;letter-spacing:.5px} .po{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(16px)}
-.pb{background:linear-gradient(135deg,#0c0c1a,#111120);border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:40px 36px;width:320px;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04)}
-.pd{display:flex;justify-content:center;gap:14px;margin:20px 0}
-.pdot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.12);transition:all .2s}
-.pdot.on{background:#7c6fff;border-color:#7c6fff;box-shadow:0 0 14px rgba(124,111,255,.6)}
-.pdot.err{background:#ff4f4f;border-color:#ff4f4f;animation:shk .3s}
-.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.pk{padding:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:12px;color:#f0f0fa;font-size:18px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
-.pk:hover{background:rgba(124,111,255,.18);border-color:rgba(124,111,255,.4);transform:translateY(-1px)}
-.pk:active{transform:scale(.92)}
-.pz{grid-column:2}.pdl{font-size:12px;color:#5a5a78} ::-webkit-scrollbar{width:3px;height:3px}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+@keyframes floatIn{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* ── LOADING SCREEN ── */
+#ld{position:fixed;inset:0;background:linear-gradient(135deg,#0a0a12 0%,#120a1e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .7s ease}
+#ld.gone{opacity:0;pointer-events:none}
+.ll{font-size:30px;font-weight:900;color:#f1f0ff;letter-spacing:-1.5px;margin-bottom:4px}
+.ll b{color:#f59e0b}
+.ls{font-size:8px;color:#38355a;font-family:monospace;letter-spacing:4px;text-transform:uppercase;margin-bottom:36px}
+.lbar{width:220px;height:2px;background:rgba(139,92,246,.12);border-radius:2px;overflow:hidden}
+.lfill{height:100%;width:0;background:linear-gradient(90deg,#8b5cf6,#a78bfa,#6d28d9);background-size:200%;animation:shimmerLoad 1.8s infinite;border-radius:2px;transition:width .3s}
+.ltxt{font-size:10px;color:#5e5a8a;margin-top:14px;font-family:monospace;letter-spacing:.5px}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:240px;
+  background:linear-gradient(180deg,#1a1530 0%,#130f24 100%);
+  border-right:1px solid rgba(139,92,246,.20);
+  display:flex;flex-direction:column;height:100%;overflow-y:auto;flex-shrink:0;
+  position:relative;
+  box-shadow:inset -1px 0 0 rgba(139,92,246,.08);
+}
+.sidebar::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:240px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(139,92,246,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.nav-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:#6b6890;padding:16px 18px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 16px;margin:1px 8px;border-radius:10px;cursor:pointer;transition:all .18s;font-size:13px;font-weight:500;color:#bbb8d8;position:relative;border:1px solid transparent}
+.nav-item:hover{background:rgba(139,92,246,.14);color:#f1f0ff;border-color:rgba(139,92,246,.22)}
+.nav-item.active{background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(109,40,217,.15));color:#f1f0ff;font-weight:700;border-color:rgba(139,92,246,.40);box-shadow:0 2px 16px rgba(139,92,246,.20),inset 0 1px 0 rgba(255,255,255,.08)}
+.nav-item.active::before{content:"";position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:linear-gradient(180deg,#c4b5fd,#8b5cf6);border-radius:2px;box-shadow:0 0 8px rgba(139,92,246,.6)}
+.nav-badge{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:800;margin-left:auto;line-height:1.4}
+.nav-premium-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.2),transparent);margin:8px 16px 4px}
+
+/* ── TOPBAR ── */
+.topbar{
+  height:54px;
+  background:rgba(18,18,30,.95);
+  border-bottom:1px solid rgba(139,92,246,.12);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  display:flex;align-items:center;padding:0 22px;gap:12px;flex-shrink:0;
+}
+
+/* ── TOPBAR STATS ── */
+.tb-stat{display:flex;flex-direction:column;align-items:center;padding:4px 12px;border-radius:8px;cursor:pointer;transition:all .15s;border:1px solid transparent;min-width:48px}
+.tb-stat:hover{background:rgba(139,92,246,.10);border-color:rgba(139,92,246,.20)}
+.tb-stat-val{font-size:16px;font-weight:900;line-height:1;letter-spacing:-.5px}
+.tb-stat-lbl{font-size:9px;color:#5e5a8a;font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-top:1px}
+
+/* ── CARDS ── */
+.card{
+  background:linear-gradient(135deg,rgba(30,30,50,.9) 0%,rgba(24,24,42,.95) 100%);
+  border:1px solid rgba(139,92,246,.12);
+  border-radius:16px;
+  transition:all .22s;
+  position:relative;overflow:hidden;
+  animation:floatIn .4s ease backwards;
+}
+.card:hover{border-color:rgba(139,92,246,.28);box-shadow:0 8px 32px rgba(139,92,246,.10),0 2px 8px rgba(0,0,0,.3)}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.025) 0%,transparent 60%);pointer-events:none;border-radius:inherit}
+
+/* ── STAT CARDS ── */
+.stat-card:hover{transform:translateY(-3px)!important;box-shadow:0 12px 40px rgba(139,92,246,.15)!important}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.16)} .nav-item{transition:all .15s;border-radius:8px}
-.nav-item:hover{background:rgba(255,255,255,.05)!important}
-.nav-item.active{animation:slideIn .2s ease} .glass{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08)} .stat-card{transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-.stat-card:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.4)} .ai-badge{background:linear-gradient(135deg,rgba(124,111,255,.2),rgba(168,157,255,.1));border:1px solid rgba(124,111,255,.25);color:#a89dff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;font-family:monospace} .score-ring{position:relative;display:inline-flex;align-items:center;justify-content:center} .days-ok{background:rgba(31,217,122,.1);color:#1fd97a;border:1px solid rgba(31,217,122,.2)}
-.days-warn{background:rgba(245,166,35,.1);color:#f5a623;border:1px solid rgba(245,166,35,.2)}
-.days-bad{background:rgba(255,79,79,.1);color:#ff4f4f;border:1px solid rgba(255,79,79,.2)} @media print{#root{overflow:visible!important}.noprint{display:none!important}body{background:white;color:#111}}
+::-webkit-scrollbar-thumb{background:rgba(139,92,246,.25);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(139,92,246,.45)}
 
-/* ═══════════════════════════════════
-   LMCT PRO — PREMIUM UI SYSTEM
-   ═══════════════════════════════════ */
+/* ── BUTTONS ── */
+button:focus-visible{outline:2px solid rgba(139,92,246,.6);outline-offset:2px}
 
-/* Nav items */
-/* ═══ SIDEBAR NAV — 2026 PREMIUM ═══ */
-/* Color psychology: size = authority, amber = urgency, green = growth, purple = AI premium */
+/* ── INPUTS ── */
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(139,92,246,.35)}
 
-.nav-section{
-  font-size:10px;color:rgba(255,255,255,.28);text-transform:uppercase;
-  letter-spacing:2px;padding:18px 14px 6px;font-weight:900;
-  display:flex;align-items:center;gap:6px
-}
-.nav-section::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
+/* ── PIN MODAL ── */
+.po{position:fixed;inset:0;background:rgba(5,5,15,.92);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px)}
+.pb{background:linear-gradient(135deg,#14142a,#0e0e1c);border:1px solid rgba(139,92,246,.25);border-radius:24px;padding:40px 36px;width:320px;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.03),inset 0 1px 0 rgba(139,92,246,.1)}
+.pd{display:flex;justify-content:center;gap:14px;margin:20px 0}
+.pdot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(139,92,246,.25);transition:all .2s}
+.pdot.on{background:#8b5cf6;border-color:#8b5cf6;box-shadow:0 0 16px rgba(139,92,246,.7)}
+.pdot.err{background:#ef4444;border-color:#ef4444;animation:shk .3s}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.pk{padding:15px;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.15);border-radius:12px;color:#f1f0ff;font-size:18px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.pk:hover{background:rgba(139,92,246,.20);border-color:rgba(139,92,246,.45);transform:translateY(-1px);box-shadow:0 4px 12px rgba(139,92,246,.2)}
+.pk:active{transform:translateY(0)}
+.pdl{margin-top:14px;cursor:pointer;color:#5e5a8a;font-size:11px;transition:color .15s}
+.pdl:hover{color:#9b96c4}
+.pz{grid-column:2}
 
-.nav-item{
-  display:flex;align-items:center;gap:11px;
-  padding:11px 14px;  /* bigger hit area */
-  border-radius:12px;
-  cursor:pointer;width:100%;text-align:left;border:none;
-  font-family:inherit;font-size:14px;font-weight:500; /* UP from 12.5px */
-  transition:all .2s cubic-bezier(.34,1.56,.64,1);
-  margin-bottom:2px;position:relative;overflow:hidden;
-  letter-spacing:-.2px;line-height:1.2
-}
-.nav-item::before{
-  content:'';position:absolute;left:0;top:15%;height:70%;width:3px;
-  border-radius:0 4px 4px 0;background:transparent;transition:all .2s
-}
-.nav-item.active{font-weight:700;font-size:14.5px}
-.nav-item.active::before{background:linear-gradient(180deg,#f5a623,#7c6fff)}
-.nav-item:hover:not(.active){
-  background:rgba(255,255,255,.06)!important;
-  transform:translateX(2px)
-}
-.nav-item:active{transform:scale(.97)}
+/* ── AI BADGE ── */
+.ai-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);letter-spacing:.5px;text-transform:uppercase}
 
-/* Icon container — gives each icon a subtle colored background */
-.nav-item-icon{
-  font-size:17px;flex-shrink:0;
-  width:32px;height:32px;border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.05);
-  transition:all .2s
-}
-.nav-item.active .nav-item-icon{background:rgba(245,166,35,.12)}
-.nav-item-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ── ALERTS ── */
+.alert-row{animation:floatIn .3s ease backwards;border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px}
 
-/* AI badge — purple glow */
-.nav-ai-label{
-  font-size:9px;background:rgba(124,111,255,.25);color:#c4bcff;
-  padding:2px 7px;border-radius:20px;font-weight:800;letter-spacing:.5px;
-  flex-shrink:0;border:1px solid rgba(124,111,255,.3);
-  text-transform:uppercase
-}
-
-/* Count badge — amber for urgency */
-.nav-badge{
-  font-size:11px;font-weight:800;padding:3px 8px;
-  border-radius:20px;min-width:24px;text-align:center;flex-shrink:0;
-  letter-spacing:-.3px
-}
-
-/* Topbar */
-.topbar{display:flex;align-items:center;gap:12px;padding:0 24px;height:60px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,transparent 100%);flex-shrink:0}
-.topbar-title{font-size:20px;font-weight:900;letter-spacing:-.6px;line-height:1}
-.topbar-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px;font-family:monospace;letter-spacing:.3px}
-.ai-status{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:rgba(31,217,122,.9);background:rgba(31,217,122,.08);border:1px solid rgba(31,217,122,.2);padding:7px 14px;border-radius:20px;letter-spacing:.2px}
-.ai-dot{width:7px;height:7px;border-radius:50%;background:#1fd97a;animation:livePulse 2s infinite;flex-shrink:0}
-
-/* Content area */
-.content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:22px 26px;animation:fadeIn .25s ease}
-.content-area::-webkit-scrollbar{width:3px}
-.content-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
-
-/* ── KPI CARD POLISH ── */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
-.kpi-card{background:var(--s1,#0c0c1a);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:14px 16px;position:relative;overflow:hidden;transition:all .2s}
-.kpi-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
-
-/* ── ALERT BANNER ── */
-.alert-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:12px;margin-bottom:8px;animation:fadeIn .3s ease}
-
-/* ── TOPBAR STAT PILL ── */
-.tb-stat{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:5px 12px;min-width:52px;cursor:pointer;transition:all .15s}
-.tb-stat:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14)}
-.tb-stat-val{font-size:14px;font-weight:800;line-height:1}
-.tb-stat-lbl{font-size:8px;color:rgba(255,255,255,.3);font-family:monospace;letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
-
-/* ── SCANNER QR HINT ── */
-.scanner-url-hint{background:rgba(31,217,122,.07);border:1px solid rgba(31,217,122,.15);border-radius:8px;padding:8px 12px;font-size:11px;color:rgba(31,217,122,.8);font-family:monospace;display:flex;align-items:center;gap:7px;margin-top:8px}
-
-/* ── SELL BUTTON PULSE ── */
-@keyframes sellPulse{0%,100%{box-shadow:0 0 0 0 rgba(31,217,122,.4)}50%{box-shadow:0 0 0 6px rgba(31,217,122,0)}}
-.btn-sell-pulse{animation:sellPulse 2s infinite}
-
-/* ── TOAST NOTIFICATION ── */
-.toast{position:fixed;bottom:24px;right:24px;z-index:900;display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1)}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* ── TABLES / LISTS ── */
+.list-row{padding:10px 0;border-bottom:1px solid rgba(139,92,246,.08);transition:background .15s}
+.list-row:hover{background:rgba(139,92,246,.05);margin:0 -8px;padding:10px 8px;border-radius:8px}
+.list-row:last-child{border-bottom:none}
 </style>
 </head>
 <body>
@@ -213,13 +192,49 @@ window.onunhandledrejection = function(e) {
 };
 
 const {useState,useEffect,useRef}=React;
-const C={bg:"#06060f",s1:"#0c0c1a",s2:"#111120",s3:"#181828",s4:"#1e1e32",b1:"rgba(255,255,255,.055)",b2:"rgba(255,255,255,.10)",b3:"rgba(255,255,255,.18)",b4:"rgba(255,255,255,.28)",t1:"#f0f0fa",t2:"#9898bc",t3:"#5a5a78",t4:"#35354e",acc:"#7c6fff",acc2:"#a89dff",acc3:"#c4bcff",accd:"rgba(124,111,255,.12)",accb:"rgba(124,111,255,.22)",g:"#1fd97a",gd:"rgba(31,217,122,.10)",gb:"rgba(31,217,122,.22)",g2:"#17b865",a:"#f5a623",ad:"rgba(245,166,35,.10)",ab:"rgba(245,166,35,.22)",a2:"#e8981e",r:"#ff4f4f",rd:"rgba(255,79,79,.10)",rb:"rgba(255,79,79,.22)",b:"#3d9eff",bd:"rgba(61,158,255,.10)",bb:"rgba(61,158,255,.22)",grad1:"linear-gradient(135deg,#7c6fff,#5b4ee0)",grad2:"linear-gradient(135deg,rgba(124,111,255,.15),rgba(31,217,122,.06))",grad3:"linear-gradient(135deg,rgba(124,111,255,.08),rgba(61,158,255,.05))"};
+const C={
+  bg:"#0a0a12",
+  s1:"#12121e",
+  s2:"#18182a",
+  s3:"#1e1e32",
+  s4:"#252538",
+  b1:"rgba(139,92,246,.12)",
+  b2:"rgba(139,92,246,.20)",
+  b3:"rgba(255,255,255,.20)",
+  b4:"rgba(255,255,255,.35)",
+  t1:"#f1f0ff",
+  t2:"#9b96c4",
+  t3:"#5e5a8a",
+  t4:"#38355a",
+  acc:"#8b5cf6",
+  acc2:"#a78bfa",
+  acc3:"#c4b5fd",
+  accd:"rgba(139,92,246,.15)",
+  accb:"rgba(139,92,246,.35)",
+  g:"#10b981",
+  gd:"rgba(16,185,129,.12)",
+  gb:"rgba(16,185,129,.30)",
+  g2:"#059669",
+  a:"#f59e0b",
+  ad:"rgba(245,158,11,.12)",
+  ab:"rgba(245,158,11,.30)",
+  a2:"#d97706",
+  r:"#ef4444",
+  rd:"rgba(239,68,68,.12)",
+  rb:"rgba(239,68,68,.30)",
+  b:"#3b82f6",
+  bd:"rgba(59,130,246,.12)",
+  bb:"rgba(59,130,246,.30)",
+  grad1:"linear-gradient(135deg,#8b5cf6 0%,#6d28d9 100%)",
+  grad2:"linear-gradient(135deg,rgba(139,92,246,.20) 0%,rgba(16,185,129,.08) 100%)",
+  grad3:"linear-gradient(135deg,rgba(139,92,246,.12) 0%,rgba(59,130,246,.08) 100%)"
+};
 const fm=n=>"$"+(parseFloat(n)||0).toLocaleString("en-AU",{minimumFractionDigits:0,maximumFractionDigits:0});
 const fd=d=>d?new Date(d).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}):"\u2014";
 const dAgo=d=>{if(!d)return 0;return Math.floor((Date.now()-new Date(d))/86400000);};
 const dUntil=d=>{if(!d)return 999;return Math.floor((new Date(d)-Date.now())/86400000);};
 const ce=b=>({SUV:"\uD83D\uDE99",Sedan:"\uD83D\uDE97",Hatchback:"\uD83D\uDE97",Ute:"\uD83D\uDEF3",Van:"\uD83D\uDE90",Wagon:"\uD83D\uDE97"}[b]||"\uD83D\uDE97");
-const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au",aiName:"MAX",aiPersonality:"direct",groqKey:"",aiTraining:""};
+const DP0={dealerName:"MDMR Motors",lmct:"11234",abn:"",address:"123 Dealer Dr, Melbourne VIC 3000",phone:"03 9000 0000",email:"info@mdmrmotors.com.au",website:"mdmrmotors.com.au",aiName:"MAX",aiPersonality:"direct",groqKey:"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",aiTraining:""};
 function gDP(){try{return Object.assign({},DP0,JSON.parse(localStorage.getItem("lp_d")||"{}"));}catch(e){return DP0;}}
 function sDP(v){localStorage.setItem("lp_d",JSON.stringify(v));}
 function gDM(){var def={pin:"1234",warnMargin:5,minMargin:10,targetMargin:18,notes:""};try{return Object.assign({},def,JSON.parse(localStorage.getItem("lp_dm")||"{}"));}catch(e){return def;}}
@@ -1101,6 +1116,100 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+function StrategyEngine({stock,sold,dp}){
+  var [loading,setLoading]=useState(false);
+  var [report,setReport]=useState(null);
+  var [asked,setAsked]=useState("");
+  var active=stock.filter(function(c){return c.status!=="Sold";});
+  var aged60=active.filter(function(c){return dAgo(c.acq)>60;});
+  var aged30=active.filter(function(c){return dAgo(c.acq)>30&&dAgo(c.acq)<=60;});
+  var fresh=active.filter(function(c){return dAgo(c.acq)<=30;});
+  var mtd=sold.filter(function(s){return s.date&&s.date.startsWith(new Date().toISOString().slice(0,7));});
+  var topMakes=Object.entries(sold.reduce(function(a,s){a[s.make]=(a[s.make]||0)+1;return a;},{})).sort(function(a,b){return b[1]-a[1];}).slice(0,3);
+  var stockVal=active.reduce(function(a,c){return a+c.price;},0);
+  var avgMargin=sold.length?Math.round(sold.reduce(function(a,s){return a+(s.profit||0);},0)/sold.length):0;
+
+  var questions=[
+    "What should I buy at auction this week?",
+    "Which cars should I reprice or discount now?",
+    "What is my ideal stock mix for maximum profit?",
+    "How do I increase sales velocity this month?",
+    "Where am I losing money right now?"
+  ];
+
+  function buildPrompt(q){return "You are a senior automotive consultant for "+dp.dealerName+" (LMCT "+dp.lmct+"). Stock: "+active.length+" vehicles ($"+stockVal.toLocaleString()+"). Aged 60+: "+aged60.length+". Aged 30-60: "+aged30.length+". Fresh: "+fresh.length+". Sales MTD: "+mtd.length+". Avg profit: $"+avgMargin+". Top sellers: "+topMakes.map(function(m){return m[0]+" ("+m[1]+"x)";}).join(", ")+"."+(dp.aiTraining?" Rules: "+dp.aiTraining:"")+" Question: "+q+" Give a sharp bullet-point action plan with dollar figures. Max 250 words.";}
+
+  function runStrategy(q){
+    setAsked(q);setLoading(true);setReport(null);
+    var key=dp.groqKey||"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";
+    fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
+      body:JSON.stringify({model:"llama-3.3-70b-versatile",max_tokens:400,messages:[{role:"system",content:"You are a sharp, direct automotive retail consultant. Use bullet points and dollar figures."},{role:"user",content:buildPrompt(q)}]})
+    }).then(function(r){return r.json();}).then(function(d){
+      setReport((d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||"Could not generate report.");
+      setLoading(false);
+    }).catch(function(){
+      setReport("Connection error. Check your internet connection.");
+      setLoading(false);
+    });
+  }
+
+  return <div style={{maxWidth:680}}>
+    <div style={{background:"linear-gradient(135deg,rgba(139,92,246,.12),rgba(16,185,129,.06))",border:"1px solid rgba(139,92,246,.25)",borderRadius:16,padding:"22px 24px",marginBottom:12}}>
+      <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:6}}>
+        <div style={{width:46,height:46,borderRadius:13,background:"linear-gradient(135deg,rgba(139,92,246,.3),rgba(16,185,129,.15))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>🧠</div>
+        <div>
+          <div style={{fontSize:18,fontWeight:900,letterSpacing:-.4}}>AI Strategy Engine</div>
+          <div style={{fontSize:12,color:C.t3,marginTop:2}}>Powered by {dp.aiName||"MAX"} · Real data · Actionable advice</div>
+        </div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8,margin:"18px 0"}}>
+        {[[aged60.length,"Urgent",C.r,"🚨"],[aged30.length,"Watch",C.a,"⏱"],[fresh.length,"Fresh",C.g,"✅"],[mtd.length,"MTD Sales",C.acc2,"💰"]].map(function(item){
+          return <div key={item[1]} style={{background:"rgba(0,0,0,.2)",borderRadius:10,padding:"10px 12px",border:"1px solid "+item[2]+"22",textAlign:"center"}}>
+            <div style={{fontSize:22,fontWeight:900,color:item[2]}}>{item[3]} {item[0]}</div>
+            <div style={{fontSize:10,color:C.t3,marginTop:3,textTransform:"uppercase",letterSpacing:.8}}>{item[1]}</div>
+          </div>;
+        })}
+      </div>
+    </div>
+
+    <div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"18px 20px",marginBottom:12}}>
+      <div style={{fontSize:12,color:C.t3,fontWeight:700,textTransform:"uppercase",letterSpacing:.8,marginBottom:12}}>Ask your strategy AI</div>
+      <div style={{display:"flex",flexDirection:"column",gap:7}}>
+        {questions.map(function(q){
+          return <button key={q} onClick={function(){runStrategy(q);}} style={{textAlign:"left",padding:"11px 16px",borderRadius:10,background:asked===q?"rgba(139,92,246,.15)":"rgba(255,255,255,.03)",border:"1px solid "+(asked===q?"rgba(139,92,246,.4)":"rgba(255,255,255,.07)"),color:asked===q?C.acc2:C.t2,fontSize:13,cursor:"pointer",fontFamily:"inherit",transition:"all .18s",fontWeight:asked===q?600:400}}>
+            {asked===q&&loading?"⏳ ":asked===q?"▶ ":""}{q}
+          </button>;
+        })}
+      </div>
+
+      <div style={{marginTop:12,display:"flex",gap:0}}>
+        <input id="strat-custom" placeholder="Or ask anything about your business..." style={{flex:1,background:C.s2,border:"1px solid "+C.b2,borderRadius:"10px 0 0 10px",padding:"10px 14px",color:C.t1,fontSize:13,fontFamily:"inherit",outline:"none"}} onKeyDown={function(e){if(e.key==="Enter"&&e.target.value.trim())runStrategy(e.target.value.trim());}}/>
+        <button onClick={function(){var v=document.getElementById("strat-custom").value.trim();if(v)runStrategy(v);}} style={{padding:"10px 18px",background:C.grad1,border:"none",borderRadius:"0 10px 10px 0",color:"white",fontWeight:700,fontSize:13,cursor:"pointer",fontFamily:"inherit"}}>Ask</button>
+      </div>
+    </div>
+
+    {loading&&<div style={{background:C.s1,border:"1px solid "+C.b1,borderRadius:14,padding:"28px",textAlign:"center"}}>
+      <div style={{width:36,height:36,border:"3px solid rgba(139,92,246,.2)",borderTopColor:C.acc,borderRadius:"50%",margin:"0 auto 14px",animation:"spin .8s linear infinite"}}/>
+      <div style={{color:C.t3,fontSize:13}}>Analysing your business data...</div>
+    </div>}
+
+    {report&&!loading&&<div style={{background:"linear-gradient(135deg,rgba(139,92,246,.08),rgba(16,185,129,.04))",border:"1px solid rgba(139,92,246,.25)",borderRadius:14,padding:"20px 22px",animation:"floatIn .4s ease"}}>
+      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14}}>
+        <div style={{width:8,height:8,borderRadius:"50%",background:C.g,boxShadow:"0 0 8px "+C.g,animation:"livePulse 2s infinite"}}/>
+        <div style={{fontSize:13,fontWeight:700,color:C.acc2}}>{dp.aiName||"AI"} Strategy Report</div>
+        <div style={{fontSize:11,color:C.t4,marginLeft:"auto"}}>{new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"})}</div>
+      </div>
+      <div style={{fontSize:13,color:C.t1,lineHeight:1.8,whiteSpace:"pre-wrap"}}>{report}</div>
+      <div style={{marginTop:16,paddingTop:14,borderTop:"1px solid rgba(255,255,255,.06)",display:"flex",gap:8}}>
+        <button onClick={function(){runStrategy(asked);}} style={{padding:"7px 14px",background:C.s3,border:"1px solid "+C.b2,borderRadius:8,color:C.t2,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>↺ Regenerate</button>
+        <button onClick={function(){setReport(null);setAsked("");}} style={{padding:"7px 14px",background:C.s3,border:"1px solid "+C.b2,borderRadius:8,color:C.t2,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>✕ Clear</button>
+      </div>
+    </div>}
+  </div>;
+}
+
 function App(){
   const [stock,ss]=useState(SS),[sold,sl]=useState(SL),[cust,sc]=useState(CU);  const [page,sp]=useState("dashboard"),[sellCar,setSC]=useState(null);
   const [ul,su]=useState(false),[showPin,ssp]=useState(false),[pinCB,spcb]=useState(null);
@@ -1130,17 +1239,16 @@ function App(){
   const todaySales=sold.filter(s=>s.date===new Date().toISOString().split("T")[0]);
   const NAVG=[
     {sec:"Overview",items:[{id:"dashboard",label:"Dashboard",icon:"▦"}]},
-    {sec:"AI Intelligence",ai:true,items:[{id:"ai",label:gDP().aiName||"AI Advisor",icon:"🤖"},{id:"intel",label:"Market Intel",icon:"◈"},{id:"strategy",label:"Strategy",icon:"◎"}]},
-    {sec:"Inventory",items:[{id:"stock",label:"Stock",icon:"🚗",badge:active.length,bc:C.b},{id:"add",label:"Add Vehicle",icon:"+"},{id:"listing",label:"Listing Builder",icon:"✍️"},{id:"sold",label:"Sales",icon:"✅",badge:sold.length,bc:C.g}]},
-    {sec:"CRM",items:[{id:"cust",label:"Customers",icon:"👥",badge:cust.length,bc:C.b}]},
-    {sec:"Tools",items:[{id:"rego",label:"Photo Scanner",icon:"📸"},{id:"cs",label:"CarSales Hub",icon:"🚘"},{id:"vr",label:"Compliance Forms",icon:"📋"},{id:"data",label:"Import / Export",icon:"📂"}]},
+    {sec:"AI Intelligence",ai:true,items:[{id:"ai",label:gDP().aiName||"AI Advisor",icon:"🤖"},{id:"intel",label:"Market Intel",icon:"◈"},{id:"strategy",label:"Strategy Engine",icon:"🧠"}]},
+    {sec:"Inventory",items:[{id:"stock",label:"Stock",icon:"🚗",badge:active.length,bc:C.b},{id:"add",label:"Add Vehicle",icon:"+"},{id:"sold",label:"Sales",icon:"✅",badge:sold.length,bc:C.g},{id:"cust",label:"Customers",icon:"👥",badge:cust.length,bc:C.b}]},
+    {sec:"Premium Tools",items:[{id:"listing",label:"Smart Listing Builder",icon:"✍️"},{id:"rego",label:"AI Photo Scanner",icon:"📸"},{id:"vr",label:"Compliance Forms",icon:"📋"},{id:"cs",label:"CarSales Hub",icon:"🚘"},{id:"data",label:"Import / Export",icon:"📂"}]},
     {sec:"Settings",items:[{id:"dealer",label:"Dealer Profile",icon:"🏢"},{id:"margin",label:"Margin Profile",icon:"🔐",sp:true}]},
   ];
   const PAGE_TITLES={dashboard:"Dashboard",stock:"Stock Inventory",add:"Add Vehicle",sold:"Sales History",cust:"Customers",rego:"AI Photo Scanner",listing:"Smart Listing Builder",cs:"CarSales Hub",vr:"Compliance Forms",dealer:"Dealer Profile",margin:"Margin Profile",data:"Import / Export",ai:(gDP().aiName||"AI")+" — Your Advisor",intel:"Market Intelligence",strategy:"Strategy Engine"};
   return <div style={{display:"flex",height:"100vh",background:C.bg,color:C.t1,fontSize:14,overflow:"hidden"}}>
     {showPin&&<PINModal onSuccess={pinOK} onClose={()=>ssp(false)}/>}
     {/* ══ PREMIUM SIDEBAR ══ */}
-    <div style={{width:240,background:C.s1,borderRight:`1px solid ${C.b1}`,display:"flex",flexDirection:"column",flexShrink:0,position:"relative",overflow:"hidden"}}>
+    <div style={{className:"sidebar",display:"flex",flexDirection:"column",flexShrink:0,position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:-40,left:-40,width:180,height:180,background:"radial-gradient(circle,rgba(124,111,255,.07) 0%,transparent 70%)",pointerEvents:"none",zIndex:0}}/>
       {/* Logo */}
       <div style={{padding:"14px 14px 11px",borderBottom:`1px solid ${C.b1}`,position:"relative",zIndex:1}}>
@@ -1164,12 +1272,12 @@ function App(){
         {NAVG.map(group=><div key={group.sec} style={{marginBottom:2}}>
           <div style={{display:"flex",alignItems:"center",gap:5,padding:"8px 8px 3px",marginBottom:1}}>
             {group.ai&&<div style={{width:4,height:4,borderRadius:"50%",background:C.acc,flexShrink:0}}/>}
-            <span style={{fontSize:11,color:group.ai?C.acc2:"rgba(255,255,255,.35)",textTransform:"uppercase",letterSpacing:1.8,fontWeight:900}}>{group.sec}</span>
+            <span style={{fontSize:9,color:group.ai?C.acc2:group.sec==="Premium Tools"?"rgba(245,158,11,.7)":"rgba(255,255,255,.35)",textTransform:"uppercase",letterSpacing:1.8,fontWeight:900}}>{group.sec}{group.sec==="Premium Tools"&&<span style={{fontSize:8,marginLeft:4,background:"rgba(245,158,11,.15)",color:"rgba(245,158,11,.8)",padding:"1px 5px",borderRadius:4,border:"1px solid rgba(245,158,11,.2)",letterSpacing:.5,fontWeight:700,verticalAlign:"middle"}}> PRO</span>}</span>
             {group.ai&&<div style={{flex:1,height:.5,background:"linear-gradient(90deg,rgba(124,111,255,.3),transparent)"}}/>}
           </div>
           {group.items.map(item=>{
             const isActive=page===item.id;
-            return <button key={item.id} onClick={()=>{if(window.SFX)window.SFX.play("nav");sp(item.id);}} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,cursor:"pointer",width:"100%",textAlign:"left",border:"none",fontFamily:"inherit",marginBottom:3,transition:"all .2s",color:isActive?C.acc2:group.ai?"rgba(167,139,250,.65)":C.t2,fontSize:14,fontWeight:isActive?700:500,background:isActive?"rgba(124,111,255,.16)":"transparent",letterSpacing:-.2,boxShadow:isActive?"inset 0 0 0 1px rgba(124,111,255,.22)":"none"}} onMouseEnter={e=>{if(!isActive){e.currentTarget.style.background="rgba(255,255,255,.04)";e.currentTarget.style.color=C.t1;}}} onMouseLeave={e=>{if(!isActive){e.currentTarget.style.background="transparent";e.currentTarget.style.color=group.ai?"rgba(167,139,250,.65)":C.t2;}}}>
+            return <button key={item.id} onClick={()=>{if(window.SFX)window.SFX.play("nav");sp(item.id);}} className={"nav-item"+(isActive?" active":"")} >
               <span style={{fontSize:16,flexShrink:0}}>{item.icon}</span>
               <span style={{flex:1}}>{item.label}</span>
               {item.badge!=null&&<span style={{background:isActive?C.acc:item.bc?item.bc+"25":"rgba(255,255,255,.07)",color:isActive?"#fff":item.bc||C.t3,fontSize:9,fontWeight:700,padding:"1px 5px",borderRadius:7,minWidth:16,textAlign:"center",border:`1px solid ${isActive?C.acc:item.bc?item.bc+"30":C.b1}`}}>{item.badge}</span>}
@@ -1196,7 +1304,7 @@ function App(){
     {/* ══ MAIN CONTENT ══ */}
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
       {/* Premium header */}
-      <div style={{height:50,background:C.s1,borderBottom:`1px solid ${C.b1}`,display:"flex",alignItems:"center",padding:"0 20px",gap:12,flexShrink:0}}>
+      <div style={{className:"topbar",display:"flex",alignItems:"center",padding:"0 20px",gap:12,flexShrink:0}}>
         <div style={{flex:1}}>
           <div style={{fontSize:14,fontWeight:800,letterSpacing:-.3,color:C.t1}}>{PAGE_TITLES[page]||"LMCT PRO"}</div>
           <div style={{fontSize:9,color:C.t4,marginTop:1,fontFamily:"monospace"}}>{new Date().toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"})}</div>
@@ -1205,11 +1313,11 @@ function App(){
           {[{l:"Stock",v:active.length,c:C.b,pg:"stock"},{l:"Today",v:todaySales.length,c:C.g,pg:"sold"},{l:"Leads",v:cust.filter(c=>c.status==="Hot Lead").length,c:C.a,pg:"cust"}].map(({l,v,c,pg})=><div key={l} className="tb-stat" onClick={()=>{if(window.SFX)window.SFX.play("nav");sp(pg);}}><div className="tb-stat-val" style={{color:c}}>{v}</div><div className="tb-stat-lbl">{l}</div></div>)}
           {(page==="dashboard"||page==="stock")&&<button onClick={()=>{if(window.SFX)window.SFX.play("click");sp("add");}} style={{padding:"7px 14px",background:C.grad1,border:"none",borderRadius:9,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 4px 12px rgba(124,111,255,.35)",display:"flex",alignItems:"center",gap:5}}><span>+</span>Add Vehicle</button>}
           {page==="sold"&&<button onClick={()=>{if(window.SFX)window.SFX.play("click");sp("add");}} style={{padding:"7px 14px",background:"linear-gradient(135deg,#1fd97a,#17b865)",border:"none",borderRadius:9,color:"#060610",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>+ Record Sale</button>}
-          <button onClick={()=>sp("add")} style={{padding:"6px 13px",background:C.grad1,border:"none",borderRadius:8,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit",boxShadow:"0 4px 12px rgba(124,111,255,.3)",display:"flex",alignItems:"center",gap:5,transition:"all .15s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";}} onMouseLeave={e=>{e.currentTarget.style.transform="";}}><span>+</span>Add Vehicle</button>
+          
         </div>
       </div>
       {/* Page content */}
-      <div style={{flex:1,overflow:"auto",padding:"18px 20px"}}>
+      <div style={{flex:1,overflow:"auto",padding:"20px 24px",background:"#0f0f1a"}}>
         {page==="dashboard"&&<Dashboard stock={stock} sold={sold} cust={cust} setPage={sp} ul={ul} onReq={()=>req()} mp={gDM()}/>}
         {page==="stock"&&<Stock stock={stock} setStock={ss} onSell={c=>setSC(c)} setPage={sp} ul={ul} onReq={()=>req()}/>}
         {page==="add"&&<AddCar setStock={ss} setPage={sp}/>}
@@ -1241,7 +1349,7 @@ function App(){
         {page==="tasks"&&<TodaysTasks stock={stock} cust={cust} setPage={sp} ul={ul}/>}
         {page==="ai"&&<AIManager stock={stock} sold={sold}/>}
         {page==="intel"&&<MarketIntelligence stock={stock} sold={sold} ul={ul} onReq={()=>req()}/>}
-        {page==="strategy"&&<div style={{background:C.s1,border:"1px solid rgba(124,111,255,.18)",borderRadius:14,overflow:"hidden"}}>
+        {page==="strategy"&&<StrategyEngine stock={stock} sold={sold} dp={dp}/>>
           <div style={{background:C.grad2,padding:"14px 18px",borderBottom:"1px solid rgba(124,111,255,.1)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div style={{display:"flex",alignItems:"center",gap:10}}><div style={{width:38,height:38,borderRadius:9,background:C.accd,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>🧠</div><div><div style={{fontWeight:800,fontSize:14}}>Strategy Engine</div><div style={{fontSize:11,color:C.t3}}>AI buy/sell recommendations from your data</div></div></div>
             <button onClick={()=>{try{localStorage.setItem("lmct_stock",JSON.stringify(stock));localStorage.setItem("lmct_sold",JSON.stringify(sold));const w=window.open("strategy.html","_blank");if(!w)alert("Allow popups.");}catch(e){alert(e.message);}}} style={{padding:"8px 16px",background:C.acc,border:"none",borderRadius:7,color:"white",fontWeight:700,fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>Open Full Engine →</button>
