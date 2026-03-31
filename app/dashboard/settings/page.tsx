@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { SettingsForm } from "@/components/settings/settings-form"
+import { DataMigration } from "@/components/settings/data-migration"
 
 export default async function SettingsPage() {
   const supabase = await createClient()
@@ -23,6 +24,8 @@ export default async function SettingsPage() {
       </div>
 
       <SettingsForm profile={profile} userEmail={user.email || ""} />
+
+      <DataMigration />
     </div>
   )
 }
